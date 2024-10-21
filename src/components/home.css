@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    text-align: center;
+    padding: 8px 0;
+    font-size: 2em;
+    font-weight: bold;
+    background-color: black;
+    color: rgb(216, 82, 105);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.main-banner {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto;
+}
+
+.banner-content {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+}
+
+
+.banner-content h1 {
+    font-size: 3em;
+}
+
+.button {
+    background-color: rgb(216, 82, 105);
+    background: linear-gradient(to right, #ec5971, #d76b7d);
+    border-radius: 10px;
+    border: 3px solid rgba(225, 100, 121, 0.578);
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: border 0.3s ease;
+}
+
+.button:hover {
+    border: 8px double;
+    border-image: linear-gradient(to right, #f2647b, rgba(228, 117, 135, 0.688)) 1;
+    outline: 8px solid rgba(227, 110, 130, 0.815);
+    outline-offset: 0px;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.product-description {
+    margin: 40px 0;
+    text-align: center;
+}

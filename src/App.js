@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './components/home';
+import VirtualTryOn from './components/vto';
+import VirtualTryOnLive from './components/vto-live';
+import VirtualTryOnModes from './components/vto-modes';
+import FoundationShadeMatch from './components/fsm';
+import Makeup from './components/makeup';
+import MakeupCatalog from './components/makeupCatalog';
+import AccessoryCatalog from './components/accessoryCatalog';
+// import logo from './logo.jpg'; // Optional if you're not using the logo yet
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* Header Logo 
+      <img src={logo} className="App-Header" alt="logo" /> */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/virtual-try-on" element={<VirtualTryOn />} />
+          <Route path="/virtual-try-on-live" element={<VirtualTryOnLive />} />
+          <Route path="/virtual-try-on-modes" element={<VirtualTryOnModes />} />
+          <Route path="/foundation-shade-match" element={<FoundationShadeMatch />} />
+          <Route path="/makeup" element={<Makeup />} />
+          <Route path="/makeup-catalog" element={<MakeupCatalog />} />
+          <Route path="/accessory-catalog" element={<AccessoryCatalog />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
