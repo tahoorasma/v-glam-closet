@@ -6,7 +6,6 @@ from flask_cors import CORS
 import os
 import time
 import logging
-import threading
 
 app = Flask(__name__)
 CORS(app)
@@ -24,129 +23,70 @@ logging.basicConfig(level=logging.DEBUG)
 face_detector = dlib.get_frontal_face_detector()
 shape_predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-def load_image(image_path):
-    """ Load an image from a given path and check for errors. """
-    image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
-    if image is None:
-        logging.error(f"Failed to load image from: {image_path}")
-    return image
-
 def apply_sunglasses(image, sunglasses, landmarks):
     left_eye_points = landmarks[36:42]
     right_eye_points = landmarks[42:48]
-
     left_eye_center = np.mean(left_eye_points, axis=0).astype(int)
     right_eye_center = np.mean(right_eye_points, axis=0).astype(int)
-
     eye_width = np.linalg.norm(right_eye_center - left_eye_center)
-
-    # Resize sunglasses
     sunglass_width = int(eye_width * 2)
     sunglass_height = int(sunglass_width * sunglasses.shape[0] / sunglasses.shape[1])
     resized_sunglasses = cv2.resize(sunglasses, (sunglass_width, sunglass_height))
+    angle = 0
+    M = cv2.getRotationMatrix2D((sunglass_width // 2, sunglass_height // 2), angle, 1)
+    rotated_sunglasses = cv2.warpAffine(resized_sunglasses, M, (sunglass_width, sunglass_height))
+    y_offset = left_eye_center[1] - sunglass_height // 2
+    x_offset = left_eye_center[0] - sunglass_width // 4
+    y1, y2 = max(0, y_offset), min(image.shape[0], y_offset + sunglass_height)
+    x1, x2 = max(0, x_offset), min(image.shape[1], x_offset + sunglass_width)
+    sunglasses_alpha = rotated_sunglasses[:, :, 3] / 255.0
+    for c in range(3):
+        image[y1:y2, x1:x2, c] = (1.0 - sunglasses_alpha) * image[y1:y2, x1:x2, c] + sunglasses_alpha * rotated_sunglasses[:y2 - y1, :x2 - x1, c]
+    return image
 
-    # Position the sunglasses
-    top_left_x = int((left_eye_center[0] + right_eye_center[0]) / 2 - sunglass_width // 2)
-    top_left_y = int((left_eye_center[1] + right_eye_center[1]) / 2 - sunglass_height // 2)
-
-    overlay_image_alpha(image, resized_sunglasses, (top_left_y, top_left_x))
-
-def overlay_image_alpha(background, overlay, position):
-    x, y = position
-    h, w = overlay.shape[:2]
-
-    if overlay.shape[2] == 4:  # if the overlay has an alpha channel
-        alpha_overlay = overlay[:, :, 3] / 255.0
-        alpha_background = 1.0 - alpha_overlay
-
-        for c in range(0, 3):
-            background[y:y+h, x:x+w, c] = (alpha_overlay * overlay[:, :, c] +
-                                            alpha_background * background[y:y+h, x:x+w, c])
-    else:
-        background[y:y+h, x:x+w] = overlay
 @app.route('/sunglasses-try-on-live', methods=['POST'])
 def sunglasses_try_on_live():
-    sunglasses_num = request.json.get('sunglasses_num', 1)  # Get the sunglasses number from the request
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image provided'}), 400
+    
+    image_file = request.files['image']
+    sunglasses_type = request.form.get('sunglasses')
+    filename = f"{int(time.time())}.jpg"
+    image_path = os.path.join(UPLOAD_FOLDER, filename)
+    image_file.save(image_path)
+    logging.debug(f"Received frame and saved at {image_path}")
+    
+    #sunglasses_path = f'C:/Users/HP/Desktop/v-glam-closet/src/components/images/sunglasses/{sunglasses_type}.png'
+    sunglasses_path = os.path.join('C:/Users/HP/Desktop/v-glam-closet/src/components/images/sunglasses', f'{sunglasses_type}.png')
+    #sunglasses_path = f'sunglasses/{sunglasses_type}.png'
+    sunglasses = cv2.imread(sunglasses_path, cv2.IMREAD_UNCHANGED)
 
-    cap = cv2.VideoCapture(0)
-    cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    image = cv2.imread(image_path)
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    faces = face_detector(gray_image)
 
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            logging.error("Failed to capture video frame")
-            break
+    if len(faces) == 0:
+        logging.debug("No face detected in the frame")
+        return jsonify({'error': 'No face detected'}), 400
 
-        gray_scale = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = cascade.detectMultiScale(gray_scale)
+    for face in faces:
+        landmarks = shape_predictor(gray_image, face)
+        landmarks = np.array([[p.x, p.y] for p in landmarks.parts()])
+        image_with_sunglasses = apply_sunglasses(image, sunglasses, landmarks)
+        processed_filename = f"processed_{filename}"
+        processed_image_path = os.path.join(PROCESSED_FOLDER, processed_filename)
+        cv2.imwrite(processed_image_path, image_with_sunglasses)
+        logging.debug(f"Processed frame saved at {processed_image_path}")
+        return jsonify({
+            'processed_image_url': f'http://localhost:5000/processed/{processed_filename}',
+            'faces_processed': len(faces)
+        })
 
-        overlay_path = f'C:/Users/HP/Desktop/v-glam-closet/src/components/images/sunglasses/sg-{sunglasses_num}.png'
-        overlay = load_image(overlay_path)
-        if overlay is None:
-            logging.error(f"Failed to load overlay sunglasses: {overlay_path}")
-            break
+    return jsonify({'error': 'Could not process image'}), 500
 
-        for (x, y, w, h) in faces:
-            overlay_resize = cv2.resize(overlay, (w, int(h * 0.8)))
-            frame[y:y + int(h * 0.8), x:x + w] = overlay_resize
-
-        cv2.imshow('Sunglasses Live', frame)
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):  # Press 'q' to quit
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
-    return jsonify({"status": "stream stopped"})
-
-@app.route('/processed/<path:filename>', methods=['GET'])
-def get_processed_image(filename):
+@app.route('/processed/<filename>')
+def serve_processed_image(filename):
     return send_from_directory(PROCESSED_FOLDER, filename)
 
-def start_video_stream(sunglasses_name):
-    cap = cv2.VideoCapture(0)
-    start_time = time.time()
-
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            logging.error("Failed to capture video frame")
-            break
-
-        # Convert frame to grayscale for face detection
-        gray_scale = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = face_detector(gray_scale)
-
-        sunglasses_path = os.path.join('C:/Users/HP/Desktop/v-glam-closet/src/components/images/sunglasses/', f'{sunglasses_name}.png')
-        sunglasses = load_image(sunglasses_path)
-
-        if sunglasses is None:
-            logging.error(f"Failed to load sunglasses: {sunglasses_name}")
-            continue
-
-        # Process detected faces
-        for face in faces:
-            landmarks = shape_predictor(gray_scale, face)
-            landmarks = np.array([[p.x, p.y] for p in landmarks.parts()])
-            apply_sunglasses(frame, sunglasses, landmarks)
-
-        # Display the current frame with overlays
-        cv2.imshow('Sunglasses Live', frame)
-
-        # Calculate and display elapsed time
-        elapsed_time = time.time() - start_time
-        cv2.putText(frame, f'Time: {int(elapsed_time)}s', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-
-        # Key controls
-        k = cv2.waitKey(1)  # Capture key press
-        if k == ord('q'):
-            break  # Exit the loop if 'q' is pressed
-
-    cap.release()
-    cv2.destroyAllWindows()
-
 if __name__ == '__main__':
-    # Run the Flask server in a separate thread to allow video streaming
-    sunglasses_name = 'sg-1'  # Default sunglasses
-    threading.Thread(target=start_video_stream, args=(sunglasses_name,)).start()
-    app.run(debug=True)
+    app.run(port=5000)

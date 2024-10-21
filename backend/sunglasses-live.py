@@ -1,92 +1,118 @@
+from flask import Flask, Response, request, jsonify
+from flask_cors import CORS
 import cv2
+import cvzone
 import dlib
 import numpy as np
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
-import os
-import time
-import logging
 
 app = Flask(__name__)
 CORS(app)
 
-UPLOAD_FOLDER = 'uploads/'
-PROCESSED_FOLDER = 'processed/'
-
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
-if not os.path.exists(PROCESSED_FOLDER):
-    os.makedirs(PROCESSED_FOLDER)
-
-logging.basicConfig(level=logging.DEBUG)
+selected_sunglasses = None  
+cap = cv2.VideoCapture(0)  
+cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 face_detector = dlib.get_frontal_face_detector()
 shape_predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
+@app.route('/select-sunglasses', methods=['POST'])
+def select_sunglasses():
+    global selected_sunglasses
+    data = request.json
+    sunglasses_index = data.get('index')
+    selected_sunglasses = cv2.imread(f'C:/Users/HP/Desktop/v-glam-closet/src/components/images/sunglasses/sg-{sunglasses_index}.png', cv2.IMREAD_UNCHANGED)
+
+    if selected_sunglasses is None:
+        return jsonify({"status": "error", "message": "Sunglasses image not found."}), 404
+
+    _, frame = cap.read()
+    if frame is None:
+        return jsonify({"status": "error", "message": "Failed to capture frame."}), 500
+
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    detected_faces = face_detector(rgb_frame)
+
+    for face in detected_faces:
+        landmarks = shape_predictor(rgb_frame, face)
+        landmarks_array = np.array([[p.x, p.y] for p in landmarks.parts()])
+        apply_sunglasses(frame, selected_sunglasses, landmarks_array)
+
+    cv2.imshow('SnapLens', frame)
+    return jsonify({"status": "success", "selected": sunglasses_index})
+
 def apply_sunglasses(image, sunglasses, landmarks):
     left_eye_points = landmarks[36:42]
     right_eye_points = landmarks[42:48]
+
     left_eye_center = np.mean(left_eye_points, axis=0).astype(int)
     right_eye_center = np.mean(right_eye_points, axis=0).astype(int)
+
     eye_width = np.linalg.norm(right_eye_center - left_eye_center)
-    sunglass_width = int(eye_width * 2)
+
+    sunglass_width = int(eye_width * 2) 
     sunglass_height = int(sunglass_width * sunglasses.shape[0] / sunglasses.shape[1])
     resized_sunglasses = cv2.resize(sunglasses, (sunglass_width, sunglass_height))
-    angle = 0
+
+    angle = 0  
     M = cv2.getRotationMatrix2D((sunglass_width // 2, sunglass_height // 2), angle, 1)
     rotated_sunglasses = cv2.warpAffine(resized_sunglasses, M, (sunglass_width, sunglass_height))
-    y_offset = left_eye_center[1] - sunglass_height // 2
-    x_offset = left_eye_center[0] - sunglass_width // 4
-    y1, y2 = max(0, y_offset), min(image.shape[0], y_offset + sunglass_height)
-    x1, x2 = max(0, x_offset), min(image.shape[1], x_offset + sunglass_width)
-    sunglasses_alpha = rotated_sunglasses[:, :, 3] / 255.0
-    for c in range(3):
-        image[y1:y2, x1:x2, c] = (1.0 - sunglasses_alpha) * image[y1:y2, x1:x2, c] + sunglasses_alpha * rotated_sunglasses[:y2 - y1, :x2 - x1, c]
-    return image
 
-@app.route('/sunglasses-try-on-live', methods=['POST'])
-def sunglasses_try_on_live():
-    if 'image' not in request.files:
-        return jsonify({'error': 'No image provided'}), 400
-    
-    image_file = request.files['image']
-    sunglasses_type = request.form.get('sunglasses')
-    filename = f"{int(time.time())}.jpg"
-    image_path = os.path.join(UPLOAD_FOLDER, filename)
-    image_file.save(image_path)
-    logging.debug(f"Received frame and saved at {image_path}")
-    
-    #sunglasses_path = f'C:/Users/HP/Desktop/v-glam-closet/src/components/images/sunglasses/{sunglasses_type}.png'
-    sunglasses_path = os.path.join('C:/Users/HP/Desktop/v-glam-closet/src/components/images/sunglasses', f'{sunglasses_type}.png')
-    #sunglasses_path = f'sunglasses/{sunglasses_type}.png'
-    sunglasses = cv2.imread(sunglasses_path, cv2.IMREAD_UNCHANGED)
+    top_left_x = int((left_eye_center[0] + right_eye_center[0]) / 2 - sunglass_width // 2)
+    top_left_y = int((left_eye_center[1] + right_eye_center[1]) / 2 - sunglass_height // 2)
 
-    image = cv2.imread(image_path)
-    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    faces = face_detector(gray_image)
+    overlay_image_alpha(image, rotated_sunglasses, (top_left_y, top_left_x)) 
 
-    if len(faces) == 0:
-        logging.debug("No face detected in the frame")
-        return jsonify({'error': 'No face detected'}), 400
+def overlay_image_alpha(background, overlay, position):
+    x, y = position
+    h, w = overlay.shape[:2]
 
-    for face in faces:
-        landmarks = shape_predictor(gray_image, face)
-        landmarks = np.array([[p.x, p.y] for p in landmarks.parts()])
-        image_with_sunglasses = apply_sunglasses(image, sunglasses, landmarks)
-        processed_filename = f"processed_{filename}"
-        processed_image_path = os.path.join(PROCESSED_FOLDER, processed_filename)
-        cv2.imwrite(processed_image_path, image_with_sunglasses)
-        logging.debug(f"Processed frame saved at {processed_image_path}")
-        return jsonify({
-            'processed_image_url': f'http://localhost:5000/processed/{processed_filename}',
-            'faces_processed': len(faces)
-        })
+    if overlay.shape[2] == 3: 
+        for i in range(h):
+            for j in range(w):
+                if x + i >= background.shape[0] or y + j >= background.shape[1]:
+                    continue
+                background[x + i, y + j] = overlay[i, j] 
+    elif overlay.shape[2] == 4:  
+        for i in range(h):
+            for j in range(w):
+                if x + i >= background.shape[0] or y + j >= background.shape[1]:
+                    continue
+                alpha = overlay[i, j, 3] / 255.0  
+                background[x + i, y + j, :3] = (1 - alpha) * background[x + i, y + j, :3] + alpha * overlay[i, j, :3]
+    else:
+        print("Unexpected number of channels in overlay image.")
 
-    return jsonify({'error': 'Could not process image'}), 500
+@app.route('/reset-sunglasses', methods=['POST'])
+def reset_sunglasses():
+    global selected_sunglasses
+    selected_sunglasses = None
+    return jsonify({"status": "reset"})
 
-@app.route('/processed/<filename>')
-def serve_processed_image(filename):
-    return send_from_directory(PROCESSED_FOLDER, filename)
+def generate_video():
+    global selected_sunglasses
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+        
+        gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = cascade.detectMultiScale(gray_frame, 1.1, 4)
 
-if __name__ == '__main__':
-    app.run(port=5000)
+        for (x, y, w, h) in faces:
+            if selected_sunglasses is not None:
+                overlay_resize = cv2.resize(selected_sunglasses, (w, int(h * 0.5)))
+                frame = cvzone.overlayPNG(frame, overlay_resize, [x, y])
+
+        _, buffer = cv2.imencode('.jpg', frame)
+        frame_bytes = buffer.tobytes()
+
+        yield (b'--frame\r\n' 
+               b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(generate_video(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

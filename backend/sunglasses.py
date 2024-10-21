@@ -109,7 +109,6 @@ def try_on_sunglasses():
             for face in faces:
                 landmarks = shape_predictor(gray_image, face)
                 landmarks = np.array([[p.x, p.y] for p in landmarks.parts()])
-
                 apply_sunglasses(user_image, sunglasses_image, landmarks)
 
             unique_filename = f'processed_{sunglasses_choice}_{int(time.time())}.jpg'

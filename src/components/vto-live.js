@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'; 
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import './vto.css';
 import a from './images/sunglasses/sg-1.png';
 import b from './images/sunglasses/sg-2.png';
@@ -10,127 +9,38 @@ import f from './images/sunglasses/sg-6.png';
 import g from './images/sunglasses/sg-7.png';
 import h from './images/sunglasses/sg-8.png';
 import Navbar from './navbar';
-import axios from 'axios';
 
 const VirtualTryOnLive = () => {
-  const location = useLocation();
-  const [selectedSunglasses, setSelectedSunglasses] = useState(null);
-  const [processedImage, setProcessedImage] = useState(null); 
-  const videoRef = useRef(null);
-  const canvasRef = useRef(null);
+  const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
 
   useEffect(() => {
-    startCamera();
-    return () => {
-      if (videoRef.current && videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject;
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
-      }
-    };
-  }, []);  
+    const intervalId = setInterval(() => {
+      setVideoSrc(`http://localhost:5000/video_feed?timestamp=${new Date().getTime()}`);
+    }, 100); 
+    return () => clearInterval(intervalId); 
+  }, []);
 
   const handleSunglassesClick = (sunglasses) => {
-    console.log('Selected sunglasses:', sunglasses); // Log the selected sunglasses path 
-    setSelectedSunglasses(sunglasses);
+    const sunglassesIndex = sunglasses.split('sg-')[1].split('.')[0];
+    fetch('http://localhost:5000/select-sunglasses', { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ index: sunglassesIndex }),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in handleSunglassesClick:", error));
   };
-  
-
-  const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      // Set the video source object only once
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-  
-        // Wait for the video to load its metadata (dimensions, etc.) before playing
-        videoRef.current.onloadedmetadata = () => {
-          videoRef.current.play().then(() => {
-            console.log("Video playing successfully");
-          }).catch(error => {
-            console.error('Error playing video:', error);
-          });
-        };
-      }
-  
-      requestAnimationFrame(draw);
-    } catch (error) {
-      console.error('Error accessing camera:', error);
-      if (error.name === 'NotAllowedError') {
-        alert('Camera access denied. Please allow camera access in your browser settings.');
-      } else {
-        alert('An error occurred while accessing the camera. Please try again.');
-      }
-    }
-  };
-  
-
-  const draw = () => {
-  const canvas = canvasRef.current;
-  const context = canvas.getContext('2d');
-
-  if (videoRef.current && videoRef.current.videoWidth > 0 && videoRef.current.videoHeight > 0) {
-    canvas.width = videoRef.current.videoWidth;
-    canvas.height = videoRef.current.videoHeight;
-
-    context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-
-    if (selectedSunglasses) {
-      const img = new Image();
-      img.src = selectedSunglasses;
-      img.onload = () => {
-        const imgX = (canvas.width - img.width) / 2;
-        const imgY = (canvas.height - img.height) / 2;
-        context.drawImage(img, imgX, imgY);
-      };
-
-      // Add timestamp or unique frame identifier
-      const frameTimestamp = Date.now(); // Use current time as frame ID
-      console.log(`Sending frame with timestamp: ${frameTimestamp}`);
-
-      canvas.toBlob(blob => {
-        if (blob) {
-          const formData = new FormData();
-          formData.append('image', blob, `frame_${frameTimestamp}.jpg`);
-
-          if (selectedSunglasses) {
-            formData.append('sunglasses', selectedSunglasses.split('/').pop().split('.')[0]);
-          }
-
-          axios.post('http://localhost:5000/sunglasses-try-on-live', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-          .then(response => {
-            console.log(`Received processed frame for timestamp: ${frameTimestamp}`);
-            console.log('Processed image URL:', response.data.processed_image_url);
-            setProcessedImage(response.data.processed_image_url);
-          })
-          .catch(error => {
-            console.error('Error occurred during the POST request:', error);
-          
-            if (error.response) {
-              console.error('Server responded with status:', error.response.status);
-              console.error('Response data:', error.response.data);
-            } else if (error.request) {
-              console.error('No response received:', error.request);
-            } else {
-              console.error('Error in setting up request:', error.message);
-            }
-          });
-        }
-      }, 'image/jpeg');
-    }
-  }
-
-  requestAnimationFrame(draw);
-};
-
   
   const handleReset = () => {
-    setSelectedSunglasses(null);
-    setProcessedImage(null);
+    fetch('http://localhost:5000/reset-sunglasses', {  
+      method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in handleReset:", error));
   };
 
   return (
@@ -145,12 +55,7 @@ const VirtualTryOnLive = () => {
         <div className="tryon-ui">
           <div className="photo-area">
             <div className="model-container">
-              {processedImage ? (
-                <img src={processedImage} alt="Processed Image" style={{ width: '100%', height: 'auto' }} />
-              ) : (
-                <video ref={videoRef} autoPlay style={{ width: '100%', height: 'auto' }} />
-              )}
-              <canvas ref={canvasRef} style={{ display: 'none' }} />
+            <img src={videoSrc} alt="Video Stream" style={{ width: '100%', height: 'auto' }} />
             </div>
           </div>
 
@@ -185,7 +90,7 @@ const VirtualTryOnLive = () => {
               </button>
             </div>
 
-            <div className="action-buttons"> 
+            <div className="action-buttons">
               <button id="sg-btn">Sunglasses</button>
               <button id="jw-btn">Jewelry</button>
             </div>
