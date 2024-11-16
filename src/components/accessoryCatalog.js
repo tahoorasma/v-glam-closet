@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './accessoryCatalog.css';
-import j1 from './images/j1.jpg';
-import j2 from './images/j2.jpg';
-import j3 from './images/j3.jpg';
-import j4 from './images/j4.jpg';
+import j1 from './images/jewelry/j1.jpg';
+import j2 from './images/jewelry/j2.jpg';
+import j3 from './images/jewelry/j3.jpg';
+import j4 from './images/jewelry/j4.jpg';
 import Navbar from './navbar';
 
 const AccessoryCatalog = () => {

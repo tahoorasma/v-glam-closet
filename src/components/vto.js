@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from 'react'; 
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './vto.css';
 import defaultModel from './images/models/model1.png';
 import a from './images/sunglasses/sg-1.png';
 import b from './images/sunglasses/sg-2.png';
 import c from './images/sunglasses/sg-3.png';
 import d from './images/sunglasses/sg-4.png';
-import e from './images/sunglasses/sg-5.png';
-import f from './images/sunglasses/sg-6.png';
-import g from './images/sunglasses/sg-7.png';
-import h from './images/sunglasses/sg-8.png';
 import Navbar from './navbar';
 import axios, { formToJSON } from 'axios';
 
 const VirtualTryOn = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [imageSource, setImageSource] = useState(defaultModel);
-  const [selectedSunglasses, setSelectedSunglasses] = useState(null);
   const [processedImage, setProcessedImage] = useState(null); 
+  const [showFoundationProducts, setShowFoundationProducts] = useState(false);
+  const [showLipstickProducts, setShowLipstickProducts] = useState(false);
+  const [showBlushProducts, setShowBlushProducts] = useState(false);
+  const [showEyeShadowProducts, setShowEyeShadowProducts] = useState(false);
 
   useEffect(() => {
-    if (location.state?.selectedModel) {
+    if (location.state?.imageSource) {
+      setImageSource(location.state.imageSource);
+    } else if (location.state?.selectedModel) {
       try {
         console.log('Selected Model:', location.state.selectedModel);
         setImageSource(require(`./images/${location.state.selectedModel}`));
@@ -35,42 +38,44 @@ const VirtualTryOn = () => {
     }
   }, [location.state]);  
 
-  const handleSunglassesClick = async (sunglasses, sunglassesName) => {
-    setSelectedSunglasses(sunglasses);
-    
-    const formData = new FormData();
-    
-    let imageFile;
-    if (location.state?.uploadPhoto) {
-      imageFile = location.state.uploadPhoto;
-    } else if (location.state?.selectedModel) {
-      const response = await fetch(imageSource);
-      const blob = await response.blob();
-      imageFile = new File([blob], location.state.selectedModel, { type: blob.type });
-    } else {
-      const response = await fetch(defaultModel);
-      const blob = await response.blob();
-      imageFile = new File([blob], "model.jpg", { type: blob.type });
-    }
+  const handleBack = async () => {
+    setShowFoundationProducts(false);
+    setShowLipstickProducts(false);
+    setShowBlushProducts(false);
+    setShowEyeShadowProducts(false);
+  }
+  const handleFoundationBtnClick = async () => {
+    setShowFoundationProducts(true);
+  }
+  const handleLipstickBtnClick = async () => {
+    setShowLipstickProducts(true);
+  }
+  const handleBlushBtnClick = async () => {
+    setShowBlushProducts(true);
+  }
+  const handleEyeShadowBtnClick = async () => {
+    setShowEyeShadowProducts(true);
+  }
+  const handleFoundationClick = async () => {}
+  const handleLipstickClick = async () => {}
+  const handleBlushClick = async () => {}
+  const handleEyeShadowClick = async () => {}
 
-    formData.append('image', imageFile); 
-    formData.append('sunglasses', sunglassesName);
-
-    try {
-      const response = await axios.post('http://localhost:5000/sunglasses-try-on', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });    
-      setProcessedImage(response.data.processed_image_url);
-    } catch (error) {
-      console.error('Error processing sunglasses:', error);
-      alert('Failed to process sunglasses. Please try again.'); 
-    }    
+  const handleNext = () => {
+    const optionsContainer = document.querySelector('.product-options');
+    optionsContainer.scrollBy({ left: 100, behavior: 'smooth' });
+  };
+  
+  const handlePrev = () => {
+    const optionsContainer = document.querySelector('.product-options');
+    optionsContainer.scrollBy({ left: -100, behavior: 'smooth' });
+  };  
+  
+  const handleAccessoryBtnClick = () => {
+      navigate('/virtual-try-on-accessory', { state: { imageSource }});
   };
 
   const handleReset = () => {
-    setSelectedSunglasses(null);
     setProcessedImage(null); 
     setImageSource(imageSource);
   };
@@ -96,39 +101,102 @@ const VirtualTryOn = () => {
           </div>
 
           <div className="controls">
-            <div className="product-options">
-              <button className="product-option" onClick={handleReset}>
-                <i className="fa fa-ban" style={{ color: '#7b7b7b', marginLeft: '15px', border: '1px solid #7b7b7b', padding: '5px', fontSize: '36px' }}></i>
-              </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(a, 'sg-1')}>
-                <img src={a} alt="Option A" />
-              </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(b, 'sg-2')}>
-                <img src={b} alt="Option B" />
-              </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(c, 'sg-3')}>
-                <img src={c} alt="Option C" />
-              </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(d, 'sg-4')}>
-                <img src={d} alt="Option D" />
-              </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(e, 'sg-5')}>
-                <img src={e} alt="Option E" />
-              </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(f, 'sg-6')}>
-                <img src={f} alt="Option F" />
-              </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(g, 'sg-7')}>
-                <img src={g} alt="Option G" />
-              </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(h, 'sg-8')}>
-                <img src={h} alt="Option H" />
-              </button>
+            { showFoundationProducts ? (
+              //foundation from NYX
+              <div className="product-options-container">
+                <div className="product-options">
+                <button className="back-option" onClick={handleBack}>
+                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                <button className="reset-option" onClick={handleReset}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#fed4b1' }} alt="pale"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#fccab7' }} alt="light porcelain"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#ecc4a9' }} alt="light ivory"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#e3b69a' }} alt="light"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#e0c5ac' }} alt="fair"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#e5b899' }} alt="vanilla"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#dab38d' }} alt="warm vanilla"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#d6b28e' }} alt="nude"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#d8a380' }} alt="natural"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#dba779' }} alt="true beige"></button>
+                  {/*
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#cb9e79' }} alt="buff"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#cb9374' }} alt="medium buff"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#cb9875' }} alt="medium olive"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#ca926b' }} alt="soft beige"></button>
+                  */}
+                </div>
+              </div>
+            ) : showLipstickProducts ? (
+              //lipstick from maybelline-super stay vinyl ink
+              <div className="product-options-container">
+                <div className="product-options">
+                <button className="back-option" onClick={handleBack}>
+                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                <button className="reset-option" onClick={handleReset}></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(151, 15, 33)' }} alt="lippy"></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(195, 83, 83)' }} alt="peachy"></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(195, 73, 99)' }} alt="coy"></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(226, 16, 17)' }} alt="red hot"></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(135, 10, 44)' }} alt="unrivaled"></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(173, 89, 89)' }} alt="cheeky"></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(141, 70, 76)' }} alt="witty"></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(185, 0, 37)' }} alt="wicked"></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(218, 67, 90)' }} alt="rogue"></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(191, 69, 89)' }} alt="sultry"></button>
+                </div>
+              </div>
+            ) : showBlushProducts ? (
+              //blush from nars-powder blush
+              <div className="product-options-container">
+                <div className="product-options">
+                <button className="back-option" onClick={handleBack}>
+                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                <button className="reset-option" onClick={handleReset}></button>
+                  <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#faa7a6' }} alt="777"></button>
+                  <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#f58a8f' }} alt="778"></button>
+                  <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#ff8288' }} alt="776"></button>
+                  <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#a84d4b' }} alt="775"></button>
+                  <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#ef8e8d' }} alt="237"></button>
+                  <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#ed6f5e' }} alt="923"></button>
+                  <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#b86262' }} alt="901"></button>
+                  <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#bf636b' }} alt="888"></button>
+                  <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#df7b7e' }} alt="252"></button>
+                  <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#af6163' }} alt="902"></button>
+                </div>
+              </div>
+            ) : showEyeShadowProducts ? (
+              //eye shadow from nars-hardwired eyeshadow
+              <div className="product-options-container">
+                <div className="product-options">
+                <button className="back-option" onClick={handleBack}>
+                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                <button className="reset-option" onClick={handleReset}></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick()} style={{ background: '#f19ea1' }} alt="melrose"></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick()} style={{ background: '#e9a486' }} alt="pattaya"></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick()} style={{ background: '#dd8776' }} alt="mendoza"></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick()} style={{ background: '#916982' }} alt="madrid"></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick()} style={{ background: '#bd8797' }} alt="earthshine"></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick()} style={{ background: '#af8070' }} alt="firenze"></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick()} style={{ background: '#831e76' }} alt="chile"></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick()} style={{ background: '#e4bd9b' }} alt="rio"></button>
+                </div>
+              </div>
+            ) : (
+              <div className="product-options">
+              <button className="product-option" onClick={() => handleFoundationBtnClick()}>
+                Foundation</button>
+              <button className="product-option" onClick={() => handleLipstickBtnClick()}>
+                Lipstick</button>
+              <button className="product-option" onClick={() => handleBlushBtnClick()}>
+                Blush</button>
+              <button className="product-option" onClick={() => handleEyeShadowBtnClick()}>
+                Eye Shadow</button>
             </div>
+            )}
 
             <div className="action-buttons">
-              <button id="sg-btn">Sunglasses</button>
-              <button id="jw-btn">Jewelry</button>
+              <button id="mk-btn">Makeup</button>
+              <button id="ac-btn" onClick={() => handleAccessoryBtnClick()}>Accessory</button>
             </div>
           </div>
         </div>
