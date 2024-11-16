@@ -3,8 +3,8 @@
 setuptools
 wheel
 numpy
-Flask==2.0.1
-flask-cors==3.0.10
-cmake==3.30.4
-dlib==19.24.6
-opencv-python==4.10.0.84
+Flask
+flask-cors
+cmake
+dlib==19.24.1
+opencv-python

@@ -1,0 +1,84 @@
+.selfie-mode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 900px;
+  height: 90vh; 
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.camera-feed-wrapper {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#camera-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.blush-options {
+    padding-top: 85px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 20px;
+  }
+  
+  .blush-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .blush-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 40%;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 10px;
+  }
+  
+  .blush-name {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+
+.selected {
+  border: 2px solid #ff69b4;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.blush-label {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}

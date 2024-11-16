@@ -63,8 +63,7 @@ const VirtualTryOn = () => {
             <p>Select an option to proceed:</p>
 
             <div className="buttons">
-              <button className="btn" onClick={() => setMode('selfie')} style={{ color: 'white' }}>Selfie Mode</button>
-
+              <button className="btn" onClick={() => navigate('/selfie-page')} style={{ color: 'white' }}>Selfie Mode</button>
               <label className="btn" style={{ color: 'white' }}>
                 Upload Photo
                 <input type="file" accept="image/*" onChange={handleUploadPhotoClick} style={{ display: 'none' }} />
