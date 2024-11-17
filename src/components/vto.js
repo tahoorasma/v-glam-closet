@@ -3,12 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './vto.css';
 import defaultModel from './images/models/model1.png';
-import a from './images/sunglasses/sg-1.png';
-import b from './images/sunglasses/sg-2.png';
-import c from './images/sunglasses/sg-3.png';
-import d from './images/sunglasses/sg-4.png';
 import Navbar from './navbar';
-import axios, { formToJSON } from 'axios';
 
 const VirtualTryOn = () => {
   const location = useLocation();

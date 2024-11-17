@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react'; 
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import './vto.css';
-import defaultModel from './images/models/model1.png';
 import a from './images/sunglasses/sg-1.png';
 import b from './images/sunglasses/sg-2.png';
 import c from './images/sunglasses/sg-3.png';
@@ -11,68 +9,38 @@ import f from './images/sunglasses/sg-6.png';
 import g from './images/sunglasses/sg-7.png';
 import h from './images/sunglasses/sg-8.png';
 import Navbar from './navbar';
-import axios, { formToJSON } from 'axios';
 
-const VirtualTryOn = () => {
-  const location = useLocation();
-  const [imageSource, setImageSource] = useState(defaultModel);
-  const [selectedSunglasses, setSelectedSunglasses] = useState(null);
-  const [processedImage, setProcessedImage] = useState(null); 
+const VirtualTryOnLive = () => {
+  const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
 
   useEffect(() => {
-    if (location.state?.selectedModel) {
-      try {
-        console.log('Selected Model:', location.state.selectedModel);
-        setImageSource(require(`./images/${location.state.selectedModel}`));
-      } catch (error) {
-        console.error('Error loading image:', error);
-        setImageSource(defaultModel); 
-      }
-    } else if (location.state?.uploadPhoto) {
-      const reader = new FileReader();
-      reader.onload = (e) => setImageSource(e.target.result);
-      reader.readAsDataURL(location.state.uploadPhoto);
-    }
-  }, [location.state]);  
+    const intervalId = setInterval(() => {
+      setVideoSrc(`http://localhost:5000/video_feed?timestamp=${new Date().getTime()}`);
+    }, 100); 
+    return () => clearInterval(intervalId); 
+  }, []);
 
-  const handleSunglassesClick = async (sunglasses, sunglassesName) => {
-    setSelectedSunglasses(sunglasses);
-    
-    const formData = new FormData();
-    
-    let imageFile;
-    if (location.state?.uploadPhoto) {
-      imageFile = location.state.uploadPhoto;
-    } else if (location.state?.selectedModel) {
-      const response = await fetch(imageSource);
-      const blob = await response.blob();
-      imageFile = new File([blob], location.state.selectedModel, { type: blob.type });
-    } else {
-      const response = await fetch(defaultModel);
-      const blob = await response.blob();
-      imageFile = new File([blob], "model.jpg", { type: blob.type });
-    }
-
-    formData.append('image', imageFile); 
-    formData.append('sunglasses', sunglassesName);
-
-    try {
-      const response = await axios.post('http://localhost:5000/sunglasses-try-on', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });    
-      setProcessedImage(response.data.processed_image_url);
-    } catch (error) {
-      console.error('Error processing sunglasses:', error);
-      alert('Failed to process sunglasses. Please try again.'); 
-    }    
+  const handleSunglassesClick = (sunglasses) => {
+    const sunglassesIndex = sunglasses.split('sg-')[1].split('.')[0];
+    fetch('http://localhost:5000/select-sunglasses', { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ index: sunglassesIndex }),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in handleSunglassesClick:", error));
   };
-
+  
   const handleReset = () => {
-    setSelectedSunglasses(null);
-    setProcessedImage(null); 
-    setImageSource(imageSource);
+    fetch('http://localhost:5000/reset-sunglasses', {  
+      method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in handleReset:", error));
   };
 
   return (
@@ -87,11 +55,7 @@ const VirtualTryOn = () => {
         <div className="tryon-ui">
           <div className="photo-area">
             <div className="model-container">
-              {processedImage ? (
-                <img id="user-photo" src={processedImage} alt="Processed" />
-              ) : (
-                <img id="user-photo" src={imageSource} alt="User" />
-              )}
+              <img src={videoSrc} alt="Video Stream" style={{ width: '100%', height: 'auto' }} />
             </div>
           </div>
 
@@ -100,28 +64,28 @@ const VirtualTryOn = () => {
               <button className="product-option" onClick={handleReset}>
                 <i className="fa fa-ban" style={{ color: '#7b7b7b', marginLeft: '15px', border: '1px solid #7b7b7b', padding: '5px', fontSize: '36px' }}></i>
               </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(a, 'sg-1')}>
+              <button className="product-option" onClick={() => handleSunglassesClick(a)}>
                 <img src={a} alt="Option A" />
               </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(b, 'sg-2')}>
+              <button className="product-option" onClick={() => handleSunglassesClick(b)}>
                 <img src={b} alt="Option B" />
               </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(c, 'sg-3')}>
+              <button className="product-option" onClick={() => handleSunglassesClick(c)}>
                 <img src={c} alt="Option C" />
               </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(d, 'sg-4')}>
+              <button className="product-option" onClick={() => handleSunglassesClick(d)}>
                 <img src={d} alt="Option D" />
               </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(e, 'sg-5')}>
+              <button className="product-option" onClick={() => handleSunglassesClick(e)}>
                 <img src={e} alt="Option E" />
               </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(f, 'sg-6')}>
+              <button className="product-option" onClick={() => handleSunglassesClick(f)}>
                 <img src={f} alt="Option F" />
               </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(g, 'sg-7')}>
+              <button className="product-option" onClick={() => handleSunglassesClick(g)}>
                 <img src={g} alt="Option G" />
               </button>
-              <button className="product-option" onClick={() => handleSunglassesClick(h, 'sg-8')}>
+              <button className="product-option" onClick={() => handleSunglassesClick(h)}>
                 <img src={h} alt="Option H" />
               </button>
             </div>
@@ -141,4 +105,4 @@ const VirtualTryOn = () => {
   );
 };
 
-export default VirtualTryOn;
+export default VirtualTryOnLive;

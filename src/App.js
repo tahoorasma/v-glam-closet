@@ -4,6 +4,7 @@ import Home from './components/home';
 import VirtualTryOn from './components/vto';
 import VirtualTryOnAccessory from './components/vto-accessory';
 import VirtualTryOnLive from './components/vto-live';
+import VirtualTryOnAccessoryLive from './components/vto-accessory-live';
 import VirtualTryOnModes from './components/vto-modes';
 import FoundationShadeMatch from './components/fsm';
 import Makeup from './components/makeup';
@@ -25,6 +26,7 @@ function App() {
           <Route path="/virtual-try-on" element={<VirtualTryOn />} />
           <Route path="/virtual-try-on-accessory" element={<VirtualTryOnAccessory />} />
           <Route path="/virtual-try-on-live" element={<VirtualTryOnLive />} />
+          <Route path="/virtual-try-on-accessory-live" element={<VirtualTryOnAccessoryLive />} />
           <Route path="/virtual-try-on-modes" element={<VirtualTryOnModes />} />
           <Route path="/foundation-shade-match" element={<FoundationShadeMatch />} />
           <Route path="/makeup" element={<Makeup />} />

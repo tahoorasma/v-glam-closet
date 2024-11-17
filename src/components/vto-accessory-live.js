@@ -18,14 +18,21 @@ import j4 from './images/jewelry/j4.jpg';
 import Navbar from './navbar';
 import axios, { formToJSON } from 'axios';
 
-const VirtualTryOnAccessory = () => {
+const VirtualTryOnAccessoryLive = () => {
+    const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
+  
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        setVideoSrc(`http://localhost:5000/video_feed?timestamp=${new Date().getTime()}`);
+      }, 100); 
+      return () => clearInterval(intervalId); 
+    }, []);
+
   const location = useLocation();
   const navigate = useNavigate();
   const [imageSource, setImageSource] = useState(defaultModel);
-  const [processedImage, setProcessedImage] = useState(null); 
   const [showSunglassesProducts, setShowSunglassesProducts] = useState(false);
   const [showJewelryProducts, setShowJewelryProducts] = useState(false);
-  const [selectedSunglasses, setSelectedSunglasses] = useState(null);
 
   useEffect(() => {
     if (location.state?.imageSource) {
@@ -34,6 +41,7 @@ const VirtualTryOnAccessory = () => {
   }, [location.state]); 
 
   const handleBack = async () => {
+    handleReset();
     setShowSunglassesProducts(false);
     setShowJewelryProducts(false);
   }
@@ -43,50 +51,34 @@ const VirtualTryOnAccessory = () => {
   const handleJewelryBtnClick = async () => {
     setShowJewelryProducts(true);
   }
-  const handleSunglassesClick = async (sunglasses, sunglassesName) => {
-    setSelectedSunglasses(sunglasses);
-    
-    const formData = new FormData();
-    
-    let imageFile;
-    if (location.state?.uploadPhoto) {
-      imageFile = location.state.imageSource;
-    } else if (location.state?.imageSource) {
-      const response = await fetch(imageSource);
-      const blob = await response.blob();
-      imageFile = new File([blob], location.state.imageSource, { type: blob.type });
-    } else {
-      const response = await fetch(defaultModel);
-      const blob = await response.blob();
-      imageFile = new File([blob], "model.jpg", { type: blob.type });
-    }
 
-    formData.append('image', imageFile); 
-    formData.append('sunglasses', sunglassesName);
-
-    try {
-      const response = await axios.post('http://localhost:5000/sunglasses-try-on', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });    
-      setProcessedImage(response.data.processed_image_url);
-    } catch (error) {
-      console.error('Error processing sunglasses:', error);
-      alert('Failed to process sunglasses. Please try again.'); 
-    }    
+  const handleSunglassesClick = (sunglasses) => {
+    const sunglassesIndex = sunglasses.split('sg-')[1].split('.')[0];
+    fetch('http://localhost:5000/select-sunglasses', { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ index: sunglassesIndex }),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in handleSunglassesClick:", error));
   };
 
-  const handleJewelryClick = async (jewelry, jewelryName) => {}
+  const handleJewelryClick = async (jewelry) => {}
   
   const handleMakeupBtnClick = () => {
-      navigate('/virtual-try-on', { state: { imageSource } });
+      navigate('/virtual-try-on-live', { state: { imageSource } });
   };
 
   const handleReset = () => {
-    setSelectedSunglasses(null);
-    setProcessedImage(null); 
-    setImageSource(imageSource);
+    fetch('http://localhost:5000/reset-sunglasses', {  
+      method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in handleReset:", error));
   };
 
   return (
@@ -100,12 +92,8 @@ const VirtualTryOnAccessory = () => {
 
         <div className="tryon-ui">
           <div className="photo-area">
-            <div className="model-container">
-              {processedImage ? (
-                <img id="user-photo" src={processedImage} alt="Processed" />
-              ) : (
-                <img id="user-photo" src={imageSource} alt="User" />
-              )}
+          <div className="model-container">
+              <img src={videoSrc} alt="Video Stream" style={{ width: '100%', height: 'auto' }} />
             </div>
           </div>
 
@@ -116,28 +104,28 @@ const VirtualTryOnAccessory = () => {
                 <button className="back-option" onClick={handleBack}>
                   <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s1, 'sg-1')}>
+                    <button className="sg-option" onClick={() => handleSunglassesClick(s1)}>
                         <img src={s1} alt="Option A" />
                     </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s2, 'sg-2')}>
+                    <button className="sg-option" onClick={() => handleSunglassesClick(s2)}>
                         <img src={s2} alt="Option B" />
                     </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s3, 'sg-3')}>
+                    <button className="sg-option" onClick={() => handleSunglassesClick(s3)}>
                         <img src={s3} alt="Option C" />
                     </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s4, 'sg-4')}>
+                    <button className="sg-option" onClick={() => handleSunglassesClick(s4)}>
                         <img src={s4} alt="Option D" />
                     </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s5, 'sg-5')}>
+                    <button className="sg-option" onClick={() => handleSunglassesClick(s5)}>
                         <img src={s5} alt="Option E" />
                     </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s6, 'sg-6')}>
+                    <button className="sg-option" onClick={() => handleSunglassesClick(s6)}>
                         <img src={s6} alt="Option F" />
                     </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s7, 'sg-7')}>
+                    <button className="sg-option" onClick={() => handleSunglassesClick(s7)}>
                         <img src={s7} alt="Option G" />
                     </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s8, 'sg-8')}>
+                    <button className="sg-option" onClick={() => handleSunglassesClick(s8)}>
                         <img src={s8} alt="Option H" />
                     </button>
                 </div>
@@ -148,16 +136,16 @@ const VirtualTryOnAccessory = () => {
                 <button className="back-option" onClick={handleBack}>
                   <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j1, 'j-1')}>
+                    <button className="sg-option" onClick={() => handleJewelryClick(j1)}>
                         <img src={j1} alt="Option 1" />
                     </button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j2, 'j-1')}>
+                    <button className="sg-option" onClick={() => handleJewelryClick(j2)}>
                         <img src={j2} alt="Option 2" />
                     </button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j3, 'j-1')}>
+                    <button className="sg-option" onClick={() => handleJewelryClick(j3)}>
                         <img src={j3} alt="Option 3" />
                     </button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j4, 'j-1')}>
+                    <button className="sg-option" onClick={() => handleJewelryClick(j4)}>
                         <img src={j4} alt="Option 4" />
                     </button>
                 </div>
@@ -186,4 +174,4 @@ const VirtualTryOnAccessory = () => {
   );
 };
 
-export default VirtualTryOnAccessory;
+export default VirtualTryOnAccessoryLive;
