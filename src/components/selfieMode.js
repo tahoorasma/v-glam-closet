@@ -18,7 +18,7 @@ const SelfieMode = ({ stream, cameraAllowed, handleAllowCamera, handleBlushClick
       {!cameraAllowed ? (
         <div className="camera-permission">
           <p>Click the button below to enable Selfie Mode</p>
-          <button className="allow-button" onClick={handleAllowCamera}>Enable Selfie Mode</button>
+          <button className="allow-button" onClick={handleBlushClick}>Enable Selfie Mode</button>
         </div>
       ) : (
         <div>
@@ -41,5 +41,5 @@ const SelfieMode = ({ stream, cameraAllowed, handleAllowCamera, handleBlushClick
     </div>
   );
 };
-
+//handleAllowCamera
 export default SelfieMode;
