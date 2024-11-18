@@ -31,10 +31,10 @@ def get_cheek_areas(img):
         landmarks = predictor(gray_img, face)
         left_cheek_area = [(landmarks.part(2).x, landmarks.part(2).y - 13), 
                            (landmarks.part(3).x, landmarks.part(3).y - 13), 
-                           (landmarks.part(31).x + 10, landmarks.part(31).y)]
-        right_cheek_area = [(landmarks.part(13).x, landmarks.part(13).y - 13), 
-                            (landmarks.part(14).x, landmarks.part(14).y - 13), 
-                            (landmarks.part(35).x - 10, landmarks.part(35).y)]
+                           (landmarks.part(31).x, landmarks.part(31).y - 13)]
+        right_cheek_area = [(landmarks.part(13).x, landmarks.part(13).y - 10), 
+                            (landmarks.part(14).x, landmarks.part(14).y - 10), 
+                            (landmarks.part(35).x , landmarks.part(35).y - 10)]
     return left_cheek_area, right_cheek_area
 
 def apply_blush(imgOriginal, cheek_areas, color):
@@ -60,6 +60,16 @@ def select_blush():
         "1": (220, 110, 220),  # Baby Pink
         "2": (180, 105, 190),  # Light Pink
         "3": (190, 80, 200),   # Red
+        "4":(250,167,166,255),
+        "5":(245,138,143,255),
+        "6":(255,130,136,255),
+        "7":(168,77,75,255),
+        "8":(239,142,141,255),
+        "9":(237,111,94,255),
+        "10":(184,98,98,255),
+        "11":(191,99,107,255),
+        "12":(223,123,126,255),
+        "13":(223,123,126,255)
     }
     selected_blush_color = blush_colors.get(color_choice)
     if selected_blush_color is None:
