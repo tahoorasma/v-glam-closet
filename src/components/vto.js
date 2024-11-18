@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './vto.css';
 import defaultModel from './images/models/model1.png';
+import axios, { formToJSON } from 'axios';
 import Navbar from './navbar';
 
 const VirtualTryOn = () => {
@@ -14,22 +15,27 @@ const VirtualTryOn = () => {
   const [showLipstickProducts, setShowLipstickProducts] = useState(false);
   const [showBlushProducts, setShowBlushProducts] = useState(false);
   const [showEyeShadowProducts, setShowEyeShadowProducts] = useState(false);
+  const [selectedFoundation, setSelectedFoundation] = useState(null);
 
   useEffect(() => {
     if (location.state?.imageSource) {
       setImageSource(location.state.imageSource);
     } else if (location.state?.selectedModel) {
       try {
-        console.log('Selected Model:', location.state.selectedModel);
-        setImageSource(require(`./images/${location.state.selectedModel}`));
+          console.log('Selected Model:', location.state.selectedModel);
+          setImageSource(require(`./images/${location.state.selectedModel}`));
       } catch (error) {
-        console.error('Error loading image:', error);
-        setImageSource(defaultModel); 
+          console.error('Error loading image:', error);
+          setImageSource(defaultModel);
       }
     } else if (location.state?.uploadPhoto) {
-      const reader = new FileReader();
-      reader.onload = (e) => setImageSource(e.target.result);
-      reader.readAsDataURL(location.state.uploadPhoto);
+      if (location.state?.uploadPhoto) {
+        const reader = new FileReader();
+        reader.onload = (e) => setImageSource(e.target.result);
+        reader.readAsDataURL(location.state.uploadPhoto);
+        return;
+    }
+    
     }
   }, [location.state]);  
 
@@ -51,7 +57,60 @@ const VirtualTryOn = () => {
   const handleEyeShadowBtnClick = async () => {
     setShowEyeShadowProducts(true);
   }
-  const handleFoundationClick = async () => {}
+  const handleFoundationClick = async (shadeColor, shadeName) => {
+    setSelectedFoundation(shadeName);
+
+    const formData = new FormData();
+
+    let imageFile;
+    try {
+        if (location.state?.uploadPhoto) {
+            imageFile = location.state.uploadPhoto;
+        } else if (location.state?.selectedModel) {
+          const response = await fetch(imageSource);
+            const blob = await response.blob();
+            imageFile = new File([blob], imageSource, { type: blob.type });
+        } else if (location.state?.imageSource) {
+            const response = await fetch(imageSource);
+            const blob = await response.blob();
+            imageFile = new File([blob], imageSource, { type: blob.type });
+        } else {
+            const response = await fetch(defaultModel);
+            const blob = await response.blob();
+            imageFile = new File([blob], "model.jpg", { type: blob.type });
+        }
+    } catch (error) {
+        console.error("Error fetching the image:", error);
+        alert("Failed to load image. Please check your setup.");
+        return;
+    }
+
+    if (!imageFile) {
+        console.error("No valid image file found.");
+        alert("No valid image available for processing.");
+        return;
+    }
+    console.log("Image Source:", imageSource);
+    console.log("Upload Photo:", location.state?.uploadPhoto);
+    console.log("Selected Model:", location.state?.selectedModel);
+    console.log("Image File:", imageFile);
+
+    formData.append('image', imageFile);
+    formData.append('foundation', shadeColor);
+
+    try {
+        const response = await axios.post('http://localhost:5000/foundation-try-on', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        setProcessedImage(response.data.processed_image_url);
+    } catch (error) {
+        console.error('Error processing foundation:', error);
+        alert('Failed to apply foundation. Please try again.');
+    }
+  };
+
   const handleLipstickClick = async () => {}
   const handleBlushClick = async () => {}
   const handleEyeShadowClick = async () => {}
@@ -71,6 +130,7 @@ const VirtualTryOn = () => {
   };
 
   const handleReset = () => {
+    setSelectedFoundation(null);
     setProcessedImage(null); 
     setImageSource(imageSource);
   };
@@ -103,21 +163,21 @@ const VirtualTryOn = () => {
                 <button className="back-option" onClick={handleBack}>
                   <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#fed4b1' }} alt="pale"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#fccab7' }} alt="light porcelain"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#ecc4a9' }} alt="light ivory"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#e3b69a' }} alt="light"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#e0c5ac' }} alt="fair"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#e5b899' }} alt="vanilla"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#dab38d' }} alt="warm vanilla"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#d6b28e' }} alt="nude"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#d8a380' }} alt="natural"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#dba779' }} alt="true beige"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#fed4b1', 'pale')} style={{ background: '#fed4b1' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#fccab7', 'light-porcelain')} style={{ background: '#fccab7' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#ecc4a9', 'light-ivory')} style={{ background: '#ecc4a9' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#e3b69a', 'light')} style={{ background: '#e3b69a' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#e0c5ac', 'fair')} style={{ background: '#e0c5ac' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#e5b899', 'vanilla')} style={{ background: '#e5b899' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#dab38d', 'warm-vanilla')} style={{ background: '#dab38d' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#d6b28e', 'nude')} style={{ background: '#d6b28e' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#d8a380', 'natural')} style={{ background: '#d8a380' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#dba779', 'true-beige')} style={{ background: '#dba779' }}></button>
                   {/*
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#cb9e79' }} alt="buff"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#cb9374' }} alt="medium buff"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#cb9875' }} alt="medium olive"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#ca926b' }} alt="soft beige"></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9e79', 'buff')} style={{ background: '#cb9e79' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9374', 'medium-buff')} style={{ background: '#cb9374' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9875', 'medium-olive')} style={{ background: '#cb9875' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#ca926b', 'soft-beige')} style={{ background: '#ca926b' }}></button>
                   */}
                 </div>
               </div>
