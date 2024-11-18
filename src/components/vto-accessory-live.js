@@ -69,7 +69,8 @@ const VirtualTryOnAccessoryLive = () => {
   const handleJewelryClick = async (jewelry) => {}
   
   const handleMakeupBtnClick = () => {
-      navigate('/virtual-try-on-live', { state: { imageSource } });
+    handleReset();
+    navigate('/virtual-try-on-live', { state: { imageSource } });
   };
 
   const handleReset = () => {

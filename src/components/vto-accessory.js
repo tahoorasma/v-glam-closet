@@ -60,6 +60,8 @@ const VirtualTryOnAccessory = () => {
       const blob = await response.blob();
       imageFile = new File([blob], "model.jpg", { type: blob.type });
     }
+    console.log("Image File:", imageFile);
+
 
     formData.append('image', imageFile); 
     formData.append('sunglasses', sunglassesName);
@@ -80,7 +82,8 @@ const VirtualTryOnAccessory = () => {
   const handleJewelryClick = async (jewelry, jewelryName) => {}
   
   const handleMakeupBtnClick = () => {
-      navigate('/virtual-try-on', { state: { imageSource } });
+    handleReset();
+    navigate('/virtual-try-on', { state: { imageSource } });
   };
 
   const handleReset = () => {
