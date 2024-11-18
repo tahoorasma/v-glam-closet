@@ -91,10 +91,8 @@ const VirtualTryOn = () => {
         alert("No valid image available for processing.");
         return;
     }
-    console.log("Image Source:", imageSource);
-    console.log("Upload Photo:", location.state?.uploadPhoto);
-    console.log("Selected Model:", location.state?.selectedModel);
     console.log("Image File:", imageFile);
+    console.log("Foundation Shade:", shadeColor);
 
     formData.append('image', imageFile);
     formData.append('foundation', shadeColor);
@@ -214,7 +212,7 @@ const VirtualTryOn = () => {
               <div className="product-options-container">
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
-                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                  <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#fed4b1', 'pale')} style={{ background: '#fed4b1' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#fccab7', 'light-porcelain')} style={{ background: '#fccab7' }}></button>
@@ -226,7 +224,7 @@ const VirtualTryOn = () => {
                   <button className="makeup-option" onClick={() => handleFoundationClick('#d6b28e', 'nude')} style={{ background: '#d6b28e' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#d8a380', 'natural')} style={{ background: '#d8a380' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#dba779', 'true-beige')} style={{ background: '#dba779' }}></button>
-                  
+
                   <button className="makeup-option" onClick={() => handleFoundationClick('#cb9e79', 'buff')} style={{ background: '#cb9e79' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#cb9374', 'medium-buff')} style={{ background: '#cb9374' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#cb9875', 'medium-olive')} style={{ background: '#cb9875' }}></button>
@@ -239,7 +237,7 @@ const VirtualTryOn = () => {
               <div className="product-options-container">
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
-                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                  <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
                   <button className="makeup-option" onClick={() => handleLipstickClick('#970d22', 'lippy')} style={{ background: 'rgb(151, 15, 33)' }}></button>
                   <button className="makeup-option" onClick={() => handleLipstickClick('#c35353', 'peachy')} style={{ background: 'rgb(195, 83, 83)' }}></button>
@@ -258,7 +256,7 @@ const VirtualTryOn = () => {
               <div className="product-options-container">
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
-                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                  <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
                   <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#faa7a6' }} alt="777"></button>
                   <button className="makeup-option" onClick={() => handleBlushClick()} style={{ background: '#f58a8f' }} alt="778"></button>
@@ -277,7 +275,7 @@ const VirtualTryOn = () => {
               <div className="product-options-container">
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
-                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                  <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
                   <button className="eyeshadow-option" onClick={() => handleEyeShadowClick()} style={{ background: '#f19ea1' }} alt="melrose"></button>
                   <button className="eyeshadow-option" onClick={() => handleEyeShadowClick()} style={{ background: '#e9a486' }} alt="pattaya"></button>

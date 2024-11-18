@@ -28,7 +28,7 @@ def apply_lipstick(image, shade_color, landmarks):
 
     lip_points = np.concatenate([
         landmarks[48:54],  # Lower lip
-        landmarks[54:60][::-1],  # Upper lip
+        landmarks[54:60],  # Upper lip
         landmarks[60:67],  # inner lip
     ])
     cv2.fillPoly(mask, [lip_points], 255)
