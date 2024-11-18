@@ -23,26 +23,20 @@ logging.basicConfig(level=logging.DEBUG)
 face_detector = dlib.get_frontal_face_detector()
 shape_predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-def apply_foundation(image, shade_color, landmarks):
+def apply_lipstick(image, shade_color, landmarks):
     mask = np.zeros(image.shape[:2], dtype=np.uint8)
 
-    face_points = np.concatenate([ 
-        landmarks[0:17],  # Jawline
-        landmarks[26:17:-1],  # Upper cheeks
-        # landmarks[17:21],  # Eyebrow region
-        # landmarks[21:26],  # Nose and upper lip area
-        # landmarks[21:22],  # Adding a point above the forehead (you might need to adjust this)
+    lip_points = np.concatenate([
+        landmarks[48:54],  # Lower lip
+        landmarks[54:60][::-1],  # Upper lip
+        landmarks[60:67],  # inner lip
     ])
-    cv2.fillPoly(mask, [face_points], 255)
-    print("shade color: ",shade_color)
-    overlay = np.full_like(image, shade_color, dtype=np.uint8)
+    cv2.fillPoly(mask, [lip_points], 255)
+    print("shade color:", shade_color)
 
-    alpha = 0.22
-    fixed_pixel_value = np.array([239, 243, 248])
+    overlay = np.full_like(image, shade_color, dtype=np.uint8)
+    alpha = 0.5
     for c in range(3): 
-        #image[:, :, c] = fixed_pixel_value[c]
-        original_pixel_value = image[:, :, c]
-        print(f"Original pixel values for channel {c}: {original_pixel_value[0, 0]}")
         image[:, :, c] = np.where(mask == 255, 
                                   (1 - alpha) * image[:, :, c] + alpha * overlay[:, :, c], 
                                   image[:, :, c])
@@ -51,14 +45,14 @@ def apply_foundation(image, shade_color, landmarks):
 def serve_processed(filename):
     return send_from_directory(PROCESSED_FOLDER, filename)
 
-@app.route('/foundation-try-on', methods=['POST'])
-def try_on_foundation():
+@app.route('/lipstick-try-on', methods=['POST'])
+def try_on_lipstick():
     try:
-        if 'image' not in request.files or 'foundation' not in request.form:
-            return jsonify({'error': 'No image or foundation selection provided'}), 400
+        if 'image' not in request.files or 'lipstick' not in request.form:
+            return jsonify({'error': 'No image or lipstick selection provided'}), 400
 
         file = request.files['image']
-        shade_color_hex = request.form['foundation']
+        shade_color_hex = request.form['lipstick']
     
         shade_color = tuple(int(shade_color_hex.lstrip('#')[i:i + 2], 16) for i in (4, 2, 0))
 
@@ -81,20 +75,20 @@ def try_on_foundation():
             for face in faces:
                 landmarks = shape_predictor(gray_image, face)
                 landmarks = np.array([[p.x, p.y] for p in landmarks.parts()])
-                apply_foundation(user_image, shade_color, landmarks)
+                apply_lipstick(user_image, shade_color, landmarks)
 
-            unique_filename = f'processed_foundation_{int(time.time())}.jpg'
+            unique_filename = f'processed_lipstick_{int(time.time())}.jpg'
             output_image_path = os.path.join(PROCESSED_FOLDER, unique_filename)
             cv2.imwrite(output_image_path, user_image)
             logging.debug(f"Processed image saved to: {output_image_path}")
 
-            return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
+            return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'}), 200
         else:
             return jsonify({'error': 'No face detected'}), 400
 
     except Exception as e:
-        logging.error(f"Error processing foundation: {e}")
-        return jsonify({"error": "Failed to process foundation"}), 500
+        logging.error(f"Error processing lipstick: {e}")
+        return jsonify({"error": "Failed to process lipstick"}), 500
 
 if __name__ == '__main__':
     app.run(port=5000)

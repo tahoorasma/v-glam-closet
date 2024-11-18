@@ -16,6 +16,7 @@ const VirtualTryOn = () => {
   const [showBlushProducts, setShowBlushProducts] = useState(false);
   const [showEyeShadowProducts, setShowEyeShadowProducts] = useState(false);
   const [selectedFoundation, setSelectedFoundation] = useState(null);
+  const [selectedLipstick, setSelectedLipstick] = useState(null);
 
   useEffect(() => {
     if (location.state?.imageSource) {
@@ -111,7 +112,58 @@ const VirtualTryOn = () => {
     }
   };
 
-  const handleLipstickClick = async () => {}
+  const handleLipstickClick = async (shadeColor, shadeName) => {
+    setSelectedLipstick(shadeName);
+  
+    const formData = new FormData();
+  
+    let imageFile;
+    try {
+      if (location.state?.uploadPhoto) {
+        imageFile = location.state.uploadPhoto;
+      } else if (location.state?.selectedModel) {
+        const response = await fetch(imageSource);
+        const blob = await response.blob();
+        imageFile = new File([blob], imageSource, { type: blob.type });
+      } else if (location.state?.imageSource) {
+        const response = await fetch(imageSource);
+        const blob = await response.blob();
+        imageFile = new File([blob], imageSource, { type: blob.type });
+      } else {
+        const response = await fetch(defaultModel);
+        const blob = await response.blob();
+        imageFile = new File([blob], "model.jpg", { type: blob.type });
+      }
+    } catch (error) {
+      console.error("Error fetching the image:", error);
+      alert("Failed to load image. Please check your setup.");
+      return;
+    }
+  
+    if (!imageFile) {
+      console.error("No valid image file found.");
+      alert("No valid image available for processing.");
+      return;
+    }
+    console.log("Image File:", imageFile);
+    console.log("Lipstick shade:", shadeColor);
+  
+    formData.append('image', imageFile);
+    formData.append('lipstick', shadeColor);
+  
+    try {
+      const response = await axios.post('http://localhost:5000/lipstick-try-on', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setProcessedImage(response.data.processed_image_url);
+    } catch (error) {
+      console.error('Error processing lipstick:', error);
+      alert('Failed to apply lipstick. Please try again.');
+    }
+  };
+  
   const handleBlushClick = async () => {}
   const handleEyeShadowClick = async () => {}
 
@@ -131,6 +183,7 @@ const VirtualTryOn = () => {
 
   const handleReset = () => {
     setSelectedFoundation(null);
+    setSelectedLipstick(null);
     setProcessedImage(null); 
     setImageSource(imageSource);
   };
@@ -173,12 +226,12 @@ const VirtualTryOn = () => {
                   <button className="makeup-option" onClick={() => handleFoundationClick('#d6b28e', 'nude')} style={{ background: '#d6b28e' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#d8a380', 'natural')} style={{ background: '#d8a380' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#dba779', 'true-beige')} style={{ background: '#dba779' }}></button>
-                  {/*
+                  
                   <button className="makeup-option" onClick={() => handleFoundationClick('#cb9e79', 'buff')} style={{ background: '#cb9e79' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#cb9374', 'medium-buff')} style={{ background: '#cb9374' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#cb9875', 'medium-olive')} style={{ background: '#cb9875' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#ca926b', 'soft-beige')} style={{ background: '#ca926b' }}></button>
-                  */}
+                  {/* */}
                 </div>
               </div>
             ) : showLipstickProducts ? (
@@ -188,16 +241,16 @@ const VirtualTryOn = () => {
                 <button className="back-option" onClick={handleBack}>
                   <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
-                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(151, 15, 33)' }} alt="lippy"></button>
-                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(195, 83, 83)' }} alt="peachy"></button>
-                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(195, 73, 99)' }} alt="coy"></button>
-                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(226, 16, 17)' }} alt="red hot"></button>
-                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(135, 10, 44)' }} alt="unrivaled"></button>
-                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(173, 89, 89)' }} alt="cheeky"></button>
-                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(141, 70, 76)' }} alt="witty"></button>
-                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(185, 0, 37)' }} alt="wicked"></button>
-                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(218, 67, 90)' }} alt="rogue"></button>
-                  <button className="makeup-option" onClick={() => handleLipstickClick()} style={{ background: 'rgb(191, 69, 89)' }} alt="sultry"></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick('#970d22', 'lippy')} style={{ background: 'rgb(151, 15, 33)' }}></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick('#c35353', 'peachy')} style={{ background: 'rgb(195, 83, 83)' }}></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick('#c34963', 'coy')} style={{ background: 'rgb(195, 73, 99)' }}></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick('#e21011', 'red-hot')} style={{ background: 'rgb(226, 16, 17)' }}></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick('#870a2c', 'unrivaled')} style={{ background: 'rgb(135, 10, 44)' }}></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick('#ad5959', 'cheeky')} style={{ background: 'rgb(173, 89, 89)' }}></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick('#8d464c', 'witty')} style={{ background: 'rgb(141, 70, 76)' }}></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick('#b90025', 'wicked')} style={{ background: 'rgb(185, 0, 37)' }}></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick('#da435a', 'rogue')} style={{ background: 'rgb(218, 67, 90)' }}></button>
+                  <button className="makeup-option" onClick={() => handleLipstickClick('#bf4559', 'sultry')} style={{ background: 'rgb(191, 69, 89)' }}></button>
                 </div>
               </div>
             ) : showBlushProducts ? (
