@@ -170,9 +170,6 @@ const VirtualTryOn = () => {
     }
 };
 
-<<<<<<< HEAD
-  const handleEyeShadowClick = async (eyeShadowColor, eyeShadowName, isGlitter) => {
-=======
 const handleLipstickClick = async (lipstickId) => {
   setSelectedLipstick(lipstickId);
 
@@ -227,8 +224,8 @@ const handleLipstickClick = async (lipstickId) => {
     alert('Failed to apply lipstick. Please try again.');
 }
 };
-  const handleEyeShadowClick = async (eyeShadowColor, eyeShadowName) => {
->>>>>>> 30b92d192114eb70fb85255f5bcfd714e953d2a3
+
+const handleEyeShadowClick = async (eyeShadowColor, eyeShadowName, isGlitter) => {
     setSelectedEyeShadow(eyeShadowName);
 
     const formData = new FormData();
