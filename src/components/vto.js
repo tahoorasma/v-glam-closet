@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './vto.css';
+import ss from './images/glitter_eyeshadows/strawberry-stacked.png'
+import gf from './images/glitter_eyeshadows/grapefruit.png'
+import fg from './images/glitter_eyeshadows/feeling-grape.png'
+import rr from './images/glitter_eyeshadows/raspberry-rave.png'
+import bb from './images/glitter_eyeshadows/blueberry-bank.png'
+import ww from './images/glitter_eyeshadows/watermelon-wealth.png'
 import defaultModel from './images/models/model1.png';
 import axios, { formToJSON } from 'axios';
 import Navbar from './navbar';
@@ -165,7 +171,7 @@ const VirtualTryOn = () => {
   
   const handleBlushClick = async () => {}
 
-  const handleEyeShadowClick = async (eyeShadowColor, eyeShadowName) => {
+  const handleEyeShadowClick = async (eyeShadowColor, eyeShadowName, isGlitter) => {
     setSelectedEyeShadow(eyeShadowName);
 
     const formData = new FormData();
@@ -203,6 +209,7 @@ const VirtualTryOn = () => {
 
     formData.append('image', imageFile);
     formData.append('eyeShadow', eyeShadowColor);
+    formData.append('glitter', isGlitter);
 
     try {
         const response = await axios.post('http://localhost:5000/eyeshadow-try-on', formData, {
@@ -330,20 +337,29 @@ const VirtualTryOn = () => {
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#c96f8c', '')} style={{ background: '#c96f8c' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#940935', '')} style={{ background: '#940935' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#751332', '')} style={{ background: '#751332' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#cf8f91', 'melrose')} style={{ background: '#f19ea1' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#d69f87', 'pattaya')} style={{ background: '#e9a486' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#dd8776', 'mendoza')} style={{ background: '#dd8776' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#916982', 'madrid')} style={{ background: '#916982' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#bd8797', 'earthshine')} style={{ background: '#bd8797'}}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#af8070', 'firenze')} style={{ background: '#af8070' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#831e76', 'chile')} style={{ background: '#831e76' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#c9a381', 'rio')} style={{ background: '#e4bd9b' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#915656', '')} style={{ background: '#915656' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#697991', '')} style={{ background: '#697991' }}></button>
-                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#91696c', '')} style={{ background: '#91696c' }}></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#c96f8c', '', 0)} style={{ background: '#c96f8c' }}></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#cf8f91', 'melrose', 0)} style={{ background: '#f19ea1' }}></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#d69f87', 'pattaya', 0)} style={{ background: '#e9a486' }}></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#dd8776', 'mendoza', 0)} style={{ background: '#dd8776' }}></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#bd8797', 'earthshine', 0)} style={{ background: '#bd8797'}}></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#af8070', 'firenze', 0)} style={{ background: '#af8070' }}></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#c9a381', 'rio', 0)} style={{ background: '#e4bd9b' }}></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#697991', '', 0)} style={{ background: '#697991' }}></button>
+                  <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#91696c', '', 0)} style={{ background: '#91696c' }}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#940935', '', 0)} style={{ background: '#940935' }}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#751332', '', 0)} style={{ background: '#751332' }}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#916982', 'madrid', 0)} style={{ background: '#916982' }}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#831e76', 'chile', 0)} style={{ background: '#831e76' }}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#915656', '', 0)} style={{ background: '#915656' }}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#449db8', '', 0)} style={{ background: '#449db8' }}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#3dada2', '', 0)} style={{ background: '#3dada2' }}></button>
+                  {/*nyx-ultimate glow shots liquid eyeshadow*/}
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#a33c51', 'strawberry-stacked', 1)} style={{ backgroundImage:  `url(${ss})` }}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#ba828d', 'grapefruit', 1)} style={{ backgroundImage:  `url(${gf})` }}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#6c3f75', 'feeling-grape', 1)} style={{ background: `url(${fg})` }}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#bf304c', 'raspberry-rave', 1)} style={{ background: `url(${rr})`}}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#174077', 'blueberry-bank', 1)} style={{ background: `url(${bb})` }}></button>
+                  <button className="makeup-option" onClick={() => handleEyeShadowClick('#3c816a', 'watermelon-wealth', 1)} style={{ background: `url(${ww})` }}></button>
                 </div>
               </div>
             ) : (

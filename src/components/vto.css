@@ -151,8 +151,8 @@ cursor: not-allowed;
     left: -100%;
     width: 200%;
     height: 100%;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.6) 25%, transparent 50%, rgba(255, 255, 255, 0.6) 75%);
-    animation: glitter 1.5s infinite;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.6) 15%, transparent 25%, rgba(255, 255, 255, 0.6) 85%);
+    animation: matte 1.5s infinite;
 }
 .reset-option {
     background-color: white;
@@ -212,44 +212,4 @@ cursor: not-allowed;
     color: white;
     padding: 20px 0;
     text-align: center;
-}
-
-
-.image-wrapper {
-    position: relative;
-    width: 100%;
-    height: auto;
-  }
-  
-  .image {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-  
-  .slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 10px;
-    height: 200%;
-    background: transparent;
-    outline: none;
-    cursor: pointer;
-    position: absolute;
-    z-index: 3;
-  }
-  
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: gray;
-    cursor: pointer;
-  }
-  
-  .divider-line {
-    background-color: #ccc;
-  }
-  
+}  
