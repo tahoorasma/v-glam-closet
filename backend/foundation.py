@@ -21,26 +21,25 @@ if not os.path.exists(PROCESSED_FOLDER):
 logging.basicConfig(level=logging.DEBUG)
 
 face_detector = dlib.get_frontal_face_detector()
-shape_predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
+shape_predictor = dlib.shape_predictor('shape_predictor_81_face_landmarks.dat')
 
 def apply_foundation(image, shade_color, landmarks):
     mask = np.zeros(image.shape[:2], dtype=np.uint8)
 
     face_points = np.concatenate([ 
-        landmarks[0:17],  # Jawline
-        landmarks[26:17:-1],  # Upper cheeks
-        # landmarks[17:21],  # Eyebrow region
-        # landmarks[21:26],  # Nose and upper lip area
-        # landmarks[21:22],  # Adding a point above the forehead (you might need to adjust this)
-    ])
+        landmarks[0:16],  # Jawline
+        landmarks[78:80],  # Forehead Points
+        landmarks[71:68],  # Forehead Points
+        landmarks[76:77],  # Forehead Points
+    ],axis=0)
+
     cv2.fillPoly(mask, [face_points], 255)
+
     print("shade color: ",shade_color)
     overlay = np.full_like(image, shade_color, dtype=np.uint8)
 
     alpha = 0.15
-    fixed_pixel_value = np.array([239, 243, 248])
     for c in range(3): 
-        #image[:, :, c] = fixed_pixel_value[c]
         original_pixel_value = image[:, :, c]
         print(f"Original pixel values for channel {c}: {original_pixel_value[0, 0]}")
         image[:, :, c] = np.where(mask == 255, 
@@ -60,7 +59,7 @@ def try_on_foundation():
         file = request.files['image']
         shade_color_hex = request.form['foundation']
     
-        shade_color = tuple(int(shade_color_hex.lstrip('#')[i:i + 2], 16) for i in (0, 2, 4))
+        shade_color = tuple(int(shade_color_hex.lstrip('#')[i:i + 2], 16) for i in (4, 2, 0))
 
         if file:
             image_path = os.path.join(UPLOAD_FOLDER, 'uploaded_image.jpg')
