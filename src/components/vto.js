@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './vto.css';
+import cmp from './images/compare.jpg'
+import buy from './images/blush.jpg'
 import ss from './images/glitter_eyeshadows/strawberry-stacked.png'
 import gf from './images/glitter_eyeshadows/grapefruit.png'
 import fg from './images/glitter_eyeshadows/feeling-grape.png'
@@ -9,7 +11,7 @@ import rr from './images/glitter_eyeshadows/raspberry-rave.png'
 import bb from './images/glitter_eyeshadows/blueberry-bank.png'
 import ww from './images/glitter_eyeshadows/watermelon-wealth.png'
 import defaultModel from './images/models/model1.png';
-import axios, { formToJSON } from 'axios';
+import axios from 'axios';
 import Navbar from './navbar';
 
 const VirtualTryOn = () => {
@@ -274,16 +276,6 @@ const handleEyeShadowClick = async (eyeShadowColor, eyeShadowName, isGlitter) =>
         alert('Failed to apply eyeshadow. Please try again.');
     }
   };
-
-  const handleNext = () => {
-    const optionsContainer = document.querySelector('.product-options');
-    optionsContainer.scrollBy({ left: 100, behavior: 'smooth' });
-  };
-  
-  const handlePrev = () => {
-    const optionsContainer = document.querySelector('.product-options');
-    optionsContainer.scrollBy({ left: -100, behavior: 'smooth' });
-  };  
   
   const handleAccessoryBtnClick = () => {
       navigate('/virtual-try-on-accessory', { state: { imageSource }});
@@ -307,13 +299,34 @@ const handleEyeShadowClick = async (eyeShadowColor, eyeShadowName, isGlitter) =>
         <p>Time to make up your mind! Experience your perfect makeup shades or try a bold new look with our virtual try-on tool.</p>
 
         <div className="tryon-ui">
-          <div className="photo-area">
-            <div className="model-container">
-              {processedImage ? (
-                <img id="user-photo" src={processedImage} alt="Processed" />
-              ) : (
-                <img id="user-photo" src={imageSource} alt="User" />
-              )}
+          <div className="row">
+            <div className="col-12 col-md-10">
+              <div className="photo-area">
+                <div className="model-container">
+                  {processedImage ? (
+                    <img id="user-photo" src={processedImage} alt="Processed" />
+                  ) : (
+                    <img id="user-photo" src={imageSource} alt="User" />
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="col-12 col-md-2">
+              <div className="button-container">
+                {(showFoundationProducts || showBlushProducts || showLipstickProducts || showEyeShadowProducts) && (
+                  <>
+                    <button id="side-btn">
+                      <img src={cmp} alt="Compare" className="button-icon" />
+                      <span>Compare</span>
+                    </button>
+                    <button id="side-btn">
+                      <img src={buy} alt="Buy" className="button-icon" />
+                      <span>Buy</span>
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
 
@@ -322,9 +335,9 @@ const handleEyeShadowClick = async (eyeShadowColor, eyeShadowName, isGlitter) =>
               //foundation from NYX
               <div className="product-options-container">
                 <div className="product-options">
-                <button className="back-option" onClick={handleBack}>
-                  <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
-                <button className="reset-option" onClick={handleReset}></button>
+                  <button className="back-option" onClick={handleBack}>
+                    <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                  <button className="reset-option" onClick={handleReset}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#fed4b1', 'pale')} style={{ background: '#fed4b1' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#fccab7', 'light-porcelain')} style={{ background: '#fccab7' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#ecc4a9', 'light-ivory')} style={{ background: '#ecc4a9' }}></button>
@@ -414,7 +427,7 @@ const handleEyeShadowClick = async (eyeShadowColor, eyeShadowName, isGlitter) =>
                 </div>
               </div>
             ) : (
-              <div className="product-options">
+              <div className="type-options">
               <button className="product-option" onClick={() => handleFoundationBtnClick()}>
                 Foundation</button>
               <button className="product-option" onClick={() => handleLipstickBtnClick()}>
@@ -425,12 +438,13 @@ const handleEyeShadowClick = async (eyeShadowColor, eyeShadowName, isGlitter) =>
                 Eye Shadow</button>
             </div>
             )}
-
-            <div className="action-buttons">
-              <button id="mk-btn">Makeup</button>
-              <button id="ac-btn" onClick={() => handleAccessoryBtnClick()}>Accessory</button>
-            </div>
           </div>
+
+          <div className="action-buttons">
+            <button id="mk-btn">Makeup</button>
+            <button id="ac-btn" onClick={() => handleAccessoryBtnClick()}>Accessory</button>
+          </div>
+
         </div>
       </div>
 

@@ -6,6 +6,7 @@ from flask_cors import CORS
 import os
 import time
 import logging
+import shutil
 
 app = Flask(__name__)
 CORS(app)
@@ -13,10 +14,15 @@ CORS(app)
 UPLOAD_FOLDER = 'uploads/'
 PROCESSED_FOLDER = 'processed/'
 
-if not os.path.exists(UPLOAD_FOLDER):
+try:
+    if os.path.exists(UPLOAD_FOLDER):
+        shutil.rmtree(UPLOAD_FOLDER)
     os.makedirs(UPLOAD_FOLDER)
-if not os.path.exists(PROCESSED_FOLDER):
+    if os.path.exists(PROCESSED_FOLDER):
+        shutil.rmtree(PROCESSED_FOLDER)
     os.makedirs(PROCESSED_FOLDER)
+except Exception as e:
+    logging.error(f"Failed to delete or recreate folder {PROCESSED_FOLDER}. Reason: {e}")
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -80,8 +86,8 @@ def apply_glitter_eyeshadow(image, shade_color, landmarks):
         [landmarks[36][0] - 8, landmarks[36][1] - 2],
     ], dtype=np.int32)
 
-    right_eye_points = np.array(
-        [[landmarks[45][0] + 13, landmarks[45][1] - 8],
+    right_eye_points = np.array([
+        [landmarks[45][0] + 13, landmarks[45][1] - 8],
         [landmarks[44][0] + 6, landmarks[44][1] - 10],
         [landmarks[44][0], landmarks[44][1] - 10],
         [landmarks[43][0] + 2, landmarks[43][1] - 8],

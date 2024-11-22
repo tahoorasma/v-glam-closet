@@ -6,6 +6,7 @@ from flask_cors import CORS
 import os
 import time
 import logging
+import shutil
 
 app = Flask(__name__)
 CORS(app)
@@ -13,10 +14,15 @@ CORS(app)
 UPLOAD_FOLDER = 'uploads/'
 PROCESSED_FOLDER = 'processed/'
 
-if not os.path.exists(UPLOAD_FOLDER):
+try:
+    if os.path.exists(UPLOAD_FOLDER):
+        shutil.rmtree(UPLOAD_FOLDER)
     os.makedirs(UPLOAD_FOLDER)
-if not os.path.exists(PROCESSED_FOLDER):
+    if os.path.exists(PROCESSED_FOLDER):
+        shutil.rmtree(PROCESSED_FOLDER)
     os.makedirs(PROCESSED_FOLDER)
+except Exception as e:
+    logging.error(f"Failed to delete or recreate folder {PROCESSED_FOLDER}. Reason: {e}")
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -26,12 +32,15 @@ shape_predictor = dlib.shape_predictor('shape_predictor_81_face_landmarks.dat')
 def apply_foundation(image, shade_color, landmarks):
     mask = np.zeros(image.shape[:2], dtype=np.uint8)
 
-    face_points = np.concatenate([ 
-        landmarks[0:16],  # Jawline
-        landmarks[78:80],  # Forehead Points
-        landmarks[71:68],  # Forehead Points
-        landmarks[76:77],  # Forehead Points
-    ],axis=0)
+    face_points = np.concatenate([
+    landmarks[0:16],
+    landmarks[78:80], 
+    np.array([[landmarks[80][0] + 13, landmarks[80][1] - 8]]),
+    np.array([[landmarks[71][0] + 13, landmarks[71][1] - 12]]),
+    landmarks[71:68],
+    np.array([[landmarks[68][0] + 13, landmarks[68][1] - 8]]),
+    landmarks[76:77],
+    ], axis=0)
 
     cv2.fillPoly(mask, [face_points], 255)
 
