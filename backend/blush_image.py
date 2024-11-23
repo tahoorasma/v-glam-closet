@@ -24,17 +24,16 @@ face_detector = dlib.get_frontal_face_detector()
 shape_predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
 blush_colors = {
-    "1": (235, 150, 235),  # Soft Lavender Pink
-    "2": (200, 120, 200),  # Light Rose Pink
-    "3": (230, 120, 150),  # Soft Rosy Red  
-    "4": (139, 229, 229),  # Gentle Reddish Peach
-    "5": (245, 160, 130),  # Soft Peach
-    "6": (250, 190, 160),  # Light Coral Peach
-    "7": (255, 160, 170),  # Gentle Coral Pink
-    "8": (255, 229, 170),  # Peachy Pink
-    "9": (240, 100, 100),  # Warm Rosy Red
-    "10": (255, 130, 110), # Soft Warm Orange
-    "11": (240, 140, 140)  # Soft Mauve
+    "1": (110, 105, 220),
+    "2": (143, 138, 210),  
+    "3": (136, 130, 230),  
+    "4": (75, 77, 168), 
+    "5": (141, 142, 225),  
+    "6": (94, 111, 205),  
+    "7": (98, 98, 184),  
+    "8": (107, 99, 191), 
+    "9": (126, 123, 210), 
+    "10": (99, 97, 175)  
 }
 
 def apply_blush(image, cheek_areas, color):
@@ -44,9 +43,11 @@ def apply_blush(image, cheek_areas, color):
 
     cv2.fillPoly(mask, [left_cheek], color)
     cv2.fillPoly(mask, [right_cheek], color)
-    mask = cv2.GaussianBlur(mask, (121, 121), 0)
-    blended = cv2.addWeighted(mask, 1.0, image, 1.0, 0)
-    return blended
+    mask = cv2.GaussianBlur(mask, (111, 111), 0)
+    image_with_blush = cv2.add(image, mask)
+    #blended = cv2.addWeighted(image, 1, mask, 0.6, 0)
+    #return blended
+    return image_with_blush
 
 @app.route('/processed/<path:filename>', methods=['GET'])
 def serve_processed(filename):
@@ -84,16 +85,12 @@ def apply_blush_to_image():
         if len(faces) > 0:
             for face in faces:
                 landmarks = shape_predictor(gray_image, face)
-
-                
                 left_cheek_area = [(landmarks.part(2).x, landmarks.part(2).y - 13),
                                    (landmarks.part(3).x, landmarks.part(3).y - 13),
                                    (landmarks.part(31).x, landmarks.part(31).y - 13)]
                 right_cheek_area = [(landmarks.part(13).x, landmarks.part(13).y - 10),
                                     (landmarks.part(14).x, landmarks.part(14).y - 10),
                                     (landmarks.part(35).x , landmarks.part(35).y - 10)]
-
-               
                 user_image = apply_blush(user_image, (left_cheek_area, right_cheek_area), selected_blush_color)
 
             unique_filename = f'processed_blush_{int(time.time())}.jpg'

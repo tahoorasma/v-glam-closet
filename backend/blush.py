@@ -40,15 +40,12 @@ def get_cheek_areas(img):
 def apply_blush(imgOriginal, cheek_areas, color):
     img = imgOriginal.copy()
     mask = np.zeros_like(imgOriginal, dtype=np.uint8)
-
     left_cheek = np.array(cheek_areas[0], np.int32).reshape((-1, 1, 2))
     right_cheek = np.array(cheek_areas[1], np.int32).reshape((-1, 1, 2))
-
     cv2.fillPoly(mask, [left_cheek], color)
     cv2.fillPoly(mask, [right_cheek], color)
-    mask = cv2.GaussianBlur(mask, (121, 121), 0)
-
-    blended = cv2.addWeighted(mask, 1.0, imgOriginal, 1.0, 0)
+    mask = cv2.GaussianBlur(mask, (111, 111), 0)
+    blended = cv2.addWeighted(mask, 1.0, imgOriginal, 1.0 , 0)
     return blended
 
 @app.route('/select-blush', methods=['POST'])
@@ -57,19 +54,16 @@ def select_blush():
     data = request.json
     color_choice = data.get('color')
     blush_colors = {
-        "1": (220, 110, 220),  # Baby Pink
-        "2": (180, 105, 190),  # Light Pink
-        "3": (190, 80, 200),   # Red
-        "4":(250,167,166,255),
-        "5":(245,138,143,255),
-        "6":(255,130,136,255),
-        "7":(168,77,75,255),
-        "8":(239,142,141,255),
-        "9":(237,111,94,255),
-        "10":(184,98,98,255),
-        "11":(191,99,107,255),
-        "12":(223,123,126,255),
-        "13":(223,123,126,255)
+    "1": (110, 105, 220),
+    "2": (143, 138, 210),  
+    "3": (136, 130, 230),  
+    "4": (75, 77, 168), 
+    "5": (141, 142, 225),  
+    "6": (94, 111, 205),  
+    "7": (98, 98, 184),  
+    "8": (107, 99, 191), 
+    "9": (126, 123, 210), 
+    "10": (99, 97, 175) 
     }
     selected_blush_color = blush_colors.get(color_choice)
     if selected_blush_color is None:
