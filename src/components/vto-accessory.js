@@ -11,8 +11,8 @@ import s5 from './images/sunglasses/sg-5.png';
 import s6 from './images/sunglasses/sg-6.png';
 import s7 from './images/sunglasses/sg-7.png';
 import s8 from './images/sunglasses/sg-8.png';
-import j1 from './images/jewelry/j1.jpg';
-import j2 from './images/jewelry/j2.jpg';
+import j1 from './images/jewelry/j1.png';
+import j2 from './images/jewelry/j2.png';
 import j3 from './images/jewelry/j3.jpg';
 import j4 from './images/jewelry/j4.jpg';
 import Navbar from './navbar';
@@ -26,6 +26,7 @@ const VirtualTryOnAccessory = () => {
   const [showSunglassesProducts, setShowSunglassesProducts] = useState(false);
   const [showJewelryProducts, setShowJewelryProducts] = useState(false);
   const [selectedSunglasses, setSelectedSunglasses] = useState(null);
+  const [selectedJewelry, setSelectedJewelry] = useState(null);
 
   useEffect(() => {
     if (location.state?.imageSource) {
@@ -79,7 +80,41 @@ const VirtualTryOnAccessory = () => {
     }    
   };
 
-  const handleJewelryClick = async (jewelry, jewelryName) => {}
+  const handleJewelryClick = async (jewelry, jewelryName) => { 
+    setSelectedJewelry(jewelry);
+    
+    const formData = new FormData();
+    
+    let imageFile;
+    if (location.state?.uploadPhoto) {
+      imageFile = location.state.imageSource;
+    } else if (location.state?.imageSource) {
+      const response = await fetch(imageSource);
+      const blob = await response.blob();
+      imageFile = new File([blob], location.state.imageSource, { type: blob.type });
+    } else {
+      const response = await fetch(defaultModel);
+      const blob = await response.blob();
+      imageFile = new File([blob], "model.jpg", { type: blob.type });
+    }
+    console.log("Image File:", imageFile);
+  
+    formData.append('image', imageFile); 
+    formData.append('jewelry', jewelryName);
+  
+    try {
+      const response = await axios.post('http://localhost:5000/jewelry-try-on', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });    
+      setProcessedImage(response.data.processed_image_url);
+    } catch (error) {
+      console.error('Error processing jewelry:', error);
+      alert('Failed to process jewelry. Please try again.'); 
+    }    
+  };
+  
   
   const handleMakeupBtnClick = () => {
     handleReset();
@@ -151,17 +186,17 @@ const VirtualTryOnAccessory = () => {
                 <button className="back-option" onClick={handleBack}>
                   <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j1, 'j-1')}>
+                    <button className="sg-option" onClick={() => handleJewelryClick(j1, 'j1')}>
                         <img src={j1} alt="Option 1" />
                     </button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j2, 'j-1')}>
+                    <button className="sg-option" onClick={() => handleJewelryClick(j2, 'j2')}>
                         <img src={j2} alt="Option 2" />
                     </button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j3, 'j-1')}>
-                        <img src={j3} alt="Option 3" />
+                    <button className="sg-option" onClick={() => handleJewelryClick(j3, 'j3')}>
+                        <img src={j3} alt="Option 1" />
                     </button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j4, 'j-1')}>
-                        <img src={j4} alt="Option 4" />
+                    <button className="sg-option" onClick={() => handleJewelryClick(j4, 'j4')}>
+                        <img src={j4} alt="Option 2" />
                     </button>
                 </div>
               </div>
