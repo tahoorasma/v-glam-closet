@@ -6,6 +6,7 @@ from flask_cors import CORS
 import os
 import time
 import logging
+import shutil
 
 app = Flask(__name__)
 CORS(app)
@@ -13,10 +14,15 @@ CORS(app)
 UPLOAD_FOLDER = 'uploads/'
 PROCESSED_FOLDER = 'processed/'
 
-if not os.path.exists(UPLOAD_FOLDER):
+try:
+    if os.path.exists(UPLOAD_FOLDER):
+        shutil.rmtree(UPLOAD_FOLDER)
     os.makedirs(UPLOAD_FOLDER)
-if not os.path.exists(PROCESSED_FOLDER):
+    if os.path.exists(PROCESSED_FOLDER):
+        shutil.rmtree(PROCESSED_FOLDER)
     os.makedirs(PROCESSED_FOLDER)
+except Exception as e:
+    logging.error(f"Failed to delete or recreate folder {PROCESSED_FOLDER}. Reason: {e}")
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -56,15 +62,59 @@ def apply_eyeshadow(image, shade_color, landmarks):
     cv2.fillPoly(mask, [right_eye_points], 255)
 
     print("shade color: ",shade_color)
-
-    blurred_mask = cv2.GaussianBlur(mask, (35, 35), sigmaX=30, sigmaY=30)
-
     overlay = np.full_like(image, shade_color, dtype=np.uint8)
 
     alpha = 0.4
     for c in range(3):
-        image[:, :, c] = np.where((mask == 255) & (blurred_mask > 0), 
+        image[:, :, c] = np.where((mask == 255), 
                                 (1 - alpha) * image[:, :, c] + alpha * overlay[:, :, c],
+                                image[:, :, c])
+        
+def apply_glitter_eyeshadow(image, shade_color, landmarks):
+    mask = np.zeros(image.shape[:2], dtype=np.uint8)
+    
+    left_eye_points = np.array([
+        [landmarks[36][0] - 13, landmarks[36][1] - 8],
+        [landmarks[37][0] - 6, landmarks[37][1] - 10],
+        [landmarks[37][0], landmarks[37][1] - 10],
+        [landmarks[38][0] - 2, landmarks[38][1] - 8],
+        [landmarks[39][0] + 3, landmarks[39][1] - 6],
+        [landmarks[39][0] + 5, landmarks[39][1]],
+        [landmarks[39][0], landmarks[39][1] - 5],
+        [landmarks[38][0], landmarks[38][1] - 3],
+        [landmarks[37][0], landmarks[37][1] - 5], 
+        [landmarks[36][0] - 8, landmarks[36][1] - 2],
+    ], dtype=np.int32)
+
+    right_eye_points = np.array([
+        [landmarks[45][0] + 13, landmarks[45][1] - 8],
+        [landmarks[44][0] + 6, landmarks[44][1] - 10],
+        [landmarks[44][0], landmarks[44][1] - 10],
+        [landmarks[43][0] + 2, landmarks[43][1] - 8],
+        [landmarks[42][0] - 3, landmarks[42][1] - 6],
+        [landmarks[42][0] - 5, landmarks[42][1]],
+        [landmarks[42][0], landmarks[42][1] - 5],
+        [landmarks[43][0], landmarks[43][1] - 3],
+        [landmarks[44][0], landmarks[44][1] - 5], 
+        [landmarks[45][0] + 8, landmarks[45][1] - 2],
+    ], dtype=np.int32)  
+
+    cv2.fillPoly(mask, [left_eye_points], 255)
+    cv2.fillPoly(mask, [right_eye_points], 255)
+
+    print("glitter shade color: ",shade_color)
+
+    overlay = np.full_like(image, shade_color, dtype=np.uint8)
+    shimmer_image = cv2.imread('C:/Users/HP/Desktop/v-glam-closet/src/components/images/gold-glitter.png')
+    shimmer_image = cv2.resize(shimmer_image, (image.shape[1], image.shape[0]))
+    shimmer_image = shimmer_image[:image.shape[0], :image.shape[1]]
+    alpha = 0.2
+    shimmer_overlay = cv2.addWeighted(shimmer_image, alpha, overlay, 1 - alpha, 0)
+
+    alpha = 0.7
+    for c in range(3):
+        image[:, :, c] = np.where((mask == 255), 
+                                (1 - alpha) * image[:, :, c] + alpha * shimmer_overlay[:, :, c],
                                 image[:, :, c])
 
 @app.route('/processed/<path:filename>', methods=['GET'])
@@ -79,6 +129,7 @@ def try_on_eyeshadow():
 
         file = request.files['image']
         shade_color_hex = request.form['eyeShadow']
+        glitter = int(request.form['glitter'])
 
         shade_color = tuple(int(shade_color_hex.lstrip('#')[i:i + 2], 16) for i in (4, 2, 0))
 
@@ -101,7 +152,11 @@ def try_on_eyeshadow():
             for face in faces:
                 landmarks = shape_predictor(gray_image, face)
                 landmarks = np.array([[p.x, p.y] for p in landmarks.parts()])
-                apply_eyeshadow(user_image, shade_color, landmarks)
+                print("isglitter:", glitter)
+                if glitter == 1:
+                    apply_glitter_eyeshadow(user_image, shade_color, landmarks)
+                else:
+                    apply_eyeshadow(user_image, shade_color, landmarks)
 
             unique_filename = f'processed_eyeshadow_{int(time.time())}.jpg'
             output_image_path = os.path.join(PROCESSED_FOLDER, unique_filename)

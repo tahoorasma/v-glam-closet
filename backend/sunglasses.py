@@ -6,6 +6,7 @@ from flask_cors import CORS
 import os
 import time
 import logging
+import shutil
 
 app = Flask(__name__)
 CORS(app)
@@ -13,10 +14,15 @@ CORS(app)
 UPLOAD_FOLDER = 'uploads/'
 PROCESSED_FOLDER = 'processed/'
 
-if not os.path.exists(UPLOAD_FOLDER):
+try:
+    if os.path.exists(UPLOAD_FOLDER):
+        shutil.rmtree(UPLOAD_FOLDER)
     os.makedirs(UPLOAD_FOLDER)
-if not os.path.exists(PROCESSED_FOLDER):
+    if os.path.exists(PROCESSED_FOLDER):
+        shutil.rmtree(PROCESSED_FOLDER)
     os.makedirs(PROCESSED_FOLDER)
+except Exception as e:
+    logging.error(f"Failed to delete or recreate folder {PROCESSED_FOLDER}. Reason: {e}")
 
 logging.basicConfig(level=logging.DEBUG)
 
