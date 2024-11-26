@@ -16,7 +16,6 @@ import j2 from './images/jewelry/j2.png';
 import j3 from './images/jewelry/j3.jpg';
 import j4 from './images/jewelry/j4.jpg';
 import Navbar from './navbar';
-import axios, { formToJSON } from 'axios';
 
 const VirtualTryOnAccessoryLive = () => {
     const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
@@ -103,7 +102,7 @@ const VirtualTryOnAccessoryLive = () => {
               <div className="product-options-container">
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
-                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                  <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
                     <button className="sg-option" onClick={() => handleSunglassesClick(s1)}>
                         <img src={s1} alt="Option A" />
@@ -135,7 +134,7 @@ const VirtualTryOnAccessoryLive = () => {
               <div className="product-options-container">
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
-                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                  <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
                     <button className="sg-option" onClick={() => handleJewelryClick(j1)}>
                         <img src={j1} alt="Option 1" />
@@ -152,7 +151,7 @@ const VirtualTryOnAccessoryLive = () => {
                 </div>
               </div>
             ) : (
-              <div className="product-options">
+              <div className="type-options">
               <button className="product-option" onClick={() => handleSunglassesBtnClick()}>
                 Sunglasses</button>
               <button className="product-option" onClick={() => handleJewelryBtnClick()}>

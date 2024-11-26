@@ -52,8 +52,11 @@ def overlay_image_alpha(bg, overlay, x, y):
 
     bg[x:x+h, y:y+w] = overlay_area
     return bg
-
+left_eye_center = None
+right_eye_center = None
+alpha = 0.7 
 def apply_sunglasses(frame, sunglasses):
+    global left_eye_center, right_eye_center, alpha
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_detector(gray_frame)
 
