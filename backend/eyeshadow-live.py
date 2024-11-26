@@ -8,7 +8,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-selected_sunglasses = None
+selected_eyeshadow = None
 predictor_path = "shape_predictor_68_face_landmarks.dat"
 face_detector = dlib.get_frontal_face_detector()
 shape_predictor = dlib.shape_predictor(predictor_path)
@@ -22,76 +22,101 @@ else:
     print("Error: Unable to access the camera.")
     cap = None
 
-@app.route('/select-sunglasses', methods=['POST'])
-def select_sunglasses():
-    global selected_sunglasses
-    data = request.json
-    sunglasses_index = data.get('index')
-    sunglasses_path = os.path.join(
-        f'C:/Users/HP/Desktop/v-glam-closet/src/components/images/sunglasses/sg-{sunglasses_index}.png')
+def apply_eyeshadow(frame, shade_color, landmarks):
+    mask = np.zeros(frame.shape[:2], dtype=np.uint8)
 
-    selected_sunglasses = cv2.imread(sunglasses_path, cv2.IMREAD_UNCHANGED)
+    left_eye_points = np.array([
+        [landmarks[36][0] - 10, landmarks[36][1] - 4],
+        [landmarks[37][0] - 6, landmarks[37][1] - 6],
+        [landmarks[37][0], landmarks[37][1] - 6],
+        [landmarks[38][0] + 2, landmarks[38][1] - 4],
+        #[landmarks[39][0] + 3, landmarks[39][1] - 6],
+        [landmarks[39][0] + 4, landmarks[39][1]],
+        [landmarks[39][0], landmarks[39][1] - 5],
+        [landmarks[38][0], landmarks[38][1] - 3],
+        [landmarks[37][0], landmarks[37][1] - 2],
+        [landmarks[36][0] - 4, landmarks[36][1] - 1],
+    ], dtype=np.int32)
 
-    if selected_sunglasses is None:
-        print(f"Error: Sunglasses image not found at {sunglasses_path}.")
-        return jsonify({"status": "error", "message": "Sunglasses image not found."}), 404
+    right_eye_points = np.array([
+        [landmarks[45][0] + 10, landmarks[45][1] - 4],
+        [landmarks[44][0] + 6, landmarks[44][1] - 6],
+        [landmarks[44][0], landmarks[44][1] - 6],
+        [landmarks[43][0] - 2, landmarks[43][1] - 4],
+        #[landmarks[42][0] - 3, landmarks[42][1] - 6],
+        [landmarks[42][0] - 4, landmarks[42][1]],
+        [landmarks[42][0], landmarks[42][1] - 5],
+        [landmarks[43][0], landmarks[43][1] - 3],
+        [landmarks[44][0], landmarks[44][1] - 2],
+        [landmarks[45][0] + 4, landmarks[45][1] - 1],
+    ], dtype=np.int32)
 
-    print(f"Sunglasses selected: {sunglasses_index}")
-    return jsonify({"status": "success", "selected": sunglasses_index})
+    cv2.fillPoly(mask, [left_eye_points], 255)
+    cv2.fillPoly(mask, [right_eye_points], 255)
 
-def overlay_image_alpha(bg, overlay, x, y):
-    h, w = overlay.shape[:2]
-    if x >= bg.shape[0] or y >= bg.shape[1]:
-        return bg
-    overlay_area = bg[x:x+h, y:y+w]
-
-    if overlay.shape[2] == 4:
-        alpha_mask = overlay[:, :, 3] / 255.0
-        for c in range(3):
-            overlay_area[:, :, c] = overlay_area[:, :, c] * (1 - alpha_mask) + overlay[:, :, c] * alpha_mask
-
-    bg[x:x+h, y:y+w] = overlay_area
-    return bg
-left_eye_center = None
-right_eye_center = None
-alpha = 0.7 
-def apply_sunglasses(frame, sunglasses):
-    global left_eye_center, right_eye_center, alpha
-    gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = face_detector(gray_frame)
-
-    for face in faces:
-        landmarks = shape_predictor(gray_frame, face)
-        landmarks_array = np.array([[p.x, p.y] for p in landmarks.parts()])
-
-        left_eye = landmarks_array[36:42]
-        right_eye = landmarks_array[42:48]
-
-        left_eye_center = np.mean(left_eye, axis=0).astype(int)
-        right_eye_center = np.mean(right_eye, axis=0).astype(int)
-
-        eye_width = np.linalg.norm(right_eye_center - left_eye_center)
-        sunglass_width = int(eye_width * 2)
-        sunglass_height = int(sunglass_width * sunglasses.shape[0] / sunglasses.shape[1])
-
-        resized_sunglasses = cv2.resize(sunglasses, (sunglass_width, sunglass_height), interpolation=cv2.INTER_AREA)
-
-        x = int((left_eye_center[1] + right_eye_center[1]) / 2 - sunglass_height / 2)
-        y = int((left_eye_center[0] + right_eye_center[0]) / 2 - sunglass_width / 2)
-
-        frame = overlay_image_alpha(frame, resized_sunglasses, x, y)
-
+    overlay = np.full_like(frame, shade_color, dtype=np.uint8)
+    alpha = 0.25
+    for c in range(3):
+        frame[:, :, c] = np.where(
+            mask == 255,
+            (1 - alpha) * frame[:, :, c] + alpha * overlay[:, :, c],
+            frame[:, :, c]
+        )
     return frame
 
-@app.route('/reset-sunglasses', methods=['POST'])
-def reset_sunglasses():
-    global selected_sunglasses
-    selected_sunglasses = None
-    print("Sunglasses reset.")
-    return jsonify({"status": "reset"})
+
+def apply_glitter_eyeshadow(image, shade_color, landmarks):
+    mask = np.zeros(image.shape[:2], dtype=np.uint8)
+    left_eye_points = np.array([
+        [landmarks[36][0] - 10, landmarks[36][1] - 4],
+        [landmarks[37][0] - 6, landmarks[37][1] - 6],
+        [landmarks[37][0], landmarks[37][1] - 6],
+        [landmarks[38][0] + 2, landmarks[38][1] - 4],
+        #[landmarks[39][0] + 3, landmarks[39][1] - 6],
+        [landmarks[39][0] + 4, landmarks[39][1]],
+        [landmarks[39][0], landmarks[39][1] - 5],
+        [landmarks[38][0], landmarks[38][1] - 3],
+        [landmarks[37][0], landmarks[37][1] - 2],
+        [landmarks[36][0] - 4, landmarks[36][1] - 1],
+    ], dtype=np.int32)
+
+    right_eye_points = np.array([
+        [landmarks[45][0] + 10, landmarks[45][1] - 4],
+        [landmarks[44][0] + 6, landmarks[44][1] - 6],
+        [landmarks[44][0], landmarks[44][1] - 6],
+        [landmarks[43][0] - 2, landmarks[43][1] - 4],
+        #[landmarks[42][0] - 3, landmarks[42][1] - 6],
+        [landmarks[42][0] - 4, landmarks[42][1]],
+        [landmarks[42][0], landmarks[42][1] - 5],
+        [landmarks[43][0], landmarks[43][1] - 3],
+        [landmarks[44][0], landmarks[44][1] - 2],
+        [landmarks[45][0] + 4, landmarks[45][1] - 1],
+    ], dtype=np.int32)
+    cv2.fillPoly(mask, [left_eye_points], 255)
+    cv2.fillPoly(mask, [right_eye_points], 255)
+    overlay = np.full_like(image, shade_color, dtype=np.uint8)
+    shimmer_image = cv2.imread('C:/Users/HP/Desktop/v-glam-closet/src/components/images/gold-glitter.png')
+    shimmer_image = cv2.resize(shimmer_image, (image.shape[1], image.shape[0]))
+    shimmer_image = shimmer_image[:image.shape[0], :image.shape[1]]
+    shimmer_overlay = cv2.addWeighted(shimmer_image, 0.3, overlay, 0.7, 0)
+    alpha = 0.35
+    for c in range(3):
+        image[:, :, c] = np.where((mask == 255),
+                                  (1 - alpha) * image[:, :, c] + alpha * shimmer_overlay[:, :, c],
+                                  image[:, :, c])
+
+@app.route('/select-eyeshadow', methods=['POST'])
+def select_eyeshadow():
+    global selected_eyeshadow
+    data = request.json
+    shade_color_hex = data.get('shadeColor', '#000000')
+    is_glitter = int(data.get('isGlitter', 0))
+    shade_color = tuple(int(shade_color_hex.lstrip('#')[i:i + 2], 16) for i in (4, 2, 0))
+    selected_eyeshadow = {"shade_color": shade_color, "is_glitter": is_glitter}
+    return jsonify({"status": "success", "selected": selected_eyeshadow})
 
 def generate_video():
-    global selected_sunglasses
+    global selected_eyeshadow
     while True:
         ret, frame = cap.read()
         if not ret:
@@ -99,8 +124,19 @@ def generate_video():
             continue
 
         frame = cv2.flip(frame, 1)
-        if selected_sunglasses is not None:
-            frame = apply_sunglasses(frame, selected_sunglasses)
+        if selected_eyeshadow:
+            gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            faces = face_detector(gray_frame)
+            glitter = selected_eyeshadow["is_glitter"]
+            #print("isglitter:", glitter)
+
+            for face in faces:
+                landmarks = shape_predictor(gray_frame, face)
+                landmarks_array = np.array([[p.x, p.y] for p in landmarks.parts()])
+                if glitter == 1:
+                    apply_glitter_eyeshadow(frame, selected_eyeshadow["shade_color"], landmarks_array)
+                else:
+                    apply_eyeshadow(frame, selected_eyeshadow["shade_color"], landmarks_array)
 
         _, buffer = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'

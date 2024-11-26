@@ -91,7 +91,18 @@ const VirtualTryOnLive = () => {
   }
   const handleFoundationClick = async () => {}
   const handleLipstickClick = async () => {}
-  const handleEyeShadowClick = async () => {}
+  const handleEyeShadowClick = (shadeColor, shadeName, isGlitter) => {
+    fetch('http://localhost:5000/select-eyeshadow', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ shadeColor, isGlitter}),
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error("Error in handleEyeShadowClick:", error));
+  };  
   
   const handleAccessoryBtnClick = () => {
       navigate('/virtual-try-on-accessory-live', { state: { imageSource }});
