@@ -40,7 +40,8 @@ const VirtualTryOnAccessoryLive = () => {
   }, [location.state]); 
 
   const handleBack = async () => {
-    handleReset();
+    resetSunglasses();
+    //resetJewelry();
     setShowSunglassesProducts(false);
     setShowJewelryProducts(false);
   }
@@ -68,17 +69,27 @@ const VirtualTryOnAccessoryLive = () => {
   const handleJewelryClick = async (jewelry) => {}
   
   const handleMakeupBtnClick = () => {
-    handleReset();
+    resetSunglasses();
+    //resetJewelry();
     navigate('/virtual-try-on-live', { state: { imageSource } });
   };
 
-  const handleReset = () => {
+  const resetSunglasses = () => {
     fetch('http://localhost:5000/reset-sunglasses', {  
       method: 'POST',
     })
     .then(response => response.json())
     .then(data => console.log(data))
-    .catch(error => console.error("Error in handleReset:", error));
+    .catch(error => console.error("Error in reset:", error));
+  };
+
+  const resetJewelry = () => {
+    fetch('http://localhost:5000/reset-sunglasses', {  
+      method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in reset:", error));
   };
 
   return (
@@ -103,7 +114,7 @@ const VirtualTryOnAccessoryLive = () => {
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
-                <button className="reset-option" onClick={handleReset}></button>
+                <button className="reset-option" onClick={resetSunglasses}></button>
                     <button className="sg-option" onClick={() => handleSunglassesClick(s1)}>
                         <img src={s1} alt="Option A" />
                     </button>
@@ -135,7 +146,7 @@ const VirtualTryOnAccessoryLive = () => {
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
-                <button className="reset-option" onClick={handleReset}></button>
+                <button className="reset-option" onClick={resetJewelry}></button>
                     <button className="sg-option" onClick={() => handleJewelryClick(j1)}>
                         <img src={j1} alt="Option 1" />
                     </button>

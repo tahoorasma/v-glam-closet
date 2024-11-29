@@ -115,6 +115,13 @@ def select_eyeshadow():
     selected_eyeshadow = {"shade_color": shade_color, "is_glitter": is_glitter}
     return jsonify({"status": "success", "selected": selected_eyeshadow})
 
+@app.route('/reset-eyeshadow', methods=['POST'])
+def reset_eyeshadow():
+    global selected_eyeshadow
+    selected_eyeshadow = None
+    print("Eyeshadow reset.")
+    return jsonify({"status": "reset"})
+
 def generate_video():
     global selected_eyeshadow
     while True:

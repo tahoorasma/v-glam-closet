@@ -15,36 +15,6 @@ import Navbar from './navbar';
 
 const VirtualTryOnLive = () => {
   const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setVideoSrc(`http://localhost:5000/video_feed?timestamp=${new Date().getTime()}`);
-    }, 100); 
-    return () => clearInterval(intervalId); 
-  }, []);
-  
-  const handleBlushClick = (blushId) => {
-    fetch('http://localhost:5000/select-blush', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ color: blushId.toString() }), 
-      })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error("Error in handleBlushClick:", error));
-    };
-  
-    const handleReset = () => {
-      fetch('http://localhost:5000/reset-blush', {
-        method: 'POST',
-      })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error("Error in handleReset:", error));
-    };
-  
   const location = useLocation();
   const navigate = useNavigate();
   const [imageSource, setImageSource] = useState(defaultModel);
@@ -52,6 +22,13 @@ const VirtualTryOnLive = () => {
   const [showLipstickProducts, setShowLipstickProducts] = useState(false);
   const [showBlushProducts, setShowBlushProducts] = useState(false);
   const [showEyeShadowProducts, setShowEyeShadowProducts] = useState(false);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setVideoSrc(`http://localhost:5000/video_feed?timestamp=${new Date().getTime()}`);
+    }, 100); 
+    return () => clearInterval(intervalId); 
+  }, []);
 
   useEffect(() => {
     if (location.state?.imageSource) {
@@ -72,6 +49,10 @@ const VirtualTryOnLive = () => {
   }, [location.state]);  
 
   const handleBack = async () => {
+    resetFoundation();
+    /*resetLipstick();
+    resetBlush();
+    resetEyeshadow();*/
     setShowFoundationProducts(false);
     setShowLipstickProducts(false);
     setShowBlushProducts(false);
@@ -89,6 +70,7 @@ const VirtualTryOnLive = () => {
   const handleEyeShadowBtnClick = async () => {
     setShowEyeShadowProducts(true);
   }
+
   const handleFoundationClick = (shadeColor, shadeName) => {
     fetch('http://localhost:5000/select-foundation', {
       method: 'POST',
@@ -103,6 +85,20 @@ const VirtualTryOnLive = () => {
   };
   
   const handleLipstickClick = async () => {}
+  
+  const handleBlushClick = (blushId) => {
+    fetch('http://localhost:5000/select-blush', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ color: blushId.toString() }), 
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error("Error in handleBlushClick:", error));
+  };
+
   const handleEyeShadowClick = (shadeColor, shadeName, isGlitter) => {
     fetch('http://localhost:5000/select-eyeshadow', {
       method: 'POST',
@@ -115,9 +111,43 @@ const VirtualTryOnLive = () => {
       .then(data => console.log(data))
       .catch(error => console.error("Error in handleEyeShadowClick:", error));
   };  
+
+  const resetFoundation = () => {
+    fetch('http://localhost:5000/reset-foundation', {
+      method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in reset:", error));
+  };const resetLipstick = () => {
+    fetch('http://localhost:5000/reset-lipstick', {
+      method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in reset:", error));
+  };const resetBlush = () => {
+    fetch('http://localhost:5000/reset-blush', {
+      method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in reset:", error));
+  };const resetEyeshadow = () => {
+    fetch('http://localhost:5000/reset-eyeshadow', {
+      method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in reset:", error));
+  };
   
   const handleAccessoryBtnClick = () => {
-      navigate('/virtual-try-on-accessory-live', { state: { imageSource }});
+    resetFoundation();
+    /*resetLipstick();
+    resetBlush();
+    resetEyeshadow();*/
+    navigate('/virtual-try-on-accessory-live', { state: { imageSource }});
   };
 
   return (
@@ -160,7 +190,7 @@ const VirtualTryOnLive = () => {
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
-                <button className="reset-option" onClick={handleReset}></button>
+                <button className="reset-option" onClick={resetFoundation}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#fed4b1', 'pale')} style={{ background: '#fed4b1' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#fccab7', 'light-porcelain')} style={{ background: '#fccab7' }}></button>
                   <button className="makeup-option" onClick={() => handleFoundationClick('#ecc4a9', 'light-ivory')} style={{ background: '#ecc4a9' }}></button>
@@ -184,7 +214,7 @@ const VirtualTryOnLive = () => {
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
-                <button className="reset-option" onClick={handleReset}></button>
+                <button className="reset-option" onClick={resetLipstick}></button>
                   <button className="makeup-option" onClick={() => handleLipstickClick(1)} style={{ background: 'rgb(151, 15, 33)' }} alt="lippy"></button>
                   <button className="makeup-option" onClick={() => handleLipstickClick(2)} style={{ background: 'rgb(195, 83, 83)' }} alt="peachy"></button>
                   <button className="makeup-option" onClick={() => handleLipstickClick(3)} style={{ background: 'rgb(195, 73, 99)' }} alt="coy"></button>
@@ -203,7 +233,7 @@ const VirtualTryOnLive = () => {
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
-                <button className="reset-option" onClick={handleReset}></button>
+                <button className="reset-option" onClick={resetBlush}></button>
                   <button className="makeup-option" onClick={() => handleBlushClick(1)} style={{ background: '#faa7a6' }} alt="777"></button>
                   <button className="makeup-option" onClick={() => handleBlushClick(2)} style={{ background: '#f58a8f' }} alt="778"></button>
                   <button className="makeup-option" onClick={() => handleBlushClick(3)} style={{ background: '#ff8288' }} alt="776"></button>
@@ -222,7 +252,7 @@ const VirtualTryOnLive = () => {
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
-                <button className="reset-option" onClick={handleReset}></button>
+                <button className="reset-option" onClick={resetEyeshadow}></button>
                   <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#c96f8c', '', 0)} style={{ background: '#c96f8c' }}></button>
                   <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#cf8f91', 'melrose', 0)} style={{ background: '#f19ea1' }}></button>
                   <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#d69f87', 'pattaya', 0)} style={{ background: '#e9a486' }}></button>

@@ -58,6 +58,13 @@ def select_foundation():
     selected_foundation = {"shade_color": foundation_color}
     return jsonify({"status": "success", "selected": selected_foundation})
 
+@app.route('/reset-foundation', methods=['POST'])
+def reset_foundation():
+    global selected_foundation
+    selected_foundation = None
+    print("Foundation reset.")
+    return jsonify({"status": "reset"})
+
 def generate_video():
     global selected_foundation
     while True:
