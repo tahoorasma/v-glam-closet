@@ -89,7 +89,19 @@ const VirtualTryOnLive = () => {
   const handleEyeShadowBtnClick = async () => {
     setShowEyeShadowProducts(true);
   }
-  const handleFoundationClick = async () => {}
+  const handleFoundationClick = (shadeColor, shadeName) => {
+    fetch('http://localhost:5000/select-foundation', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ shadeColor }),
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error("Error in handleFoundationClick:", error));
+  };
+  
   const handleLipstickClick = async () => {}
   const handleEyeShadowClick = (shadeColor, shadeName, isGlitter) => {
     fetch('http://localhost:5000/select-eyeshadow', {
@@ -149,22 +161,21 @@ const VirtualTryOnLive = () => {
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick(1)} style={{ background: '#fed4b1' }} alt="pale"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick(2)} style={{ background: '#fccab7' }} alt="light porcelain"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick(3)} style={{ background: '#ecc4a9' }} alt="light ivory"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick(4)} style={{ background: '#e3b69a' }} alt="light"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick(5)} style={{ background: '#e0c5ac' }} alt="fair"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick(6)} style={{ background: '#e5b899' }} alt="vanilla"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick(7)} style={{ background: '#dab38d' }} alt="warm vanilla"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick(8)} style={{ background: '#d6b28e' }} alt="nude"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick(9)} style={{ background: '#d8a380' }} alt="natural"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick(10)} style={{ background: '#dba779' }} alt="true beige"></button>
-                  
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#cb9e79' }} alt="buff"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#cb9374' }} alt="medium buff"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#cb9875' }} alt="medium olive"></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick()} style={{ background: '#ca926b' }} alt="soft beige"></button>
-                  {/* */}
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#fed4b1', 'pale')} style={{ background: '#fed4b1' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#fccab7', 'light-porcelain')} style={{ background: '#fccab7' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#ecc4a9', 'light-ivory')} style={{ background: '#ecc4a9' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#e3b69a', 'light')} style={{ background: '#e3b69a' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#e0c5ac', 'fair')} style={{ background: '#e0c5ac' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#e5b899', 'vanilla')} style={{ background: '#e5b899' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#dab38d', 'warm-vanilla')} style={{ background: '#dab38d' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#d6b28e', 'nude')} style={{ background: '#d6b28e' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#d8a380', 'natural')} style={{ background: '#d8a380' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#dba779', 'true-beige')} style={{ background: '#dba779' }}></button>
+
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9e79', 'buff')} style={{ background: '#cb9e79' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9374', 'medium-buff')} style={{ background: '#cb9374' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9875', 'medium-olive')} style={{ background: '#cb9875' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#ca926b', 'soft-beige')} style={{ background: '#ca926b' }}></button>
                 </div>
               </div>
             ) : showLipstickProducts ? (
