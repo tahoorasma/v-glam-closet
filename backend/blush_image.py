@@ -25,9 +25,9 @@ shape_predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
 blush_colors = {
     "1": (110, 105, 220),
-    "2": (143, 138, 210),  
-    "3": (136, 130, 230),  
-    "4": (75, 77, 168), 
+    "2": (100, 80, 220),  
+    "3": (90, 70, 210),  
+    "4": (50, 70, 225), 
     "5": (141, 142, 225),  
     "6": (94, 111, 205),  
     "7": (98, 98, 184),  
@@ -85,12 +85,12 @@ def apply_blush_to_image():
         if len(faces) > 0:
             for face in faces:
                 landmarks = shape_predictor(gray_image, face)
-                left_cheek_area = [(landmarks.part(2).x, landmarks.part(2).y - 13),
-                                   (landmarks.part(3).x, landmarks.part(3).y - 13),
-                                   (landmarks.part(31).x, landmarks.part(31).y - 13)]
-                right_cheek_area = [(landmarks.part(13).x, landmarks.part(13).y - 10),
-                                    (landmarks.part(14).x, landmarks.part(14).y - 10),
-                                    (landmarks.part(35).x , landmarks.part(35).y - 10)]
+                left_cheek_area = [(landmarks.part(2).x + 5, landmarks.part(2).y - 13),
+                                   (landmarks.part(3).x + 5, landmarks.part(3).y - 13),
+                                   (landmarks.part(31).x + 5, landmarks.part(31).y - 13)]
+                right_cheek_area = [(landmarks.part(13).x - 5, landmarks.part(13).y - 10),
+                                    (landmarks.part(14).x - 5, landmarks.part(14).y - 10),
+                                    (landmarks.part(35).x - 5, landmarks.part(35).y - 10)]
                 user_image = apply_blush(user_image, (left_cheek_area, right_cheek_area), selected_blush_color)
 
             unique_filename = f'processed_blush_{int(time.time())}.jpg'

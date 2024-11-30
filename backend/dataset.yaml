@@ -1,0 +1,4 @@
+train: C:/Users/hp/Downloads/earDataset/train/images
+val: C:/Users/hp/Downloads/earDataset/valid/images
+nc: 4
+names: ["earlobe", "eye", "nose", "wholeear"]

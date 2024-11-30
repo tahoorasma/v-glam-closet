@@ -13,8 +13,8 @@ import s7 from './images/sunglasses/sg-7.png';
 import s8 from './images/sunglasses/sg-8.png';
 import j1 from './images/jewelry/j1.png';
 import j2 from './images/jewelry/j2.png';
-import j3 from './images/jewelry/j3.jpg';
-import j4 from './images/jewelry/j4.jpg';
+import j3 from './images/jewelry/j3.png';
+import j4 from './images/jewelry/j4.png';
 import Navbar from './navbar';
 import axios, { formToJSON } from 'axios';
 
@@ -80,40 +80,55 @@ const VirtualTryOnAccessory = () => {
     }    
   };
 
-  const handleJewelryClick = async (jewelry, jewelryName) => { 
+  const handleJewelryClick = async (jewelry, jewelryName) => {
     setSelectedJewelry(jewelry);
-    
+
     const formData = new FormData();
-    
-    let imageFile;
-    if (location.state?.uploadPhoto) {
-      imageFile = location.state.imageSource;
-    } else if (location.state?.imageSource) {
-      const response = await fetch(imageSource);
-      const blob = await response.blob();
-      imageFile = new File([blob], location.state.imageSource, { type: blob.type });
-    } else {
-      const response = await fetch(defaultModel);
-      const blob = await response.blob();
-      imageFile = new File([blob], "model.jpg", { type: blob.type });
-    }
-    console.log("Image File:", imageFile);
-  
-    formData.append('image', imageFile); 
-    formData.append('jewelry', jewelryName);
-  
+
     try {
-      const response = await axios.post('http://localhost:5000/jewelry-try-on', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });    
-      setProcessedImage(response.data.processed_image_url);
+        // Determine the image source
+        let imageFile;
+        if (location.state?.uploadPhoto) {
+            imageFile = location.state.imageSource;
+        } else if (location.state?.imageSource) {
+            const response = await fetch(imageSource);
+            const blob = await response.blob();
+            imageFile = new File([blob], location.state.imageSource, { type: blob.type });
+        } else {
+            const response = await fetch(defaultModel);
+            const blob = await response.blob();
+            imageFile = new File([blob], "model.jpg", { type: blob.type });
+        }
+
+        console.log("Image File:", imageFile);
+
+        // Append image and jewelry data to the form
+        formData.append("image", imageFile);
+        formData.append("jewelry", jewelryName);
+
+        // Send POST request to the backend
+        const response = await axios.post('http://localhost:5000/jewelry-try-on', formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        // Check for the processed image URL
+        if (response.data.processed_image_url) {
+            setProcessedImage(response.data.processed_image_url);
+        } else {
+            alert("Jewelry applied, but no processed image was returned.");
+        }
     } catch (error) {
-      console.error('Error processing jewelry:', error);
-      alert('Failed to process jewelry. Please try again.'); 
-    }    
-  };
+        console.error("Error processing jewelry:", error);
+
+        // Handle errors, including the "No ears detected" case
+        const errorMessage =
+            error.response?.data?.error || "Failed to process jewelry. Please try again.";
+        alert(errorMessage);
+    }
+};
+
   
   
   const handleMakeupBtnClick = () => {

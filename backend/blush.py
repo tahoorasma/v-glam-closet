@@ -29,12 +29,12 @@ def get_cheek_areas(img):
     right_cheek_area = []
     for face in faces:
         landmarks = predictor(gray_img, face)
-        left_cheek_area = [(landmarks.part(2).x, landmarks.part(2).y - 13), 
-                           (landmarks.part(3).x, landmarks.part(3).y - 13), 
-                           (landmarks.part(31).x, landmarks.part(31).y - 13)]
-        right_cheek_area = [(landmarks.part(13).x, landmarks.part(13).y - 10), 
-                            (landmarks.part(14).x, landmarks.part(14).y - 10), 
-                            (landmarks.part(35).x , landmarks.part(35).y - 10)]
+        left_cheek_area = [(landmarks.part(1).x + 15, landmarks.part(1).y),
+                                   (landmarks.part(2).x + 15, landmarks.part(2).y),
+                                   (landmarks.part(31).x, landmarks.part(31).y)]
+        right_cheek_area = [(landmarks.part(14).x - 10, landmarks.part(14).y),
+                                    (landmarks.part(15).x - 10, landmarks.part(15).y),
+                                    (landmarks.part(35).x , landmarks.part(35).y)]
     return left_cheek_area, right_cheek_area
 
 def apply_blush(imgOriginal, cheek_areas, color):
@@ -44,9 +44,11 @@ def apply_blush(imgOriginal, cheek_areas, color):
     right_cheek = np.array(cheek_areas[1], np.int32).reshape((-1, 1, 2))
     cv2.fillPoly(mask, [left_cheek], color)
     cv2.fillPoly(mask, [right_cheek], color)
-    mask = cv2.GaussianBlur(mask, (111, 111), 0)
-    blended = cv2.addWeighted(mask, 1.0, imgOriginal, 1.0 , 0)
-    return blended
+    mask = cv2.GaussianBlur(mask, (101, 101), 0)
+    blush_video = cv2.add(imgOriginal, mask)
+    return blush_video
+    #blended = cv2.addWeighted(mask, 1.0, imgOriginal, 1.0 , 0)
+    #return blended
 
 @app.route('/select-blush', methods=['POST'])
 def select_blush():
