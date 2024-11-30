@@ -127,7 +127,7 @@ cursor: not-allowed;
     border-top: 2px solid #ccc;
     border-bottom: 2px solid #ccc;
     background-color: #fff;
-    justify-content: center;
+    justify-content: start;
     margin-top: 65px;
     width: 97%;
     position: absolute;

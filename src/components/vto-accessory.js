@@ -16,7 +16,7 @@ import j2 from './images/jewelry/j2.png';
 import j3 from './images/jewelry/j3.png';
 import j4 from './images/jewelry/j4.png';
 import Navbar from './navbar';
-import axios, { formToJSON } from 'axios';
+import axios from 'axios';
 
 const VirtualTryOnAccessory = () => {
   const location = useLocation();
@@ -167,7 +167,7 @@ const VirtualTryOnAccessory = () => {
               <div className="product-options-container">
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
-                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                  <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
                     <button className="sg-option" onClick={() => handleSunglassesClick(s1, 'sg-1')}>
                         <img src={s1} alt="Option A" />
@@ -199,7 +199,7 @@ const VirtualTryOnAccessory = () => {
               <div className="product-options-container">
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
-                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                  <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
                     <button className="sg-option" onClick={() => handleJewelryClick(j1, 'j1')}>
                         <img src={j1} alt="Option 1" />
@@ -216,7 +216,7 @@ const VirtualTryOnAccessory = () => {
                 </div>
               </div>
             ) : (
-              <div className="product-options">
+              <div className="type-options">
               <button className="product-option" onClick={() => handleSunglassesBtnClick()}>
                 Sunglasses</button>
               <button className="product-option" onClick={() => handleJewelryBtnClick()}>

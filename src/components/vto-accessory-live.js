@@ -16,7 +16,6 @@ import j2 from './images/jewelry/j2.png';
 import j3 from './images/jewelry/j3.png';
 import j4 from './images/jewelry/j4.png';
 import Navbar from './navbar';
-import axios, { formToJSON } from 'axios';
 
 const VirtualTryOnAccessoryLive = () => {
     const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
@@ -41,7 +40,8 @@ const VirtualTryOnAccessoryLive = () => {
   }, [location.state]); 
 
   const handleBack = async () => {
-    handleReset();
+    resetSunglasses();
+    //resetJewelry();
     setShowSunglassesProducts(false);
     setShowJewelryProducts(false);
   }
@@ -69,17 +69,27 @@ const VirtualTryOnAccessoryLive = () => {
   const handleJewelryClick = async (jewelry) => {}
   
   const handleMakeupBtnClick = () => {
-    handleReset();
+    resetSunglasses();
+    //resetJewelry();
     navigate('/virtual-try-on-live', { state: { imageSource } });
   };
 
-  const handleReset = () => {
+  const resetSunglasses = () => {
     fetch('http://localhost:5000/reset-sunglasses', {  
       method: 'POST',
     })
     .then(response => response.json())
     .then(data => console.log(data))
-    .catch(error => console.error("Error in handleReset:", error));
+    .catch(error => console.error("Error in reset:", error));
+  };
+
+  const resetJewelry = () => {
+    fetch('http://localhost:5000/reset-sunglasses', {  
+      method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error in reset:", error));
   };
 
   return (
@@ -103,8 +113,8 @@ const VirtualTryOnAccessoryLive = () => {
               <div className="product-options-container">
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
-                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
-                <button className="reset-option" onClick={handleReset}></button>
+                  <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                <button className="reset-option" onClick={resetSunglasses}></button>
                     <button className="sg-option" onClick={() => handleSunglassesClick(s1)}>
                         <img src={s1} alt="Option A" />
                     </button>
@@ -135,8 +145,8 @@ const VirtualTryOnAccessoryLive = () => {
               <div className="product-options-container">
                 <div className="product-options">
                 <button className="back-option" onClick={handleBack}>
-                  <i class="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
-                <button className="reset-option" onClick={handleReset}></button>
+                  <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                <button className="reset-option" onClick={resetJewelry}></button>
                     <button className="sg-option" onClick={() => handleJewelryClick(j1)}>
                         <img src={j1} alt="Option 1" />
                     </button>
@@ -152,7 +162,7 @@ const VirtualTryOnAccessoryLive = () => {
                 </div>
               </div>
             ) : (
-              <div className="product-options">
+              <div className="type-options">
               <button className="product-option" onClick={() => handleSunglassesBtnClick()}>
                 Sunglasses</button>
               <button className="product-option" onClick={() => handleJewelryBtnClick()}>

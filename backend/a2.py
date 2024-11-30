@@ -1,16 +1,15 @@
 from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
 import cv2
-import cvzone
 import dlib
 import numpy as np
+import os
 
 app = Flask(__name__)
 CORS(app)
 
 selected_sunglasses = None  
 cap = cv2.VideoCapture(0)  
-cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 face_detector = dlib.get_frontal_face_detector()
 shape_predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
@@ -20,72 +19,66 @@ def select_sunglasses():
     global selected_sunglasses
     data = request.json
     sunglasses_index = data.get('index')
-    selected_sunglasses = cv2.imread(f'C:/Users/HP/Desktop/v-glam-closet/src/components/images/sunglasses/sg-{sunglasses_index}.png', cv2.IMREAD_UNCHANGED)
+    sunglasses_path = os.path.join(f'C:/Users/HP/Desktop/v-glam-closet/src/components/images/sunglasses/sg-{sunglasses_index}.png')
+
+    selected_sunglasses = cv2.imread(sunglasses_path, cv2.IMREAD_UNCHANGED)
 
     if selected_sunglasses is None:
+        print(f"Error: Sunglasses image not found at {sunglasses_path}.")
         return jsonify({"status": "error", "message": "Sunglasses image not found."}), 404
 
-    _, frame = cap.read()
-    if frame is None:
-        return jsonify({"status": "error", "message": "Failed to capture frame."}), 500
-
-    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    detected_faces = face_detector(rgb_frame)
-
-    for face in detected_faces:
-        landmarks = shape_predictor(rgb_frame, face)
-        landmarks_array = np.array([[p.x, p.y] for p in landmarks.parts()])
-        apply_sunglasses(frame, selected_sunglasses, landmarks_array)
-
-    cv2.imshow('SnapLens', frame)
+    print(f"Sunglasses selected: {sunglasses_index}")
     return jsonify({"status": "success", "selected": sunglasses_index})
 
-def apply_sunglasses(image, sunglasses, landmarks):
-    left_eye_points = landmarks[36:42]
-    right_eye_points = landmarks[42:48]
+def apply_sunglasses(frame, sunglasses):
+    gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = face_detector(gray_frame)
 
-    left_eye_center = np.mean(left_eye_points, axis=0).astype(int)
-    right_eye_center = np.mean(right_eye_points, axis=0).astype(int)
+    for face in faces:
+        landmarks = shape_predictor(gray_frame, face)
+        landmarks_array = np.array([[p.x, p.y] for p in landmarks.parts()])
 
-    eye_width = np.linalg.norm(right_eye_center - left_eye_center)
+        left_eye_center = np.mean(landmarks_array[36:42], axis=0).astype(int)
+        right_eye_center = np.mean(landmarks_array[42:48], axis=0).astype(int)
 
-    sunglass_width = int(eye_width * 2) 
-    sunglass_height = int(sunglass_width * sunglasses.shape[0] / sunglasses.shape[1])
-    resized_sunglasses = cv2.resize(sunglasses, (sunglass_width, sunglass_height))
+        angle = 0
+        # angle = np.degrees(np.arctan2(right_eye_center[1] - left_eye_center[1], 
+        #                               right_eye_center[0] - left_eye_center[0]))
 
-    angle = 0  
-    M = cv2.getRotationMatrix2D((sunglass_width // 2, sunglass_height // 2), angle, 1)
-    rotated_sunglasses = cv2.warpAffine(resized_sunglasses, M, (sunglass_width, sunglass_height))
+        eye_width = np.linalg.norm(right_eye_center - left_eye_center)
+        sunglass_width = int(eye_width * 2)
+        sunglass_height = int(sunglass_width * sunglasses.shape[0] / sunglasses.shape[1])
 
-    top_left_x = int((left_eye_center[0] + right_eye_center[0]) / 2 - sunglass_width // 2)
-    top_left_y = int((left_eye_center[1] + right_eye_center[1]) / 2 - sunglass_height // 2)
+        resized_sunglasses = cv2.resize(sunglasses, (sunglass_width, sunglass_height))
+        M = cv2.getRotationMatrix2D((sunglass_width // 2, sunglass_height // 2), angle, 1)
+        rotated_sunglasses = cv2.warpAffine(resized_sunglasses, M, (sunglass_width, sunglass_height),
+                                            flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_TRANSPARENT)
 
-    overlay_image_alpha(image, rotated_sunglasses, (top_left_y, top_left_x)) 
+        top_left_x = int((left_eye_center[0] + right_eye_center[0]) / 2 - rotated_sunglasses.shape[1] / 2)
+        top_left_y = int(left_eye_center[1] - rotated_sunglasses.shape[0] / 2)
+
+        frame = overlay_image_alpha(frame, rotated_sunglasses, (top_left_y, top_left_x))
+
+    return frame
 
 def overlay_image_alpha(background, overlay, position):
     x, y = position
     h, w = overlay.shape[:2]
 
-    if overlay.shape[2] == 3: 
-        for i in range(h):
-            for j in range(w):
-                if x + i >= background.shape[0] or y + j >= background.shape[1]:
-                    continue
-                background[x + i, y + j] = overlay[i, j] 
-    elif overlay.shape[2] == 4:  
+    if overlay.shape[2] == 4:  
         for i in range(h):
             for j in range(w):
                 if x + i >= background.shape[0] or y + j >= background.shape[1]:
                     continue
                 alpha = overlay[i, j, 3] / 255.0  
                 background[x + i, y + j, :3] = (1 - alpha) * background[x + i, y + j, :3] + alpha * overlay[i, j, :3]
-    else:
-        print("Unexpected number of channels in overlay image.")
+    return background
 
 @app.route('/reset-sunglasses', methods=['POST'])
 def reset_sunglasses():
     global selected_sunglasses
     selected_sunglasses = None
+    print("Sunglasses reset.") 
     return jsonify({"status": "reset"})
 
 def generate_video():
@@ -93,20 +86,16 @@ def generate_video():
     while True:
         ret, frame = cap.read()
         if not ret:
+            print("Error: Unable to capture video frame.")
             break
-        
-        gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = cascade.detectMultiScale(gray_frame, 1.1, 4)
 
-        for (x, y, w, h) in faces:
-            if selected_sunglasses is not None:
-                overlay_resize = cv2.resize(selected_sunglasses, (w, int(h * 0.5)))
-                frame = cvzone.overlayPNG(frame, overlay_resize, [x, y])
+        if selected_sunglasses is not None:
+            frame = apply_sunglasses(frame, selected_sunglasses)
 
         _, buffer = cv2.imencode('.jpg', frame)
         frame_bytes = buffer.tobytes()
 
-        yield (b'--frame\r\n' 
+        yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
 @app.route('/video_feed')
