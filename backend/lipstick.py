@@ -46,11 +46,10 @@ def coloring_lip(imgOriginal, lmPoints, color):
     img = imgOriginal.copy()
     poly1 = np.array(lmPoints[:12], np.int32).reshape((-1, 1, 2))
     poly2 = np.array(lmPoints[12:], np.int32).reshape((-1, 1, 2))
-    cv2.fillPoly(img, [poly1], color)
-    cv2.fillPoly(img, [poly2], color)
-    alpha = 0.5 
-    blended = cv2.addWeighted(imgOriginal, 1 - alpha, img, alpha, 0)
-    return blended
+    colored = cv2.fillPoly(img, [poly1, poly2], color)
+    colored = cv2.GaussianBlur(colored, (3, 3), 0)
+    cv2.addWeighted(colored, 0.4, imgOriginal, 0.6, 0, colored)
+    return colored
 
 @app.route('/processed/<path:filename>', methods=['GET'])
 def serve_processed(filename):

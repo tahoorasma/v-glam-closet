@@ -84,7 +84,19 @@ const VirtualTryOnLive = () => {
       .catch(error => console.error("Error in handleFoundationClick:", error));
   };
   
-  const handleLipstickClick = async () => {}
+  const handleLipstickClick = (lipstickId) => {
+    fetch('http://localhost:5000/select-lipstick', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ index: lipstickId.toString() }), 
+    })
+      .then(response => response.json())
+      .then(data => console.log("Lipstick selection response:", data))
+      .catch(error => console.error("Error in handleLipstickClick:", error));
+  };
+  
   
   const handleBlushClick = (blushId) => {
     fetch('http://localhost:5000/select-blush', {
