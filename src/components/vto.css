@@ -192,6 +192,22 @@ cursor: not-allowed;
     transform-origin: center;
     translate: -50% -50%;
 }
+.es-option {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.es-option img {
+    width: 60px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0px;
+}
 .sg-option {
     background-color: transparent;
     border: none;

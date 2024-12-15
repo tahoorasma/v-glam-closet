@@ -62,8 +62,7 @@ const VirtualTryOnAccessory = () => {
       imageFile = new File([blob], "model.jpg", { type: blob.type });
     }
     console.log("Image File:", imageFile);
-
-
+    console.log('Sunglasses', selectedSunglasses);
     formData.append('image', imageFile); 
     formData.append('sunglasses', sunglassesName);
 
@@ -101,7 +100,7 @@ const VirtualTryOnAccessory = () => {
         }
 
         console.log("Image File:", imageFile);
-
+        console.log('Jewelry', selectedJewelry);
         // Append image and jewelry data to the form
         formData.append("image", imageFile);
         formData.append("jewelry", jewelryName);

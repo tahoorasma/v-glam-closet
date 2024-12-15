@@ -24,36 +24,37 @@ else:
 
 def apply_eyeshadow(frame, shade_color, landmarks):
     mask = np.zeros(frame.shape[:2], dtype=np.uint8)
-
+    left_eye_width = np.linalg.norm(landmarks[36] - landmarks[39])
+    right_eye_width = np.linalg.norm(landmarks[42] - landmarks[45])
+    avg_eye_width = (left_eye_width + right_eye_width) / 2
+    scale_factor = avg_eye_width / 24
+    # scale_factor = 1
     left_eye_points = np.array([
-        [landmarks[36][0] - 10, landmarks[36][1] - 4],
-        [landmarks[37][0] - 6, landmarks[37][1] - 6],
-        [landmarks[37][0], landmarks[37][1] - 6],
-        [landmarks[38][0] + 2, landmarks[38][1] - 4],
+        [landmarks[36][0] - int(10 * scale_factor), landmarks[36][1] - int(4 * scale_factor)],
+        [landmarks[37][0] - int(6 * scale_factor), landmarks[37][1] - int(6 * scale_factor)],
+        [landmarks[37][0], landmarks[37][1] - int(6 * scale_factor)],
+        [landmarks[38][0] + int(2 * scale_factor), landmarks[38][1] - int(4 * scale_factor)],
         #[landmarks[39][0] + 3, landmarks[39][1] - 6],
-        [landmarks[39][0] + 4, landmarks[39][1]],
-        [landmarks[39][0], landmarks[39][1] - 5],
-        [landmarks[38][0], landmarks[38][1] - 3],
-        [landmarks[37][0], landmarks[37][1] - 2],
-        [landmarks[36][0] - 4, landmarks[36][1] - 1],
+        [landmarks[39][0] + int(4 * scale_factor), landmarks[39][1]],
+        [landmarks[39][0], landmarks[39][1] - int(5 * scale_factor)],
+        [landmarks[38][0], landmarks[38][1] - int(3 * scale_factor)],
+        [landmarks[37][0], landmarks[37][1] - int(2 * scale_factor)],
+        [landmarks[36][0] - int(4 * scale_factor), landmarks[36][1] - int(1 * scale_factor)],
     ], dtype=np.int32)
-
     right_eye_points = np.array([
-        [landmarks[45][0] + 10, landmarks[45][1] - 4],
-        [landmarks[44][0] + 6, landmarks[44][1] - 6],
-        [landmarks[44][0], landmarks[44][1] - 6],
-        [landmarks[43][0] - 2, landmarks[43][1] - 4],
+        [landmarks[45][0] + int(10 * scale_factor), landmarks[45][1] - int(4 * scale_factor)],
+        [landmarks[44][0] + int(6 * scale_factor), landmarks[44][1] - int(6 * scale_factor)],
+        [landmarks[44][0], landmarks[44][1] - int(6 * scale_factor)],
+        [landmarks[43][0] - int(2 * scale_factor), landmarks[43][1] - int(4 * scale_factor)],
         #[landmarks[42][0] - 3, landmarks[42][1] - 6],
-        [landmarks[42][0] - 4, landmarks[42][1]],
-        [landmarks[42][0], landmarks[42][1] - 5],
-        [landmarks[43][0], landmarks[43][1] - 3],
-        [landmarks[44][0], landmarks[44][1] - 2],
-        [landmarks[45][0] + 4, landmarks[45][1] - 1],
+        [landmarks[42][0] - int(4 * scale_factor), landmarks[42][1]],
+        [landmarks[42][0], landmarks[42][1] - int(5 * scale_factor)],
+        [landmarks[43][0], landmarks[43][1] - int(3 * scale_factor)],
+        [landmarks[44][0], landmarks[44][1] - int(2 * scale_factor)],
+        [landmarks[45][0] + int(4 * scale_factor), landmarks[45][1] - int(1 * scale_factor)],
     ], dtype=np.int32)
-
     cv2.fillPoly(mask, [left_eye_points], 255)
     cv2.fillPoly(mask, [right_eye_points], 255)
-
     overlay = np.full_like(frame, shade_color, dtype=np.uint8)
     alpha = 0.25
     for c in range(3):
@@ -64,33 +65,34 @@ def apply_eyeshadow(frame, shade_color, landmarks):
         )
     return frame
 
-
 def apply_glitter_eyeshadow(image, shade_color, landmarks):
     mask = np.zeros(image.shape[:2], dtype=np.uint8)
+    left_eye_width = np.linalg.norm(landmarks[36] - landmarks[39])
+    right_eye_width = np.linalg.norm(landmarks[42] - landmarks[45])
+    avg_eye_width = (left_eye_width + right_eye_width) / 2
+    scale_factor = avg_eye_width / 24
+    # scale_factor = 1
     left_eye_points = np.array([
-        [landmarks[36][0] - 10, landmarks[36][1] - 4],
-        [landmarks[37][0] - 6, landmarks[37][1] - 6],
-        [landmarks[37][0], landmarks[37][1] - 6],
-        [landmarks[38][0] + 2, landmarks[38][1] - 4],
-        #[landmarks[39][0] + 3, landmarks[39][1] - 6],
-        [landmarks[39][0] + 4, landmarks[39][1]],
-        [landmarks[39][0], landmarks[39][1] - 5],
-        [landmarks[38][0], landmarks[38][1] - 3],
-        [landmarks[37][0], landmarks[37][1] - 2],
-        [landmarks[36][0] - 4, landmarks[36][1] - 1],
+        [landmarks[36][0] - int(10 * scale_factor), landmarks[36][1] - int(4 * scale_factor)],
+        [landmarks[37][0] - int(6 * scale_factor), landmarks[37][1] - int(6 * scale_factor)],
+        [landmarks[37][0], landmarks[37][1] - int(6 * scale_factor)],
+        [landmarks[38][0] + int(2 * scale_factor), landmarks[38][1] - int(4 * scale_factor)],
+        [landmarks[39][0] + int(4 * scale_factor), landmarks[39][1]],
+        [landmarks[39][0], landmarks[39][1] - int(5 * scale_factor)],
+        [landmarks[38][0], landmarks[38][1] - int(3 * scale_factor)],
+        [landmarks[37][0], landmarks[37][1] - int(2 * scale_factor)],
+        [landmarks[36][0] - int(4 * scale_factor), landmarks[36][1] - int(1 * scale_factor)],
     ], dtype=np.int32)
-
     right_eye_points = np.array([
-        [landmarks[45][0] + 10, landmarks[45][1] - 4],
-        [landmarks[44][0] + 6, landmarks[44][1] - 6],
-        [landmarks[44][0], landmarks[44][1] - 6],
-        [landmarks[43][0] - 2, landmarks[43][1] - 4],
-        #[landmarks[42][0] - 3, landmarks[42][1] - 6],
-        [landmarks[42][0] - 4, landmarks[42][1]],
-        [landmarks[42][0], landmarks[42][1] - 5],
-        [landmarks[43][0], landmarks[43][1] - 3],
-        [landmarks[44][0], landmarks[44][1] - 2],
-        [landmarks[45][0] + 4, landmarks[45][1] - 1],
+        [landmarks[45][0] + int(10 * scale_factor), landmarks[45][1] - int(4 * scale_factor)],
+        [landmarks[44][0] + int(6 * scale_factor), landmarks[44][1] - int(6 * scale_factor)],
+        [landmarks[44][0], landmarks[44][1] - int(6 * scale_factor)],
+        [landmarks[43][0] - int(2 * scale_factor), landmarks[43][1] - int(4 * scale_factor)],
+        [landmarks[42][0] - int(4 * scale_factor), landmarks[42][1]],
+        [landmarks[42][0], landmarks[42][1] - int(5 * scale_factor)],
+        [landmarks[43][0], landmarks[43][1] - int(3 * scale_factor)],
+        [landmarks[44][0], landmarks[44][1] - int(2 * scale_factor)],
+        [landmarks[45][0] + int(4 * scale_factor), landmarks[45][1] - int(1 * scale_factor)],
     ], dtype=np.int32)
     cv2.fillPoly(mask, [left_eye_points], 255)
     cv2.fillPoly(mask, [right_eye_points], 255)
@@ -99,6 +101,48 @@ def apply_glitter_eyeshadow(image, shade_color, landmarks):
     shimmer_image = cv2.resize(shimmer_image, (image.shape[1], image.shape[0]))
     shimmer_image = shimmer_image[:image.shape[0], :image.shape[1]]
     shimmer_overlay = cv2.addWeighted(shimmer_image, 0.3, overlay, 0.7, 0)
+    alpha = 0.35
+    for c in range(3):
+        image[:, :, c] = np.where((mask == 255),
+                                  (1 - alpha) * image[:, :, c] + alpha * shimmer_overlay[:, :, c],
+                                  image[:, :, c])
+        
+def apply_shimmer_eyeshadow(image, shade_color, landmarks):
+    mask = np.zeros(image.shape[:2], dtype=np.uint8)
+    left_eye_width = np.linalg.norm(landmarks[36] - landmarks[39])
+    right_eye_width = np.linalg.norm(landmarks[42] - landmarks[45])
+    avg_eye_width = (left_eye_width + right_eye_width) / 2
+    scale_factor = avg_eye_width / 24
+    # scale_factor = 1
+    left_eye_points = np.array([
+        [landmarks[36][0] - int(10 * scale_factor), landmarks[36][1] - int(4 * scale_factor)],
+        [landmarks[37][0] - int(6 * scale_factor), landmarks[37][1] - int(6 * scale_factor)],
+        [landmarks[37][0], landmarks[37][1] - int(6 * scale_factor)],
+        [landmarks[38][0] + int(2 * scale_factor), landmarks[38][1] - int(4 * scale_factor)],
+        [landmarks[39][0] + int(4 * scale_factor), landmarks[39][1]],
+        [landmarks[39][0], landmarks[39][1] - int(5 * scale_factor)],
+        [landmarks[38][0], landmarks[38][1] - int(3 * scale_factor)],
+        [landmarks[37][0], landmarks[37][1] - int(2 * scale_factor)],
+        [landmarks[36][0] - int(4 * scale_factor), landmarks[36][1] - int(1 * scale_factor)],
+    ], dtype=np.int32)
+    right_eye_points = np.array([
+        [landmarks[45][0] + int(10 * scale_factor), landmarks[45][1] - int(4 * scale_factor)],
+        [landmarks[44][0] + int(6 * scale_factor), landmarks[44][1] - int(6 * scale_factor)],
+        [landmarks[44][0], landmarks[44][1] - int(6 * scale_factor)],
+        [landmarks[43][0] - int(2 * scale_factor), landmarks[43][1] - int(4 * scale_factor)],
+        [landmarks[42][0] - int(4 * scale_factor), landmarks[42][1]],
+        [landmarks[42][0], landmarks[42][1] - int(5 * scale_factor)],
+        [landmarks[43][0], landmarks[43][1] - int(3 * scale_factor)],
+        [landmarks[44][0], landmarks[44][1] - int(2 * scale_factor)],
+        [landmarks[45][0] + int(4 * scale_factor), landmarks[45][1] - int(1 * scale_factor)],
+    ], dtype=np.int32)
+    cv2.fillPoly(mask, [left_eye_points], 255)
+    cv2.fillPoly(mask, [right_eye_points], 255)
+    overlay = np.full_like(image, shade_color, dtype=np.uint8)
+    shimmer_image = cv2.imread('C:/Users/HP/Desktop/v-glam-closet/src/components/images/silver-glitter.png')
+    shimmer_image = cv2.resize(shimmer_image, (image.shape[1], image.shape[0]))
+    shimmer_image = shimmer_image[:image.shape[0], :image.shape[1]]
+    shimmer_overlay = cv2.addWeighted(shimmer_image, 0.4, overlay, 0.6, 0)
     alpha = 0.35
     for c in range(3):
         image[:, :, c] = np.where((mask == 255),
@@ -135,13 +179,15 @@ def generate_video():
             gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             faces = face_detector(gray_frame)
             glitter = selected_eyeshadow["is_glitter"]
-            #print("isglitter:", glitter)
 
             for face in faces:
                 landmarks = shape_predictor(gray_frame, face)
                 landmarks_array = np.array([[p.x, p.y] for p in landmarks.parts()])
+                #print("isglitter:", glitter)
                 if glitter == 1:
                     apply_glitter_eyeshadow(frame, selected_eyeshadow["shade_color"], landmarks_array)
+                elif glitter == 2:
+                    apply_shimmer_eyeshadow(frame, selected_eyeshadow["shade_color"], landmarks_array)
                 else:
                     apply_eyeshadow(frame, selected_eyeshadow["shade_color"], landmarks_array)
 

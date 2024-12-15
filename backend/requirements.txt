@@ -9,3 +9,4 @@ cmake
 dlib==19.24.6
 opencv-python
 kaggle
+ultralytics
