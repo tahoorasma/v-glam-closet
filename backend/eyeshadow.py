@@ -31,7 +31,6 @@ shape_predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
 def apply_eyeshadow(image, shade_color, landmarks):
     mask = np.zeros(image.shape[:2], dtype=np.uint8)
-    
     left_eye_points = np.array([
         [landmarks[36][0] - 13, landmarks[36][1] - 8],
         [landmarks[37][0] - 6, landmarks[37][1] - 10],
@@ -44,7 +43,6 @@ def apply_eyeshadow(image, shade_color, landmarks):
         [landmarks[37][0], landmarks[37][1] - 5], 
         [landmarks[36][0] - 8, landmarks[36][1] - 2],
     ], dtype=np.int32)
-
     right_eye_points = np.array(
         [[landmarks[45][0] + 13, landmarks[45][1] - 8],
         [landmarks[44][0] + 6, landmarks[44][1] - 10],
@@ -57,13 +55,10 @@ def apply_eyeshadow(image, shade_color, landmarks):
         [landmarks[44][0], landmarks[44][1] - 5], 
         [landmarks[45][0] + 8, landmarks[45][1] - 2],
     ], dtype=np.int32)  
-
     cv2.fillPoly(mask, [left_eye_points], 255)
     cv2.fillPoly(mask, [right_eye_points], 255)
-
     print("shade color: ",shade_color)
     overlay = np.full_like(image, shade_color, dtype=np.uint8)
-
     alpha = 0.4
     for c in range(3):
         image[:, :, c] = np.where((mask == 255), 
@@ -72,7 +67,6 @@ def apply_eyeshadow(image, shade_color, landmarks):
         
 def apply_glitter_eyeshadow(image, shade_color, landmarks):
     mask = np.zeros(image.shape[:2], dtype=np.uint8)
-    
     left_eye_points = np.array([
         [landmarks[36][0] - 13, landmarks[36][1] - 8],
         [landmarks[37][0] - 6, landmarks[37][1] - 10],
@@ -85,7 +79,6 @@ def apply_glitter_eyeshadow(image, shade_color, landmarks):
         [landmarks[37][0], landmarks[37][1] - 5], 
         [landmarks[36][0] - 8, landmarks[36][1] - 2],
     ], dtype=np.int32)
-
     right_eye_points = np.array([
         [landmarks[45][0] + 13, landmarks[45][1] - 8],
         [landmarks[44][0] + 6, landmarks[44][1] - 10],
@@ -98,20 +91,15 @@ def apply_glitter_eyeshadow(image, shade_color, landmarks):
         [landmarks[44][0], landmarks[44][1] - 5], 
         [landmarks[45][0] + 8, landmarks[45][1] - 2],
     ], dtype=np.int32)  
-
     cv2.fillPoly(mask, [left_eye_points], 255)
     cv2.fillPoly(mask, [right_eye_points], 255)
-
     print("glitter shade color: ",shade_color)
-
     overlay = np.full_like(image, shade_color, dtype=np.uint8)
     shimmer_image = cv2.imread('C:/Users/HP/Desktop/v-glam-closet/src/components/images/gold-glitter.png')
     shimmer_image = cv2.resize(shimmer_image, (image.shape[1], image.shape[0]))
     shimmer_image = shimmer_image[:image.shape[0], :image.shape[1]]
-    alpha = 0.2
-    shimmer_overlay = cv2.addWeighted(shimmer_image, alpha, overlay, 1 - alpha, 0)
-
-    alpha = 0.7
+    shimmer_overlay = cv2.addWeighted(shimmer_image, 0.3, overlay, 0.7, 0)
+    alpha = 0.6
     for c in range(3):
         image[:, :, c] = np.where((mask == 255), 
                                 (1 - alpha) * image[:, :, c] + alpha * shimmer_overlay[:, :, c],
@@ -119,7 +107,6 @@ def apply_glitter_eyeshadow(image, shade_color, landmarks):
         
 def apply_shimmer_eyeshadow(image, shade_color, landmarks):
     mask = np.zeros(image.shape[:2], dtype=np.uint8)
-    
     left_eye_points = np.array([
         [landmarks[36][0] - 13, landmarks[36][1] - 8],
         [landmarks[37][0] - 6, landmarks[37][1] - 10],
@@ -132,7 +119,6 @@ def apply_shimmer_eyeshadow(image, shade_color, landmarks):
         [landmarks[37][0], landmarks[37][1] - 5], 
         [landmarks[36][0] - 8, landmarks[36][1] - 2],
     ], dtype=np.int32)
-
     right_eye_points = np.array([
         [landmarks[45][0] + 13, landmarks[45][1] - 8],
         [landmarks[44][0] + 6, landmarks[44][1] - 10],
@@ -145,20 +131,15 @@ def apply_shimmer_eyeshadow(image, shade_color, landmarks):
         [landmarks[44][0], landmarks[44][1] - 5], 
         [landmarks[45][0] + 8, landmarks[45][1] - 2],
     ], dtype=np.int32)  
-
     cv2.fillPoly(mask, [left_eye_points], 255)
     cv2.fillPoly(mask, [right_eye_points], 255)
-
     print("glitter shade color: ",shade_color)
-
     overlay = np.full_like(image, shade_color, dtype=np.uint8)
     shimmer_image = cv2.imread('C:/Users/HP/Desktop/v-glam-closet/src/components/images/silver-glitter.png')
     shimmer_image = cv2.resize(shimmer_image, (image.shape[1], image.shape[0]))
     shimmer_image = shimmer_image[:image.shape[0], :image.shape[1]]
-    alpha = 0.2
-    shimmer_overlay = cv2.addWeighted(shimmer_image, alpha, overlay, 1 - alpha, 0)
-
-    alpha = 0.7
+    shimmer_overlay = cv2.addWeighted(shimmer_image, 0.4, overlay, 0.6, 0)
+    alpha = 0.5
     for c in range(3):
         image[:, :, c] = np.where((mask == 255), 
                                 (1 - alpha) * image[:, :, c] + alpha * shimmer_overlay[:, :, c],
