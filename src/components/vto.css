@@ -236,30 +236,6 @@ cursor: not-allowed;
     justify-content: center;
     gap: 5px;
 }
-.eyeshadow-option {
-    color: white;
-    padding: 20px 20px;
-    margin: 0px 20px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    position: relative;
-    overflow: hidden;
-}
-.eyeshadow-option::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 200%;
-    height: 100%;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.6) 15%, transparent 25%, rgba(255, 255, 255, 0.6) 85%);
-    animation: matte 1.5s infinite;
-}
 .action-buttons {
     margin-top: 80px;
     display: flex;

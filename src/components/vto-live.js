@@ -5,6 +5,18 @@ import './vto.css';
 import defaultModel from './images/models/model1.png';
 import cmp from './images/compare.jpg'
 import buy from './images/blush.jpg'
+import s_es from './images/eyeshadows/single.png'
+import hw_es from './images/eyeshadows/hardwired.png'
+import gs_es from './images/eyeshadows/glowshots.png'
+import cb_es from './images/eyeshadows/candy-berry.png'
+import vk_es from './images/eyeshadows/violet-knit.png'
+import bs_es from './images/eyeshadows/berry-smoothie.png'
+import vj_es from './images/eyeshadows/vintage-jean.png'
+import ag_es from './images/eyeshadows/afterglow.png'
+import in_es from './images/eyeshadows/icy-nude.png'
+import uu_es from './images/eyeshadows/ultimate-utopia.png'
+import ns from './images/eyeshadows/night-star.png'
+import gq from './images/eyeshadows/guayaquil.png'
 import ss from './images/eyeshadows/glowshots/strawberry-stacked.png'
 import gf from './images/eyeshadows/glowshots/grapefruit.png'
 import fg from './images/eyeshadows/glowshots/feeling-grape.png'
@@ -17,8 +29,6 @@ import kk from './images/eyeshadows/glowshots/kiwi-killa.png'
 import ls from './images/eyeshadows/glowshots/lemon-slayed.png'
 import pr from './images/eyeshadows/glowshots/pear-prize.png'
 import pp from './images/eyeshadows/glowshots/plum-player.png'
-import ns from './images/eyeshadows/night-star.png'
-import gq from './images/eyeshadows/guayaquil.png'
 import mr from './images/eyeshadows/hardwired/melrose.png'
 import pt from './images/eyeshadows/hardwired/pattaya.png'
 import mz from './images/eyeshadows/hardwired/mendoza.png'
@@ -27,16 +37,67 @@ import md from './images/eyeshadows/hardwired/madrid.png'
 import es from './images/eyeshadows/hardwired/earthshine.png'
 import ch from './images/eyeshadows/hardwired/chile.png'
 import ri from './images/eyeshadows/hardwired/rio.png'
-import s_es from './images/eyeshadows/single.png'
-import hw_es from './images/eyeshadows/hardwired.png'
-import gs_es from './images/eyeshadows/glowshots.png'
-import cb_es from './images/eyeshadows/candy-berry.png'
-import vk_es from './images/eyeshadows/violet-knit.png'
-import bs_es from './images/eyeshadows/berry-smoothie.png'
-import vj_es from './images/eyeshadows/vintage-jean.png'
-import ag_es from './images/eyeshadows/afterglow.png'
-import in_es from './images/eyeshadows/icy-nude.png'
-import uu_es from './images/eyeshadows/ultimate-utopia.png'
+import cb_bb from './images/eyeshadows/candyberry/berry-banana.png'
+import cb_cc from './images/eyeshadows/candyberry/cherry-chips.png'
+import cb_cbc from './images/eyeshadows/candyberry/choco-berrycake.png'
+import cb_ps from './images/eyeshadows/candyberry/pink-star.png'
+import cb_scc from './images/eyeshadows/candyberry/strawberry-cheesecake.png'
+import cb_s from './images/eyeshadows/candyberry/strawberry.png'
+import cb_wb from './images/eyeshadows/candyberry/whipping-berry.png'
+import vk_hs from './images/eyeshadows/violetknit/heather-spangle.png'
+import vk_cc from './images/eyeshadows/violetknit/cashmere-coat.png'
+import vk_pt from './images/eyeshadows/violetknit/pink-tweed.png'
+import vk_vc from './images/eyeshadows/violetknit/violet-check.png'
+import vk_lc from './images/eyeshadows/violetknit/lavender-cotton.png'
+import vk_sa from './images/eyeshadows/violetknit/silky-alpaca.png'
+import bs_bc from './images/eyeshadows/berrysmoothie/berry-chip.png'
+import bs_b from './images/eyeshadows/berrysmoothie/blush.png'
+import bs_cc from './images/eyeshadows/berrysmoothie/cherry-cooler.png'
+import bs_f from './images/eyeshadows/berrysmoothie/fog.png'
+import bs_fr from './images/eyeshadows/berrysmoothie/frozen.png'
+import bs_fb from './images/eyeshadows/berrysmoothie/fudgy-berry.png'
+import bs_mv from './images/eyeshadows/berrysmoothie/mauve-beam.png'
+import bs_ps from './images/eyeshadows/berrysmoothie/pink-salt.png'
+import bs_s from './images/eyeshadows/berrysmoothie/slush.png'
+import bs_sd from './images/eyeshadows/berrysmoothie/soda.png'
+import bs_sw from './images/eyeshadows/berrysmoothie/sweet.png'
+import vj01 from './images/eyeshadows/vintagejean/vj01.png'
+import vj05 from './images/eyeshadows/vintagejean/vj05.png'
+import vj08 from './images/eyeshadows/vintagejean/vj08.png'
+import vj10 from './images/eyeshadows/vintagejean/vj10.png'
+import vj13 from './images/eyeshadows/vintagejean/vj13.png'
+import vj14 from './images/eyeshadows/vintagejean/vj14.png'
+import ag_ad from './images/eyeshadows/afterglow/adoration.png'
+import ag_am from './images/eyeshadows/afterglow/amorous.png'
+import ag_bl from './images/eyeshadows/afterglow/blaze.png'
+import ag_fr from './images/eyeshadows/afterglow/frisky.png'
+import ag_hs from './images/eyeshadows/afterglow/high-stakes.png'
+import ag_hr from './images/eyeshadows/afterglow/hot-rod.png'
+import ag_ni from './images/eyeshadows/afterglow/nitro.png'
+import ag_pb from './images/eyeshadows/afterglow/pure-bliss.png'
+import in_ar from './images/eyeshadows/icynude/aurora.png'
+import in_bl from './images/eyeshadows/icynude/bling.png'
+import in_dd from './images/eyeshadows/icynude/diamond-dew.png'
+import in_gs from './images/eyeshadows/icynude/gold-standard.png'
+import in_io from './images/eyeshadows/icynude/iced-out.png'
+import in_pl from './images/eyeshadows/icynude/platinum.png'
+import in_vvs from './images/eyeshadows/icynude/vvs.png'
+import uu02 from './images/eyeshadows/ultimateutopia/uu02.png'
+import uu06 from './images/eyeshadows/ultimateutopia/uu06.png'
+import uu09 from './images/eyeshadows/ultimateutopia/uu09.png'
+import uu11 from './images/eyeshadows/ultimateutopia/uu11.png'
+import uu13 from './images/eyeshadows/ultimateutopia/uu13.png'
+import uu16 from './images/eyeshadows/ultimateutopia/uu16.png'
+import uu18 from './images/eyeshadows/ultimateutopia/uu18.png'
+import uu20 from './images/eyeshadows/ultimateutopia/uu20.png'
+import uu21 from './images/eyeshadows/ultimateutopia/uu21.png'
+import uu23 from './images/eyeshadows/ultimateutopia/uu23.png'
+import uu26 from './images/eyeshadows/ultimateutopia/uu26.png'
+import uu31 from './images/eyeshadows/ultimateutopia/uu31.png'
+import uu36 from './images/eyeshadows/ultimateutopia/uu36.png'
+import uu37 from './images/eyeshadows/ultimateutopia/uu37.png'
+import uu38 from './images/eyeshadows/ultimateutopia/uu38.png'
+import uu40 from './images/eyeshadows/ultimateutopia/uu40.png'
 import Navbar from './navbar';
 
 const VirtualTryOnLive = () => {
@@ -52,6 +113,12 @@ const VirtualTryOnLive = () => {
   const [showHardwiredEyeShadow, setShowHardwiredEyeShadow] = useState(false);
   const [showGlowshotEyeShadow, setShowGlowshotEyeShadow] = useState(false);
   const [showCandyBerryEyeShadow, setShowCandyBerryEyeShadow] = useState(false);
+  const [showVioletKnitEyeShadow, setShowVioletKnitEyeShadow] = useState(false);
+  const [showBerrySmoothieEyeShadow, setShowBerrySmoothieEyeShadow] = useState(false);
+  const [showVintageJeanEyeShadow, setShowVintageJeanEyeShadow] = useState(false);
+  const [showAfterglowEyeShadow, setShowAfterglowEyeShadow] = useState(false);
+  const [showIcyNudeEyeShadow, setShowIcyNudeEyeShadow] = useState(false);
+  const [showUltimateUtopiaEyeShadow, setShowUltimateUtopiaEyeShadow] = useState(false);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -93,6 +160,12 @@ const VirtualTryOnLive = () => {
     setShowHardwiredEyeShadow(false);
     setShowGlowshotEyeShadow(false);
     setShowCandyBerryEyeShadow(false);
+    setShowVioletKnitEyeShadow(false);
+    setShowBerrySmoothieEyeShadow(false);
+    setShowVintageJeanEyeShadow(false);
+    setShowAfterglowEyeShadow(false);
+    setShowIcyNudeEyeShadow(false);
+    setShowUltimateUtopiaEyeShadow(false);
   }
   const handleFoundationBtnClick = async () => {
     setShowFoundationProducts(true);
@@ -117,6 +190,24 @@ const VirtualTryOnLive = () => {
   }
   const handleCandyBerryESBtnClick = async () => {
     setShowCandyBerryEyeShadow(true);
+  }
+  const handleVioletKnitESBtnClick = async () => {
+    setShowVioletKnitEyeShadow(true);
+  }
+  const handleBerrySmoothieESBtnClick = async () => {
+    setShowBerrySmoothieEyeShadow(true);
+  }
+  const handleVintageJeanESBtnClick = async () => {
+    setShowVintageJeanEyeShadow(true);
+  }
+  const handleAfterglowESBtnClick = async () => {
+    setShowAfterglowEyeShadow(true);
+  }
+  const handleIcyNudeESBtnClick = async () => {
+    setShowIcyNudeEyeShadow(true);
+  }
+  const handleUltimateUtopiaESBtnClick = async () => {
+    setShowUltimateUtopiaEyeShadow(true);
   }
 
   const handleFoundationClick = (shadeColor) => {
@@ -368,51 +459,211 @@ const VirtualTryOnLive = () => {
                    <button className="back-option" onClick={handleEyeshadowBack}>
                      <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                    <button className="reset-option" onClick={resetEyeshadow}></button>
-                     <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#c96f8c', '', 0)} style={{ background: '#c96f8c' }}></button>
-                     <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#cf8f91', 'melrose', 0)} style={{ background: '#f19ea1' }}></button>
-                     <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#d69f87', 'pattaya', 0)} style={{ background: '#e9a486' }}></button>
-                     <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#dd8776', 'mendoza', 0)} style={{ background: '#dd8776' }}></button>
-                     <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#bd8797', 'earthshine', 0)} style={{ background: '#bd8797'}}></button>
-                     <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#af8070', 'firenze', 0)} style={{ background: '#af8070' }}></button>
-                     <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#c9a381', 'rio', 0)} style={{ background: '#e4bd9b' }}></button>
-                     <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#697991', '', 0)} style={{ background: '#697991' }}></button>
-                     <button className="eyeshadow-option" onClick={() => handleEyeShadowClick('#91696c', '', 0)} style={{ background: '#91696c' }}></button>
-                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#940935', '', 0)} style={{ background: '#940935' }}></button>
-                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#751332', '', 0)} style={{ background: '#751332' }}></button>
-                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#916982', 'madrid', 0)} style={{ background: '#916982' }}></button>
-                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#831e76', 'chile', 0)} style={{ background: '#831e76' }}></button>
-                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#915656', '', 0)} style={{ background: '#915656' }}></button>
-                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#449db8', '', 0)} style={{ background: '#449db8' }}></button>
-                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#3dada2', '', 0)} style={{ background: '#3dada2' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#F2CAC3', 2)} title='Berry Banana' style={{ backgroundImage:  `url(${cb_bb})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#DB929B', 2)} title='Whipping Berry' style={{ backgroundImage:  `url(${cb_wb})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#DAA5A3', 1)} title='Pink Star' style={{ backgroundImage:  `url(${cb_ps})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#B4786F', 1)} title='Strawberry Cheese Cake' style={{ backgroundImage:  `url(${cb_scc})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#D8717B', 2)} title='Cherry Chips' style={{ backgroundImage:  `url(${cb_cc})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#E99293', 2)} title='Strawberry' style={{ backgroundImage: `url(${cb_s})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#B3876F', 0)} title='Caramel' style={{ background:  '#B3876F' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#85594E', 0)} title='Real Choco' style={{ background: '#85594E' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#7C4E43', 1)} title='Choco Berry Cake' style={{ backgroundImage:  `url(${cb_cbc})` }}></button>
                  </div>
                </div>
-             ) : ( 
-               <div className="type-options">
-                 <button className="back-option" onClick={handleBack}>
-                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
-                 <button className="es-option" onClick={() => handleSingleESBtnClick()} title="NARS-Single Eyeshadows"> 
-                   <img src={s_es} alt="Single"/></button>
-                 <button className="es-option" onClick={() => handleHardwiredESBtnClick()} title="NARS-Hardwired Eyeshadows">
-                   <img src={hw_es} alt="Hadwired"/></button>
-                 <button className="es-option" onClick={() => handleGlowshotESBtnClick()} title="NYX-Ultimate Glow Shots Liquid Eyeshadow">
-                   <img src={gs_es} alt="Glowshots"/></button>
-                 <button className="es-option" onClick={() => handleCandyBerryESBtnClick()} title="Dasique-Candy Berry Eyeshadow Palette">
-                   <img src={cb_es} alt="CandyBerry"/></button>
-                 <button className="es-option" onClick={() => handleCandyBerryESBtnClick()} title="Dasique-Violet Knit Eyeshadow Palette">
-                   <img src={vk_es} alt="VioletKnit"/></button>
-                 <button className="es-option" onClick={() => handleCandyBerryESBtnClick()} title="Dasique-Berry Smoothie Eyeshadow Palette">
-                   <img src={bs_es} alt="BerrySmoothie"/></button>
-                 <button className="es-option" onClick={() => handleCandyBerryESBtnClick()} title="NYX-Ultimate Vintage Jean Palette">
-                   <img src={vj_es} alt="VintageJean"/></button>
-                 <button className="es-option" onClick={() => handleCandyBerryESBtnClick()} title="NARS-Afterglow Irresistible Eyeshadow Palette">
-                   <img src={ag_es} alt="AfterGlow"/></button>
-                 <button className="es-option" onClick={() => handleCandyBerryESBtnClick()} title="Huda Beauty-Icy Nude Eyeshadow Palette">
-                   <img src={in_es} alt="IcyNude"/></button>
-                 <button className="es-option" onClick={() => handleCandyBerryESBtnClick()} title="NYX-Ultimate Utopia 40 Pan Palette">
-                   <img src={uu_es} alt="UltimateUtopia"/></button>
+             ) : showVioletKnitEyeShadow ? ( 
+               //dasique-violet knit eyeshadow palette
+               <div className="product-options-container">
+                 <div className="product-options">
+                   <button className="back-option" onClick={handleEyeshadowBack}>
+                     <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                   <button className="reset-option" onClick={resetEyeshadow}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#FAE1DA', 2)} title='Silky Alpaca' style={{ backgroundImage:  `url(${vk_sa})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#E1C6BE', 2)} title='Lavender Cotton' style={{ backgroundImage:  `url(${vk_lc})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#E1B9B7', 1)} title='Pink Tweed' style={{ backgroundImage:  `url(${vk_pt})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#D0A8A8', 2)} title='Violet Check' style={{ backgroundImage:  `url(${vk_vc})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#D3A49B', 0)} title='Mauve Knit' style={{ background: '#D3A49B' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#E3ACAC', 0)} title='Crimson Cardigan' style={{ background: '#E3ACAC' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#A7746E', 0)} title='Winter Sweater' style={{ background:  '#A7746E' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#E6B4B2', 1)} title='Heather Spangle' style={{ backgroundImage:  `url(${vk_hs})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#B5857E', 2)} title='Cashmere Coat' style={{ backgroundImage:  `url(${vk_cc})` }}></button>
+                 </div>
                </div>
+             ) : showBerrySmoothieEyeShadow ? ( 
+               //dasique-berry smoothie eyeshadow palette
+               <div className="product-options-container">
+                 <div className="product-options">
+                   <button className="back-option" onClick={handleEyeshadowBack}>
+                     <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                   <button className="reset-option" onClick={resetEyeshadow}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#EABCBB', 2)} title='Slush' style={{ backgroundImage:  `url(${bs_s})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#EDA6AE', 1)} title='Pink Salt' style={{ backgroundImage:  `url(${bs_ps})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#F6D7E6', 0)} title='Icing' style={{ background: '#F6D7E6' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#F8E6EF', 2)} title='Berry Chip' style={{ backgroundImage:  `url(${bs_bc})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#F6D4DC', 0)} title='Creamy' style={{ background: '#F6D4DC' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#F9D8E5', 2)} title='Blush' style={{ backgroundImage:  `url(${bs_b})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#F2C6DA', 2)} title='Sweet' style={{ backgroundImage:  `url(${bs_sw})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#EFB2CB', 0)} title='Juicy' style={{ background: '#EFB2CB' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#E9AACF', 0)} title='Blueberry' style={{ background:  '#E9AACF' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#E8A7CD', 2)} title='Soda' style={{ backgroundImage:  `url(${bs_sd})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#E1B5D1', 1)} title='Mauve Beam' style={{ backgroundImage:  `url(${bs_mv})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#D29DC0', 1)} title='Frozen' style={{ backgroundImage:  `url(${bs_fr})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#D3A9B3', 2)} title='Fog' style={{ backgroundImage:  `url(${bs_f})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#B48D92', 0)} title='Haze' style={{ background: '#B48D92' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#D88FAA', 1)} title='Cherry Cooler' style={{ backgroundImage:  `url(${bs_cc})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#E79DD2', 0)} title='Raspberry' style={{ background: '#E79DD2' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#815A55', 1)} title='Fudgy Berry' style={{ backgroundImage:  `url(${bs_fb})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#9F7D7B', 0)} title='Mulberry' style={{ background: '#9F7D7B' }}></button>
+                 </div>
+               </div>
+             ) : showVintageJeanEyeShadow ? ( 
+               //nyx-ultimate vintage jean eyeshadow palette
+               <div className="product-options-container">
+                 <div className="product-options">
+                   <button className="back-option" onClick={handleEyeshadowBack}>
+                     <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                   <button className="reset-option" onClick={resetEyeshadow}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#E2DBC2', 2)} title='01' style={{ backgroundImage: `url(${vj01})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#FCFDF8', 0)} title='02' style={{ background: '#FCFDF8', boxShadow: 'inset 0 0 0 1px #000',}}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#B68F7E', 0)} title='03' style={{ background: '#B68F7E' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#C68080', 0)} title='04' style={{ background: '#C68080' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#AA6D70', 2)} title='05' style={{ backgroundImage: `url(${vj05})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#AB7455', 0)} title='06' style={{ background: '#AB7455' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#7B4B35', 0)} title='07' style={{ background: '#7B4B35' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#574547', 2)} title='08' style={{ backgroundImage: `url(${vj08})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#596982', 0)} title='09' style={{ background: '#596982'}}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#6A5A56', 1)} title='10' style={{ backgroundImage: `url(${vj10})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#5298BC', 0)} title='11' style={{ background: '#5298BC' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#8B9DC5', 0)} title='12' style={{ background: '#8B9DC5' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#A89E9F', 2)} title='13' style={{ backgroundImage: `url(${vj13})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#477085', 2)} title='14' style={{ backgroundImage: `url(${vj14})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#4C3643', 0)} title='15' style={{ background: '#4C3643' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#2B2040', 0)} title='16' style={{ background: '#2B2040' }}></button>
+                 </div>
+               </div>
+             ) : showAfterglowEyeShadow ? ( 
+               //Nars-afterglow irresistible eyeshadow palette
+               <div className="product-options-container">
+                 <div className="product-options">
+                   <button className="back-option" onClick={handleEyeshadowBack}>
+                     <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                   <button className="reset-option" onClick={resetEyeshadow}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#F7E0D1', 2)} title='Adoration' style={{ backgroundImage: `url(${ag_ad})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#DC9A73', 2)} title='Amorous' style={{ backgroundImage: `url(${ag_am})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#D67F7E', 2)} title='Blaze' style={{ backgroundImage: `url(${ag_bl})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#D27D5A', 2)} title='Hot Rod' style={{ backgroundImage: `url(${ag_hr})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#C3857A', 0)} title='Magnetism' style={{ background: '#C3857A' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#E4989D', 2)} title='High Stakes' style={{ backgroundImage: `url(${ag_hs})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#AD544B', 0)} title='Take a Shot' style={{ background: '#AD544B' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#C57870', 2)} title='Frisky' style={{ backgroundImage: `url(${ag_fr})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#904931', 0)} title='Mood Swing' style={{ background: '#904931' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#AC6C5D', 2)} title='Pure Bliss' style={{ backgroundImage: `url(${ag_pb})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#6C3E34', 0)} title='Midnight' style={{ background: '#6C3E34' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#9E6140', 2)} title='Nitro' style={{ backgroundImage: `url(${ag_ni})` }}></button>
+                 </div>
+               </div>
+             ) : showIcyNudeEyeShadow ? ( 
+               //Huda beauty-icy nude eyeshadow palette
+               <div className="product-options-container">
+                 <div className="product-options">
+                   <button className="back-option" onClick={handleEyeshadowBack}>
+                     <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                   <button className="reset-option" onClick={resetEyeshadow}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#ECD8E3', 2)} title='Iced Out' style={{ backgroundImage: `url(${in_io})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#CDA29C', 0)} title='Highlight' style={{ background: '#CDA29C' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#BCAEB2', 2)} title='Platinum' style={{ backgroundImage: `url(${in_pl})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#87524E', 0)} title='Unapologetic' style={{ background: '#87524E' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#755451', 0)} title='Faux Fur' style={{ background: '#755451' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#D59C78', 2)} title='Gold Standard' style={{ backgroundImage: `url(${in_gs})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#F0E8E5', 0)} title='Avalanche' style={{ background: '#F0E8E5' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#834E3F', 2)} title='Aurora' style={{ backgroundImage: `url(${in_ar})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#AE9486', 1)} title='VVS' style={{ backgroundImage: `url(${in_vvs})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#A3897F', 0)} title='Poised' style={{ background: '#A3897F' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#5A4444', 0)} title='She Rich' style={{ background: '#5A4444' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#EAC0A7', 0)} title='Cold Plunge' style={{ background: '#EAC0A7' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#F4D1D8', 0)} title='IDC' style={{ background: '#F4D1D8' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#837A70', 2)} title='Bling' style={{ backgroundImage: `url(${in_bl})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#C6ADA6', 0)} title='Oneself' style={{ background: '#C6ADA6' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#544A3B', 1)} title='Diamond Dew' style={{ backgroundImage: `url(${in_dd})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#C09189', 0)} title='Lavish' style={{ background: '#C09189' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#D5A484', 0)} title='First Class' style={{ background: '#D5A484' }}></button>
+                 </div>
+               </div>
+             ) : showUltimateUtopiaEyeShadow ? ( 
+               //Nyx-ultimate utopia 40 pan eyeshadow palette
+               <div className="product-options-container">
+                 <div className="product-options">
+                   <button className="back-option" onClick={handleEyeshadowBack}>
+                     <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                   <button className="reset-option" onClick={resetEyeshadow}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#FFD3AC', 0)} title='01' style={{ background: '#FFD3AC' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#EF9D83', 2)} title='02' style={{ backgroundImage: `url(${uu02})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#FFD5BD', 0)} title='03' style={{ background: '#FFD5BD' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#F7D1C6', 0)} title='04' style={{ background: '#F7D1C6' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#ED8A84', 0)} title='05' style={{ background: '#ED8A84' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#A18E7A', 2)} title='06' style={{ backgroundImage: `url(${uu06})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#CFD4F2', 0)} title='07' style={{ background: '#CFD4F2' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#D2BFB8', 0)} title='08' style={{ background: '#D2BFB8' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#B9B888', 2)} title='09' style={{ backgroundImage: `url(${uu09})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#8C896A', 0)} title='10' style={{ background: '#8C896A' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#BDAD8C', 2)} title='11' style={{ backgroundImage: `url(${uu11})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#AF695F', 0)} title='12' style={{ background: '#AF695F' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#DFA050', 1)} title='13' style={{ backgroundImage: `url(${uu13})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#855E5F', 0)} title='14' style={{ background: '#855E5F' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#A5ACB4', 0)} title='15' style={{ background: '#A5ACB4' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#B69888', 2)} title='16' style={{ backgroundImage: `url(${uu16})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#DA7C56', 0)} title='17' style={{ background: '#DA7C56' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#885C41', 2)} title='18' style={{ backgroundImage: `url(${uu18})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#A55033', 0)} title='19' style={{ background: '#A55033' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#7F6407', 1)} title='20' style={{ backgroundImage: `url(${uu20})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#DA855E', 2)} title='21' style={{ backgroundImage: `url(${uu21})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#40110B', 0)} title='22' style={{ background: '#40110B' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#849994', 2)} title='23' style={{ backgroundImage: `url(${uu23})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#1C373E', 0)} title='24' style={{ background: '#1C373E' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#C3621E', 0)} title='25' style={{ background: '#C3621E' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#A17A44', 1)} title='26' style={{ backgroundImage: `url(${uu26})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#80261B', 0)} title='27' style={{ background: '#80261B' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#DC6859', 0)} title='28' style={{ background: '#DC6859' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#2A2927', 0)} title='29' style={{ background: '#2A2927' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#473B3B', 0)} title='30' style={{ background: '#473B3B' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#524F52', 2)} title='31' style={{ backgroundImage: `url(${uu31})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#382C2C', 0)} title='32' style={{ background: '#382C2C' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#2F232F', 0)} title='33' style={{ background: '#2F232F' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#6C261C', 0)} title='34' style={{ background: '#6C261C' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#7A4C27', 0)} title='35' style={{ background: '#7A4C27' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#3D2312', 2)} title='36' style={{ backgroundImage: `url(${uu36})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#87392D', 2)} title='37' style={{ backgroundImage: `url(${uu37})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#B56858', 2)} title='38' style={{ backgroundImage: `url(${uu38})` }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#C05940', 0)} title='39' style={{ background: '#C05940' }}></button>
+                     <button className="makeup-option" onClick={() => handleEyeShadowClick('#575474', 2)} title='40' style={{ backgroundImage: `url(${uu40})` }}></button>
+                 </div>
+               </div>
+                ) : ( 
+                  <div className="type-options">
+                    <button className="back-option" onClick={handleBack}>
+                      <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
+                    <button className="es-option" onClick={() => handleSingleESBtnClick()} title="NARS-Single Eyeshadows"> 
+                      <img src={s_es} alt="Single"/></button>
+                    <button className="es-option" onClick={() => handleHardwiredESBtnClick()} title="NARS-Hardwired Eyeshadows">
+                      <img src={hw_es} alt="Hadwired"/></button>
+                    <button className="es-option" onClick={() => handleGlowshotESBtnClick()} title="NYX-Ultimate Glow Shots Liquid Eyeshadow">
+                      <img src={gs_es} alt="Glowshots"/></button>
+                    <button className="es-option" onClick={() => handleCandyBerryESBtnClick()} title="Dasique-Candy Berry Eyeshadow Palette">
+                      <img src={cb_es} alt="CandyBerry"/></button>
+                    <button className="es-option" onClick={() => handleVioletKnitESBtnClick()} title="Dasique-Violet Knit Eyeshadow Palette">
+                      <img src={vk_es} alt="VioletKnit"/></button>
+                    <button className="es-option" onClick={() => handleBerrySmoothieESBtnClick()} title="Dasique-Berry Smoothie Eyeshadow Palette">
+                      <img src={bs_es} alt="BerrySmoothie"/></button>
+                    <button className="es-option" onClick={() => handleVintageJeanESBtnClick()} title="NYX-Ultimate Vintage Jean Palette">
+                      <img src={vj_es} alt="VintageJean"/></button>
+                    <button className="es-option" onClick={() => handleAfterglowESBtnClick()} title="NARS-Afterglow Irresistible Eyeshadow Palette">
+                      <img src={ag_es} alt="AfterGlow"/></button>
+                    <button className="es-option" onClick={() => handleIcyNudeESBtnClick()} title="Huda Beauty-Icy Nude Eyeshadow Palette">
+                      <img src={in_es} alt="IcyNude"/></button>
+                    <button className="es-option" onClick={() => handleUltimateUtopiaESBtnClick()} title="NYX-Ultimate Utopia 40 Pan Palette">
+                      <img src={uu_es} alt="UltimateUtopia"/></button>
+                  </div>
               )
-            ) : (             
+            ) : (                    
               <div className="type-options">
               <button className="product-option" onClick={() => handleFoundationBtnClick()}>
                 Foundation</button>
