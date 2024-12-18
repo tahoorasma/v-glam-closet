@@ -44,8 +44,8 @@ def apply_blush(image, cheek_areas, color):
     cv2.fillPoly(mask, [left_cheek], color)
     cv2.fillPoly(mask, [right_cheek], color)
     mask = cv2.GaussianBlur(mask, (85, 85), 0)
-    #blended = cv2.add(image, mask)
-    blended = cv2.addWeighted(image, 1, mask, 0.4, 0)
+    blended = cv2.add(image, mask)
+    #blended = cv2.addWeighted(image, 1, mask, 0.4, 0)
     return blended
 
 @app.route('/processed/<path:filename>', methods=['GET'])

@@ -22,13 +22,13 @@ else:
 
 lipstick_colors = {
     "1": (20, 25, 170),
-    "2": (126, 109, 229),
+    "2": (30, 30, 120),
     "3": (110, 22, 240),
     "4": (30, 30, 180),
     "5": (0, 0, 130),
     "6": (106, 105, 184),
     "7": (14, 22, 139),
-    "8": (10, 10, 200),
+    "8": (16, 16, 170),
     "9": (90, 67, 230),
     "10": (40, 10, 150),
 }
@@ -54,7 +54,7 @@ def coloring_lip(imgOriginal, lmPoints, r, g, b):
     poly2 = np.array(lmPoints[12:], np.int32).reshape((-1, 1, 2))
     colored = cv2.fillPoly(img, [poly1, poly2], (r, g, b))
     colored = cv2.GaussianBlur(colored, (3, 3), 0)
-    cv2.addWeighted(colored, 0.3, imgOriginal, 0.7, 0, colored)
+    cv2.addWeighted(colored, 0.4, imgOriginal, 0.6, 0, colored)
     return colored
 
 @app.route('/select-lipstick', methods=['POST'])
