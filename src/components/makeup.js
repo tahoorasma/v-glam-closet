@@ -20,7 +20,7 @@ const Makeup = () => {
 
       <div className="container mt-4">
         <h6 className="discover-makeup">
-            <Link to="/makeup-catalog" style={{marginLeft: '5px', color:'white', textDecoration: 'none'}} >Discover Makeup <span className="arrow">&gt;</span></Link>
+          <Link to="/makeup-catalog" style={{marginLeft: '5px', color:'white', textDecoration: 'none'}} >Discover Makeup <span className="arrow">&gt;</span></Link>
         </h6>
         <div className="row">
           <div className="col-md-3">

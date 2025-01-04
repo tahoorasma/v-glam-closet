@@ -16,8 +16,8 @@ const AccessoryCatalog = () => {
             <Navbar />
 
             <div className="tabs-container">
-                <Link to="/jewelry" className="tab-link" style={{color:'white', backgroundColor: 'black'}}>Jewelry</Link>
-                <Link to="/sunglasses" className="tab-link">Sunglasses</Link>
+                <Link to="" className="tab-link" style={{color:'white', backgroundColor: 'black'}}>Jewelry</Link>
+                <Link to="/sunglasses-catalog" className="tab-link">Sunglasses</Link>
             </div>
 
             <div className="container mt-4">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './makeupCatalog.css';
+import './categoryWiseMakeup.css';
 import f1 from './images/catalog/foundation/NYX-csws.png';
 import f2 from './images/catalog/foundation/Maybelline-fitme.png';
 import Navbar from './navbar';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './makeupCatalog.css';
+import './categoryWiseMakeup.css';
 import e1 from './images/catalog/eyeshadow/afterglow.png';
 import e2 from './images/catalog/eyeshadow/berry-smoothie.png';
 import e3 from './images/catalog/eyeshadow/candy-berry.png';

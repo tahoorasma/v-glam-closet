@@ -1,3 +1,4 @@
+/*
 import React, { useEffect, useRef, useState } from 'react';
 import './fsm_live.css';
 import blackImage from './images/models/model2.jpg';
@@ -111,3 +112,4 @@ const zoomIn = () => {
 };
 
 export default VirtualTryOn;
+*/
