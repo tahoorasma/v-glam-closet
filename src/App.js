@@ -9,6 +9,10 @@ import VirtualTryOnModes from './components/vto-modes';
 import FoundationShadeMatch from './components/fsm';
 import Makeup from './components/makeup';
 import MakeupCatalog from './components/makeupCatalog';
+import FoundationCatalog from './components/foundationCatalog';
+import BlushCatalog from './components/blushCatalog';
+import LipstickCatalog from './components/lipstickCatalog';
+import EyeshadowCatalog from './components/eyeshadowCatalog';
 import AccessoryCatalog from './components/accessoryCatalog';
 import SelfieMode from './components/selfieMode';
 import Blush from './components/blush';
@@ -31,6 +35,10 @@ function App() {
           <Route path="/foundation-shade-match" element={<FoundationShadeMatch />} />
           <Route path="/makeup" element={<Makeup />} />
           <Route path="/makeup-catalog" element={<MakeupCatalog />} />
+          <Route path="/foundation-catalog" element={<FoundationCatalog />} />
+          <Route path="/blush-catalog" element={<BlushCatalog />} />
+          <Route path="/lipstick-catalog" element={<LipstickCatalog />} />
+          <Route path="/eyeshadow-catalog" element={<EyeshadowCatalog />} />
           <Route path="/accessory-catalog" element={<AccessoryCatalog />} />
           <Route path="/selfie-mode" element={<SelfieMode />} />
           <Route path="/blush" element={<Blush />} />
