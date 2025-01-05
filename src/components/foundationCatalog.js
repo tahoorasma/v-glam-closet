@@ -37,8 +37,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Pale</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">311 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">5 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -46,8 +46,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Light Porcelian</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">549 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -55,8 +55,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Light Ivory</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">491 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">5 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -64,8 +64,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Light</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">365 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">4.7 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -73,8 +73,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Fair</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">408 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">4.8 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -82,8 +82,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Vanilla</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">256 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">4.4 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -91,8 +91,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Warm Vanilla</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">312 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">4 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -100,8 +100,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Nude</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">102 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">3 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -109,8 +109,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Natural</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">47 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">5 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -118,8 +118,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-True Beige</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">98 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">4.5 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -127,8 +127,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Buff</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">65 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -136,8 +136,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Medium Buff</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">4 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -145,8 +145,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Medium Olive</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">0 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">5 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -154,8 +154,8 @@ const FoundationCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Can't Stop Won't Stop-Soft Beige</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
-                        <p className="product-reviews">12 reviews</p>
+                        <p className="price">Rs 4200.00</p>
+                        <p className="product-reviews">4.8 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
 

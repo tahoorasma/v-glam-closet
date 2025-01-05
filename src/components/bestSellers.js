@@ -12,13 +12,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const BestSellers = () => {
     const [products] = useState([
-        { id: 1, name: "Ombre Blush", price: 4500, reviews: 4108, image: bs1, category: "Face" },
-        { id: 2, name: "Soft liquid Blush", price: 3500, reviews: 447, image: bs2, category: "Face" },
-        { id: 3, name: "Bliss Eyeshadow", price: 5000, reviews: 1704, image: bs3, category: "Eyes" },
-        { id: 4, name: "NYX-Light Foundation", price: 3500, reviews: 447, image: bs4, category: "Face" },
-        { id: 5, name: "Icy Nude Eyeshadow", price: 2000, reviews: 1704, image: bs5, category: "Eyes" },
-        { id: 6, name: "Violet Knit Eyeshadow", price: 5500, reviews: 447, image: bs6, category: "Face" },
-        { id: 7, name: "Sunglasses", price: 3000, reviews: 1704, image: bs7, category: "Eyes" },
+        { id: 1, name: "Ombre Blush", price: 4500, reviews: 5, image: bs1, category: "Face" },
+        { id: 2, name: "Soft liquid Blush", price: 3500, reviews: 5, image: bs2, category: "Face" },
+        { id: 3, name: "Bliss Eyeshadow", price: 5000, reviews: 5, image: bs3, category: "Eyes" },
+        { id: 4, name: "NYX-Light Foundation", price: 3500, reviews: 5, image: bs4, category: "Face" },
+        { id: 5, name: "Icy Nude Eyeshadow", price: 2000, reviews: 5, image: bs5, category: "Eyes" },
+        { id: 6, name: "Violet Knit Eyeshadow", price: 5500, reviews: 5, image: bs6, category: "Face" },
+        { id: 7, name: "Sunglasses", price: 3000, reviews: 5, image: bs7, category: "Eyes" },
     ]);
 
     const [selectedCategory, setSelectedCategory] = useState("All"); 
@@ -68,7 +68,7 @@ const BestSellers = () => {
                             <div className="product-info">
                                 <p className="product-name">{product.name}</p>
                                 <p className="product-price">Rs {product.price}</p>
-                                <p className="product-reviews">{product.reviews} reviews</p>
+                                <p className="product-reviews">{product.reviews} <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                                 <button className="add-to-bag">Add to Bag</button>
                             </div>
                         </div>

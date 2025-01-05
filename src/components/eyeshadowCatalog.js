@@ -33,7 +33,8 @@ const EyeshadowCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Afterglow Irresistible Eyeshadow Palette</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 9590.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -41,7 +42,8 @@ const EyeshadowCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Dasique-Berry Smoothie Eyeshadow Palette</Link>
                         </h3>
-                        <p className="price">Rs3650.00</p>
+                        <p className="price">Rs 8000.00</p>
+                        <p className="product-reviews">4.8 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -49,7 +51,8 @@ const EyeshadowCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Dasique-Candy Berry Eyeshadow Palette</Link>
                         </h3>
-                        <p className="price">Rs3650.00</p>
+                        <p className="price">Rs 6950.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -57,7 +60,8 @@ const EyeshadowCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Ultimate Glow Shots Liquid Eyeshadow</Link>
                         </h3>
-                        <p className="price">Rs3650.00</p>
+                        <p className="price">Rs 3000.00</p>
+                        <p className="product-reviews">5 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -65,7 +69,8 @@ const EyeshadowCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Hardwired Eyeshadows</Link>
                         </h3>
-                        <p className="price">Rs3650.00</p>
+                        <p className="price">Rs 4300.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -73,7 +78,8 @@ const EyeshadowCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Huda Beauty-Icy Nude Eyeshadow Palette</Link>
                         </h3>
-                        <p className="price">Rs3650.00</p>
+                        <p className="price">Rs 12500.00</p>
+                        <p className="product-reviews">4.6 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -81,7 +87,8 @@ const EyeshadowCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Single Eyeshadows</Link>
                         </h3>
-                        <p className="price">Rs3650.00</p>
+                        <p className="price">Rs 3700.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -89,7 +96,8 @@ const EyeshadowCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Ultimate Utopia 40 Pan Palette</Link>
                         </h3>
-                        <p className="price">Rs3650.00</p>
+                        <p className="price">Rs 9800.00</p>
+                        <p className="product-reviews">5 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -97,7 +105,8 @@ const EyeshadowCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NYX-Ultimate Vintage Jean Palette</Link>
                         </h3>
-                        <p className="price">Rs3650.00</p>
+                        <p className="price">Rs 5600.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -105,7 +114,8 @@ const EyeshadowCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Dasique-Violet Knit Eyeshadow Palette</Link>
                         </h3>
-                        <p className="price">Rs3650.00</p>
+                        <p className="price">Rs 6950.00</p>
+                        <p className="product-reviews">4.8 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
 

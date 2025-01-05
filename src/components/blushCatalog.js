@@ -42,7 +42,8 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Powder Blush 237</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 9500.00</p>
+                        <p className="product-reviews">4.8 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -50,7 +51,8 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Powder Blush 252</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 9500.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -58,7 +60,8 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Powder Blush 775</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 9500.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -66,7 +69,8 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Powder Blush 776</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 9500.00</p>
+                        <p className="product-reviews">5 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -74,7 +78,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Powder Blush 777</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 9500.00</p>
+                        <p className="product-reviews">4.6 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -82,7 +88,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Powder Blush 778</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 9500.00</p>
+                        <p className="product-reviews">4.8 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -90,7 +98,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Powder Blush 888</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 9500.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -98,7 +108,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Powder Blush 901</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 9500.00</p>
+                        <p className="product-reviews">5 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -106,7 +118,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">NARS-Powder Blush 902</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 9500.00</p>
+                        <p className="product-reviews">4.8 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -114,7 +128,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Rare Beauty-Soft Pinch Liquid Blush-Bliss</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 7000.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -122,7 +138,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Rare Beauty-Soft Pinch Liquid Blush-Grateful</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 7000.00</p>
+                        <p className="product-reviews">4.6 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -130,7 +148,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Rare Beauty-Soft Pinch Liquid Blush-Encourage</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 7000.00</p>
+                        <p className="product-reviews">4.7 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -138,7 +158,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Rare Beauty-Soft Pinch Liquid Blush-Happy</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 7000.00</p>
+                        <p className="product-reviews">5 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -146,7 +168,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Rare Beauty-Soft Pinch Liquid Blush-Hope</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 7000.00</p>
+                        <p className="product-reviews">5 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -154,7 +178,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Rare Beauty-Soft Pinch Liquid Blush-Love</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 7000.00</p>
+                        <p className="product-reviews">4.8 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -162,7 +188,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Rare Beauty-Soft Pinch Liquid Blush-Lucky</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 7000.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -170,7 +198,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Rare Beauty-Soft Pinch Liquid Blush-Virtue</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 7000.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -178,7 +208,9 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Rare Beauty-Soft Pinch Liquid Blush-Believe</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 7000.00</p>
+                        <p className="product-reviews">4.8 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
                     <div className="cwm-product-card">
@@ -186,7 +218,8 @@ const BlushCatalog = () => {
                         <h3>
                             <Link to="" className="product-link">Rare Beauty-Soft Pinch Liquid Blush-Dewy</Link>
                         </h3>
-                        <p className="price">Rs4500.00</p>
+                        <p className="price">Rs 7000.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
 
