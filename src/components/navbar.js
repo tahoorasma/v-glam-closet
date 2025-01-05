@@ -22,6 +22,7 @@ const Navbar = () => {
                 <NavLink to="/virtual-try-on-modes" className="nav-link"
                     style={({ isActive }) => ({
                         textDecoration: isActive ? 'underline' : 'none',
+                        marginLeft: '180px'
                     })}>
                     Virtual Try On
                 </NavLink>
