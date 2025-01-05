@@ -1,0 +1,125 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fdf8f6;
+}
+
+.header {
+    text-align: center;
+    padding: 8px 0;
+    font-size: 2em;
+    font-weight: bold;
+    background-color: black;
+    color: rgb(216, 82, 105);
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between; 
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.categories {
+    display: flex; 
+    align-items: flex-start;
+}
+
+.categories button {
+    background-color: #e66a7e; 
+    color: white; 
+    border: none; 
+    width: 60px; 
+    height: 40px; 
+    border-radius: 5px;
+    margin-right: 5px; 
+    cursor: pointer; 
+    font-size: 15px; 
+}
+
+.categories button:hover {
+    background-color: #c85466; 
+}
+
+.sort { 
+    margin-top: 10px;
+    align-items: flex-end;
+}
+
+.sort select {
+    padding: 10px; 
+    font-size: 13px; 
+    width: 150px;
+    border: 1px solid #e0e0e0; 
+    border-radius: 5px; 
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 150px; 
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.product-info {
+    margin-top: 10px;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.product-price {
+    font-size: 14px;
+    color: #e66a7e;
+    margin: 5px 0;
+}
+
+.product-reviews {
+    font-size: 12px;
+    color: #999;
+}
+
+.add-to-bag {
+    background-color: #e66a7e;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.add-to-bag:hover {
+    background-color: #c85466;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
