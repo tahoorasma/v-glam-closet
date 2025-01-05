@@ -30,7 +30,7 @@
 }
 
 .fsm_live .image-container {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 350px;
   overflow: hidden;
@@ -58,11 +58,7 @@
   align-items: end;
   flex-direction: column;
   gap: 10px;
-}
-
-.fsm_live .js-image-zoom__zoomed-area {
-  background: transparent !important;
-  opacity: 1 !important;
+  background-color: transparent;
 }
 
 .fsm_live .control-btn {

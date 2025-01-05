@@ -46,7 +46,7 @@ const BestSellers = () => {
             <header className="header">V-Glam Closet</header>
             <Navbar />
             <div className="container mt-3">
-                <div className="controls">
+                <div className="bs controls">
                     <div className="categories">
                         <button onClick={() => handleCategoryChange("All")}>All</button>
                         <button onClick={() => handleCategoryChange("Face")}>Face</button>

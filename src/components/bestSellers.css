@@ -14,7 +14,7 @@ body {
     color: rgb(216, 82, 105);
 }
 
-.controls {
+.bs .controls {
     display: flex;
     justify-content: space-between; 
     padding: 20px;
