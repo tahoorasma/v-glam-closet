@@ -14,7 +14,7 @@ const FoundationShadeMatch = () => {
   }
 
   return (
-    <div>
+    <div className="fsm">
       <div className="header">
         V-Glam Closet
       </div>

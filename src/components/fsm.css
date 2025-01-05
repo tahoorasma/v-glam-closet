@@ -1,4 +1,4 @@
-.header {
+.fsm .header {
     text-align: center;
     padding: 8px 0;
     font-size: 2em;
@@ -8,36 +8,37 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.container {
+.fsm .container {
     text-align: center;
     padding: 20px;
 }
 
-.row {
+.fsm .row {
     display: flex;
     flex-wrap: wrap;
     margin-right: -15px;
-    padding-top: 25px;
     margin-left: -15px;
+    padding-top: 25px;
 }
 
-.col-md-4 {
+.fsm .col-md-4 {
     flex: 0 0 33.333333%;
     max-width: 33.333333%;
 }
 
-.step {
+.fsm .step {
     text-align: center;
     margin: 20px 0;
 }
 
-.step img {
-    width: 200px;
-    height: 334px;
+.fsm .step img {
+    width: 100%; 
+    max-width: 200px; 
+    height: 350px;
     object-fit: cover;
 }
 
-.footer {
+.fsm .footer {
     background-color: black;
     color: white;
     padding: 20px 0;
@@ -45,12 +46,13 @@
 }
 
 @media (max-width: 768px) {
-    .col-md-4 {
-        width: 100%;
+    .fsm .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 }
 
-.btn-add-to-bag {
+.fsm .btn-add-to-bag {
     margin-top: 15px;
     background-color: rgb(216, 82, 105);
     color: white;
@@ -61,7 +63,7 @@
     transition: background-color 0.3s ease;
 }
 
-.btn-add-to-bag:hover {
+.fsm .btn-add-to-bag:hover {
     background: linear-gradient(to right, #ec5971, #d76b7d);
     background-color: rgba(231, 98, 120, 0.925);
 }

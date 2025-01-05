@@ -1,26 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './fsm_live.css';
 import blackImage from './images/models/model2.jpg';
 import foundation from './images/blush.jpg';
 import Navbar from './navbar';
-import ImageZoom from 'js-image-zoom';
 
-const VirtualTryOn = () => {
+const FoundationShadeMatchLive = () => {
   const [sliderVisible, setSliderVisible] = useState(true);
   const [sliderPosition, setSliderPosition] = useState(50);
   const [zoomLevel, setZoomLevel] = useState(1);
-  const imgContainerRef = useRef(null); 
-
-  useEffect(() => {
-    if (imgContainerRef.current) {
-      const options = {
-        width: imgContainerRef.current.clientWidth,
-        zoomWidth: 500,
-        offset: { vertical: 0, horizontal: 10 },
-      };
-      new ImageZoom(imgContainerRef.current, options);
-    }
-  }, [imgContainerRef]);
+  const imgContainerRef = useRef(null);
 
   const toggleSlider = () => {
     setSliderVisible(!sliderVisible);
@@ -33,12 +21,12 @@ const VirtualTryOn = () => {
     setSliderPosition(Math.min(Math.max(newPosition, 0), 100));
   };
 
-const zoomIn = () => {
+  const zoomIn = () => {
     if (zoomLevel < 4) {
       setZoomLevel((prevZoom) => prevZoom + 1);
       const img = imgContainerRef.current.querySelector('img');
       img.style.transition = 'transform 0.3s ease';
-      img.style.transform = `scale(${1 + 0.2 * zoomLevel})`; 
+      img.style.transform = `scale(${1 + 0.2 * zoomLevel})`;
     }
   };
 
@@ -47,20 +35,19 @@ const zoomIn = () => {
       setZoomLevel((prevZoom) => prevZoom - 1);
       const img = imgContainerRef.current.querySelector('img');
       img.style.transition = 'transform 0.3s ease';
-      img.style.transform = `scale(${1 + 0.2 * (zoomLevel - 2)})`; 
+      img.style.transform = `scale(${1 + 0.2 * (zoomLevel - 2)})`;
     }
   };
-  
 
   return (
-    <div>
+    <div className="fsm_live">
       <div className="header">V-Glam Closet</div>
       <Navbar />
       <div className="container1">
         <div className="left-panel">
           <div
             className="image-container"
-            ref={imgContainerRef} 
+            ref={imgContainerRef}
             onMouseMove={sliderVisible ? handleSliderMove : undefined}
           >
             <img src={blackImage} alt="Black Background" className="black-image" />
@@ -110,4 +97,4 @@ const zoomIn = () => {
   );
 };
 
-export default VirtualTryOn;
+export default FoundationShadeMatchLive;

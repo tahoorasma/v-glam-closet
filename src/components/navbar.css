@@ -23,7 +23,7 @@
     text-decoration: underline;
     font-weight: bold;
     color: white;
-}  
+}
 
 .navbar a {
     color: white;
@@ -45,4 +45,43 @@
     margin-left: 15px;
     font-size: 1.1em;
     text-decoration: none;
+}
+
+.hamburger {
+    display: none; 
+    cursor: pointer;
+    color: white;
+    font-size: 1.5em;
+    margin-right: 20px;
+}
+
+.mobile-menu {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    position: absolute;
+    top: 60px; 
+    width: 100%;
+    z-index: 10;
+}
+
+.mobile-navbar-links {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.mobile-navbar-links .nav-link {
+    padding: 10px 20px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none; 
+    }
+
+    .hamburger {
+        display: block;
+    }
 }
