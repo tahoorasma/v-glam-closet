@@ -19,6 +19,7 @@ import SunglassesCatalog from './components/sunglassesCatalog';
 import SelfieMode from './components/selfieMode';
 import SelfiePage from './components/selfiePage';
 import BestSellers from './components/bestSellers';
+import AddToBag from './components/addToBag';
 
 // import logo from './logo.jpg'; // Optional if you're not using the logo yet
 
@@ -48,6 +49,7 @@ function App() {
           <Route path="/selfie-mode" element={<SelfieMode />} />
           <Route path="/selfie-page" element={<SelfiePage />} />
           <Route path="/best-sellers" element={<BestSellers />} />
+          <Route path="/add-to-bag" element={<AddToBag />} />
         </Routes>
       </Router>
     </div>
