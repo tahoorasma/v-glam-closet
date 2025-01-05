@@ -63,7 +63,7 @@ const BestSellers = () => {
                 </div>
                 <div className="product-grid mt-3">
                     {filteredProducts.map((product) => (
-                        <div key={product.id} className="product-card">
+                        <div key={product.id} className="bs-product-card">
                             <img src={product.image} alt={product.name} />
                             <div className="product-info">
                                 <p className="product-name">{product.name}</p>

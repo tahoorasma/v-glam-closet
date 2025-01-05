@@ -28,7 +28,7 @@ const EyeshadowCatalog = () => {
 
             <div className="container mt-4">
                 <div className="product-grid" style={{ marginTop: '-18px' }}>
-                    <div className="product-card">
+                    <div className="cwm-product-card">
                         <img src={e1} alt="NYX-Can't Stop Won't Stop" />
                         <h3>
                             <Link to="" className="product-link">NARS-Afterglow Irresistible Eyeshadow Palette</Link>
@@ -36,7 +36,7 @@ const EyeshadowCatalog = () => {
                         <p className="price">Rs4500.00</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
-                    <div className="product-card">
+                    <div className="cwm-product-card">
                         <img src={e2} alt="Maybelline-Fit Me" />
                         <h3>
                             <Link to="" className="product-link">Dasique-Berry Smoothie Eyeshadow Palette</Link>
@@ -44,7 +44,7 @@ const EyeshadowCatalog = () => {
                         <p className="price">Rs3650.00</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
-                    <div className="product-card">
+                    <div className="cwm-product-card">
                         <img src={e3} alt="Maybelline-Fit Me" />
                         <h3>
                             <Link to="" className="product-link">Dasique-Candy Berry Eyeshadow Palette</Link>
@@ -52,7 +52,7 @@ const EyeshadowCatalog = () => {
                         <p className="price">Rs3650.00</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
-                    <div className="product-card">
+                    <div className="cwm-product-card">
                         <img src={e4} alt="Maybelline-Fit Me" />
                         <h3>
                             <Link to="" className="product-link">NYX-Ultimate Glow Shots Liquid Eyeshadow</Link>
@@ -60,7 +60,7 @@ const EyeshadowCatalog = () => {
                         <p className="price">Rs3650.00</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
-                    <div className="product-card">
+                    <div className="cwm-product-card">
                         <img src={e6} alt="Maybelline-Fit Me" />
                         <h3>
                             <Link to="" className="product-link">NARS-Hardwired Eyeshadows</Link>
@@ -68,7 +68,7 @@ const EyeshadowCatalog = () => {
                         <p className="price">Rs3650.00</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
-                    <div className="product-card">
+                    <div className="cwm-product-card">
                         <img src={e7} alt="Maybelline-Fit Me" />
                         <h3>
                             <Link to="" className="product-link">Huda Beauty-Icy Nude Eyeshadow Palette</Link>
@@ -76,7 +76,7 @@ const EyeshadowCatalog = () => {
                         <p className="price">Rs3650.00</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
-                    <div className="product-card">
+                    <div className="cwm-product-card">
                         <img src={e9} alt="Maybelline-Fit Me" />
                         <h3>
                             <Link to="" className="product-link">NARS-Single Eyeshadows</Link>
@@ -84,7 +84,7 @@ const EyeshadowCatalog = () => {
                         <p className="price">Rs3650.00</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
-                    <div className="product-card">
+                    <div className="cwm-product-card">
                         <img src={e10} alt="Maybelline-Fit Me" />
                         <h3>
                             <Link to="" className="product-link">NYX-Ultimate Utopia 40 Pan Palette</Link>
@@ -92,7 +92,7 @@ const EyeshadowCatalog = () => {
                         <p className="price">Rs3650.00</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
-                    <div className="product-card">
+                    <div className="cwm-product-card">
                         <img src={e11} alt="Maybelline-Fit Me" />
                         <h3>
                             <Link to="" className="product-link">NYX-Ultimate Vintage Jean Palette</Link>
@@ -100,7 +100,7 @@ const EyeshadowCatalog = () => {
                         <p className="price">Rs3650.00</p>
                         <button className="btn-add-to-bag">Add to Bag</button>
                     </div>
-                    <div className="product-card">
+                    <div className="cwm-product-card">
                         <img src={e12} alt="Maybelline-Fit Me" />
                         <h3>
                             <Link to="" className="product-link">Dasique-Violet Knit Eyeshadow Palette</Link>

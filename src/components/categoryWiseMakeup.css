@@ -60,7 +60,7 @@ body {
     padding: 40px 80px;
 }
 
-.product-card {
+.cwm-product-card {
     text-align: center;
     background-color: #fff;
     padding: 15px;
@@ -78,7 +78,7 @@ body {
     width: auto;
 }
 
-.product-card img {
+.cwm-product-card img {
     width: 100%;
     height: auto;
     border-radius: 8px;
