@@ -20,7 +20,7 @@ const Makeup = () => {
 
       <div className="container mt-4">
         <h6 className="discover-makeup">
-            <Link to="/makeup-catalog" style={{marginLeft: '5px', color:'white', textDecoration: 'none'}} >Discover Makeup <span className="arrow">&gt;</span></Link>
+          <Link to="/makeup-catalog" style={{marginLeft: '5px', color:'white', textDecoration: 'none'}} >Discover Makeup <span className="arrow">&gt;</span></Link>
         </h6>
         <div className="row">
           <div className="col-md-3">
@@ -34,25 +34,25 @@ const Makeup = () => {
               <div className="col-md-3">
                 <div className="product-item">
                   <img src={found} alt="Foundation" />
-                  <h3><Link to="" style={{ color: 'white', textDecoration: 'none' }}>Foundation</Link></h3>
+                  <h3><Link to="/foundation-catalog" style={{ color: 'white', textDecoration: 'none' }}>Foundation</Link></h3>
                 </div>
               </div>
               <div className="col-md-3">
                 <div className="product-item">
                   <img src={blush} alt="Blush" />
-                  <h3><Link to="" style={{ color: 'white', textDecoration: 'none' }}>Blush</Link></h3>
+                  <h3><Link to="/blush-catalog" style={{ color: 'white', textDecoration: 'none' }}>Blush</Link></h3>
                 </div>
               </div>
               <div className="col-md-3">
                 <div className="product-item">
                   <img src={lipstick} alt="Lipstick" />
-                  <h3><Link to="" style={{ color: 'white', textDecoration: 'none' }}>Lipstick</Link></h3>
+                  <h3><Link to="/lipstick-catalog" style={{ color: 'white', textDecoration: 'none' }}>Lipstick</Link></h3>
                 </div>
               </div>
               <div className="col-md-3">
                 <div className="product-item">
                   <img src={eyeshadow} alt="Eyeshadow" />
-                  <h3><Link to="" style={{ color: 'white', textDecoration: 'none' }}>Eyeshadow</Link></h3>
+                  <h3><Link to="/eyeshadow-catalog" style={{ color: 'white', textDecoration: 'none' }}>Eyeshadow</Link></h3>
                 </div>
               </div>
             </div>
