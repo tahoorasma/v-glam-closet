@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './makeupCatalog.css';
 import cp1 from './images/cp1.jpeg';
@@ -6,8 +6,19 @@ import cp2 from './images/cp2.jpeg';
 import cp3 from './images/cp3.jpeg';
 import cp4 from './images/cp4.jpeg';
 import Navbar from './navbar';
+import AddToBag from './addToBag';
 
 const MakeupCatalog = () => {
+    const [showBag, setShowBag] = useState(false); 
+
+    const handleOpenBag = () => {
+        setShowBag(true); 
+    };
+
+    const handleCloseBag = () => {
+        setShowBag(false);
+    };
+
     return (
         <div>
             <div className="header">
@@ -27,7 +38,7 @@ const MakeupCatalog = () => {
                             <div className="shade" style={{ backgroundColor: '#d32f2f' }}></div>
                         </div>
                         <p className="price">Rs3000.00</p>
-                        <button className="btn-add-to-bag">Add to Bag</button>
+                        <button className="btn-add-to-bag" onClick={handleOpenBag}>Add to Bag</button>
                     </div>
 
                     <div className="product-card">
@@ -41,7 +52,7 @@ const MakeupCatalog = () => {
                             <div className="shade" style={{ backgroundColor: '#c2185b' }}></div>
                         </div>
                         <p className="price">Rs2000.00</p>
-                        <button className="btn-add-to-bag">Add to Bag</button>
+                        <button className="btn-add-to-bag" onClick={handleOpenBag}>Add to Bag</button>
                     </div>
 
                     <div className="product-card">
@@ -55,7 +66,7 @@ const MakeupCatalog = () => {
                             <div className="shade" style={{ backgroundColor: '#ef6c00' }}></div>
                         </div>
                         <p className="price">Rs4500.00</p>
-                        <button className="btn-add-to-bag">Add to Bag</button>
+                        <button className="btn-add-to-bag" onClick={handleOpenBag}>Add to Bag</button>
                     </div>
 
                     <div className="product-card">
@@ -69,10 +80,20 @@ const MakeupCatalog = () => {
                             <div className="shade" style={{ backgroundColor: '#80522d' }}></div>
                         </div>
                         <p className="price">Rs1500.00</p>
-                        <button className="btn-add-to-bag">Add to Bag</button>
+                        <button className="btn-add-to-bag" onClick={handleOpenBag}>Add to Bag</button>
                     </div>
                 </div>
             </div>
+            {showBag && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <button className="close-modal-btn" onClick={handleCloseBag}>
+                            &times;
+                        </button>
+                        <AddToBag />
+                    </div>
+                </div>
+            )}
             <div className="footer">
                 <p>&copy; 2024 V-Glam Closet</p>
             </div>
