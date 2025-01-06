@@ -89,7 +89,7 @@
 }
 
 .mobile-menu {
-    display: none;
+    display: flex;
     flex-direction: column;
     background-color: black;
     position: absolute;

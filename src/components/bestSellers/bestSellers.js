@@ -8,7 +8,6 @@ import bs4 from "../images/catalog/foundation/NYX-light.png";
 import bs5 from "../images/catalog/eyeshadow/icy-nude.png";
 import bs6 from "../images/catalog/eyeshadow/violet-knit.png";
 import bs7 from "../images/catalog/sunglasses/sg-4.png";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const BestSellers = () => {
     const [products] = useState([
@@ -18,10 +17,10 @@ const BestSellers = () => {
         { id: 4, name: "NYX-Light Foundation", price: 3500, ratings: 5, image: bs4, category: "Face" },
         { id: 5, name: "Icy Nude Eyeshadow", price: 2000, ratings: 4, image: bs5, category: "Eyes" },
         { id: 6, name: "Violet Knit Eyeshadow", price: 5500, ratings: 4.1, image: bs6, category: "Face" },
-        { id: 7, name: "Sunglasses", price: 3000, ratings: 4.2, image: bs7, category: "Eyes" }
+        { id: 7, name: "Sunglasses", price: 3000, ratings: 4.2, image: bs7, category: "Eyes" },
     ]);
 
-    const [selectedCategory, setSelectedCategory] = useState("All"); 
+    const [selectedCategory, setSelectedCategory] = useState("All");
     const [sortedProducts, setSortedProducts] = useState(products);
 
     const handleCategoryChange = (category) => {
@@ -45,30 +44,35 @@ const BestSellers = () => {
         <div>
             <header className="header">V-Glam Closet</header>
             <Navbar />
-            <div className="container mt-3">
-                <div className="bs controls">
+            <div className="bs-container">
+                <div className="bs-controls">
                     <div className="categories">
-                        <button onClick={() => handleCategoryChange("All")}>All</button>
-                        <button onClick={() => handleCategoryChange("Face")}>Face</button>
-                        <button onClick={() => handleCategoryChange("Lip")}>Lip</button>
-                        <button onClick={() => handleCategoryChange("Eyes")}>Eyes</button>
+                        {["All", "Face", "Lip", "Eyes"].map((category) => (
+                            <button
+                                key={category}
+                                onClick={() => handleCategoryChange(category)}
+                                className={selectedCategory === category ? "active" : ""}
+                            >
+                                {category}
+                            </button>
+                        ))}
                     </div>
                     <div className="sort">
-                        <select className="form-select" onChange={(e) => sortProducts(e.target.value)}>
+                        <select onChange={(e) => sortProducts(e.target.value)}>
                             <option value="">Sort</option>
                             <option value="lowToHigh">Price: Low to High</option>
                             <option value="highToLow">Price: High to Low</option>
                         </select>
                     </div>
                 </div>
-                <div className="product-grid mt-3">
+                <div className="product-grid">
                     {filteredProducts.map((product) => (
                         <div key={product.id} className="bs-product-card">
                             <img src={product.image} alt={product.name} />
                             <div className="product-info">
                                 <p className="product-name">{product.name}</p>
                                 <p className="product-price">Rs {product.price}</p>
-                                <p className="product-reviews">{product.reviews} <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+                                <p className="product-reviews">{product.ratings} <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                                 <button className="add-to-bag">Add to Bag</button>
                             </div>
                         </div>

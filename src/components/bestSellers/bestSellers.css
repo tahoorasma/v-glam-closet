@@ -1,8 +1,5 @@
 body {
     font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fdf8f6;
 }
 
 .header {
@@ -14,53 +11,56 @@ body {
     color: rgb(216, 82, 105);
 }
 
-.bs .controls {
-    display: flex;
-    justify-content: space-between; 
+.bs-container {
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bs-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .categories {
-    display: flex; 
-    align-items: flex-start;
+    display: flex;
+    margin-left: 25px ;
+    gap: 10px;
 }
 
 .categories button {
-    background-color: #e66a7e; 
-    color: white; 
-    border: none; 
-    width: 60px; 
-    height: 30px; 
+    background-color: #e66a7e;
+    color: white;
+    width: 70px;
+    height: 35px;
+    padding: 8px 12px;
+    border: none;
     border-radius: 5px;
-    margin-right: 15px; 
-    cursor: pointer; 
-    font-size: 15px; 
+    cursor: pointer;
+    font-size: 14px;
 }
 
 .categories button:hover {
-    background-color: #c85466; 
+    background-color: #c85466;
 }
 
-.sort { 
-    margin-top: 10px;
-    align-items: flex-end;
+.categories button.active {
+    background-color: black;
+    color: white;
+    font-weight: bold;
 }
 
 .sort select {
-    padding: 10px; 
-    font-size: 13px; 
-    width: 150px;
-    border: 1px solid #e0e0e0; 
-    border-radius: 5px; 
+    padding: 8px 10px;
+    font-size: 14px;
+    width: 170px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
-    padding: 20px;
 }
 
 .bs-product-card {
@@ -72,13 +72,14 @@ body {
     transition: transform 0.2s;
 }
 
-.product-card:hover {
+.bs-product-card:hover {
     transform: translateY(-5px);
 }
 
 .bs-product-card img {
-    width: 150px; 
-    height: 100px;
+    width: 100%;
+    width: 150px;
+    height: 120px;
     margin-bottom: 10px;
 }
 
@@ -116,6 +117,7 @@ body {
 .add-to-bag:hover {
     background-color: #c85466;
 }
+
 
 .footer {
     background-color: black;
