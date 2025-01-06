@@ -18,7 +18,7 @@ const BestSellers = () => {
         { id: 4, name: "NYX-Light Foundation", price: 3500, ratings: 5, image: bs4, category: "Face" },
         { id: 5, name: "Icy Nude Eyeshadow", price: 2000, ratings: 4, image: bs5, category: "Eyes" },
         { id: 6, name: "Violet Knit Eyeshadow", price: 5500, ratings: 4.1, image: bs6, category: "Face" },
-        { id: 7, name: "Sunglasses", price: 3000, ratings: 4.2, image: bs7, category: "Eyes" },
+        { id: 7, name: "Sunglasses", price: 3000, ratings: 4.2, image: bs7, category: "Eyes" }
     ]);
 
     const [selectedCategory, setSelectedCategory] = useState("All"); 

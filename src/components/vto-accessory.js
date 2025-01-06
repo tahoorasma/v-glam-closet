@@ -11,10 +11,10 @@ import s5 from './images/sunglasses/sg-5.png';
 import s6 from './images/sunglasses/sg-6.png';
 import s7 from './images/sunglasses/sg-7.png';
 import s8 from './images/sunglasses/sg-8.png';
-import j1 from './images/jewelry/j1.png';
-import j2 from './images/jewelry/j2.png';
-import j3 from './images/jewelry/j3.png';
-import j4 from './images/jewelry/j4.png';
+import j1 from './images/catalog/jewelry/j1.png';
+import j2 from './images/catalog/jewelry/j2.png';
+import j3 from './images/catalog/jewelry/j3.png';
+import j4 from './images/catalog/jewelry/j4.png';
 import Navbar from './navbar';
 import axios from 'axios';
 
