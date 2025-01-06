@@ -63,6 +63,7 @@
     display: flex;
     align-items: center;
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .sc-navbar-icons i {
@@ -71,10 +72,12 @@
     font-size: 1.1em;
     text-decoration: none;
     transition: color 0.3s;
+    cursor: pointer;
 }
 
 .sc-navbar-icons a:hover {
     color: rgb(206, 205, 205);
+    cursor: pointer;
 }
 
 .hamburger {
