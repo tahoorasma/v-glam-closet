@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './addToBag.css'; 
+import { Link } from 'react-router-dom';
 import cp1 from './images/cp1.jpeg';
 import cp2 from './images/cp2.jpeg';
 
@@ -59,7 +60,9 @@ const AddToBag = () => {
             </div>
             <div className="sidebar-footer">
                 <h3>Estimated Total: Rs. {totalPrice.toLocaleString()} PKR</h3>
+                <Link to="/checkout">
                 <button className="checkout-btn">Checkout</button>
+                </Link>
             </div>
         </div>
     );
