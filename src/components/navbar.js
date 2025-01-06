@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import AddToBag from './addToBag';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-
+    const [showBag, setShowBag] = useState(false); 
+    
     const toggleMenu = () => {
         setIsOpen((prev) => !prev);
     };
@@ -16,13 +18,24 @@ const Navbar = () => {
         setIsOpen(false);
     };
 
+    const handleOpenBag = () => {
+        setShowBag(true); 
+    };
+
+    const handleCloseBag = () => {
+        setShowBag(false);
+    };
+
     return (
         <nav className="navbar">
+            <div className="navbar-icons">
+                <a href="/"><FontAwesomeIcon icon={faHome} /></a>
+            </div>
             <div className="navbar-links">
                 <NavLink to="/virtual-try-on-modes" className="nav-link"
                     style={({ isActive }) => ({
                         textDecoration: isActive ? 'underline' : 'none',
-                        marginLeft: '180px'
+                        marginLeft: '-10px'
                     })}>
                     Virtual Try On
                 </NavLink>
@@ -51,9 +64,9 @@ const Navbar = () => {
                     Accessories
                 </NavLink>
             </div>
-            <div className="navbar-icons">
-                <a href="#"><FontAwesomeIcon icon={faSearch} /></a>
-                <a href="#"><FontAwesomeIcon icon={faShoppingCart} /></a>
+            <div className="sc-navbar-icons">
+                <i href="#"><FontAwesomeIcon icon={faSearch} /></i>
+                <i onClick={handleOpenBag} ><FontAwesomeIcon icon={faShoppingCart} /></i>
             </div>
             <div className="hamburger" onClick={toggleMenu}>
                 <FontAwesomeIcon icon={faBars} />
@@ -76,6 +89,16 @@ const Navbar = () => {
                         <NavLink to="/accessory-catalog" className="nav-link" onClick={closeMenu}>
                             Accessories
                         </NavLink>
+                    </div>
+                </div>
+            )}
+            {showBag && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <button className="close-modal-btn" onClick={handleCloseBag}>
+                            &times;
+                        </button>
+                        <AddToBag />
                     </div>
                 </div>
             )}

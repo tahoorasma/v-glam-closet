@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './categoryWiseMakeup.css';
+import l11 from './images/catalog/lipstick/nyx-ambition-statement.png';
+import l12 from './images/catalog/lipstick/nyx-born-to-hustle.png';
+import l13 from './images/catalog/lipstick/nyx-boundary-pusher.png';
+import l14 from './images/catalog/lipstick/nyx-goal-crusher.png';
+import l15 from './images/catalog/lipstick/nyx-goal-getter.png';
+import l16 from './images/catalog/lipstick/nyx-movie-maker.png';
+import l17 from './images/catalog/lipstick/nyx-movin-up.png';
 import l1 from './images/catalog/lipstick/mvi-charmed.jpg';
 import l2 from './images/catalog/lipstick/mvi-cheeky.jpg';
 import l3 from './images/catalog/lipstick/mvi-coy.jpg';
@@ -28,6 +35,69 @@ const LipstickCatalog = () => {
 
             <div className="container mt-4">
                 <div className="product-grid" style={{ marginTop: '-18px' }}>
+                    <div className="cwm-product-card">
+                        <img src={l11} alt="NYX High Shine-Ambition Statement" />
+                        <h3>
+                            <Link to="" className="product-link">NYX High Shine-Ambition Statement</Link>
+                        </h3>
+                        <p className="price">Rs 3650.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+                        <button className="btn-add-to-bag">Add to Bag</button>
+                    </div>
+                    <div className="cwm-product-card">
+                        <img src={l12} alt="NYX High Shine-Born to Hustle" />
+                        <h3>
+                            <Link to="" className="product-link">NYX High Shine-Born to Hustle</Link>
+                        </h3>
+                        <p className="price">Rs 3650.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+                        <button className="btn-add-to-bag">Add to Bag</button>
+                    </div>
+                    <div className="cwm-product-card">
+                        <img src={l13} alt="NYX High Shine-Boundary Pusher" />
+                        <h3>
+                            <Link to="" className="product-link">NYX High Shine-Boundary Pusher</Link>
+                        </h3>
+                        <p className="price">Rs 3650.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+                        <button className="btn-add-to-bag">Add to Bag</button>
+                    </div>
+                    <div className="cwm-product-card">
+                        <img src={l14} alt="NYX High Shine-Goal Crusher" />
+                        <h3>
+                            <Link to="" className="product-link">NYX High Shine-Goal Crusher</Link>
+                        </h3>
+                        <p className="price">Rs 3650.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+                        <button className="btn-add-to-bag">Add to Bag</button>
+                    </div>
+                    <div className="cwm-product-card">
+                        <img src={l15} alt="NYX High Shine-Goal Getter" />
+                        <h3>
+                            <Link to="" className="product-link">NYX High Shine-Goal Getter</Link>
+                        </h3>
+                        <p className="price">Rs 3650.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+                        <button className="btn-add-to-bag">Add to Bag</button>
+                    </div>
+                    <div className="cwm-product-card">
+                        <img src={l16} alt="NYX High Shine-Movie Maker" />
+                        <h3>
+                            <Link to="" className="product-link">NYX High Shine-Movie Maker</Link>
+                        </h3>
+                        <p className="price">Rs 3650.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+                        <button className="btn-add-to-bag">Add to Bag</button>
+                    </div>
+                    <div className="cwm-product-card">
+                        <img src={l17} alt="NYX High Shine-Movin' Up" />
+                        <h3>
+                            <Link to="" className="product-link">NYX High Shine-Movin' Up</Link>
+                        </h3>
+                        <p className="price">Rs 3650.00</p>
+                        <p className="product-reviews">4.9 <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+                        <button className="btn-add-to-bag">Add to Bag</button>
+                    </div>
                     <div className="cwm-product-card">
                         <img src={l1} alt="Maybelline Superstay Vinyl Ink-Charmed" />
                         <h3>

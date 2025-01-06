@@ -17,6 +17,12 @@
     color: white;
     text-decoration: none;
     padding: 10px 20px;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: rgb(46, 46, 46);
+    color: rgb(206, 205, 205);
 }
 
 .active-link {
@@ -37,6 +43,8 @@
 }
 
 .navbar-icons {
+    display: flex;
+    align-items: center;
     margin-right: 20px;
 }
 
@@ -45,10 +53,32 @@
     margin-left: 15px;
     font-size: 1.1em;
     text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navbar-icons a:hover {
+    color: rgb(206, 205, 205);
+}
+.sc-navbar-icons {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.sc-navbar-icons a {
+    color: white;
+    margin-left: 15px;
+    font-size: 1.1em;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.sc-navbar-icons a:hover {
+    color: rgb(206, 205, 205);
 }
 
 .hamburger {
-    display: none; 
+    display: none;
     cursor: pointer;
     color: white;
     font-size: 1.5em;
@@ -56,13 +86,19 @@
 }
 
 .mobile-menu {
-    display: flex;
+    display: none;
     flex-direction: column;
     background-color: black;
     position: absolute;
-    top: 60px; 
+    top: 60px;
     width: 100%;
     z-index: 10;
+    transition: transform 0.3s ease-in-out;
+}
+
+.mobile-menu.show {
+    display: flex;
+    transform: translateY(0);
 }
 
 .mobile-navbar-links {
@@ -78,10 +114,14 @@
 
 @media (max-width: 768px) {
     .navbar-links {
-        display: none; 
+        display: none;
     }
 
     .hamburger {
         display: block;
+    }
+
+    .sc-navbar-icons {
+        margin-left: auto;        
     }
 }
