@@ -168,30 +168,30 @@ const VirtualTryOnAccessory = () => {
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s1, 'sg-1')}>
-                        <img src={s1} alt="Option A" />
-                    </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s2, 'sg-2')}>
-                        <img src={s2} alt="Option B" />
-                    </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s3, 'sg-3')}>
-                        <img src={s3} alt="Option C" />
-                    </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s4, 'sg-4')}>
-                        <img src={s4} alt="Option D" />
-                    </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s5, 'sg-5')}>
-                        <img src={s5} alt="Option E" />
-                    </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s6, 'sg-6')}>
-                        <img src={s6} alt="Option F" />
-                    </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s7, 'sg-7')}>
-                        <img src={s7} alt="Option G" />
-                    </button>
-                    <button className="sg-option" onClick={() => handleSunglassesClick(s8, 'sg-8')}>
-                        <img src={s8} alt="Option H" />
-                    </button>
+                <button className="sg-option" onClick={() => handleSunglassesClick(s1, 'sg-1')} style={{ border: selectedSunglasses === s1 ? '2px solid #646363' : 'none' }}>
+                    <img src={s1} alt="Option A" />
+                </button>
+                <button className="sg-option" onClick={() => handleSunglassesClick(s2, 'sg-2')} style={{ border: selectedSunglasses === s2 ? '2px solid #646363' : 'none' }}>
+                    <img src={s2} alt="Option B" />
+                </button>
+                <button className="sg-option" onClick={() => handleSunglassesClick(s3, 'sg-3')} style={{ border: selectedSunglasses === s3 ? '2px solid #646363' : 'none' }}>
+                    <img src={s3} alt="Option C" />
+                </button>
+                <button className="sg-option" onClick={() => handleSunglassesClick(s4, 'sg-4')} style={{ border: selectedSunglasses === s4 ? '2px solid #646363' : 'none' }}>
+                    <img src={s4} alt="Option D" />
+                </button>
+                <button className="sg-option" onClick={() => handleSunglassesClick(s5, 'sg-5')} style={{ border: selectedSunglasses === s5 ? '2px solid #646363' : 'none' }}>
+                    <img src={s5} alt="Option E" />
+                </button>
+                <button className="sg-option" onClick={() => handleSunglassesClick(s6, 'sg-6')} style={{ border: selectedSunglasses === s6 ? '2px solid #646363' : 'none' }}>
+                    <img src={s6} alt="Option F" />
+                </button>
+                <button className="sg-option" onClick={() => handleSunglassesClick(s7, 'sg-7')} style={{ border: selectedSunglasses === s7 ? '2px solid #646363' : 'none' }}>
+                    <img src={s7} alt="Option G" />
+                </button>
+                <button className="sg-option" onClick={() => handleSunglassesClick(s8, 'sg-8')} style={{ border: selectedSunglasses === s8 ? '2px solid #646363' : 'none' }}>
+                    <img src={s8} alt="Option H" />
+                </button>
                 </div>
               </div>
             ) : showJewelryProducts ? (
@@ -200,18 +200,18 @@ const VirtualTryOnAccessory = () => {
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j1, 'j1')}>
-                        <img src={j1} alt="Option 1" />
-                    </button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j2, 'j2')}>
-                        <img src={j2} alt="Option 2" />
-                    </button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j3, 'j3')}>
-                        <img src={j3} alt="Option 1" />
-                    </button>
-                    <button className="sg-option" onClick={() => handleJewelryClick(j4, 'j4')}>
-                        <img src={j4} alt="Option 2" />
-                    </button>
+                <button className="sg-option" onClick={() => handleJewelryClick(j1, 'j1')} style={{ border: selectedJewelry === j1 ? '2px solid #646363' : 'none' }}>
+                    <img src={j1} alt="Option 1" />
+                </button>
+                <button className="sg-option" onClick={() => handleJewelryClick(j2, 'j2')} style={{ border: selectedJewelry === j2 ? '2px solid #646363' : 'none' }}>
+                    <img src={j2} alt="Option 2" />
+                </button>
+                <button className="sg-option" onClick={() => handleJewelryClick(j3, 'j3')} style={{ border: selectedJewelry === j3 ? '2px solid #646363' : 'none' }}>
+                    <img src={j3} alt="Option 1" />
+                </button>
+                <button className="sg-option" onClick={() => handleJewelryClick(j4, 'j4')} style={{ border: selectedJewelry === j4 ? '2px solid #646363' : 'none' }}>
+                    <img src={j4} alt="Option 2" />
+                </button>
                 </div>
               </div>
             ) : (
