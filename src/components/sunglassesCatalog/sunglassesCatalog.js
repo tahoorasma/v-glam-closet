@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './sunglassesCatalog.css';
-import s1 from './images/catalog/sunglasses/sg-1.png';
-import s2 from './images/catalog/sunglasses/sg-2.png';
-import s3 from './images/catalog/sunglasses/sg-3.png';
-import s4 from './images/catalog/sunglasses/sg-4.png';
-import s5 from './images/catalog/sunglasses/sg-5.png';
-import s6 from './images/catalog/sunglasses/sg-6.png';
-import s7 from './images/catalog/sunglasses/sg-7.png';
-import s8 from './images/catalog/sunglasses/sg-8.png';
-import s9 from './images/catalog/sunglasses/sg-9.png';
+import s1 from '../images/catalog/sunglasses/sg-1.png';
+import s2 from '../images/catalog/sunglasses/sg-2.png';
+import s3 from '../images/catalog/sunglasses/sg-3.png';
+import s4 from '../images/catalog/sunglasses/sg-4.png';
+import s5 from '../images/catalog/sunglasses/sg-5.png';
+import s6 from '../images/catalog/sunglasses/sg-6.png';
+import s7 from '../images/catalog/sunglasses/sg-7.png';
+import s8 from '../images/catalog/sunglasses/sg-8.png';
+import s9 from '../images/catalog/sunglasses/sg-9.png';
 import Navbar from '../navbar';
 
 const SunglassesCatalog = () => {

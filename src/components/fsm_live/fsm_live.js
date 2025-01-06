@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import './fsm_live.css';
-import blackImage from './images/models/model2.jpg';
-import foundation from './images/blush.jpg';
+import blackImage from '../images/models/model2.jpg';
+import foundation from '../images/blush.jpg';
 import Navbar from '../navbar';
 
 const FoundationShadeMatchLive = () => {

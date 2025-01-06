@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './makeup.css';
-import makeup from './images/makeup.jpg';
-import found from './images/found.jpg';
-import blush from './images/blush.jpg';
-import lipstick from './images/lipstick.jpg';
-import eyeshadow from './images/eyeshadow.jpg';
-import vto from './images/vto.jpg';
+import makeup from '../images/makeup.jpg';
+import found from '../images/found.jpg';
+import blush from '../images/blush.jpg';
+import lipstick from '../images/lipstick.jpg';
+import eyeshadow from '../images/eyeshadow.jpg';
+import vto from '../images/vto.jpg';
 import Navbar from '../navbar';
 
 const Makeup = () => {

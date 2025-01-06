@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './vto-modes.css';
-import mdl from './images/models/model1.png'; 
-import model1 from './images/models/model1.png';
-import model2 from './images/models/model2.jpg';
-import model3 from './images/models/model3.jpg';
-import model4 from './images/models/model4.jpg';
-import model5 from './images/models/model5.png';
-import model6 from './images/models/model6.png';
+import mdl from '../images/models/model1.png'; 
+import model1 from '../images/models/model1.png';
+import model2 from '../images/models/model2.jpg';
+import model3 from '../images/models/model3.jpg';
+import model4 from '../images/models/model4.jpg';
+import model5 from '../images/models/model5.png';
+import model6 from '../images/models/model6.png';
 import Navbar from '../navbar';
 
 const VirtualTryOn = () => {

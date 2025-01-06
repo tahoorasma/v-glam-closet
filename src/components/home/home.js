@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './home.css';
-import hp from './images/hp2.jpg';
+import hp from '../images/hp2.jpg';
 import Navbar from '../navbar';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import virtualTryOnImage from "./images/vto-slider.png";
-import foundationShadeMatchImage from "./images/fsm-slider.png";
-import bestSellersImage from "./images/best-seller-slider.png";
-import shopImg from "./images/sbc.jpg";
-import foundationImg from "./images/mk-f.jpg";
-import lipstickImg from "./images/mk-ls.jpg";
-import blushImg from "./images/mk-b.jpg";
-import eyeshadowImg from "./images/mk-es.jpg";
-import accessoryImg from "./images/accessory.jpg";
+import virtualTryOnImage from "../images/vto-slider.png";
+import foundationShadeMatchImage from "../images/fsm-slider.png";
+import bestSellersImage from "../images/best-seller-slider.png";
+import shopImg from "../images/sbc.jpg";
+import foundationImg from "../images/mk-f.jpg";
+import lipstickImg from "../images/mk-ls.jpg";
+import blushImg from "../images/mk-b.jpg";
+import eyeshadowImg from "../images/mk-es.jpg";
+import accessoryImg from "../images/accessory.jpg";
 
 const Home = () => {
   const [message, setMessage] = useState('');
@@ -104,7 +104,7 @@ const Home = () => {
         <p>Explore a wide range of products from top beauty brands, all at your fingertips.</p>
       </div>
       <div className="image-container">
-        <img src={shopImg} alt="Image 1" className="image" 
+        <img src={shopImg} alt="Shop" className="image" 
         style={{ marginLeft:'120px' }}/>
         <a href="/foundation-catalog">
             <img src={foundationImg} alt="Foundation" className="mk-image" style={{ marginLeft: '800px', marginTop: '-230px' }} />

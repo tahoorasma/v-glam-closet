@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './eyeshadowCatalog.css';
-import e1 from './images/catalog/eyeshadow/afterglow.png';
-import e2 from './images/catalog/eyeshadow/berry-smoothie.png';
-import e3 from './images/catalog/eyeshadow/candy-berry.png';
-import e4 from './images/catalog/eyeshadow/glowshots.png';
-import e6 from './images/catalog/eyeshadow/hardwired.png';
-import e7 from './images/catalog/eyeshadow/icy-nude.png';
-import e9 from './images/catalog/eyeshadow/single.png';
-import e10 from './images/catalog/eyeshadow/ultimate-utopia.png';
-import e11 from './images/catalog/eyeshadow/vintage-jean.png';
-import e12 from './images/catalog/eyeshadow/violet-knit.png';
+import e1 from '../images/catalog/eyeshadow/afterglow.png';
+import e2 from '../images/catalog/eyeshadow/berry-smoothie.png';
+import e3 from '../images/catalog/eyeshadow/candy-berry.png';
+import e4 from '../images/catalog/eyeshadow/glowshots.png';
+import e6 from '../images/catalog/eyeshadow/hardwired.png';
+import e7 from '../images/catalog/eyeshadow/icy-nude.png';
+import e9 from '../images/catalog/eyeshadow/single.png';
+import e10 from '../images/catalog/eyeshadow/ultimate-utopia.png';
+import e11 from '../images/catalog/eyeshadow/vintage-jean.png';
+import e12 from '../images/catalog/eyeshadow/violet-knit.png';
 import Navbar from '../navbar';
 
 const EyeshadowCatalog = () => {

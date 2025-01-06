@@ -1,20 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './categoryWiseMakeup.css';
-import f1 from './images/catalog/foundation/NYX-pale.png';
-import f2 from './images/catalog/foundation/NYX-light-porcelian.png';
-import f3 from './images/catalog/foundation/NYX-light-ivory.png';
-import f4 from './images/catalog/foundation/NYX-light.png';
-import f5 from './images/catalog/foundation/NYX-fair.png';
-import f6 from './images/catalog/foundation/NYX-vanilla.png';
-import f7 from './images/catalog/foundation/NYX-warm-vanilla.png';
-import f8 from './images/catalog/foundation/NYX-nude.png';
-import f9 from './images/catalog/foundation/NYX-natural.png';
-import f10 from './images/catalog/foundation/NYX-true-beige.png';
-import f11 from './images/catalog/foundation/NYX-buff.png';
-import f12 from './images/catalog/foundation/NYX-medium-buff.png';
-import f13 from './images/catalog/foundation/NYX-medium-olive.png';
-import f14 from './images/catalog/foundation/NYX-soft-beige.png';
+import f1 from '../images/catalog/foundation/NYX-pale.png';
+import f2 from '../images/catalog/foundation/NYX-light-porcelian.png';
+import f3 from '../images/catalog/foundation/NYX-light-ivory.png';
+import f4 from '../images/catalog/foundation/NYX-light.png';
+import f5 from '../images/catalog/foundation/NYX-fair.png';
+import f6 from '../images/catalog/foundation/NYX-vanilla.png';
+import f7 from '../images/catalog/foundation/NYX-warm-vanilla.png';
+import f8 from '../images/catalog/foundation/NYX-nude.png';
+import f9 from '../images/catalog/foundation/NYX-natural.png';
+import f10 from '../images/catalog/foundation/NYX-true-beige.png';
+import f11 from '../images/catalog/foundation/NYX-buff.png';
+import f12 from '../images/catalog/foundation/NYX-medium-buff.png';
+import f13 from '../images/catalog/foundation/NYX-medium-olive.png';
+import f14 from '../images/catalog/foundation/NYX-soft-beige.png';
 import Navbar from '../navbar';
 
 const FoundationCatalog = () => {

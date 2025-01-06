@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './accessoryCatalog.css';
-import j1 from './images/catalog/jewelry/j1.png';
-import j2 from './images/catalog/jewelry/j2.png';
-import j3 from './images/catalog/jewelry/j3.png';
-import j4 from './images/catalog/jewelry/j4.png';
-import j5 from './images/catalog/jewelry/j5.png';
-import j6 from './images/catalog/jewelry/j6.png';
-import j7 from './images/catalog/jewelry/j7.png';
-import j8 from './images/catalog/jewelry/j8.png';
-import j9 from './images/catalog/jewelry/j9.png';
-import j10 from './images/catalog/jewelry/j10.png';
-import j11 from './images/catalog/jewelry/j11.png';
+import j1 from '../images/catalog/jewelry/j1.png';
+import j2 from '../images/catalog/jewelry/j2.png';
+import j3 from '../images/catalog/jewelry/j3.png';
+import j4 from '../images/catalog/jewelry/j4.png';
+import j5 from '../images/catalog/jewelry/j5.png';
+import j6 from '../images/catalog/jewelry/j6.png';
+import j7 from '../images/catalog/jewelry/j7.png';
+import j8 from '../images/catalog/jewelry/j8.png';
+import j9 from '../images/catalog/jewelry/j9.png';
+import j10 from '../images/catalog/jewelry/j10.png';
+import j11 from '../images/catalog/jewelry/j11.png';
 import Navbar from '../navbar';
 
 const AccessoryCatalog = () => {

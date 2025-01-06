@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './vto.css';
-import a from './images/sunglasses/sg-1.png';
-import b from './images/sunglasses/sg-2.png';
-import c from './images/sunglasses/sg-3.png';
-import d from './images/sunglasses/sg-4.png';
-import e from './images/sunglasses/sg-5.png';
-import f from './images/sunglasses/sg-6.png';
-import g from './images/sunglasses/sg-7.png';
-import h from './images/sunglasses/sg-8.png';
+import a from '../images/sunglasses/sg-1.png';
+import b from '../images/sunglasses/sg-2.png';
+import c from '../images/sunglasses/sg-3.png';
+import d from '../images/sunglasses/sg-4.png';
+import e from '../images/sunglasses/sg-5.png';
+import f from '../images/sunglasses/sg-6.png';
+import g from '../images/sunglasses/sg-7.png';
+import h from '../images/sunglasses/sg-8.png';
 import Navbar from './navbar';
 
 const VirtualTryOnLive = () => {

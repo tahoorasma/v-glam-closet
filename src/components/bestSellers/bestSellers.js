@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './bestSellers.css';
 import Navbar from '../navbar';
-import bs1 from "./images/catalog/blush/nars-237.png";
-import bs2 from "./images/catalog/blush/rare-bliss.png";
-import bs3 from "./images/catalog/eyeshadow/ultimate-utopia.png";
-import bs4 from "./images/catalog/foundation/NYX-light.png";
-import bs5 from "./images/catalog/eyeshadow/icy-nude.png";
-import bs6 from "./images/catalog/eyeshadow/violet-knit.png";
-import bs7 from "./images/catalog/sunglasses/sg-4.png";
+import bs1 from "../images/catalog/blush/nars-237.png";
+import bs2 from "../images/catalog/blush/rare-bliss.png";
+import bs3 from "../images/catalog/eyeshadow/ultimate-utopia.png";
+import bs4 from "../images/catalog/foundation/NYX-light.png";
+import bs5 from "../images/catalog/eyeshadow/icy-nude.png";
+import bs6 from "../images/catalog/eyeshadow/violet-knit.png";
+import bs7 from "../images/catalog/sunglasses/sg-4.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const BestSellers = () => {

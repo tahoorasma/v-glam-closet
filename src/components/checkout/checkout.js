@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './checkout.css';
 import Navbar from '../navbar';
-import cp1 from './images/cp1.jpeg';
-import cp2 from './images/cp2.jpeg';
+import cp1 from '../images/cp1.jpeg';
+import cp2 from '../images/cp2.jpeg';
 
 const Checkout = () => {
   const [form, setForm] = useState({

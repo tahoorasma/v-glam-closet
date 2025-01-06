@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './makeupCatalog.css';
-import cp1 from './images/cp1.jpeg';
-import cp2 from './images/cp2.jpeg';
-import cp3 from './images/cp3.jpeg';
-import cp4 from './images/cp4.jpeg';
+import cp1 from '../images/cp1.jpeg';
+import cp2 from '../images/cp2.jpeg';
+import cp3 from '../images/cp3.jpeg';
+import cp4 from '../images/cp4.jpeg';
 import Navbar from '../navbar';
 import AddToBag from '../addToBag/addToBag';
 

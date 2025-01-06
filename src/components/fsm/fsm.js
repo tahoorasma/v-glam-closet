@@ -1,8 +1,8 @@
 import React from 'react';
 import './fsm.css';
-import best_match from './images/best_match.png';
-import face_scan from './images/face_scan.jpg';
-import shade_match from './images/shade_match.jpg';
+import best_match from '../images/best_match.png';
+import face_scan from '../images/face_scan.jpg';
+import shade_match from '../images/shade_match.jpg';
 import Navbar from '../navbar';
 import { useNavigate } from 'react-router-dom';
 

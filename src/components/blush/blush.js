@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './blush.css';
-import blush1 from './images/blush.jpg';
-import blush2 from './images/blush.jpg';
-import blush3 from './images/blush.jpg';
+import blush1 from '../images/blush.jpg';
+import blush2 from '../images/blush.jpg';
+import blush3 from '../images/blush.jpg';
 
 const Blush = ({ stream }) => {
   const [selectedBlush, setSelectedBlush] = useState(null);
