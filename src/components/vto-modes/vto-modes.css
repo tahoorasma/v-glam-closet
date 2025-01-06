@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    flex-wrap: wrap; /* Ensure the items wrap on smaller screens */
 }
 
 .image-section {
@@ -10,6 +11,7 @@
     flex-direction: column;
     align-items: center;
     width: 50%;
+    padding: 10px;
 }
 
 .model-face {
@@ -90,6 +92,39 @@ h1 {
     background-color: #2c2224;
 }
 
+/* Media Queries for Responsive Design */
+@media (max-width: 1024px) {
+    .image-section,
+    .info-section {
+        width: 100%;
+    }
+
+    .info-section {
+        padding: 15px 20px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    .btn-p {
+        width: 100%;
+        padding: 3px;
+        font-size: 16px;
+    }
+
+    .shade-options {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .model-face {
+        border-radius: 8px;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         width: 90%;
@@ -106,6 +141,7 @@ h1 {
     .info-section {
         width: 100%;
         text-align: center;
+        padding: 10px 0;
     }
 
     .info-section {
@@ -114,9 +150,60 @@ h1 {
 
     .shade-options {
         flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+    .btn-p {
+        width: 100%;
+        padding: 3px;
+        font-size: 16px;
     }
 }
- .model-modal {
+
+@media (max-width: 480px) {
+    .try-on-card {
+        flex-direction: column;
+    }
+
+    .image-section,
+    .info-section {
+        width: 100%;
+    }
+
+    .buttons {
+        gap: 15px;
+    }
+
+    .btn {
+        width: 80%;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .btn-p {
+        width: 80%;
+        padding: 3px;
+        font-size: 16px;
+    }
+
+    .shade-options {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .model-face {
+        border-radius: 6px;
+    }
+}
+
+/* Modal Styles */
+.model-modal {
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -125,9 +212,9 @@ h1 {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.7); 
-  }
-  
-  .model-modal-content {
+}
+
+.model-modal-content {
     background-color: #fff;
     margin: 15% auto;
     padding: 20px;
@@ -136,36 +223,35 @@ h1 {
     max-width: 500px; 
     text-align: center; 
     border-radius: 8px; 
-  }
-  
-  .model-grid {
+}
+
+.model-grid {
     margin-top: 20px; 
-  }
-  
-  .model-image {
+}
+
+.model-image {
     width: 100%; 
     height: auto; 
     cursor: pointer; 
     margin-bottom: 20px;
     border-radius: 10px;
     transition: transform 0.3s; 
-  }
-  
-  .model-image:hover {
+}
+
+.model-image:hover {
     transform: scale(1.05); 
-  }  
-  
-  .close {
+}  
+
+.close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
-  
+}

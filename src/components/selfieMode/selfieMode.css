@@ -37,7 +37,7 @@
 }
 
 .option-button {
-    width: 20%;
+  width: 20%;
   padding: 10px;
   background-color: #ff69b4;
   color: white;
@@ -45,4 +45,73 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+}
+
+/* Responsive Styles */
+
+@media (max-width: 1024px) {
+  .selfie-mode-container {
+    width: 95%;
+    height: 80vh;
+  }
+
+  .options-bar {
+    padding-top: 60px;
+  }
+
+  .option-button {
+    width: 25%;
+    font-size: 14px;
+  }
+
+  #camera-feed {
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .selfie-mode-container {
+    width: 95%;
+    height: 75vh;
+  }
+
+  .options-bar {
+    padding-top: 50px;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .option-button {
+    width: 50%;
+    font-size: 14px;
+  }
+
+  #camera-feed {
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .selfie-mode-container {
+    width: 100%;
+    height: 70vh;
+    margin: 10px;
+  }
+
+  .options-bar {
+    padding-top: 30px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .option-button {
+    width: 70%;
+    font-size: 14px;
+  }
+
+  #camera-feed {
+    border-radius: 5px;
+  }
 }
