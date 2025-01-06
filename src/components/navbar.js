@@ -4,7 +4,7 @@ import './navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import AddToBag from './addToBag';
+import AddToBag from './addToBag/addToBag';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);

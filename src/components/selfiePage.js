@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import SelfieMode from './selfieMode';
-import Blush from './blush';
+import SelfieMode from './selfieMode/selfieMode';
+import Blush from './blush/blush';
 
 const SelfiePage = () => {
   const [stream, setStream] = useState(null);

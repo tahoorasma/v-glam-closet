@@ -1,25 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/home';
-import VirtualTryOn from './components/vto';
-import VirtualTryOnAccessory from './components/vto-accessory';
-import VirtualTryOnLive from './components/vto-live';
-import VirtualTryOnAccessoryLive from './components/vto-accessory-live';
-import VirtualTryOnModes from './components/vto-modes';
-import FoundationShadeMatch from './components/fsm';
-import FoundationShadeMatchLive from './components/fsm_live';
-import Makeup from './components/makeup';
-import MakeupCatalog from './components/makeupCatalog';
-import FoundationCatalog from './components/foundationCatalog';
-import BlushCatalog from './components/blushCatalog';
-import LipstickCatalog from './components/lipstickCatalog';
-import EyeshadowCatalog from './components/eyeshadowCatalog';
-import AccessoryCatalog from './components/accessoryCatalog';
-import SunglassesCatalog from './components/sunglassesCatalog';
-import SelfieMode from './components/selfieMode';
+import Home from './components/home/home';
+import VirtualTryOn from './components/vto/vto';
+import VirtualTryOnAccessory from './components/vto-accessory/vto-accessory';
+import VirtualTryOnLive from './components/vto-live/vto-live';
+import VirtualTryOnAccessoryLive from './components/vto-accessory-live/vto-accessory-live';
+import VirtualTryOnModes from './components/vto-modes/vto-modes';
+import FoundationShadeMatch from './components/fsm/fsm';
+import FoundationShadeMatchLive from './components/fsm_live/fsm_live';
+import Makeup from './components/makeup/makeup';
+import MakeupCatalog from './components/makeupCatalog/makeupCatalog';
+import FoundationCatalog from './components/foundationCatalog/foundationCatalog';
+import BlushCatalog from './components/blushCatalog/blushCatalog';
+import LipstickCatalog from './components/lipstickCatalog/lipstickCatalog';
+import EyeshadowCatalog from './components/eyeshadowCatalog/eyeshadowCatalog';
+import AccessoryCatalog from './components/accessoryCatalog/accessoryCatalog';
+import SunglassesCatalog from './components/sunglassesCatalog/sunglassesCatalog';
+import SelfieMode from './components/selfieMode/selfieMode';
 import SelfiePage from './components/selfiePage';
-import BestSellers from './components/bestSellers';
-import Checkout from './components/checkout';
+import BestSellers from './components/bestSellers/bestSellers';
+import Checkout from './components/checkout/checkout';
 
 // import logo from './logo.jpg'; // Optional if you're not using the logo yet
 
