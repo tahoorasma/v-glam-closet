@@ -4,13 +4,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); 
-    z-index: 999; 
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
 
 .blurred {
     filter: blur(5px);
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 
@@ -20,7 +20,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); 
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     min-height: 500px;
     justify-content: center;
@@ -57,9 +57,11 @@
     cursor: pointer;
 }
 
-.sidebar-content {
+.atb-sidebar-content {
     padding: 20px;
     background-color: white;
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     flex: 1;
     overflow-y: auto;
 }
@@ -102,6 +104,21 @@
 .quantity-controls span {
     margin: 0 10px;
     font-size: 1.1em;
+}
+
+.total {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total h6 {
+    margin: 0;
+}
+
+h5 {
+    margin: 0;
 }
 
 .remove-btn {

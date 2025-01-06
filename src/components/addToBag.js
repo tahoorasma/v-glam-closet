@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './addToBag.css'; 
+import './addToBag.css';
 import { Link } from 'react-router-dom';
 import cp1 from './images/cp1.jpeg';
 import cp2 from './images/cp2.jpeg';
@@ -41,7 +41,7 @@ const AddToBag = () => {
             <div className="sidebar-header">
                 <h2>Your Bag ({items.length})</h2>
             </div>
-            <div className="sidebar-content">
+            <div className="atb-sidebar-content">
                 {items.map(item => (
                     <div key={item.id} className="cart-item">
                         <img src={item.image} alt={item.name} className="cart-item-image" />
@@ -59,9 +59,12 @@ const AddToBag = () => {
                 ))}
             </div>
             <div className="sidebar-footer">
-                <h3>Estimated Total: Rs. {totalPrice.toLocaleString()} PKR</h3>
+                <div className="total">
+                    <h6>Total:</h6>
+                    <h5>Rs. {totalPrice.toLocaleString()} PKR</h5>
+                </div>
                 <Link to="/checkout">
-                <button className="checkout-btn">Checkout</button>
+                    <button className="checkout-btn">Checkout</button>
                 </Link>
             </div>
         </div>
