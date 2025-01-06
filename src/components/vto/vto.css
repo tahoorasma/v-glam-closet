@@ -168,9 +168,9 @@ cursor: not-allowed;
 .reset-option {
     background-color: white;
     color: white;
-    padding: 16px;
+    padding: 24px;
     margin: 0px 20px;
-    border: 4px solid #7b7b7b;
+    border: 5px solid #7b7b7b;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
