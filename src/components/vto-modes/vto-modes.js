@@ -16,9 +16,15 @@ const VirtualTryOn = () => {
   const [uploadPhoto, setUploadPhoto] = useState(null);
   const [mode, setMode] = useState(null);
   const [showModelModal, setShowModelModal] = useState(false);
+  const [Sclicked, setSClicked] = useState(false);
+  const [Uclicked, setUClicked] = useState(false);
+  const [Mclicked, setMClicked] = useState(false);
   const navigate = useNavigate();
 
   const handleUseModelClick = () => {
+    setMClicked(!Mclicked);
+    setUClicked(false);
+    setSClicked(false);
     setShowModelModal(true);
   };
 
@@ -48,6 +54,17 @@ const VirtualTryOn = () => {
     }
   };
 
+  const handleClick1 = () => {
+    setUClicked(false);
+    setMClicked(false);
+    setSClicked(!Sclicked);
+  }
+  const handleClick2 = () => {
+    setUClicked(true);
+    setSClicked(false);
+    setMClicked(false);
+  }
+
   return (
     <div>
       <div className="header">V-Glam Closet</div>
@@ -63,15 +80,13 @@ const VirtualTryOn = () => {
             <p>Select an option to proceed:</p>
 
             <div className="buttons">
-              <button className="btn" style={{ color: 'white' }}>Selfie Mode</button>
-              <label className="btn" style={{ color: 'white' }}>
+              <button className="btn" style={{ color: 'white',border: Sclicked ? '2px solid #646363' : 'none', }} onClick={handleClick1}>Selfie Mode</button>
+              <label className="btn" style={{ color: 'white',border: Uclicked ? '2px solid #646363' : 'none' }} onClick={(handleClick2)}>
                 Upload Photo
                 <input type="file" accept="image/*" onChange={handleUploadPhotoClick} style={{ display: 'none' }} />
               </label>
-
-              <button className="btn" onClick={handleUseModelClick} style={{ color: 'white' }}>Use Model</button>
+              <button className="btn" onClick={handleUseModelClick} style={{ color: 'white',border: Mclicked ? '2px solid #646363' : 'none'}}>Use Model</button>
             </div>
-
             <button className="btn-p" onClick={handleProceed} style={{ color: 'white' }}>Proceed <b style={{ fontSize: '20px' }}>&rarr;</b></button>
           </div>
         </div>
