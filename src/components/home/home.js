@@ -81,19 +81,19 @@ const Home = () => {
         <Slider {...settings}>
           <div>
             <img src={virtualTryOnImage} alt="Virtual Try-On" className="slider-image" />
-            <div style={{ marginTop: '-150px',marginBottom: '150px', marginLeft:'-800px' }}>
+            <div className="vto-div" >
               <button className="button" onClick={() => navigate('/virtual-try-on-modes')}>Shop Now</button>
             </div>
           </div>
           <div>
             <img src={foundationShadeMatchImage} alt="Foundation Shade Match" className="slider-image" />
-            <div style={{ marginTop: '-150px', marginLeft:'830px' }}>
+            <div className="fsm-div">
               <button className="button" onClick={() => navigate('/foundation-shade-match')}>Shop Now</button>
             </div>
           </div>
           <div>
             <img src={bestSellersImage} alt="Best Sellers" className="slider-image" />
-            <div style={{ marginTop: '-130px', marginLeft:'-850px' }}>
+            <div className="bs-div">
               <button className="button" onClick={() => navigate('/best-sellers')}>Shop Now</button>
             </div>
           </div>
@@ -104,19 +104,18 @@ const Home = () => {
         <p>Explore a wide range of products from top beauty brands, all at your fingertips.</p>
       </div>
       <div className="image-container">
-        <img src={shopImg} alt="Shop" className="image" 
-        style={{ marginLeft:'120px' }}/>
+        <img src={shopImg} alt="Shop" className="s-image"/>
         <a href="/foundation-catalog">
-            <img src={foundationImg} alt="Foundation" className="mk-image" style={{ marginLeft: '800px', marginTop: '-230px' }} />
+            <img src={foundationImg} alt="Foundation" className="mk-image-f" />
         </a><br />
         <a href="/lipstick-catalog">
-            <img src={lipstickImg} alt="Lipstick" className="mk-image" style={{ marginLeft: '120px', marginTop: '-200px' }} />
+            <img src={lipstickImg} alt="Lipstick" className="mk-image-l"/>
         </a><br />
         <a href="/blush-catalog">
-            <img src={blushImg} alt="Blush" className="mk-image" style={{ marginLeft: '800px', marginTop: '-200px' }} />
+            <img src={blushImg} alt="Blush" className="mk-image-b" />
         </a><br />
         <a href="/eyeshadow-catalog">
-            <img src={eyeshadowImg} alt="Eyeshadow" className="mk-image" style={{ marginLeft: '120px', marginTop: '-200px' }} />
+            <img src={eyeshadowImg} alt="Eyeshadow" className="mk-image-es" />
         </a>
       </div>
       <div className="product-description">
@@ -124,12 +123,11 @@ const Home = () => {
         <p>Find the perfect accessories to complement your look and enhance your beauty routine.</p>
       </div>
       <div>
-        <img src={accessoryImg} alt="Accessory" className="slider-image" 
-          style={{width: '1380px', marginLeft: '80px', marginBottom: '70px' }}/>
-          <div style={{marginLeft: '330px', marginTop: '-200px' }}>
+        <img src={accessoryImg} alt="Accessory" className="acc-image"/>
+          <div classname="jw-div" style={{marginLeft:"330px", marginTop:"-200px"}}>
             <button className="button" onClick={() => navigate('/accessory-catalog')}>Shop Jewelry</button>
           </div>
-          <div style={{marginLeft: '1050px', marginTop: '-70px' }}>
+          <div className="sg-div">
             <button className="button" onClick={() => navigate('/sunglasses-catalog')}>Shop Sunglasses</button>
           </div>
       </div>
