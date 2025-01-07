@@ -85,7 +85,6 @@ const VirtualTryOnAccessory = () => {
     const formData = new FormData();
 
     try {
-        // Determine the image source
         let imageFile;
         if (location.state?.uploadPhoto) {
             imageFile = location.state.imageSource;
@@ -101,11 +100,10 @@ const VirtualTryOnAccessory = () => {
 
         console.log("Image File:", imageFile);
         console.log('Jewelry', selectedJewelry);
-        // Append image and jewelry data to the form
         formData.append("image", imageFile);
         formData.append("jewelry", jewelryName);
 
-        // Send POST request to the backend
+ 
         const response = await axios.post('http://localhost:5000/jewelry-try-on', formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -120,8 +118,6 @@ const VirtualTryOnAccessory = () => {
         }
     } catch (error) {
         console.error("Error processing jewelry:", error);
-
-        // Handle errors, including the "No ears detected" case
         const errorMessage =
             error.response?.data?.error || "Failed to process jewelry. Please try again.";
         alert(errorMessage);

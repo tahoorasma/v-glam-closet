@@ -42,7 +42,7 @@ const Home = () => {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, [backendURL]);*/
+  }, [backendURL]);
 
   const handleRunScript = () => {
     axios.post(`${backendURL}/api/run-script`)
@@ -53,7 +53,7 @@ const Home = () => {
         console.error('Error running script:', error);
       });
   };
-
+*/
   return (
     <div>
       <div className="header">

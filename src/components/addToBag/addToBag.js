@@ -58,13 +58,13 @@ const AddToBag = () => {
                     </div>
                 ))}
             </div>
-            <div className="sidebar-footer">
+            <div className="atb-sidebar-footer">
                 <div className="total">
                     <h6>Total:</h6>
                     <h5>Rs. {totalPrice.toLocaleString()} PKR</h5>
                 </div>
                 <Link to="/checkout">
-                    <button className="checkout-btn">Checkout</button>
+                    <button className="atb-checkout-btn">Checkout</button>
                 </Link>
             </div>
         </div>

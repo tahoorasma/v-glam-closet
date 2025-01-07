@@ -16,12 +16,10 @@ import LipstickCatalog from './components/lipstickCatalog/lipstickCatalog';
 import EyeshadowCatalog from './components/eyeshadowCatalog/eyeshadowCatalog';
 import AccessoryCatalog from './components/accessoryCatalog/accessoryCatalog';
 import SunglassesCatalog from './components/sunglassesCatalog/sunglassesCatalog';
-import SelfieMode from './components/selfieMode/selfieMode';
-import SelfiePage from './components/selfiePage';
 import BestSellers from './components/bestSellers/bestSellers';
 import Checkout from './components/checkout/checkout';
 
-// import logo from './logo.jpg'; // Optional if you're not using the logo yet
+// import logo from './logo.jpg';
 
 function App() {
   return (
@@ -46,8 +44,6 @@ function App() {
           <Route path="/eyeshadow-catalog" element={<EyeshadowCatalog />} />
           <Route path="/accessory-catalog" element={<AccessoryCatalog />} />
           <Route path="/sunglasses-catalog" element={<SunglassesCatalog />} />
-          <Route path="/selfie-mode" element={<SelfieMode />} />
-          <Route path="/selfie-page" element={<SelfiePage />} />
           <Route path="/best-sellers" element={<BestSellers />} />
           <Route path="/checkout" element={<Checkout />} />
         </Routes>
