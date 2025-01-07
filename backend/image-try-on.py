@@ -511,32 +511,28 @@ def try_on_jewelry():
 
 
 def apply_sunglasses(image, sunglasses, landmarks):
-    # Get the eye landmarks (36-41 for left eye, 42-47 for right eye)
     left_eye_points = landmarks[36:42]
     right_eye_points = landmarks[42:48]
 
-    # Compute the center of both eyes
     left_eye_center = np.mean(left_eye_points, axis=0).astype(int)
     right_eye_center = np.mean(right_eye_points, axis=0).astype(int)
 
-    # Compute the width between the eyes
     eye_width = np.linalg.norm(right_eye_center - left_eye_center)
 
-    # Resize the sunglasses to match the width between the eyes
-    sunglass_width = int(eye_width * 2)  # Adjust scale as needed
+    sunglass_width = int(eye_width * 2)
     sunglass_height = int(sunglass_width * sunglasses.shape[0] / sunglasses.shape[1])
     resized_sunglasses = cv2.resize(sunglasses, (sunglass_width, sunglass_height))
 
-    # Rotate the sunglasses to a fixed angle (e.g., 0 degrees for straight)
-    angle = 0  # Fixed angle for horizontal alignment
+    #angle = 0 
+    angle = np.degrees(np.arctan2(right_eye_center[1] - left_eye_center[1],
+                                  right_eye_center[0] - left_eye_center[0]))
     M = cv2.getRotationMatrix2D((sunglass_width // 2, sunglass_height // 2), angle, 1)
     rotated_sunglasses = cv2.warpAffine(resized_sunglasses, M, (sunglass_width, sunglass_height))
 
-    # Position the sunglasses on the eyes
     top_left_x = int((left_eye_center[0] + right_eye_center[0]) / 2 - sunglass_width // 2)
     top_left_y = int((left_eye_center[1] + right_eye_center[1]) / 2 - sunglass_height // 2)
 
-    overlay_image_alpha(image, rotated_sunglasses, (top_left_y, top_left_x))  # Note the order of y, x
+    overlay_image_alpha(image, rotated_sunglasses, (top_left_y, top_left_x))
 
 def overlay_image_alpha(background, overlay, position):
     x, y = position

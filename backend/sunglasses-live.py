@@ -93,6 +93,7 @@ def generate_video():
         ret, frame = cap.read()
         if not ret:
             print("Error: Unable to capture video frame.")
+            generate_video()
             continue
 
         frame = cv2.flip(frame, 1)
