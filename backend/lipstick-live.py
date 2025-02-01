@@ -37,23 +37,25 @@ selected_color = None
 def get_lip_landmark(img):
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_detector(gray_img)
-    lm_points = []
+    all_faces_lmPoints = [] 
 
     for face in faces:
+        lmPoints = []  
         landmarks = shape_predictor(gray_img, face)
-        for n in range(48, 68): 
+        for n in range(48, 68):  
             x = landmarks.part(n).x
             y = landmarks.part(n).y
-            lm_points.append([x, y])
-    return lm_points
+            lmPoints.append([x, y])
+        all_faces_lmPoints.append(lmPoints)  
+    return all_faces_lmPoints
 
-
-def coloring_lip(imgOriginal, lmPoints, r, g, b):
+def coloring_lip(imgOriginal, all_faces_lmPoints, r, g, b):
     img = imgOriginal.copy()
-    poly1 = np.array(lmPoints[:12], np.int32).reshape((-1, 1, 2))
-    poly2 = np.array(lmPoints[12:], np.int32).reshape((-1, 1, 2))
-    colored = cv2.fillPoly(img, [poly1, poly2], (r, g, b))
-    colored = cv2.GaussianBlur(colored, (3, 3), 0)
+    for lmPoints in all_faces_lmPoints:
+        poly1 = np.array(lmPoints[:12], np.int32).reshape((-1, 1, 2))
+        poly2 = np.array(lmPoints[12:], np.int32).reshape((-1, 1, 2))
+        colored = cv2.fillPoly(img, [poly1, poly2], (r, g, b))
+        colored = cv2.GaussianBlur(colored, (3, 3), 0)
     cv2.addWeighted(colored, 0.4, imgOriginal, 0.6, 0, colored)
     return colored
 

@@ -43,7 +43,7 @@ const VirtualTryOnAccessoryLive = () => {
 
   const handleBack = async () => {
     resetSunglasses();
-    //resetJewelry();
+    resetJewelry();
     setShowSunglassesProducts(false);
     setShowJewelryProducts(false);
   }
@@ -69,13 +69,28 @@ const VirtualTryOnAccessoryLive = () => {
     .catch(error => console.error("Error in handleSunglassesClick:", error));
   };
 
-  const handleJewelryClick = async (jewelry) => {
+  const handleJewelryClick = (jewelry) => {
     setSelectedJewelry(jewelry);
-  }
+    const jewelryName = jewelry.split('/').pop().split('.')[0]; 
+
+    fetch('http://localhost:5000/select-jewelry', { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ jewelry: jewelryName }), 
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => console.error("Error in handleJewelryClick:", error));
+};
+
   
   const handleMakeupBtnClick = () => {
     resetSunglasses();
-    //resetJewelry();
+    resetJewelry();
     navigate('/virtual-try-on-live', { state: { imageSource } });
   };
 
@@ -89,7 +104,7 @@ const VirtualTryOnAccessoryLive = () => {
   };
 
   const resetJewelry = () => {
-    fetch('http://localhost:5000/reset-sunglasses', {  
+    fetch('http://localhost:5000/reset-jewelry', {  
       method: 'POST',
     })
     .then(response => response.json())

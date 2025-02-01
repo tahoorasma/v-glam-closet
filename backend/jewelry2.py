@@ -24,7 +24,7 @@ logging.basicConfig(level=logging.DEBUG)
 face_detector = dlib.get_frontal_face_detector()
 shape_predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-model = YOLO('C:/Users/hp/Desktop/v-glam-closet/runs/detect/train/weights/best.pt')
+model = YOLO('C:/Users/hp/Desktop/v-glam-closet/runs/detect/train2/weights/best.pt')
 
 def overlay_image_alpha(background, overlay, position):
     x, y = position
@@ -77,7 +77,7 @@ def try_on_jewelry():
         if user_image is None or jewelry_image is None:
             return jsonify({'error': 'Failed to load image or jewelry'}), 500
 
-        results = model.predict(source=image_path, conf=0.1)
+        results = model.predict(source=image_path, conf=0.3)
         earlobe_coords = []
 
         EARLOBE_CLASS_ID = 0  

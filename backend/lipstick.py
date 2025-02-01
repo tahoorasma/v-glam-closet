@@ -32,24 +32,28 @@ lipstick_colors = {
 def get_lip_landmark(img):
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_detector(gray_img)
-    lmPoints = []
+    all_faces_lmPoints = [] 
 
     for face in faces:
+        lmPoints = []  
         landmarks = shape_predictor(gray_img, face)
         for n in range(48, 68):  
             x = landmarks.part(n).x
             y = landmarks.part(n).y
             lmPoints.append([x, y])
-    return lmPoints
+        all_faces_lmPoints.append(lmPoints)  
+    return all_faces_lmPoints
 
-def coloring_lip(imgOriginal, lmPoints, color):
+def coloring_lip(imgOriginal, all_faces_lmPoints, color):
     img = imgOriginal.copy()
-    poly1 = np.array(lmPoints[:12], np.int32).reshape((-1, 1, 2))
-    poly2 = np.array(lmPoints[12:], np.int32).reshape((-1, 1, 2))
-    colored = cv2.fillPoly(img, [poly1, poly2], color)
-    colored = cv2.GaussianBlur(colored, (3, 3), 0)
-    cv2.addWeighted(colored, 0.4, imgOriginal, 0.6, 0, colored)
-    return colored
+    for lmPoints in all_faces_lmPoints: 
+        poly1 = np.array(lmPoints[:12], np.int32).reshape((-1, 1, 2))
+        poly2 = np.array(lmPoints[12:], np.int32).reshape((-1, 1, 2))
+        cv2.fillPoly(img, [poly1, poly2], color)
+
+    img = cv2.GaussianBlur(img, (3, 3), 0)
+    cv2.addWeighted(img, 0.4, imgOriginal, 0.6, 0, img)
+    return img
 
 @app.route('/processed/<path:filename>', methods=['GET'])
 def serve_processed(filename):
