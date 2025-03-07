@@ -132,7 +132,7 @@ def generate_video():
         frame_bytes = buffer.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-
+"""
 def generate_video():
     global selected_jewelry
     frame_count = 0
@@ -171,7 +171,7 @@ def generate_video():
         frame_bytes = buffer.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-
+"""
 def generate_video():
     global selected_jewelry
     while True:
