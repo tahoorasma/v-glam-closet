@@ -143,7 +143,7 @@ def apply_shimmer_eyeshadow(image, shade_color, landmarks):
     shimmer_image = cv2.resize(shimmer_image, (image.shape[1], image.shape[0]))
     shimmer_image = shimmer_image[:image.shape[0], :image.shape[1]]
     shimmer_overlay = cv2.addWeighted(shimmer_image, 0.4, overlay, 0.6, 0)
-    alpha = 0.35
+    alpha = 0.25
     for c in range(3):
         image[:, :, c] = np.where((mask == 255),
                                   (1 - alpha) * image[:, :, c] + alpha * shimmer_overlay[:, :, c],
