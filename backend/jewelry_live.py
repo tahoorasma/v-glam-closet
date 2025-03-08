@@ -97,6 +97,64 @@ def select_jewelry():
 def generate_video():
     global selected_jewelry
     frame_count = 0
+    prediction_interval = 3  # Interval for running the YOLO model
+    last_valid_earlobe_coords = []  # Store the last valid earlobe coordinates
+
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            continue
+
+        frame = cv2.resize(frame, (640, 480))
+        frame = cv2.flip(frame, 1)
+
+        # Run YOLO model every `prediction_interval` frames to update earlobe coordinates
+        if frame_count % prediction_interval == 0:
+            results = get_model().predict(source=frame, conf=0.2)
+            earlobe_coords = []
+            EARLOBE_CLASS_ID = 0
+
+            for result in results:
+                if result.boxes:
+                    for box, cls in zip(result.boxes, result.boxes.cls.cpu().numpy()):
+                        if int(cls) == EARLOBE_CLASS_ID:
+                            coords = box.xyxy[0].cpu().numpy()
+                            center_y = int((coords[1] + coords[3]) / 2)
+                            center_x = int((coords[0] + coords[2]) / 2)
+                            earlobe_coords.append((center_y, center_x))
+
+            # Update last_valid_earlobe_coords only if earlobes are detected
+            if len(earlobe_coords) >= 2:
+                last_valid_earlobe_coords = earlobe_coords
+
+        # If YOLO fails, use dlib's face detector and facial landmarks to estimate earlobe positions
+        if len(last_valid_earlobe_coords) < 2:
+            faces = face_detector(frame)
+            if len(faces) > 0:
+                face = faces[0]  # Use the first detected face
+                landmarks = shape_predictor(frame, face)
+                # Estimate earlobe positions using facial landmarks (e.g., points 2 and 14)
+                left_ear = (landmarks.part(2).y, landmarks.part(2).x)
+                right_ear = (landmarks.part(14).y, landmarks.part(14).x)
+                last_valid_earlobe_coords = [left_ear, right_ear]
+
+        # Apply jewelry if last_valid_earlobe_coords are available
+        if selected_jewelry is not None and len(last_valid_earlobe_coords) >= 2:
+            left_ear = min(last_valid_earlobe_coords, key=lambda x: x[1])
+            right_ear = max(last_valid_earlobe_coords, key=lambda x: x[1])
+            earlobe_coords = [left_ear, right_ear]
+
+            apply_jewelry(frame, selected_jewelry, earlobe_coords)
+
+        frame_count += 1
+        _, buffer = cv2.imencode('.jpg', frame)
+        frame_bytes = buffer.tobytes()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+
+def generate_video():
+    global selected_jewelry
+    frame_count = 0
     prediction_interval = 3  
     while True:
         ret, frame = cap.read()
@@ -171,7 +229,7 @@ def generate_video():
         frame_bytes = buffer.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-"""
+"""     
 def generate_video():
     global selected_jewelry
     while True:
