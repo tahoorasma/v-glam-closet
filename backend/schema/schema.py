@@ -1,0 +1,535 @@
+from pymongo import MongoClient
+
+MONGO_URI = "mongodb+srv://tahoor:12345@vgccluster.vsvyy.mongodb.net/?retryWrites=true&w=majority"
+
+client = MongoClient(MONGO_URI)
+db = client["vglamcloset"]  
+
+product_collection = db["Product"]
+
+products = [
+        {
+        "productID": "P001",
+        "productName": "NARS-Powder Blush 237",
+        "description": "",
+        "price": 9500.00,
+        "quantity": 100,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\nars-237.png",
+        "subCategoryID": "blush",
+        "rating": 4.8,
+        "sellingCount": 250,
+        "accessCount": 500
+    },
+    {
+        "productID": "P002",
+        "productName": "NARS-Powder Blush 252",
+        "description": "",
+        "price": 9500.00,
+        "quantity": 150,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\nars-252.png",
+        "subCategoryID": "blush",
+        "rating": 4.7,
+        "sellingCount": 180,
+        "accessCount": 450
+    },
+    {
+        "productID": "P003",
+        "productName": "NARS-Powder Blush 775",
+        "description": "",
+        "price": 9500.00,
+        "quantity": 80,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\nars-775.png",
+        "subCategoryID": "blush",
+        "rating": 4.6,
+        "sellingCount": 200,
+        "accessCount": 600
+    },
+    {
+        "productID": "P004",
+        "productName": "NARS-Powder Blush 776",
+        "description": "",
+        "price": 9500.00,
+        "quantity": 50,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\nars-776.png",
+        "subCategoryID": "blush",
+        "rating": 4.8,
+        "sellingCount": 120,
+        "accessCount": 300
+    },
+    {
+        "productID": "P005",
+        "productName": "NARS-Powder Blush 777",
+        "description": "",
+        "price": 9500.00,
+        "quantity": 60,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\nars-777.png",
+        "subCategoryID": "blush",
+        "rating": 4.9,
+        "sellingCount": 100,
+        "accessCount": 200
+    },
+    {
+        "productID": "P006",
+        "productName": "NARS-Powder Blush 778",
+        "description": "",
+        "price": 9500.00,
+        "quantity": 75,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\nars-778.png",
+        "subCategoryID": "blush",
+        "rating": 4.7,
+        "sellingCount": 140,
+        "accessCount": 280
+    },
+    {
+        "productID": "P007",
+        "productName": "NARS-Powder Blush 888",
+        "description": "",
+        "price": 9500.00,
+        "quantity": 90,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\nars-888.png",
+        "subCategoryID": "blush",
+        "rating": 4.6,
+        "sellingCount": 170,
+        "accessCount": 350
+    },
+    {
+        "productID": "P008",
+        "productName": "NARS-Powder Blush 901",
+        "description": "",
+        "price": 9500.00,
+        "quantity": 40,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\nars-901.png",
+        "subCategoryID": "blush",
+        "rating": 4.9,
+        "sellingCount": 90,
+        "accessCount": 190
+    },
+    {
+        "productID": "P009",
+        "productName": "NARS-Powder Blush 902",
+        "description": "",
+        "price": 9500.00,
+        "quantity": 85,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\nars-902.png",
+        "subCategoryID": "blush",
+        "rating": 4.8,
+        "sellingCount": 130,
+        "accessCount": 270
+    },
+    {
+        "productID": "P010",
+        "productName": "Rare Beauty-Soft Pinch Liquid Blush-Bliss",
+        "description": "",
+        "price": 7000.00,
+        "quantity": 120,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\rare-bliss.png",
+        "subCategoryID": "blush",
+        "rating": 4.5,
+        "sellingCount": 160,
+        "accessCount": 320
+    },
+    {
+        "productID": "P011",
+        "productName": "Rare Beauty-Soft Pinch Liquid Blush-Believe",
+        "description": "",
+        "price": 7000.00,
+        "quantity": 80,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\rare-believe.png",
+        "subCategoryID": "blush",
+        "rating": 4.9,
+        "sellingCount": 100,
+        "accessCount": 270
+    },
+    {
+        "productID": "P012",
+        "productName": "Rare Beauty-Soft Pinch Liquid Blush-Dewy",
+        "description": "",
+        "price": 7000.00,
+        "quantity": 60,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\rare-dewy.png",
+        "subCategoryID": "blush",
+        "rating": 4.8,
+        "sellingCount": 190,
+        "accessCount": 333
+    },
+    {
+        "productID": "P013",
+        "productName": "Rare Beauty-Soft Pinch Liquid Blush-Encourage",
+        "description": "",
+        "price": 7000.00,
+        "quantity": 30,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\rare-encourage.png",
+        "subCategoryID": "blush",
+        "rating": 4.8,
+        "sellingCount": 45,
+        "accessCount": 206
+    },
+    {
+        "productID": "P014",
+        "productName": "Rare Beauty-Soft Pinch Liquid Blush-Grateful",
+        "description": "",
+        "price": 7000.00,
+        "quantity": 130,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\rare-grateful.png",
+        "subCategoryID": "blush",
+        "rating": 4.5,
+        "sellingCount": 101,
+        "accessCount": 290
+    },
+    {
+        "productID": "P015",
+        "productName": "Rare Beauty-Soft Pinch Liquid Blush-Happy",
+        "description": "",
+        "price": 7000.00,
+        "quantity": 50,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\rare-happy.png",
+        "subCategoryID": "blush",
+        "rating": 4.9,
+        "sellingCount": 57,
+        "accessCount": 350
+    },
+    {
+        "productID": "P016",
+        "productName": "Rare Beauty-Soft Pinch Liquid Blush-Hope",
+        "description": "",
+        "price": 7000.00,
+        "quantity": 90,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\rare-hope.png",
+        "subCategoryID": "blush",
+        "rating": 4.7,
+        "sellingCount": 66,
+        "accessCount": 293
+    },
+    {
+        "productID": "P017",
+        "productName": "Rare Beauty-Soft Pinch Liquid Blush-Love",
+        "description": "",
+        "price": 7000.00,
+        "quantity": 40,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\rare-love.png",
+        "subCategoryID": "blush",
+        "rating": 4.6,
+        "sellingCount": 120,
+        "accessCount": 345
+    },
+    {
+        "productID": "P018",
+        "productName": "Rare Beauty-Soft Pinch Liquid Blush-Lucky",
+        "description": "",
+        "price": 7000.00,
+        "quantity": 110,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\rare-lucky.png",
+        "subCategoryID": "blush",
+        "rating": 4.9,
+        "sellingCount": 129,
+        "accessCount": 267
+    },
+    {
+        "productID": "P019",
+        "productName": "Rare Beauty-Soft Pinch Liquid Blush-Virtue",
+        "description": "",
+        "price": 7000.00,
+        "quantity": 100,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\blush\\rare-virtue.png",
+        "subCategoryID": "blush",
+        "rating": 4.8,
+        "sellingCount": 113,
+        "accessCount": 298
+    },
+    {
+        "productID": "P020",
+        "productName": "NYX-Can't Stop Won't Stop-Pale",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 76,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-pale.png",
+        "subCategoryID": "foundation",
+        "rating": 5.0,
+        "sellingCount": 150,
+        "accessCount": 200
+    },
+    {
+        "productID": "P021",
+        "productName": "NYX-Can't Stop Won't Stop-Light Porcelian",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 43,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-light-porcelian.png",
+        "subCategoryID": "foundation",
+        "rating": 4.9,
+        "sellingCount": 88,
+        "accessCount": 135
+    },
+    {
+        "productID": "P022",
+        "productName": "NYX-Can't Stop Won't Stop-Light Ivory",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 56,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-light-ivory.png",
+        "subCategoryID": "foundation",
+        "rating": 5.0,
+        "sellingCount": 65,
+        "accessCount": 89
+    },
+    {
+        "productID": "P023",
+        "productName": "NYX-Can't Stop Won't Stop-Light",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 23,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-light.png",
+        "subCategoryID": "foundation",
+        "rating": 4.7,
+        "sellingCount": 134,
+        "accessCount": 211
+    },
+    {
+        "productID": "P024",
+        "productName": "NYX-Can't Stop Won't Stop-Fair",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 77,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-fair.png",
+        "subCategoryID": "foundation",
+        "rating": 4.8,
+        "sellingCount": 156,
+        "accessCount": 299
+    },
+    {
+        "productID": "P025",
+        "productName": "NYX-Can't Stop Won't Stop-Vanilla",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 29,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-vanilla.png",
+        "subCategoryID": "foundation",
+        "rating": 4.4,
+        "sellingCount": 155,
+        "accessCount": 254
+    },
+    {
+        "productID": "P026",
+        "productName": "NYX-Can't Stop Won't Stop-Warm Vanilla",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 50,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-warm-vanilla.png",
+        "subCategoryID": "foundation",
+        "rating": 4.0,
+        "sellingCount": 123,
+        "accessCount": 298
+    },
+    {
+        "productID": "P027",
+        "productName": "NYX-Can't Stop Won't Stop-Nude",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 97,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-nude.png",
+        "subCategoryID": "foundation",
+        "rating": 4.3,
+        "sellingCount": 3,
+        "accessCount": 113
+    },
+    {
+        "productID": "P028",
+        "productName": "NYX-Can't Stop Won't Stop-Natural",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 89,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-natural.png",
+        "subCategoryID": "foundation",
+        "rating": 5.0,
+        "sellingCount": 103,
+        "accessCount": 209
+    },
+    {
+        "productID": "P029",
+        "productName": "NYX-Can't Stop Won't Stop-True Beige",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 67,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-true-beige.png",
+        "subCategoryID": "foundation",
+        "rating": 4.5,
+        "sellingCount": 93,
+        "accessCount": 181
+    },
+    {
+        "productID": "P030",
+        "productName": "NYX-Can't Stop Won't Stop-Buff",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 92,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-buff.png",
+        "subCategoryID": "foundation",
+        "rating": 4.9,
+        "sellingCount": 17,
+        "accessCount": 118
+    },
+    {
+        "productID": "P031",
+        "productName": "NYX-Can't Stop Won't Stop-Medium Buff",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 71,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-medium-buff.png",
+        "subCategoryID": "foundation",
+        "rating": 4.9,
+        "sellingCount": 109,
+        "accessCount": 231
+    },
+    {
+        "productID": "P032",
+        "productName": "NYX-Can't Stop Won't Stop-Medium Olive",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 28,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-medium-olive.png",
+        "subCategoryID": "foundation",
+        "rating": 5.0,
+        "sellingCount": 161,
+        "accessCount": 267
+    },
+    {
+        "productID": "P033",
+        "productName": "NYX-Can't Stop Won't Stop-Soft Beige",
+        "description": "",
+        "price": 4200.00,
+        "quantity": 83,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\foundation\\NYX-soft-beige.png",
+        "subCategoryID": "foundation",
+        "rating": 4.8,
+        "sellingCount": 102,
+        "accessCount": 234
+    },
+    {
+        "productID": "P034",
+        "productName": "NARS-Afterglow Irresistible Eyeshadow Palette",
+        "description": "",
+        "price": 9590.00,
+        "quantity": 83,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\eyeshadow\\afterglow.png",
+        "subCategoryID": "eyeshadow",
+        "rating": 4.9,
+        "sellingCount": 37,
+        "accessCount": 192
+    },
+    {
+        "productID": "P035",
+        "productName": "Dasique-Berry Smoothie Eyeshadow Palette",
+        "description": "",
+        "price": 8000.00,
+        "quantity": 57,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\eyeshadow\\berry-smoothie.png",
+        "subCategoryID": "eyeshadow",
+        "rating": 4.8,
+        "sellingCount": 42,
+        "accessCount": 178
+    },
+    {
+        "productID": "P036",
+        "productName": "Dasique-Candy Berry Eyeshadow Palette",
+        "description": "",
+        "price": 6950.00,
+        "quantity": 68,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\eyeshadow\\candy-berry.png",
+        "subCategoryID": "eyeshadow",
+        "rating": 4.9,
+        "sellingCount": 39,
+        "accessCount": 165
+    },
+    {
+        "productID": "P037",
+        "productName": "NYX-Ultimate Glow Shots Liquid Eyeshadow",
+        "description": "",
+        "price": 3000.00,
+        "quantity": 95,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\eyeshadow\\glowshots.png",
+        "subCategoryID": "eyeshadow",
+        "rating": 5.0,
+        "sellingCount": 51,
+        "accessCount": 220
+    },
+    {
+        "productID": "P038",
+        "productName": "NARS-Hardwired Eyeshadows",
+        "description": "",
+        "price": 4300.00,
+        "quantity": 72,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\eyeshadow\\hardwired.png",
+        "subCategoryID": "eyeshadow",
+        "rating": 4.9,
+        "sellingCount": 34,
+        "accessCount": 140
+    },
+    {
+        "productID": "P039",
+        "productName": "Huda Beauty-Icy Nude Eyeshadow Palette",
+        "description": "",
+        "price": 12500.00,
+        "quantity": 43,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\eyeshadow\\icy-nude.png",
+        "subCategoryID": "eyeshadow",
+        "rating": 4.6,
+        "sellingCount": 29,
+        "accessCount": 110
+    },
+    {
+        "productID": "P040",
+        "productName": "NARS-Single Eyeshadows",
+        "description": "",
+        "price": 3700.00,
+        "quantity": 81,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\eyeshadow\\single.png",
+        "subCategoryID": "eyeshadow",
+        "rating": 4.9,
+        "sellingCount": 47,
+        "accessCount": 155
+    },
+    {
+        "productID": "P041",
+        "productName": "NYX-Ultimate Utopia 40 Pan Palette",
+        "description": "",
+        "price": 9800.00,
+        "quantity": 64,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\eyeshadow\\ultimate-utopia.png",
+        "subCategoryID": "eyeshadow",
+        "rating": 5.0,
+        "sellingCount": 45,
+        "accessCount": 170
+    },
+    {
+        "productID": "P042",
+        "productName": "NYX-Ultimate Vintage Jean Palette",
+        "description": "",
+        "price": 5600.00,
+        "quantity": 78,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\eyeshadow\\vintage-jean.png",
+        "subCategoryID": "eyeshadow",
+        "rating": 4.9,
+        "sellingCount": 38,
+        "accessCount": 135
+    },
+    {
+        "productID": "P043",
+        "productName": "Dasique-Violet Knit Eyeshadow Palette",
+        "description": "",
+        "price": 6950.00,
+        "quantity": 59,
+        "imageLink": "C:\\Users\\HP\\Desktop\\v-glam-closet\\src\\components\\images\\catalog\\eyeshadow\\violet-knit.png",
+        "subCategoryID": "eyeshadow",
+        "rating": 4.8,
+        "sellingCount": 33,
+        "accessCount": 125
+    }
+]
+
+if __name__ == "__main__":
+    try:
+        product_collection.insert_many(products)
+        print("Products inserted successfully into the Product collection!")
+    except Exception as e:
+        print(f"Error inserting products: {e}")
+
