@@ -1,37 +1,70 @@
-import React, { useState } from 'react';
-import './addToBag.css';
-import { Link } from 'react-router-dom';
-import cp1 from '../images/cp1.jpeg';
-import cp2 from '../images/cp2.jpeg';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { Link } from "react-router-dom";
+import "./addToBag.css";
 
 const AddToBag = () => {
-    const [items, setItems] = useState([
-        {
-            id: 1,
-            name: 'Gloss Bomb Universal Lip Luminizer',
-            price: 9000,
-            image: cp1,
-            quantity: 1,
-        },
-        {
-            id: 2,
-            name: 'Soft Matte Foundation',
-            price: 4500,
-            image: cp2,
-            quantity: 1,
-        },
-    ]);
+    const [items, setItems] = useState([]);
 
-    const increaseQuantity = (id) => {
-        setItems(items.map(item => item.id === id ? { ...item, quantity: item.quantity + 1 } : item));
+    let userID = localStorage.getItem("userID");
+    if (!userID) {
+        userID = uuidv4();
+        localStorage.setItem("userID", userID);
+    }
+
+    const fetchCart = () => {
+        axios
+            .get(`http://localhost:5000/getCart?userID=${userID}`)
+            .then((response) => {
+                setItems(response.data);
+            })
+            .catch((error) => console.error("Error fetching cart:", error));
     };
 
-    const decreaseQuantity = (id) => {
-        setItems(items.map(item => item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item));
-    };
+    useEffect(() => {
+        fetchCart();
+    }, []);
 
-    const removeItem = (id) => {
-        setItems(items.filter(item => item.id !== id));
+    const updateQuantity = async (id, action) => {
+        setItems((prevItems) =>
+            prevItems.map((item) =>
+                item.productID === id
+                    ? { 
+                        ...item, 
+                        quantity: action === "increase" ? item.quantity + 1 : Math.max(1, item.quantity - 1) 
+                      }
+                    : item
+            )
+        );
+    
+        try {
+            await axios.post("http://localhost:5000/updateQuantity", {
+                userID: userID,
+                productID: id,
+                action: action
+            });
+    
+            fetchCart();
+        } catch (error) {
+            console.error("Error updating cart:", error.response?.data || error.message);
+            alert("Failed to update cart");
+        }
+    };
+    
+    
+    const removeItem = async (id) => {
+        try {
+            await axios.post("http://localhost:5000/removeFromCart", {
+                userID: userID,
+                productID: id,
+            });
+
+            setItems((prevItems) => prevItems.filter((item) => item.productID !== id));
+        } catch (error) {
+            console.error("Error removing item:", error);
+            alert("Failed to remove item");
+        }
     };
 
     const totalPrice = items.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -42,18 +75,18 @@ const AddToBag = () => {
                 <h2>Your Bag ({items.length})</h2>
             </div>
             <div className="atb-sidebar-content">
-                {items.map(item => (
-                    <div key={item.id} className="cart-item">
-                        <img src={item.image} alt={item.name} className="cart-item-image" />
+                {items.map((item) => (
+                    <div key={item.productID} className="cart-item">
+                        <img src={item.imageLink} alt={item.productName} className="cart-item-image" />
                         <div className="cart-item-details">
-                            <h4>{item.name}</h4>
+                            <h4>{item.productName}</h4>
                             <p>Rs. {item.price.toLocaleString()} PKR</p>
                             <div className="quantity-controls">
-                                <button onClick={() => decreaseQuantity(item.id)}>-</button>
+                                <button onClick={() => updateQuantity(item.productID, "decrease")} disabled={item.quantity <= 1}>-</button>
                                 <span>{item.quantity}</span>
-                                <button onClick={() => increaseQuantity(item.id)}>+</button>
+                                <button onClick={() => updateQuantity(item.productID, "increase")}>+</button>
                             </div>
-                            <button className="remove-btn" onClick={() => removeItem(item.id)}>Remove</button>
+                            <button className="remove-btn" onClick={() => removeItem(item.productID)}>Remove</button>
                         </div>
                     </div>
                 ))}

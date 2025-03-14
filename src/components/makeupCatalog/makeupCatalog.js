@@ -1,29 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Navbar from "../navbar"; 
 import AddToBag from "../addToBag/addToBag";
-import  "./makeupCatalog.css"
+import "./makeupCatalog.css";
+import { v4 as uuidv4 } from "uuid";
+
 const MakeupCatalog = () => {
     const [products, setProducts] = useState([]);
     const [showBag, setShowBag] = useState(false);
+    
+    let userID = localStorage.getItem("userID");
+    if (!userID) {
+        userID = uuidv4();
+        localStorage.setItem("userID", userID);
+    }
 
     useEffect(() => {
         fetch("http://127.0.0.1:5000/makeupCatalog")
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Fetched data:", data);
-                setProducts(data || []);
-            })
+            .then(response => response.json())
+            .then(data => setProducts(data || []))
             .catch(error => console.error("Error fetching data:", error));
     }, []);
 
-    const handleOpenBag = () => setShowBag(true);
-    const handleCloseBag = () => setShowBag(false);
+    const handleAddToBag = async (product) => {
+        try {
+            await axios.post("http://localhost:5000/addToCart", {
+                userID: userID,
+                productID: product.productID,
+                quantity: 1
+            });
+
+            setShowBag(true);
+        } catch (error) {
+            console.error("Error adding item to cart:", error);
+            alert("Failed to add item to cart");
+        }
+    };
 
     return (
         <div>
@@ -34,15 +47,17 @@ const MakeupCatalog = () => {
                     {products.length > 0 ? (
                         products.map((product, index) => (
                             <div className="product-card" key={index}>
-                                 <img src={product.imageLink} alt={product.productName} />
+                                <img src={product.imageLink} alt={product.productName} />
                                 <h3>
                                     <Link to={`/${product.productID}`} className="product-link">
                                         {product.productName}
                                     </Link>
                                 </h3>
                                 <p>{product.description}</p>
-                                <p className="price">Rs{product.price}.00</p>
-                                <button className="btn-add-to-bag" onClick={handleOpenBag}>Add to Bag</button>
+                                <p className="price">Rs {product.price}.00</p>
+                                <button className="btn-add-to-bag" onClick={() => handleAddToBag(product)}>
+                                    Add to Bag
+                                </button>
                             </div>
                         ))
                     ) : (
@@ -54,7 +69,9 @@ const MakeupCatalog = () => {
             {showBag && (
                 <div className="modal-overlay">
                     <div className="modal-content">
-                        <button className="close-modal-btn" onClick={handleCloseBag}>&times;</button>
+                        <button className="close-modal-btn" onClick={() => setShowBag(false)}>
+                            &times;
+                        </button>
                         <AddToBag />
                     </div>
                 </div>

@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
-import './lipstickCatalog.css';
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Navbar from "../navbar";
+import "./lipstickCatalog.css";
+import AddToBag from "../addToBag/addToBag";
+import { v4 as uuidv4 } from "uuid";
 
-import Navbar from '../navbar';
 const LipstickCatalog = () => {
     const [lipstickProducts, setLipstickProducts] = useState([]);
+    const [showBag, setShowBag] = useState(false);
+    const [addedProduct, setAddedProduct] = useState(null);
+
+    let userID = localStorage.getItem("userID");
+    if (!userID) {
+        userID = uuidv4();
+        localStorage.setItem("userID", userID);
+    }
 
     useEffect(() => {
         fetch("http://localhost:5000/lipstickProducts")
@@ -12,6 +23,22 @@ const LipstickCatalog = () => {
             .then(data => setLipstickProducts(data))
             .catch(error => console.error("Error fetching lipstick products:", error));
     }, []);
+
+    const handleAddToBag = async (product) => {
+        try {
+            await axios.post("http://localhost:5000/addToCart", {
+                userID: userID,
+                productID: product.productID,
+                quantity: 1
+            });
+
+            setAddedProduct(product);
+            setShowBag(true);
+        } catch (error) {
+            console.error("Error adding item to cart:", error);
+            alert("Failed to add item to cart");
+        }
+    };
 
     return (
         <div>
@@ -34,7 +61,7 @@ const LipstickCatalog = () => {
                                 </h3>
                                 <p className="price">Rs {product.price}</p>
                                 <p className="product-reviews">{product.rating} <span style={{ color: "#fcba03", fontSize: "1.2em" }}>★</span> ratings</p>
-                                <button className="btn-add-to-bag">Add to Bag</button>
+                                <button className="btn-add-to-bag" onClick={() => handleAddToBag(product)}>Add to Bag</button>
                             </div>
                         ))
                     ) : (
@@ -42,6 +69,17 @@ const LipstickCatalog = () => {
                     )}
                 </div>
             </div>
+
+            {showBag && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            <button className="close-modal-btn" onClick={() => setShowBag(false)}>
+                                &times;
+                            </button>
+                            <AddToBag />
+                        </div>
+                    </div>
+                )}
 
             <div className="footer">
                 <p>&copy; 2024 V-Glam Closet</p>
