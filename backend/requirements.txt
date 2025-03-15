@@ -10,5 +10,5 @@ dlib==19.24.6
 opencv-python
 kaggle
 ultralytics
-moongoose
+mongoose
 #python -m pip install "pymongo[srv]"

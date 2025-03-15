@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './vto.css';
+import cmp from '../images/compare.jpg'
 import defaultModel from '../images/models/model1.png';
 import s1 from '../images/sunglasses/sg-1.png';
 import s2 from '../images/sunglasses/sg-2.png';
@@ -27,6 +28,7 @@ const VirtualTryOnAccessory = () => {
   const [showJewelryProducts, setShowJewelryProducts] = useState(false);
   const [selectedSunglasses, setSelectedSunglasses] = useState(null);
   const [selectedJewelry, setSelectedJewelry] = useState(null);
+  const [buyImage, setBuyImage] = useState(require('../images/blush.jpg'));
 
   useEffect(() => {
     if (location.state?.imageSource) {
@@ -45,6 +47,8 @@ const VirtualTryOnAccessory = () => {
     setShowJewelryProducts(true);
   }
   const handleSunglassesClick = async (sunglasses, sunglassesName) => {
+    let productImage = '../images/catalog/sunglasses/'+ sunglassesName + '.png';
+    setBuyImage(productImage);
     setSelectedSunglasses(sunglasses);
     
     const formData = new FormData();
@@ -80,6 +84,8 @@ const VirtualTryOnAccessory = () => {
   };
 
   const handleJewelryClick = async (jewelry, jewelryName) => {
+    let productImage = '../images/catalog/jewelry/'+ jewelryName + '.png';
+    setBuyImage(productImage);
     setSelectedJewelry(jewelry);
 
     const formData = new FormData();
@@ -110,7 +116,6 @@ const VirtualTryOnAccessory = () => {
             },
         });
 
-        // Check for the processed image URL
         if (response.data.processed_image_url) {
             setProcessedImage(response.data.processed_image_url);
         } else {
@@ -136,6 +141,10 @@ const VirtualTryOnAccessory = () => {
     setProcessedImage(null); 
     setImageSource(imageSource);
   };
+  
+  const directBuyProduct = () => {
+    navigate('/accessory-catalog');
+  };
 
   return (
     <div>
@@ -153,6 +162,23 @@ const VirtualTryOnAccessory = () => {
                 <img id="user-photo" src={processedImage} alt="Processed" />
               ) : (
                 <img id="user-photo" src={imageSource} alt="User" />
+              )}
+            </div>
+          </div>
+
+          <div className="col-12 col-md-2">
+            <div className="button-container">
+              {(showJewelryProducts || showSunglassesProducts) && (
+                <>
+                  <button id="side-btn">
+                    <img src={cmp} alt="Compare" className="button-icon" />
+                    <span>Compare</span>
+                  </button>
+                  <button id="side-btn" onClick={directBuyProduct}>
+                    <img src={buyImage} alt="Buy" className="button-icon" />
+                    <span>Buy</span>
+                  </button>
+                </>
               )}
             </div>
           </div>

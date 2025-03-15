@@ -67,18 +67,16 @@ const Checkout = () => {
       return;
     }
   
-    // Prepare user data
     const userData = {
-      name: `${form.firstName} ${form.lastName}`, // Combine first and last name
+      name: `${form.firstName} ${form.lastName}`, 
       email: form.email,
       address: form.address,
     };
   
-    // Prepare order data
     const orderData = {
-      productID: cartItems[0].productID, // Assuming the order is for a single product
-      orderDate: new Date().toISOString().split('T')[0], // Format YYYY-MM-DD
-      NoOfItems: cartItems.reduce((total, item) => total + item.quantity, 0), // Total items in cart
+      productID: cartItems[0].productID,
+      orderDate: new Date().toISOString().split('T')[0],
+      NoOfItems: cartItems.reduce((total, item) => total + item.quantity, 0),
       amount: totalPrice,
     };
   
@@ -90,7 +88,7 @@ const Checkout = () => {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify({ userData, orderData }), // Send both user and order data
+        body: JSON.stringify({ userData, orderData }),
       });
   
       const result = await response.json();
@@ -148,6 +146,7 @@ const Checkout = () => {
           <h2>Contact</h2>
           <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleInputChange} className={errors.email ? 'error-input' : ''} />
           {errors.email && <p className="error-text">{errors.email}</p>}
+          <div><br></br></div>
 
           <h2>Delivery</h2>
           <select name="city" value={form.city} onChange={handleInputChange} className={errors.city ? 'error-input' : ''}>
@@ -156,15 +155,17 @@ const Checkout = () => {
             <option value="Karachi">Karachi</option>
           </select>
           {errors.city && <p className="error-text">{errors.city}</p>}
-
+          <div><br></br></div>
           <div className="name-inputs">
             <input type="text" name="firstName" placeholder="First name" value={form.firstName} onChange={handleInputChange} className={errors.firstName ? 'error-input' : ''} />
             <input type="text" name="lastName" placeholder="Last name" value={form.lastName} onChange={handleInputChange} className={errors.lastName ? 'error-input' : ''} />
           </div>
-
+          <div><br></br></div>
           <input type="text" name="address" placeholder="Address" value={form.address} onChange={handleInputChange} className={errors.address ? 'error-input' : ''} />
+          <div><br></br></div>
           <input type="text" name="phone" placeholder="Phone" value={form.phone} onChange={handleInputChange} className={errors.phone ? 'error-input' : ''} />
-
+          <div><br></br></div>
+          
           <div className="payment">
             <h2>Payment</h2>
             <div className="payment-method">

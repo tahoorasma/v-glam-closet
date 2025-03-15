@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './vto.css';
+import cmp from '../images/compare.jpg'
 import defaultModel from '../images/models/model1.png';
 import s1 from '../images/sunglasses/sg-1.png';
 import s2 from '../images/sunglasses/sg-2.png';
@@ -34,6 +35,7 @@ const VirtualTryOnAccessoryLive = () => {
   const [showJewelryProducts, setShowJewelryProducts] = useState(false);
   const [selectedSunglasses, setSelectedSunglasses] = useState(null);
   const [selectedJewelry, setSelectedJewelry] = useState(null);
+  const [buyImage, setBuyImage] = useState(require('../images/blush.jpg'));
 
   useEffect(() => {
     if (location.state?.imageSource) {
@@ -54,7 +56,9 @@ const VirtualTryOnAccessoryLive = () => {
     setShowJewelryProducts(true);
   }
 
-  const handleSunglassesClick = (sunglasses) => {
+  const handleSunglassesClick = (sunglasses, productName) => {
+    let productImage = '../images/catalog/sunglasses/'+ productName + '.png';
+    setBuyImage(productImage);
     setSelectedSunglasses(sunglasses);
     const sunglassesIndex = sunglasses.split('sg-')[1].split('.')[0];
     fetch('http://localhost:5000/select-sunglasses', { 
@@ -69,7 +73,9 @@ const VirtualTryOnAccessoryLive = () => {
     .catch(error => console.error("Error in handleSunglassesClick:", error));
   };
 
-  const handleJewelryClick = (jewelry) => {
+  const handleJewelryClick = (jewelry, productName) => {
+    let productImage = '../images/catalog/jewelry/'+ productName + '.png';
+    setBuyImage(productImage);
     setSelectedJewelry(jewelry);
     const jewelryName = jewelry.split('/').pop().split('.')[0]; 
 
@@ -111,6 +117,10 @@ const VirtualTryOnAccessoryLive = () => {
     .then(data => console.log(data))
     .catch(error => console.error("Error in reset:", error));
   };
+  
+  const directBuyProduct = () => {
+    navigate('/makeup-catalog');
+  };
 
   return (
     <div>
@@ -125,6 +135,23 @@ const VirtualTryOnAccessoryLive = () => {
           <div className="photo-area">
           <div className="model-container">
               <img src={videoSrc} alt="Video Stream" style={{ width: '100%', height: 'auto' }} />
+            </div>
+          </div>
+
+          <div className="col-12 col-md-2">
+            <div className="button-container">
+              {(showJewelryProducts || showSunglassesProducts) && (
+                <>
+                  <button id="side-btn">
+                    <img src={cmp} alt="Compare" className="button-icon" />
+                    <span>Compare</span>
+                  </button>
+                  <button id="side-btn" onClick={directBuyProduct}>
+                    <img src={buyImage} alt="Buy" className="button-icon" />
+                    <span>Buy</span>
+                  </button>
+                </>
+              )}
             </div>
           </div>
 
@@ -167,16 +194,16 @@ const VirtualTryOnAccessoryLive = () => {
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={resetJewelry}></button>
-                <button className="sg-option" onClick={() => handleJewelryClick(j1)} style={{ border: selectedJewelry === j1 ? '2px solid #646363' : 'none' }}>
+                <button className="sg-option" onClick={() => handleJewelryClick(j1, 'j1')} style={{ border: selectedJewelry === j1 ? '2px solid #646363' : 'none' }}>
                     <img src={j1} alt="Option 1" />
                 </button>
-                <button className="sg-option" onClick={() => handleJewelryClick(j2)} style={{ border: selectedJewelry === j2 ? '2px solid #646363' : 'none' }}>
+                <button className="sg-option" onClick={() => handleJewelryClick(j2, 'j2')} style={{ border: selectedJewelry === j2 ? '2px solid #646363' : 'none' }}>
                     <img src={j2} alt="Option 2" />
                 </button>
-                <button className="sg-option" onClick={() => handleJewelryClick(j3)} style={{ border: selectedJewelry === j3 ? '2px solid #646363' : 'none' }}>
+                <button className="sg-option" onClick={() => handleJewelryClick(j3, 'j3')} style={{ border: selectedJewelry === j3 ? '2px solid #646363' : 'none' }}>
                     <img src={j3} alt="Option 1" />
                 </button>
-                <button className="sg-option" onClick={() => handleJewelryClick(j4)} style={{ border: selectedJewelry === j4 ? '2px solid #646363' : 'none' }}>
+                <button className="sg-option" onClick={() => handleJewelryClick(j4, 'j4')} style={{ border: selectedJewelry === j4 ? '2px solid #646363' : 'none' }}>
                     <img src={j4} alt="Option 2" />
                 </button>
                 </div>

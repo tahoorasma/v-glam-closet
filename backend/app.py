@@ -152,14 +152,14 @@ def remove_from_cart():
 def generate_user_id():
     last_user = users_collection.find_one(sort=[("userID", -1)])
     if last_user:
-        last_id = int(last_user["userID"][1:])  # Extract numeric part
-        return f"U{last_id + 1:03d}"  # Increment and format
+        last_id = int(last_user["userID"][1:])  
+        return f"U{last_id + 1:03d}" 
     else:
-        return "U001"  # Start with U001 if no users exist
+        return "U001" 
 
 @app.route('/addOrder', methods=['POST', 'OPTIONS'])
 def create_order():
-    if request.method == "OPTIONS":  # Handle preflight requests
+    if request.method == "OPTIONS": 
         response = jsonify({'message': 'CORS preflight successful'})
         response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
         response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
@@ -170,18 +170,15 @@ def create_order():
     user_data = data.get("userData")
     order_data = data.get("orderData")
 
-    # Validate required fields
     if not user_data or not order_data:
         response = jsonify({"message": "User data and order data are required"})
         response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
         return response, 400
 
-    # Check if user already exists
     existing_user = users_collection.find_one({"email": user_data["email"]})
     if existing_user:
-        user_id = existing_user["userID"]  # Use existing userID
+        user_id = existing_user["userID"]  
     else:
-        # Create new user
         user_id = generate_user_id()
         new_user = {
             "userID": user_id,
@@ -191,10 +188,9 @@ def create_order():
         }
         users_collection.insert_one(new_user)
 
-    # Create new order
     new_order = {
-        "orderID": str(ObjectId()),  # Generate a unique orderID using ObjectId
-        "userID": user_id,  # Use the same userID
+        "orderID": str(ObjectId()),
+        "userID": user_id, 
         "productID": order_data["productID"],
         "orderDate": datetime.strptime(order_data["orderDate"], "%Y-%m-%d").isoformat(),
         "NoOfItems": order_data["NoOfItems"],
@@ -202,15 +198,13 @@ def create_order():
     }
 
     try:
-        # Insert the order into the MongoDB collection
         result = orders_collection.insert_one(new_order)
         if result.inserted_id:
-            # Convert ObjectId to string for JSON serialization
             new_order["_id"] = str(result.inserted_id)
             response = jsonify({
                 "message": "Order placed successfully",
                 "order": new_order,
-                "userID": user_id  # Return the userID to the frontend
+                "userID": user_id  
             })
             response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
             return response, 201
