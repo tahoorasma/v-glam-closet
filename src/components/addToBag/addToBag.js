@@ -96,8 +96,8 @@ const AddToBag = () => {
                     <h6>Total:</h6>
                     <h5>Rs. {totalPrice.toLocaleString()} PKR</h5>
                 </div>
-                <Link to="/checkout">
-                    <button className="atb-checkout-btn">Checkout</button>
+                <Link to="/checkout" state={{ cartItems: items, totalPrice: totalPrice }}>
+                <button className="atb-checkout-btn">Checkout</button>
                 </Link>
             </div>
         </div>

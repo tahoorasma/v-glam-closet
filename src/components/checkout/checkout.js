@@ -1,124 +1,192 @@
 import React, { useState } from 'react';
 import './checkout.css';
 import Navbar from '../navbar';
-import cp1 from '../images/cp1.jpeg';
-import cp2 from '../images/cp2.jpeg';
+import { useLocation } from 'react-router-dom';
 
 const Checkout = () => {
+  const location = useLocation();
+  const { cartItems, totalPrice } = location.state || { cartItems: [], totalPrice: 0 };
+
   const [form, setForm] = useState({
     email: '',
     city: '',
     firstName: '',
     lastName: '',
     address: '',
-    phone: ''
+    phone: '',
   });
 
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    const { name, value, type } = e.target;
+
+    if (type === 'radio') {
+      setPaymentMethod(value);
+      setErrors({ ...errors, paymentMethod: '' });
+    } else {
+      setForm({ ...form, [name]: value });
+      setErrors({ ...errors, [name]: '' });
+    }
   };
 
-  const handleOrder = () => {
-    alert('Order Completed!');
+  const validateForm = () => {
+    let newErrors = {};
+
+    if (!form.email || !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)) {
+      newErrors.email = 'Invalid email address';
+    }
+    if (!form.city) {
+      newErrors.city = 'City is required';
+    }
+    if (!form.firstName) {
+      newErrors.firstName = 'First name is required';
+    }
+    if (!form.lastName) {
+      newErrors.lastName = 'Last name is required';
+    }
+    if (!form.address) {
+      newErrors.address = 'Address is required';
+    }
+    if (!form.phone || !/^\d{10,15}$/.test(form.phone)) {
+      newErrors.phone = 'Invalid phone number';
+    }
+    if (!paymentMethod) {
+      newErrors.paymentMethod = 'Please select a payment method';
+    }
+
+    return newErrors;
   };
+
+  const handleOrder = async () => {
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+  
+    // Prepare user data
+    const userData = {
+      name: `${form.firstName} ${form.lastName}`, // Combine first and last name
+      email: form.email,
+      address: form.address,
+    };
+  
+    // Prepare order data
+    const orderData = {
+      productID: cartItems[0].productID, // Assuming the order is for a single product
+      orderDate: new Date().toISOString().split('T')[0], // Format YYYY-MM-DD
+      NoOfItems: cartItems.reduce((total, item) => total + item.quantity, 0), // Total items in cart
+      amount: totalPrice,
+    };
+  
+    try {
+      setLoading(true);
+      const response = await fetch('http://localhost:5000/addOrder', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ userData, orderData }), // Send both user and order data
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        alert('Order placed successfully!');
+      } else {
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error('Order submission error:', error);
+      alert('Failed to place order. Please try again later.');
+    } finally {
+      setLoading(false);
+      setForm({
+        email: '',
+        city: '',
+        firstName: '',
+        lastName: '',
+        address: '',
+        phone: '',
+      });
+      setPaymentMethod('');
+      setErrors({});
+    }
+  };
+  
 
   return (
     <div className="checkout-container">
-  <header className="header">V-Glam Closet</header>
-  <Navbar />
-  <div className="checkout-content">
-    <div className="cart-info">
-      <h2>Cart</h2>
-      <div className="product">
-        <img src={cp1} alt="Product 1" />
-        <div>
-          <h6>Gloss Bomb Universal Lip Luminizer</h6>
-          <p>PKR 9000</p>
+      <header className="header">V-Glam Closet</header>
+      <Navbar />
+      <div className="checkout-content">
+        <div className="cart-info">
+          <h2>Cart</h2>
+          {cartItems.length > 0 ? (
+            cartItems.map((item) => (
+              <div key={item.productID} className="product">
+                <img src={item.imageLink} alt={item.productName} />
+                <div>
+                  <h6>{item.productName}</h6>
+                  <p>PKR {item.price.toLocaleString()} x {item.quantity}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>Your cart is empty.</p>
+          )}
+          <div className="total">
+            <h6>Total:</h6>
+            <h5>PKR {totalPrice.toLocaleString()}</h5>
+          </div>
         </div>
-      </div>
-      <div className="product">
-        <img src={cp2} alt="Product 2" />
-        <div>
-          <h6>Soft Matte Foundation</h6>
-          <p>PKR 4500</p>
-        </div>
-      </div>
-      <div className="total">
-      <h6>Total:</h6>
-      <h5>PKR 13500</h5>
-      </div>
-    </div>
 
-    <div className="form-container">
-      <h2>Contact</h2>
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleInputChange}
-      />
-      <div className="checkbox">
-        <input type="checkbox" id="subscribe" />
-        <label htmlFor="subscribe">Click here to receive updates</label>
-      </div>
-      <h2>Delivery</h2>
-      <select name="city" value={form.city} onChange={handleInputChange}>
-        <option value="">Select city</option>
-        <option value="City1">Lahore</option>
-        <option value="City2">Karachi</option>
-      </select>
-      <div className="name-inputs">
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First name"
-          value={form.firstName}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Last name"
-          value={form.lastName}
-          onChange={handleInputChange}
-        />
-      </div>
-      <input
-        type="text"
-        name="address"
-        placeholder="Address"
-        value={form.address}
-        onChange={handleInputChange}
-      />
-      <input
-        type="text"
-        name="phone"
-        placeholder="Phone"
-        value={form.phone}
-        onChange={handleInputChange}
-      />
-      <div className="payment">
-        <h2>Payment</h2>
-        <div className="payment-method">
-          <input type="radio" id="card" name="payment" />
-          <label htmlFor="card">Debit/Credit Card</label>
-        </div>
-        <div className="payment-method">
-          <input type="radio" id="cod" name="payment" />
-          <label htmlFor="cod">Cash on Delivery</label>
+        <div className="form-container">
+          <h2>Contact</h2>
+          <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleInputChange} className={errors.email ? 'error-input' : ''} />
+          {errors.email && <p className="error-text">{errors.email}</p>}
+
+          <h2>Delivery</h2>
+          <select name="city" value={form.city} onChange={handleInputChange} className={errors.city ? 'error-input' : ''}>
+            <option value="">Select city</option>
+            <option value="Lahore">Lahore</option>
+            <option value="Karachi">Karachi</option>
+          </select>
+          {errors.city && <p className="error-text">{errors.city}</p>}
+
+          <div className="name-inputs">
+            <input type="text" name="firstName" placeholder="First name" value={form.firstName} onChange={handleInputChange} className={errors.firstName ? 'error-input' : ''} />
+            <input type="text" name="lastName" placeholder="Last name" value={form.lastName} onChange={handleInputChange} className={errors.lastName ? 'error-input' : ''} />
+          </div>
+
+          <input type="text" name="address" placeholder="Address" value={form.address} onChange={handleInputChange} className={errors.address ? 'error-input' : ''} />
+          <input type="text" name="phone" placeholder="Phone" value={form.phone} onChange={handleInputChange} className={errors.phone ? 'error-input' : ''} />
+
+          <div className="payment">
+            <h2>Payment</h2>
+            <div className="payment-method">
+              <input type="radio" id="card" name="payment" value="card" checked={paymentMethod === 'card'} onChange={handleInputChange} />
+              <label htmlFor="card">Debit/Credit Card</label>
+            </div>
+            <div className="payment-method">
+              <input type="radio" id="cod" name="payment" value="cod" checked={paymentMethod === 'cod'} onChange={handleInputChange} />
+              <label htmlFor="cod">Cash on Delivery</label>
+            </div>
+            {errors.paymentMethod && <p className="error-text">{errors.paymentMethod}</p>}
+          </div>
+
+          <button className="complete-order" onClick={handleOrder} disabled={loading}>
+            {loading ? 'Processing...' : 'Complete Order'}
+          </button>
         </div>
       </div>
-      <button className="complete-order" onClick={handleOrder}>
-        Complete Order
-      </button>
+      <footer className="footer">
+        <p>&copy; 2024 V-Glam Closet</p>
+      </footer>
     </div>
-  </div>
-  <footer className="footer">
-    <p>&copy; 2024 V-Glam Closet</p>
-  </footer>
-</div>
   );
 };
 

@@ -119,6 +119,21 @@ input[type="radio"] {
 .total h6 {
   margin: 0;
 }
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.error-input {
+  border: 1px solid red;
+  background-color: #ffe6e6; 
+}
+
+.checkout-error {
+  color: red;
+}
+
 
 h5 {
   margin: 0;

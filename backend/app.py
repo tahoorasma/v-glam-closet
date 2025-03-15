@@ -2,15 +2,19 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask import Flask, jsonify
 from pymongo import MongoClient
+from datetime import datetime
+from bson import ObjectId
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-MONGO_URI = "mongodb+srv://tahoor:12345@vgccluster.vsvyy.mongodb.net/?retryWrites=true&w=majority"
+MONGO_URI = "mongodb+srv://usmara:12345@vgccluster.vsvyy.mongodb.net/?retryWrites=true&w=majority"
 
 client = MongoClient(MONGO_URI)
 db = client["vglamcloset"]  
 collection = db["Product"]
+orders_collection = db["Order"]
+users_collection = db["User"]
 
 @app.route('/blushProducts', methods=['GET'])
 def get_blush_products():
@@ -104,6 +108,7 @@ def add_to_cart():
         })
 
     return jsonify({"message": "Item added to cart successfully"}), 201
+
 @app.route('/updateQuantity', methods=['POST'])
 def update_quantity():
     data = request.json
@@ -144,5 +149,80 @@ def remove_from_cart():
 
     return jsonify({"message": "Item removed successfully"}), 200
 
+def generate_user_id():
+    last_user = users_collection.find_one(sort=[("userID", -1)])
+    if last_user:
+        last_id = int(last_user["userID"][1:])  # Extract numeric part
+        return f"U{last_id + 1:03d}"  # Increment and format
+    else:
+        return "U001"  # Start with U001 if no users exist
+
+@app.route('/addOrder', methods=['POST', 'OPTIONS'])
+def create_order():
+    if request.method == "OPTIONS":  # Handle preflight requests
+        response = jsonify({'message': 'CORS preflight successful'})
+        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        return response, 200
+
+    data = request.json
+    user_data = data.get("userData")
+    order_data = data.get("orderData")
+
+    # Validate required fields
+    if not user_data or not order_data:
+        response = jsonify({"message": "User data and order data are required"})
+        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        return response, 400
+
+    # Check if user already exists
+    existing_user = users_collection.find_one({"email": user_data["email"]})
+    if existing_user:
+        user_id = existing_user["userID"]  # Use existing userID
+    else:
+        # Create new user
+        user_id = generate_user_id()
+        new_user = {
+            "userID": user_id,
+            "name": user_data["name"],
+            "email": user_data["email"],
+            "address": user_data["address"]
+        }
+        users_collection.insert_one(new_user)
+
+    # Create new order
+    new_order = {
+        "orderID": str(ObjectId()),  # Generate a unique orderID using ObjectId
+        "userID": user_id,  # Use the same userID
+        "productID": order_data["productID"],
+        "orderDate": datetime.strptime(order_data["orderDate"], "%Y-%m-%d").isoformat(),
+        "NoOfItems": order_data["NoOfItems"],
+        "amount": order_data["amount"]
+    }
+
+    try:
+        # Insert the order into the MongoDB collection
+        result = orders_collection.insert_one(new_order)
+        if result.inserted_id:
+            # Convert ObjectId to string for JSON serialization
+            new_order["_id"] = str(result.inserted_id)
+            response = jsonify({
+                "message": "Order placed successfully",
+                "order": new_order,
+                "userID": user_id  # Return the userID to the frontend
+            })
+            response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+            return response, 201
+        else:
+            response = jsonify({"message": "Failed to place order"})
+            response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+            return response, 500
+    except Exception as e:
+        print(f"Error inserting order into MongoDB: {str(e)}")
+        response = jsonify({"message": "Internal server error", "error": str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        return response, 500
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
