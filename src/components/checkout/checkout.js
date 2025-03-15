@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 const Checkout = () => {
   const location = useLocation();
-  const { cartItems, totalPrice } = location.state || { cartItems: [], totalPrice: 0 };
+  const { cartItems, totalPrice, userID } = location.state || { cartItems: [], totalPrice: 0, userID: null };
 
   const [form, setForm] = useState({
     email: '',
@@ -74,9 +74,9 @@ const Checkout = () => {
     };
   
     const orderData = {
-      productID: cartItems[0].productID,
-      orderDate: new Date().toISOString().split('T')[0],
-      NoOfItems: cartItems.reduce((total, item) => total + item.quantity, 0),
+      productID: cartItems[0].productID, // Assuming the order is for a single product
+      orderDate: new Date().toISOString().split('T')[0], // Format YYYY-MM-DD
+      NoOfItems: cartItems.reduce((total, item) => total + item.quantity, 0), // Total items in cart
       amount: totalPrice,
     };
   
@@ -88,12 +88,13 @@ const Checkout = () => {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify({ userData, orderData }),
+        body: JSON.stringify({ userData, orderData }), 
       });
   
       const result = await response.json();
       if (response.ok) {
         alert('Order placed successfully!');
+        window.location.href = "/"; 
       } else {
         alert(`Error: ${result.message}`);
       }
