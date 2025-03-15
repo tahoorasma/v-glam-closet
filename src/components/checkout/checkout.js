@@ -74,9 +74,9 @@ const Checkout = () => {
     };
   
     const orderData = {
-      productID: cartItems[0].productID, // Assuming the order is for a single product
-      orderDate: new Date().toISOString().split('T')[0], // Format YYYY-MM-DD
-      NoOfItems: cartItems.reduce((total, item) => total + item.quantity, 0), // Total items in cart
+      productID: cartItems[0].productID, 
+      orderDate: new Date().toISOString().split('T')[0], 
+      NoOfItems: cartItems.reduce((total, item) => total + item.quantity, 0),
       amount: totalPrice,
     };
   

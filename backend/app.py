@@ -169,9 +169,8 @@ def create_order():
     data = request.json
     user_data = data.get("userData")
     order_data = data.get("orderData")
-    user_id = data.get("userID")  # Get userID from the request
-
-    # Validate required fields
+    user_id = data.get("userID")  
+    
     if not user_data or not order_data:
         response = jsonify({"message": "User data and order data are required"})
         response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
@@ -191,8 +190,8 @@ def create_order():
         users_collection.insert_one(new_user)
 
     new_order = {
-        "orderID": str(ObjectId()),  # Generate a unique orderID using ObjectId
-        "userID": user_id,  # Use the same userID
+        "orderID": str(ObjectId()), 
+        "userID": user_id, 
         "productID": order_data["productID"],
         "orderDate": datetime.strptime(order_data["orderDate"], "%Y-%m-%d").isoformat(),
         "NoOfItems": order_data["NoOfItems"],
@@ -203,7 +202,6 @@ def create_order():
         result = orders_collection.insert_one(new_order)
         if result.inserted_id:
             db["Cart"].delete_many({"userID": user_id})
-            # Convert ObjectId to string for JSON serialization
             new_order["_id"] = str(result.inserted_id)
             response = jsonify({
                 "message": "Order placed successfully",
