@@ -41,13 +41,42 @@ collections = {
         "categoryID": "string"
     },
     "Order": {
-        "orderID": "string",
-        "userID": "string",
-        "productID": "string",
-        "orderDate": "string",
-        "NoOfItems": "int",
-        "amount": "double"
-    },
+    "validator": {
+        "$jsonSchema": {
+            "bsonType": "object",
+            "required": ["orderID", "userID", "productID", "orderDate", "NoOfItems", "amount"],
+            "properties": {
+                "orderID": {
+                    "bsonType": "string",
+                    "description": "must be a string and is required"
+                },
+                "userID": {
+                    "bsonType": "string",
+                    "description": "must be a string and is required"
+                },
+                "productID": {
+                    "bsonType": "array",
+                    "items": {
+                        "bsonType": "string"
+                    },
+                    "description": "must be an array of strings and is required"
+                },
+                "orderDate": {
+                    "bsonType": "string",
+                    "description": "must be a string and is required"
+                },
+                "NoOfItems": {
+                    "bsonType": "int",
+                    "description": "must be an integer and is required"
+                },
+                "amount": {
+                    "bsonType": "double",
+                    "description": "must be a double and is required"
+                }
+            }
+        }
+    }
+},
     "FrequentlyBoughtItems": {
         "fbtID": "string",
         "productID": "string",

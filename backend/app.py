@@ -169,10 +169,11 @@ def create_order():
     data = request.json
     user_data = data.get("userData")
     order_data = data.get("orderData")
+    user_id = data.get("userID")  # Get userID from the request
 
     # Validate required fields
-    if not user_data or not order_data:
-        response = jsonify({"message": "User data and order data are required"})
+    if not user_data or not order_data or not user_id:
+        response = jsonify({"message": "User data, order data, and userID are required"})
         response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
         return response, 400
 
@@ -195,7 +196,7 @@ def create_order():
     new_order = {
         "orderID": str(ObjectId()),  # Generate a unique orderID using ObjectId
         "userID": user_id,  # Use the same userID
-        "productID": order_data["productID"],
+        "productID": order_data["productID"],  # Array of product IDs
         "orderDate": datetime.strptime(order_data["orderDate"], "%Y-%m-%d").isoformat(),
         "NoOfItems": order_data["NoOfItems"],
         "amount": order_data["amount"]
@@ -205,6 +206,9 @@ def create_order():
         # Insert the order into the MongoDB collection
         result = orders_collection.insert_one(new_order)
         if result.inserted_id:
+            # Delete the user's cart items after successful order placement
+            db["Cart"].delete_many({"userID": user_id})  # Use the same userID
+
             # Convert ObjectId to string for JSON serialization
             new_order["_id"] = str(result.inserted_id)
             response = jsonify({

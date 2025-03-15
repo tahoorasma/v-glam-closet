@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 const Checkout = () => {
   const location = useLocation();
-  const { cartItems, totalPrice } = location.state || { cartItems: [], totalPrice: 0 };
+  const { cartItems, totalPrice, userID } = location.state || { cartItems: [], totalPrice: 0, userID: null };
 
   const [form, setForm] = useState({
     email: '',
@@ -76,7 +76,7 @@ const Checkout = () => {
   
     // Prepare order data
     const orderData = {
-      productID: cartItems[0].productID, // Assuming the order is for a single product
+      productID: cartItems.map(item => item.productID),  // Array of product IDs
       orderDate: new Date().toISOString().split('T')[0], // Format YYYY-MM-DD
       NoOfItems: cartItems.reduce((total, item) => total + item.quantity, 0), // Total items in cart
       amount: totalPrice,
@@ -90,12 +90,14 @@ const Checkout = () => {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify({ userData, orderData }), // Send both user and order data
+        body: JSON.stringify({ userData, orderData, userID }), // Send userData, orderData, and userID
       });
   
       const result = await response.json();
       if (response.ok) {
         alert('Order placed successfully!');
+        // Clear the cart in the frontend state
+        window.location.href = "/"; // Redirect to home or another page
       } else {
         alert(`Error: ${result.message}`);
       }
