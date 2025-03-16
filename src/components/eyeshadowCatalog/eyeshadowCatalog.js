@@ -29,6 +29,7 @@ const EyeshadowCatalog = () => {
             await axios.post("http://localhost:5000/addToCart", {
                 userID: userID,
                 productID: product.productID,
+                productName: product.productName,
                 quantity: 1
             });
 

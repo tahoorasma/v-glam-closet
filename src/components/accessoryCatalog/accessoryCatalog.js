@@ -32,6 +32,7 @@ const AccessoryCatalog = () => {
         try {
             await axios.post("http://localhost:5000/addToCart", {
                 userID: userID,
+                productName: product.productName,
                 productID: product.productID,
                 quantity: 1
             });
@@ -68,6 +69,7 @@ const AccessoryCatalog = () => {
                                     </Link>
                                 </h3>
                                 <p className="price">Rs {product.price.toFixed(2)}</p>
+                                <p className="product-reviews">{product.rating} <span style={{ color: "#fcba03", fontSize: "1.2em" }}>★</span> ratings</p>
                                 <button className="btn-add-to-bag" onClick={() => handleAddToBag(product)}>
                                     Add to Bag
                                 </button>
