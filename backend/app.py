@@ -211,5 +211,20 @@ def clear_cart():
     else:
         return jsonify({"message": "Cart is already empty"}), 200
 
+@app.route('/updateInventory', methods=['POST'])
+def update_inventory():
+    data = request.get_json()
+    cart_items = data.get('cartItems', [])
+    try:
+        for item in cart_items:
+            products_collection.update_one(
+                {"productID": item["productID"]},
+                {"$inc": {"quantity": -item["quantity"]}}
+            )
+        return jsonify({"message": "Inventory updated successfully"}), 200
+    except Exception as error:
+        print(f"Error updating inventory: {error}")
+        return jsonify({"message": "Failed to update inventory"}), 500
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

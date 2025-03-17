@@ -68,14 +68,14 @@ const Checkout = () => {
     }
   
     const userData = {
-      name: `${form.firstName} ${form.lastName}`, 
+      name: `${form.firstName} ${form.lastName}`,
       email: form.email,
       address: form.address,
     };
   
     const orderData = {
-      productID: cartItems[0].productID, 
-      orderDate: new Date().toISOString().split('T')[0], 
+      productID: cartItems.map(item => item.productID),
+      orderDate: new Date().toISOString().split('T')[0],
       NoOfItems: cartItems.reduce((total, item) => total + item.quantity, 0),
       amount: totalPrice,
     };
@@ -88,14 +88,29 @@ const Checkout = () => {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify({ userData, orderData }), 
+        body: JSON.stringify({ userData, orderData }),
       });
   
       const result = await response.json();
       if (response.ok) {
         alert('Order placed successfully!');
-        await clearCart();
-        window.location.href = "/"; 
+        
+        const updateInventoryResponse = await fetch('http://localhost:5000/updateInventory', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ cartItems }),
+        });
+  
+        const updateResult = await updateInventoryResponse.json();
+        if (updateInventoryResponse.ok) {
+          await clearCart();
+          window.location.href = "/";
+        } else {
+          alert(`Error updating inventory: ${updateResult.message}`);
+        }
       } else {
         alert(`Error: ${result.message}`);
       }
