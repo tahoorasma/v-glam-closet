@@ -124,6 +124,8 @@ const VirtualTryOn = () => {
   const [selectedLipstick, setSelectedLipstick] = useState(null);
   const [selectedEyeShadow, setSelectedEyeShadow] = useState(null);
   const [buyImage, setBuyImage] = useState(require('../images/blush.jpg'));
+  const [sliderValue, setSliderValue] = useState(50);
+  const [showComparison, setShowComparison] = useState(false);
 
   useEffect(() => {
     if (location.state?.imageSource) {
@@ -453,13 +455,110 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
   const directBuyProduct = () => {
     navigate('/makeup-catalog');
   };
+  const handleCompareClick = () => {
+    setShowComparison(!showComparison);
+  };
+
+  const renderComparisonSlider = () => {
+    return (
+      <div className="comparison-slider">
+        <img
+          className="image-before slider-image"
+          src={imageSource}
+          alt="Original"
+        />
+        <img
+          className="image-after slider-image"
+          src={processedImage}
+          alt="Processed"
+          style={{ clipPath: `inset(0 ${100 - sliderValue}% 0 0)` }}
+        />
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={sliderValue}
+          onChange={(e) => setSliderValue(e.target.value)}
+          className="slider"
+        />
+        <div
+          className="slider-line"
+          style={{ left: `${sliderValue}%` }}
+          aria-hidden="true"
+        ></div>
+        <div
+          className="slider-button"
+          style={{ left: `${sliderValue}%` }}
+          aria-hidden="true"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            fill="currentColor"
+            viewBox="0 0 256 256"
+          >
+            <rect width="256" height="256" fill="none"></rect>
+            <line
+              x1="128"
+              y1="40"
+              x2="128"
+              y2="216"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="16"
+            ></line>
+            <line
+              x1="96"
+              y1="128"
+              x2="16"
+              y2="128"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="16"
+            ></line>
+            <polyline
+              points="48 160 16 128 48 96"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="16"
+            ></polyline>
+            <line
+              x1="160"
+              y1="128"
+              x2="240"
+              y2="128"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="16"
+            ></line>
+            <polyline
+              points="208 96 240 128 208 160"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="16"
+            ></polyline>
+          </svg>
+        </div>
+      </div>
+    );
+  };
 
   const handleReset = () => {
     setSelectedFoundation(null);
     setSelectedLipstick(null);
     setSelectedEyeShadow(null);
     setProcessedImage(null); 
-    setImageSource(imageSource);
   };
 
   return (
@@ -472,34 +571,32 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
         <p>Time to make up your mind! Experience your perfect makeup shades or try a bold new look with our virtual try-on tool.</p>
 
         <div className="tryon-ui">
-          <div className="row">
-            <div className="col-12 col-md-10">
-              <div className="photo-area">
-                <div className="model-container">
-                  {processedImage ? (
-                    <img id="user-photo" src={processedImage} alt="Processed" />
-                  ) : (
-                    <img id="user-photo" src={imageSource} alt="User" />
-                  )}
-                </div>
-              </div>
+        <div className="photo-area">
+            <div className="model-container">
+              {showComparison ? (
+                renderComparisonSlider()
+              ) : processedImage ? (
+                <img id="user-photo" src={processedImage} alt="Processed" />
+              ) : (
+                <img id="user-photo" src={imageSource} alt="User" />
+              )}
             </div>
+          </div>
 
-            <div className="col-12 col-md-2">
-              <div className="button-container">
-                {(showFoundationProducts || showBlushProducts || showLipstickProducts || showEyeShadowProducts) && (
-                  <>
-                    <button id="side-btn">
-                      <img src={cmp} alt="Compare" className="button-icon" />
-                      <span>Compare</span>
-                    </button>
-                    <button id="side-btn" onClick={directBuyProduct}>
-                      <img src={buyImage} alt="Buy" className="button-icon" />
-                      <span>Buy</span>
-                    </button>
-                  </>
-                )}
-              </div>
+          <div className="col-12 col-md-2">
+            <div className="button-container">
+              {(showLipstickProducts || showFoundationProducts || showEyeShadowProducts || showBlushProducts) && (
+                <>
+                  <button id="side-btn" onClick={handleCompareClick}>
+                    <img src={cmp} alt="Compare" className="button-icon" />
+                    <span>Compare</span>
+                  </button>
+                  <button id="side-btn" onClick={directBuyProduct}>
+                    <img src={buyImage} alt="Buy" className="button-icon" />
+                    <span>Buy</span>
+                  </button>
+                </>
+              )}
             </div>
           </div>
 
