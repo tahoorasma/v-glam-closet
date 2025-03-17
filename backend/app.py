@@ -4,11 +4,13 @@ from flask import Flask, jsonify
 from pymongo import MongoClient
 from datetime import datetime
 from bson import ObjectId
+from bson.json_util import dumps
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 MONGO_URI = "mongodb+srv://usmara:12345@vgccluster.vsvyy.mongodb.net/?retryWrites=true&w=majority"
+#mongo = PyMongo(app)
 
 client = MongoClient(MONGO_URI)
 db = client["vglamcloset"]  
@@ -55,6 +57,13 @@ def get_makeup_products():
     makeup_subcategory_ids = [sub["subCategoryID"] for sub in makeup_subcategories]
     makeup_products = list(products_collection.find({"subCategoryID": {"$in": makeup_subcategory_ids}}, {"_id": 0}).sort("productID", 1)) 
     return jsonify(makeup_products)
+
+@app.route('/product/<productID>', methods=['GET'])
+def get_product_by_id(productID):
+    product = products_collection.find_one({"productID": productID})
+    if product:
+        return dumps(product), 200
+    return jsonify({"error": "Product not found"}), 404
 
 @app.route('/accessoryCatalog', methods=['GET'])
 def get_accessory_products():

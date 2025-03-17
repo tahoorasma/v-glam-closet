@@ -41,20 +41,22 @@ const MakeupCatalog = () => {
 
     return (
         <div>
+            <div className="header">V-Glam Closet</div>
             <Navbar />
-            <div className="container mt-4">
-                <h2 className="header">V-Glam Closet</h2>
+                <div className="hyperlinks" style={{ margin: "20px 0", padding: "0 40px", textAlign: "left", color: "black" }}>
+                    <Link to="/makeup" className="hyperlink" style={{ color: "#575555" }}>Makeup</Link> /
+                    <Link to="" className="hyperlink" style={{ color: "#e66a7e" }}> All Makeup</Link>
+                </div>
                 <div className="product-grid" style={{ marginTop: "-18px" }}>
                     {products.length > 0 ? (
                         products.map((product, index) => (
                             <div className="product-card" key={index}>
                                 <img src={product.imageLink} alt={product.productName} />
                                 <h3>
-                                    <Link to={`/${product.productID}`} className="product-link">
+                                    <Link to={`/productDescription/${product.productID}`} className="product-link">
                                         {product.productName}
                                     </Link>
                                 </h3>
-                                <p>{product.description}</p>
                                 <p className="price">Rs {product.price}.00</p>
                                 <button className="btn-add-to-bag" onClick={() => handleAddToBag(product)}>
                                     Add to Bag
@@ -65,7 +67,6 @@ const MakeupCatalog = () => {
                         <p>Loading products...</p>
                     )}
                 </div>
-            </div>
 
             {showBag && (
                 <div className="modal-overlay">

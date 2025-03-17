@@ -18,6 +18,13 @@ import AccessoryCatalog from './components/accessoryCatalog/accessoryCatalog';
 import SunglassesCatalog from './components/sunglassesCatalog/sunglassesCatalog';
 import BestSellers from './components/bestSellers/bestSellers';
 import Checkout from './components/checkout/checkout';
+import ProductDescription from './components/productPages/productDescription';
+import FoundationProductDescription from './components/productPages/foundationProductDescription';
+import BlushProductDescription from './components/productPages/blushProductDescription';
+import LipstickProductDescription from './components/productPages/lipstickProductDescription';
+import EyeshadowProductDescription from './components/productPages/eyeshadowProductDescription';
+import JewelryProductDescription from './components/productPages/jewelryProductDescription';
+import SunglassesProductDescription from './components/productPages/sunglassesProductDescription';
 
 // import logo from './logo.jpg';
 
@@ -46,6 +53,13 @@ function App() {
           <Route path="/sunglasses-catalog" element={<SunglassesCatalog />} />
           <Route path="/best-sellers" element={<BestSellers />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/productDescription/:productID" element={<ProductDescription />} />
+          <Route path="/foundationProductDescription/:productID" element={<FoundationProductDescription />} />
+          <Route path="/blushProductDescription/:productID" element={<BlushProductDescription />} />
+          <Route path="/lipstickProductDescription/:productID" element={<LipstickProductDescription />} />
+          <Route path="/eyeshadowProductDescription/:productID" element={<EyeshadowProductDescription />} />
+          <Route path="/jewelryProductDescription/:productID" element={<JewelryProductDescription />} />
+          <Route path="/sunglassesProductDescription/:productID" element={<SunglassesProductDescription />} />
         </Routes>
       </Router>
     </div>

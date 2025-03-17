@@ -67,11 +67,24 @@ body {
 
 .vto-div,
 .fsm-div,
-.bs-div,
-.jw-div,
-.sg-div {
+.bs-div {
     position: relative;
     margin-top: 0;
+    margin-bottom: 100px;
+}
+
+
+.hm-jw-div {
+    margin-left: 330px;
+    margin-top: -200px;
+    position: relative;
+    margin-bottom: 100px;
+}
+
+.hm-sg-div {
+    margin-left: 1040px ;
+    position: absolute;
+    margin-top: -175px;
     margin-bottom: 100px;
 }
 
@@ -82,20 +95,20 @@ body {
     text-align: center;
 }
 
-.slider-container {
+.hm-slider-container {
     width: 80%;
     margin: 0 auto;
     text-align: center;
 }
 
-.slider-caption {
+.hm-slider-caption {
     margin-top: 10px;
     font-size: 1.2em;
     font-weight: bold;
     color: #333;
 }
 
-.slider-image {
+.hm-slider-image {
     width: 100%;
     height: auto;
     border-radius: 10px;
