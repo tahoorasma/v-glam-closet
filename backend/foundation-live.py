@@ -56,6 +56,7 @@ def select_foundation():
     shade_color_hex = data.get('shadeColor', '#000000')
     foundation_color = tuple(int(shade_color_hex.lstrip('#')[i:i + 2], 16) for i in (4, 2, 0))
     selected_foundation = {"shade_color": foundation_color}
+    print("shade_color" + selected_foundation);
     return jsonify({"status": "success", "selected": selected_foundation})
 
 @app.route('/reset-foundation', methods=['POST'])
