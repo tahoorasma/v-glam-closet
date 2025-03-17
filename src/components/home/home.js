@@ -77,22 +77,22 @@ const Home = () => {
         <h1>VIRTUAL BEAUTY STUDIO</h1>
         <p>Experience the latest innovations in makeup. Virtually try on products and find your perfect shade.</p>
       </div>
-      <div className="slider-container">
+      <div className="hm-slider-container">
         <Slider {...settings}>
           <div>
-            <img src={virtualTryOnImage} alt="Virtual Try-On" className="slider-image" />
+            <img src={virtualTryOnImage} alt="Virtual Try-On" className="hm-slider-image" />
             <div className="vto-div" >
               <button className="button" onClick={() => navigate('/virtual-try-on-modes')}>Shop Now</button>
             </div>
           </div>
           <div>
-            <img src={foundationShadeMatchImage} alt="Foundation Shade Match" className="slider-image" />
+            <img src={foundationShadeMatchImage} alt="Foundation Shade Match" className="hm-slider-image" />
             <div className="fsm-div">
               <button className="button" onClick={() => navigate('/foundation-shade-match')}>Shop Now</button>
             </div>
           </div>
           <div>
-            <img src={bestSellersImage} alt="Best Sellers" className="slider-image" />
+            <img src={bestSellersImage} alt="Best Sellers" className="hm-slider-image" />
             <div className="bs-div">
               <button className="button" onClick={() => navigate('/best-sellers')}>Shop Now</button>
             </div>
@@ -124,10 +124,10 @@ const Home = () => {
       </div>
       <div>
         <img src={accessoryImg} alt="Accessory" className="acc-image"/>
-          <div className="jw-div" style={{marginLeft:"330px", marginTop:"-200px"}}>
+          <div className="hm-jw-div">
             <button className="button" onClick={() => navigate('/accessory-catalog')}>Shop Jewelry</button>
           </div>
-          <div className="sg-div">
+          <div className="hm-sg-div">
             <button className="button" onClick={() => navigate('/sunglasses-catalog')}>Shop Sunglasses</button>
           </div>
       </div>
