@@ -59,7 +59,7 @@ const SunglassesCatalog = () => {
                                     alt={product.productName} 
                                 />
                                 <h3>
-                                    <Link to={`/${product.subCategoryID}`} className="product-link">
+                                    <Link to={`/sunglassesProductDescription/${product.productID}`} className="product-link">
                                         {product.productName}
                                     </Link>
                                 </h3>

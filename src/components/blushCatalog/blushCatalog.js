@@ -55,7 +55,9 @@ const BlushCatalog = () => {
                             <div key={index} className="cwm-product-card">
                                 <img src={product.imageLink} alt={product.productName} />
                                 <h3>
-                                    <Link to="" className="product-link">{product.productName}</Link>
+                                    <Link to={`/blushProductDescription/${product.productID}`} className="product-link">
+                                        {product.productName}
+                                    </Link>
                                 </h3>
                                 <p className="price">Rs {product.price}</p>
                                 <p className="product-reviews">{product.rating} <span style={{ color: "#fcba03", fontSize: "1.2em" }}>★</span> ratings</p>

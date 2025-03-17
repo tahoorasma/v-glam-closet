@@ -10,10 +10,10 @@ category_collection = db["Category"]
 subcategory_collection = db["SubCategory"]
 
 products = [
-        {
+    {
         "productID": "P001",
         "productName": "NARS-Powder Blush 237",
-        "description": "",
+        "description": "A silky, blendable powder blush in a soft pink shade, perfect for a natural flush.",
         "price": 9500.00,
         "quantity": 100,
         "imageLink": "\\images\\catalog\\blush\\nars-237.png",
@@ -25,7 +25,7 @@ products = [
     {
         "productID": "P002",
         "productName": "NARS-Powder Blush 252",
-        "description": "",
+        "description": "Highly pigmented powder blush with a rich, warm coral tone for a radiant look.",
         "price": 9500.00,
         "quantity": 150,
         "imageLink": "\\images\\catalog\\blush\\nars-252.png",
@@ -37,7 +37,7 @@ products = [
     {
         "productID": "P003",
         "productName": "NARS-Powder Blush 775",
-        "description": "",
+        "description": "A smooth and long-lasting blush in a peachy-pink shade for a healthy glow.",
         "price": 9500.00,
         "quantity": 80,
         "imageLink": "\\images\\catalog\\blush\\nars-775.png",
@@ -49,7 +49,7 @@ products = [
     {
         "productID": "P004",
         "productName": "NARS-Powder Blush 776",
-        "description": "",
+        "description": "A finely milled powder blush in a muted rose tone, delivering a natural finish.",
         "price": 9500.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\blush\\nars-776.png",
@@ -61,7 +61,7 @@ products = [
     {
         "productID": "P005",
         "productName": "NARS-Powder Blush 777",
-        "description": "",
+        "description": "A buildable blush in a deep mauve shade, perfect for adding definition to the cheeks.",
         "price": 9500.00,
         "quantity": 60,
         "imageLink": "\\images\\catalog\\blush\\nars-777.png",
@@ -73,7 +73,7 @@ products = [
     {
         "productID": "P006",
         "productName": "NARS-Powder Blush 778",
-        "description": "",
+        "description": "A luminous blush in a warm berry shade, perfect for a soft and elegant look.",
         "price": 9500.00,
         "quantity": 75,
         "imageLink": "\\images\\catalog\\blush\\nars-778.png",
@@ -85,7 +85,7 @@ products = [
     {
         "productID": "P007",
         "productName": "NARS-Powder Blush 888",
-        "description": "",
+        "description": "A vibrant pink blush with a satin finish for a youthful and radiant look.",
         "price": 9500.00,
         "quantity": 90,
         "imageLink": "\\images\\catalog\\blush\\nars-888.png",
@@ -97,7 +97,7 @@ products = [
     {
         "productID": "P008",
         "productName": "NARS-Powder Blush 901",
-        "description": "",
+        "description": "A universally flattering rose shade with a soft-matte finish for a fresh complexion.",
         "price": 9500.00,
         "quantity": 40,
         "imageLink": "\\images\\catalog\\blush\\nars-901.png",
@@ -109,7 +109,7 @@ products = [
     {
         "productID": "P009",
         "productName": "NARS-Powder Blush 902",
-        "description": "",
+        "description": "A highly pigmented blush in a rich plum shade, perfect for contouring and shaping.",
         "price": 9500.00,
         "quantity": 85,
         "imageLink": "\\images\\catalog\\blush\\nars-902.png",
@@ -121,7 +121,7 @@ products = [
     {
         "productID": "P010",
         "productName": "Rare Beauty-Soft Pinch Liquid Blush-Bliss",
-        "description": "",
+        "description": "A lightweight liquid blush in a soft peach shade, offering a natural and dewy finish.",
         "price": 7000.00,
         "quantity": 120,
         "imageLink": "\\images\\catalog\\blush\\rare-bliss.png",
@@ -133,7 +133,7 @@ products = [
     {
         "productID": "P011",
         "productName": "Rare Beauty-Soft Pinch Liquid Blush-Believe",
-        "description": "",
+        "description": "A highly pigmented liquid blush in a cool pink shade that melts into skin for a natural-looking flush.",
         "price": 7000.00,
         "quantity": 80,
         "imageLink": "\\images\\catalog\\blush\\rare-believe.png",
@@ -145,7 +145,7 @@ products = [
     {
         "productID": "P012",
         "productName": "Rare Beauty-Soft Pinch Liquid Blush-Dewy",
-        "description": "",
+        "description": "A luxurious liquid blush with a dewy finish in a soft coral shade that adds a healthy glow to the skin.",
         "price": 7000.00,
         "quantity": 60,
         "imageLink": "\\images\\catalog\\blush\\rare-dewy.png",
@@ -157,7 +157,7 @@ products = [
     {
         "productID": "P013",
         "productName": "Rare Beauty-Soft Pinch Liquid Blush-Encourage",
-        "description": "",
+        "description": "A weightless, long-lasting liquid blush in a cheerful bright pink shade that blends effortlessly.",
         "price": 7000.00,
         "quantity": 30,
         "imageLink": "\\images\\catalog\\blush\\rare-encourage.png",
@@ -169,7 +169,7 @@ products = [
     {
         "productID": "P014",
         "productName": "Rare Beauty-Soft Pinch Liquid Blush-Grateful",
-        "description": "",
+        "description": "A buildable liquid blush in a warm terracotta shade that creates a sun-kissed, radiant effect.",
         "price": 7000.00,
         "quantity": 130,
         "imageLink": "\\images\\catalog\\blush\\rare-grateful.png",
@@ -181,7 +181,7 @@ products = [
     {
         "productID": "P015",
         "productName": "Rare Beauty-Soft Pinch Liquid Blush-Happy",
-        "description": "",
+        "description": "A vibrant coral-orange liquid blush that delivers a playful pop of color with just one drop.",
         "price": 7000.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\blush\\rare-happy.png",
@@ -193,7 +193,7 @@ products = [
     {
         "productID": "P016",
         "productName": "Rare Beauty-Soft Pinch Liquid Blush-Hope",
-        "description": "",
+        "description": "A silky liquid blush in a soft mauve shade that blends seamlessly for a natural, flushed look.",
         "price": 7000.00,
         "quantity": 90,
         "imageLink": "\\images\\catalog\\blush\\rare-hope.png",
@@ -205,7 +205,7 @@ products = [
     {
         "productID": "P017",
         "productName": "Rare Beauty-Soft Pinch Liquid Blush-Love",
-        "description": "",
+        "description": "A highly pigmented liquid blush in a true red shade that creates a romantic, rosy flush.",
         "price": 7000.00,
         "quantity": 40,
         "imageLink": "\\images\\catalog\\blush\\rare-love.png",
@@ -217,7 +217,7 @@ products = [
     {
         "productID": "P018",
         "productName": "Rare Beauty-Soft Pinch Liquid Blush-Lucky",
-        "description": "",
+        "description": "A lightweight liquid blush in a bright fuchsia shade that adds a youthful glow to all skin tones.",
         "price": 7000.00,
         "quantity": 110,
         "imageLink": "\\images\\catalog\\blush\\rare-lucky.png",
@@ -229,7 +229,7 @@ products = [
     {
         "productID": "P019",
         "productName": "Rare Beauty-Soft Pinch Liquid Blush-Virtue",
-        "description": "",
+        "description": "A dreamy liquid blush in a soft lavender-pink shade that adds a delicate flush to the cheeks.",
         "price": 7000.00,
         "quantity": 100,
         "imageLink": "\\images\\catalog\\blush\\rare-virtue.png",
@@ -241,7 +241,7 @@ products = [
     {
         "productID": "P020",
         "productName": "NYX-Can't Stop Won't Stop-Pale",
-        "description": "",
+        "description": "A full-coverage, matte foundation in the lightest shade that controls shine and lasts up to 24 hours.",
         "price": 4200.00,
         "quantity": 76,
         "imageLink": "\\images\\catalog\\foundation\\NYX-pale.png",
@@ -253,7 +253,7 @@ products = [
     {
         "productID": "P021",
         "productName": "NYX-Can't Stop Won't Stop-Light Porcelian",
-        "description": "",
+        "description": "A lightweight, waterproof foundation in a very fair shade with cool undertones for flawless, transfer-proof coverage.",
         "price": 4200.00,
         "quantity": 43,
         "imageLink": "\\images\\catalog\\foundation\\NYX-light-porcelian.png",
@@ -265,7 +265,7 @@ products = [
     {
         "productID": "P022",
         "productName": "NYX-Can't Stop Won't Stop-Light Ivory",
-        "description": "",
+        "description": "A creamy, non-comedogenic foundation in a fair shade with neutral undertones that controls oil and minimizes pores.",
         "price": 4200.00,
         "quantity": 56,
         "imageLink": "\\images\\catalog\\foundation\\NYX-light-ivory.png",
@@ -277,7 +277,7 @@ products = [
     {
         "productID": "P023",
         "productName": "NYX-Can't Stop Won't Stop-Light",
-        "description": "",
+        "description": "A high-pigment, long-wearing foundation in a light shade that provides seamless coverage with a natural matte finish.",
         "price": 4200.00,
         "quantity": 23,
         "imageLink": "\\images\\catalog\\foundation\\NYX-light.png",
@@ -289,7 +289,7 @@ products = [
     {
         "productID": "P024",
         "productName": "NYX-Can't Stop Won't Stop-Fair",
-        "description": "",
+        "description": "A buildable, transfer-resistant foundation in a fair shade with slight warm undertones for a smooth, even complexion.",
         "price": 4200.00,
         "quantity": 77,
         "imageLink": "\\images\\catalog\\foundation\\NYX-fair.png",
@@ -301,7 +301,7 @@ products = [
     {
         "productID": "P025",
         "productName": "NYX-Can't Stop Won't Stop-Vanilla",
-        "description": "",
+        "description": "A vegan, cruelty-free foundation in a light-medium shade with neutral undertones for a flawless, matte finish.",
         "price": 4200.00,
         "quantity": 29,
         "imageLink": "\\images\\catalog\\foundation\\NYX-vanilla.png",
@@ -313,7 +313,7 @@ products = [
     {
         "productID": "P026",
         "productName": "NYX-Can't Stop Won't Stop-Warm Vanilla",
-        "description": "",
+        "description": "A full-coverage foundation in a light-medium shade with golden undertones that stays fresh throughout the day.",
         "price": 4200.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\foundation\\NYX-warm-vanilla.png",
@@ -325,7 +325,7 @@ products = [
     {
         "productID": "P027",
         "productName": "NYX-Can't Stop Won't Stop-Nude",
-        "description": "",
+        "description": "A lightweight, breathable foundation in a medium nude shade with neutral undertones for a natural skin-like finish.",
         "price": 4200.00,
         "quantity": 97,
         "imageLink": "\\images\\catalog\\foundation\\NYX-nude.png",
@@ -337,7 +337,7 @@ products = [
     {
         "productID": "P028",
         "productName": "NYX-Can't Stop Won't Stop-Natural",
-        "description": "",
+        "description": "Long-wearing foundation with a matte finish in Natural shade, perfect for everyday wear. Provides full coverage that lasts up to 24 hours.",
         "price": 4200.00,
         "quantity": 89,
         "imageLink": "\\images\\catalog\\foundation\\NYX-natural.png",
@@ -349,7 +349,7 @@ products = [
     {
         "productID": "P029",
         "productName": "NYX-Can't Stop Won't Stop-True Beige",
-        "description": "",
+        "description": "Lightweight, waterproof foundation in True Beige shade with a natural matte finish. Provides full coverage and controls shine throughout the day.",
         "price": 4200.00,
         "quantity": 67,
         "imageLink": "\\images\\catalog\\foundation\\NYX-true-beige.png",
@@ -361,7 +361,7 @@ products = [
     {
         "productID": "P030",
         "productName": "NYX-Can't Stop Won't Stop-Buff",
-        "description": "",
+        "description": "High-pigment, transfer-proof foundation in Buff shade. Oil-free formula suitable for normal to oily skin types with a seamless finish.",
         "price": 4200.00,
         "quantity": 92,
         "imageLink": "\\images\\catalog\\foundation\\NYX-buff.png",
@@ -373,7 +373,7 @@ products = [
     {
         "productID": "P031",
         "productName": "NYX-Can't Stop Won't Stop-Medium Buff",
-        "description": "",
+        "description": "Buildable coverage foundation in Medium Buff shade with a comfortable, non-cakey formula. Resists sweat and humidity for all-day wear.",
         "price": 4200.00,
         "quantity": 71,
         "imageLink": "\\images\\catalog\\foundation\\NYX-medium-buff.png",
@@ -385,7 +385,7 @@ products = [
     {
         "productID": "P032",
         "productName": "NYX-Can't Stop Won't Stop-Medium Olive",
-        "description": "",
+        "description": "Non-comedogenic foundation in Medium Olive shade with a velvety matte finish. Offers full coverage that lasts all day without fading.",
         "price": 4200.00,
         "quantity": 28,
         "imageLink": "\\images\\catalog\\foundation\\NYX-medium-olive.png",
@@ -397,7 +397,7 @@ products = [
     {
         "productID": "P033",
         "productName": "NYX-Can't Stop Won't Stop-Soft Beige",
-        "description": "",
+        "description": "Creamy, blendable foundation in Soft Beige shade that provides medium to full coverage. Perfect for combination skin with a long-lasting finish.",
         "price": 4200.00,
         "quantity": 83,
         "imageLink": "\\images\\catalog\\foundation\\NYX-soft-beige.png",
@@ -409,7 +409,7 @@ products = [
     {
         "productID": "P034",
         "productName": "NARS-Afterglow Irresistible Eyeshadow Palette",
-        "description": "",
+        "description": "Limited edition palette featuring 12 highly-pigmented, blendable eyeshadows in warm neutral tones with matte, shimmer, and metallic finishes.",
         "price": 9590.00,
         "quantity": 83,
         "imageLink": "\\images\\catalog\\eyeshadow\\afterglow.png",
@@ -421,7 +421,7 @@ products = [
     {
         "productID": "P035",
         "productName": "Dasique-Berry Smoothie Eyeshadow Palette",
-        "description": "",
+        "description": "Compact 9-shade palette featuring versatile berry and mauve tones. Includes both matte and shimmer finishes with minimal fallout and high color payoff.",
         "price": 8000.00,
         "quantity": 57,
         "imageLink": "\\images\\catalog\\eyeshadow\\berry-smoothie.png",
@@ -433,7 +433,7 @@ products = [
     {
         "productID": "P036",
         "productName": "Dasique-Candy Berry Eyeshadow Palette",
-        "description": "",
+        "description": "Curated collection of 9 vibrant berry-toned shadows perfect for creating playful and romantic eye looks. Features buttery-soft formula with excellent blendability.",
         "price": 6950.00,
         "quantity": 68,
         "imageLink": "\\images\\catalog\\eyeshadow\\candy-berry.png",
@@ -445,7 +445,7 @@ products = [
     {
         "productID": "P037",
         "productName": "NYX-Ultimate Glow Shots Liquid Eyeshadow",
-        "description": "",
+        "description": "High-impact liquid eyeshadow with intense shimmer and glitter finish. Quick-drying formula that doesn't crease and stays vibrant all day.",
         "price": 3000.00,
         "quantity": 95,
         "imageLink": "\\images\\catalog\\eyeshadow\\glowshots.png",
@@ -457,7 +457,7 @@ products = [
     {
         "productID": "P038",
         "productName": "NARS-Hardwired Eyeshadows",
-        "description": "",
+        "description": "Single pot eyeshadows with an intense metallic finish and multi-dimensional shimmer. Highly-pigmented formula that applies smoothly with minimal fallout.",
         "price": 4300.00,
         "quantity": 72,
         "imageLink": "\\images\\catalog\\eyeshadow\\hardwired.png",
@@ -469,7 +469,7 @@ products = [
     {
         "productID": "P039",
         "productName": "Huda Beauty-Icy Nude Eyeshadow Palette",
-        "description": "",
+        "description": "Luxury 18-shade palette featuring cool-toned nudes with innovative textures including matte, shimmer, glitter, and multi-chrome finishes for endless eye looks.",
         "price": 12500.00,
         "quantity": 43,
         "imageLink": "\\images\\catalog\\eyeshadow\\icy-nude.png",
@@ -481,7 +481,7 @@ products = [
     {
         "productID": "P040",
         "productName": "NARS-Single Eyeshadows",
-        "description": "",
+        "description": "Professional-quality single eyeshadows with rich color payoff in a range of finishes. Silky texture allows for effortless application and blending.",
         "price": 3700.00,
         "quantity": 81,
         "imageLink": "\\images\\catalog\\eyeshadow\\single.png",
@@ -493,7 +493,7 @@ products = [
     {
         "productID": "P041",
         "productName": "NYX-Ultimate Utopia 40 Pan Palette",
-        "description": "",
+        "description": "Expansive palette featuring 40 unique shades ranging from neutrals to bold pops of color. Includes matte, satin, shimmer, and metallic finishes for unlimited creative looks.",
         "price": 9800.00,
         "quantity": 64,
         "imageLink": "\\images\\catalog\\eyeshadow\\ultimate-utopia.png",
@@ -505,7 +505,7 @@ products = [
     {
         "productID": "P042",
         "productName": "NYX-Ultimate Vintage Jean Palette",
-        "description": "",
+        "description": "Trendy palette inspired by denim hues with 16 wearable blue, gray, and neutral shades in various finishes. Perfect for creating everyday to dramatic eye looks.",
         "price": 5600.00,
         "quantity": 78,
         "imageLink": "\\images\\catalog\\eyeshadow\\vintage-jean.png",
@@ -517,7 +517,7 @@ products = [
     {
         "productID": "P043",
         "productName": "Dasique-Violet Knit Eyeshadow Palette",
-        "description": "",
+        "description": "Versatile 9-shade palette featuring purple-toned neutrals in both matte and shimmer finishes. Finely-milled formula offers seamless blending and buildable pigmentation.",
         "price": 6950.00,
         "quantity": 59,
         "imageLink": "\\images\\catalog\\eyeshadow\\violet-knit.png",
@@ -529,7 +529,7 @@ products = [
     {
         "productID": "P044",
         "productName": "NYX High Shine-Ambition Statement",
-        "description": "",
+        "description": "Vibrant red lipstick with a high-shine finish that provides intense color payoff and hydration. Non-sticky formula with comfortable wear throughout the day.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\nyx-ambition-statement.png",
@@ -541,7 +541,7 @@ products = [
     {
         "productID": "P045",
         "productName": "NYX High Shine-Born to Hustle",
-        "description": "",
+        "description": "Rich berry-toned lipstick with a glossy finish that delivers brilliant shine and medium coverage. Infused with shea butter for moisturizing comfort.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\nyx-born-to-hustle.png",
@@ -553,7 +553,7 @@ products = [
     {
         "productID": "P046",
         "productName": "NYX High Shine-Movie",
-        "description": "",
+        "description": "Bold pink lipstick with high-shine formula that creates a plumping effect. Lightweight texture with a smooth application and lasting color.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\nyx-ambition-statement.png",
@@ -565,7 +565,7 @@ products = [
     {
         "productID": "P047",
         "productName": "NYX High Shine-Boundary Pusher",
-        "description": "",
+        "description": "Statement-making deep plum lipstick with a brilliant glossy finish. Enriched with vitamin E to nourish lips while providing intense color payoff.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\nyx-boundary-pusher.png",
@@ -577,7 +577,7 @@ products = [
     {
         "productID": "P048",
         "productName": "NYX High Shine-Goal Crusher",
-        "description": "",
+        "description": "Flattering coral lipstick with high-shine finish and medium coverage. Creamy formula glides on smoothly and provides a hint of plumping effect.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\nyx-goal-crusher.png",
@@ -589,7 +589,7 @@ products = [
     {
         "productID": "P049",
         "productName": "NYX High Shine-Goal Getter",
-        "description": "",
+        "description": "Sophisticated nude-pink lipstick with glass-like shine. Features a non-sticky formula that feels comfortable on lips with a subtle sweet scent.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\nyx-goal-getter.png",
@@ -601,7 +601,7 @@ products = [
     {
         "productID": "P050",
         "productName": "NYX High Shine-Movin' Up",
-        "description": "",
+        "description": "Versatile mauve lipstick with a high-shine finish for everyday wear. Buildable formula allows for sheer to medium coverage with a cushiony feel.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\nyx-movin-up.png",
@@ -613,7 +613,7 @@ products = [
     {
         "productID": "P051",
         "productName": "NYX High Shine-Superstay Vinyl Ink-Charmed",
-        "description": "",
+        "description": "Long-wearing liquid lipstick in a charming rosy shade with a high-shine vinyl finish. Transfer-resistant formula that lasts up to 16 hours.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\mvi-charmed.jpg",
@@ -625,7 +625,7 @@ products = [
     {
         "productID": "P052",
         "productName": "Maybelline Superstay Vinyl Ink-Cheeky",
-        "description": "",
+        "description": "Vibrant coral liquid lipstick with a glossy vinyl finish. Innovative formula combines the staying power of a stain with the shine of a gloss.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\mvi-cheeky.jpg",
@@ -637,7 +637,7 @@ products = [
     {
         "productID": "P053",
         "productName": "Maybelline Superstay Vinyl Ink-Coy",
-        "description": "",
+        "description": "Soft pink liquid lipstick with a glossy vinyl finish. Features a long-lasting formula that stays put for up to 16 hours without drying out lips.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\mvi-coy.jpg",
@@ -649,7 +649,7 @@ products = [
     {
         "productID": "P054",
         "productName": "Maybelline Superstay Vinyl Ink-Lippy",
-        "description": "",
+        "description": "Vibrant fuchsia liquid lipstick with a high-shine vinyl finish. Two-phase formula that delivers intense color that resists transfer and fading.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\mvi-lippy.jpg",
@@ -661,7 +661,7 @@ products = [
     {
         "productID": "P055",
         "productName": "Maybelline Superstay Vinyl Ink-Peachy",
-        "description": "",
+        "description": "Fresh peach-toned liquid lipstick with a glossy finish. Lightweight formula that doesn't smudge or bleed, perfect for everyday wear.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\mvi-peachy.jpg",
@@ -673,7 +673,7 @@ products = [
     {
         "productID": "P056",
         "productName": "Maybelline Superstay Vinyl Ink-Peppy",
-        "description": "",
+        "description": "Bright coral liquid lipstick with a mirror-like shine. Innovative formula that combines staying power with comfortable wear and no sticky feeling.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\mvi-peppy.jpg",
@@ -685,7 +685,7 @@ products = [
     {
         "productID": "P057",
         "productName": "Maybelline Superstay Vinyl Ink-Pink Mashup",
-        "description": "",
+        "description": "Unique dusty rose liquid lipstick with a vinyl finish. Features a dual-phase formula that separates for optimal color payoff and shine.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\mvi-pink-mashup.jpg",
@@ -697,7 +697,7 @@ products = [
     {
         "productID": "P058",
         "productName": "Maybelline Superstay Vinyl Ink-Red Hot",
-        "description": "",
+        "description": "Classic true red liquid lipstick with a high-shine finish. Long-wearing formula that maintains vibrant color and glossy look throughout the day.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\mvi-red-hot.jpg",
@@ -709,7 +709,7 @@ products = [
     {
         "productID": "P059",
         "productName": "Maybelline Superstay Vinyl Ink-Rogue",
-        "description": "",
+        "description": "Deep crimson liquid lipstick with a dimensional vinyl finish. Waterproof formula that withstands eating and drinking without transferring.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\mvi-rogue.jpg",
@@ -721,7 +721,7 @@ products = [
     {
         "productID": "P060",
         "productName": "Maybelline Superstay Vinyl Ink-Unrivaled",
-        "description": "",
+        "description": "Bold burgundy liquid lipstick with a high-shine vinyl finish. Formula that doesn't feather or smudge, offering long-lasting wear for special occasions.",
         "price": 3650.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\mvi-unrivaled.jpg",
@@ -851,9 +851,9 @@ products = [
         "accessCount": 310
     },
     {
-        "productID": "J001",
+        "productID": "P071", 
         "productName": "Pink Earrings",
-        "description": "",
+        "description": "Delicate pink gemstone earrings with sterling silver posts. Elegant tear-drop shape adds a feminine touch to any outfit.",
         "price": 3000.00,
         "quantity": 30,
         "imageLink": "\\images\\catalog\\jewelry\\j1.png",
@@ -863,9 +863,9 @@ products = [
         "accessCount": 200
     },
     {
-        "productID": "J002",
+        "productID": "P072", 
         "productName": "Gold Flower Earrings",
-        "description": "",
+        "description": "Intricate gold-plated flower-shaped stud earrings. Delicate petal design with hypoallergenic posts suitable for sensitive ears.",
         "price": 2000.00,
         "quantity": 40,
         "imageLink": "\\images\\catalog\\jewelry\\j2.png",
@@ -875,9 +875,9 @@ products = [
         "accessCount": 180
     },
     {
-        "productID": "J003",
+        "productID": "P073", 
         "productName": "Drop Earrings",
-        "description": "",
+        "description": "Elegant silver-tone drop earrings with crystal accents. Lightweight design with secure butterfly backs for comfortable all-day wear.",
         "price": 2500.00,
         "quantity": 35,
         "imageLink": "\\images\\catalog\\jewelry\\j3.png",
@@ -887,9 +887,9 @@ products = [
         "accessCount": 210
     },
     {
-        "productID": "J004",
+        "productID": "P074", 
         "productName": "Retro Pearl Earrings",
-        "description": "",
+        "description": "Vintage-inspired earrings featuring genuine freshwater pearls in an antique gold setting. Timeless design perfect for special occasions.",
         "price": 3500.00,
         "quantity": 25,
         "imageLink": "\\images\\catalog\\jewelry\\j4.png",
@@ -899,9 +899,9 @@ products = [
         "accessCount": 190
     },
     {
-        "productID": "J005",
+        "productID": "P075", 
         "productName": "Red Drop Earrings",
-        "description": "",
+        "description": "Statement ruby-red crystal drop earrings with rhodium plating. Eye-catching design that catches the light for a dramatic effect.",
         "price": 4500.00,
         "quantity": 20,
         "imageLink": "\\images\\catalog\\jewelry\\j5.png",
@@ -911,9 +911,9 @@ products = [
         "accessCount": 220
     },
     {
-        "productID": "J006",
+        "productID": "P076", 
         "productName": "Casual Studs",
-        "description": "",
+        "description": "Everyday minimalist stud earrings in brushed gold finish. Versatile geometric design that pairs well with any outfit.",
         "price": 2500.00,
         "quantity": 30,
         "imageLink": "\\images\\catalog\\jewelry\\j6.png",
@@ -923,9 +923,9 @@ products = [
         "accessCount": 200
     },
     {
-        "productID": "J007",
+        "productID": "P077", 
         "productName": "Blue Drop Earrings",
-        "description": "",
+        "description": "Luxurious sapphire-blue crystal earrings with an elegant drop design. Features secure lever backs and rhodium-plated settings.",
         "price": 4500.00,
         "quantity": 20,
         "imageLink": "\\images\\catalog\\jewelry\\j7.png",
@@ -935,9 +935,9 @@ products = [
         "accessCount": 230
     },
     {
-        "productID": "J008",
+        "productID": "P078", 
         "productName": "Bow Pearl Earrings",
-        "description": "",
+        "description": "Charming bow-shaped earrings featuring delicate pearls. Feminine design with 14K gold-plated details for a touch of luxury.",
         "price": 1500.00,
         "quantity": 40,
         "imageLink": "\\images\\catalog\\jewelry\\j8.png",
@@ -947,9 +947,9 @@ products = [
         "accessCount": 170
     },
     {
-        "productID": "J009",
+        "productID": "P079", 
         "productName": "Golden Hoops",
-        "description": "",
+        "description": "Classic gold-tone hoop earrings in a versatile medium size. Lightweight design with a secure click closure for comfortable wear.",
         "price": 750.00,
         "quantity": 50,
         "imageLink": "\\images\\catalog\\jewelry\\j9.png",
@@ -959,9 +959,9 @@ products = [
         "accessCount": 240
     },
     {
-        "productID": "J010",
+        "productID": "P080", 
         "productName": "Sparkle Studs",
-        "description": "",
+        "description": "Brilliant cubic zirconia stud earrings with exceptional clarity. Prong-set stones in a platinum-plated setting for maximum sparkle.",
         "price": 3500.00,
         "quantity": 25,
         "imageLink": "\\images\\catalog\\jewelry\\j10.png",
@@ -971,9 +971,9 @@ products = [
         "accessCount": 215
     },
     {
-        "productID": "J011",
+        "productID": "P081", 
         "productName": "Crystal Earrings",
-        "description": "",
+        "description": "Sophisticated drop earrings featuring multi-faceted crystal stones. Artfully designed with a mix of clear and colored crystals for maximum sparkle and elegance",
         "price": 4500.00,
         "quantity": 20,
         "imageLink": "\\images\\catalog\\jewelry\\j11.png",
