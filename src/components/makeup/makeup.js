@@ -24,8 +24,8 @@ const Makeup = () => {
         </h6>
         <div className="row">
           <div className="col-md-3">
-            <div className="product-item white-card">
-              <img style={{ height: '350px', width: '270px'}} className="special-offer-img" src={makeup} alt="Special Offer" />
+            <div className="sp-of-product-item white-card">
+              <img src={makeup} alt="Special Offer" />
               <h3 style={{backgroundColor: 'white', color: 'black'}}>Exclusive Deals Just for You!</h3>
             </div>
           </div>
@@ -58,9 +58,9 @@ const Makeup = () => {
             </div>
             <div className="row mt-4">
               <div className="col-md-12">
-                <div className="product-item virtual-tryon">
-                  <img style={{ marginLeft: '350px', width: '500px', height: '185px' }} src={vto} alt="Virtual Try on" />
-                  <h3 style={{ marginLeft: '320px', width: '500px' }}>
+                <div className="vto-product-item">
+                  <img src={vto} alt="Virtual Try on" />
+                  <h3>
                     <Link to="/virtual-try-on" style={{ color: 'white', textDecoration: 'none' }}>Try out makeup virtually!</Link>
                   </h3>
                 </div>

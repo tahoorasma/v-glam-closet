@@ -94,6 +94,7 @@ const Checkout = () => {
       const result = await response.json();
       if (response.ok) {
         alert('Order placed successfully!');
+        await clearCart();
         window.location.href = "/"; 
       } else {
         alert(`Error: ${result.message}`);
@@ -116,6 +117,16 @@ const Checkout = () => {
     }
   };
   
+  const clearCart = async () => {
+    try {
+        const response = await fetch(`http://localhost:5000/clearCart`, {
+            method: "DELETE",
+        });
+        const result = await response.json();
+    } catch (error) {
+        console.error("Error clearing cart:", error);
+    }
+  };
 
   return (
     <div className="checkout-container">
@@ -153,6 +164,7 @@ const Checkout = () => {
           <select name="city" value={form.city} onChange={handleInputChange} className={errors.city ? 'error-input' : ''}>
             <option value="">Select city</option>
             <option value="Lahore">Lahore</option>
+            <option value="Karachi">Islamabad</option>
             <option value="Karachi">Karachi</option>
           </select>
           {errors.city && <p className="error-text">{errors.city}</p>}

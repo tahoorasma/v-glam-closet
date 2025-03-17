@@ -28,6 +28,7 @@ const FoundationCatalog = () => {
         try {
             await axios.post("http://localhost:5000/addToCart", {
                 userID: userID,
+                productName: product.productName,
                 productID: product.productID,
                 quantity: 1
             });

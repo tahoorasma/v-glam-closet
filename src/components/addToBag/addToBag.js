@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./addToBag.css";
 
 const AddToBag = () => {
+    const navigate = useNavigate();
+    const [isEmpty, setIsEmpty] = useState(false);
     const [items, setItems] = useState([]);
 
     let userID = localStorage.getItem("userID");
@@ -68,6 +70,28 @@ const AddToBag = () => {
 
     const totalPrice = items.reduce((total, item) => total + item.price * item.quantity, 0);
 
+    const isBagEmpty = async () => {
+        try {
+            const response = await fetch(`http://localhost:5000/getCart?userID=${userID}`);
+            const data = await response.json();
+            return data.length === 0; 
+        } catch (error) {
+            console.error("Error fetching cart data:", error);
+            return true; 
+        }
+    };
+
+    const handleCheckout = async (event) => {
+        event.preventDefault(); 
+        if (await isBagEmpty()) {
+            alert("Your bag is empty! Add items before checking out.");
+            setIsEmpty(true);
+        } else {
+            setIsEmpty(false);
+            navigate("/checkout", { state: { cartItems: items, totalPrice: totalPrice, userID: userID } });
+        }
+    };   
+
     return (
         <div>
             <div className="sidebar-header">
@@ -95,9 +119,7 @@ const AddToBag = () => {
                     <h6>Total:</h6>
                     <h5>Rs. {totalPrice.toLocaleString()} PKR</h5>
                 </div>
-                <Link to="/checkout" state={{ cartItems: items, totalPrice: totalPrice, userID: userID }}>
-                    <button className="atb-checkout-btn">Checkout</button>
-                </Link>
+                <button className="atb-checkout-btn" onClick={handleCheckout}>Checkout</button>
             </div>
         </div>
     );

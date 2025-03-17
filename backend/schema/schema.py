@@ -5,7 +5,7 @@ MONGO_URI = "mongodb+srv://tahoor:12345@vgccluster.vsvyy.mongodb.net/?retryWrite
 client = MongoClient(MONGO_URI)
 db = client["vglamcloset"]  
 
-product_collection = db["Product"]
+products_collection = db["Products"]
 category_collection = db["Category"]
 subcategory_collection = db["SubCategory"]
 
@@ -1028,8 +1028,8 @@ subcategory_collection = [
 
 if __name__ == "__main__":
     try:
-        product_collection.insert_many(products)
-        print("Products inserted successfully into the Product collection!")
+        products_collection.insert_many(products)
+        print("Products inserted successfully into the Products collection!")
     except Exception as e:
         print(f"Error inserting products: {e}")
 

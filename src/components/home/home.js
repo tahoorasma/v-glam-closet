@@ -124,7 +124,7 @@ const Home = () => {
       </div>
       <div>
         <img src={accessoryImg} alt="Accessory" className="acc-image"/>
-          <div classname="jw-div" style={{marginLeft:"330px", marginTop:"-200px"}}>
+          <div className="jw-div" style={{marginLeft:"330px", marginTop:"-200px"}}>
             <button className="button" onClick={() => navigate('/accessory-catalog')}>Shop Jewelry</button>
           </div>
           <div className="sg-div">

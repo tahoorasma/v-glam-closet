@@ -6,7 +6,7 @@ client = MongoClient(MONGO_URI)
 db = client["vglamcloset"]  
 
 collections = {
-    "Product": {
+    "Products": {
         "productID": "string",
         "productName": "string",
         "description": "string",
@@ -22,6 +22,7 @@ collections = {
         "cartID": "string",
         "userID": "string",
         "productID": "string",
+        "productName": "string",
         "quantity": "int"
     }
     ,
@@ -40,7 +41,7 @@ collections = {
         "subCategoryName": "string",
         "categoryID": "string"
     },
-    "Order": {
+    "Orders": {
     "validator": {
         "$jsonSchema": {
             "bsonType": "object",
@@ -75,8 +76,7 @@ collections = {
                 }
             }
         }
-    }
-},
+    }},
     "FrequentlyBoughtItems": {
         "fbtID": "string",
         "productID": "string",
