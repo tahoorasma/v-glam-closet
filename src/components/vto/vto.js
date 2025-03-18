@@ -124,6 +124,7 @@ const VirtualTryOn = () => {
   const [selectedLipstick, setSelectedLipstick] = useState(null);
   const [selectedEyeShadow, setSelectedEyeShadow] = useState(null);
   const [buyImage, setBuyImage] = useState(require('../images/blush.jpg'));
+  const [productID, setProductID] = useState(null);
   const [sliderValue, setSliderValue] = useState(50);
   const [showComparison, setShowComparison] = useState(false);
 
@@ -179,58 +180,69 @@ const VirtualTryOn = () => {
   const handleEyeShadowBtnClick = async () => {
     setShowEyeShadowProducts(true);
   }
-  const handleSingleESBtnClick = async (productName) => {
+  const handleSingleESBtnClick = async (productName, pID) => {
+    setProductID(pID);
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setShowSingleEyeShadow(true);
   }
-  const handleHardwiredESBtnClick = async (productName) => {
+  const handleHardwiredESBtnClick = async (productName, pID) => {
+    setProductID(pID);
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setShowHardwiredEyeShadow(true);
   }
-  const handleGlowshotESBtnClick = async (productName) => {
+  const handleGlowshotESBtnClick = async (productName, pID) => {
+    setProductID(pID);
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setShowGlowshotEyeShadow(true);
   }
-  const handleCandyBerryESBtnClick = async (productName) => {
+  const handleCandyBerryESBtnClick = async (productName, pID) => {
+    setProductID(pID);
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setShowCandyBerryEyeShadow(true);
   }
-  const handleVioletKnitESBtnClick = async (productName) => {
+  const handleVioletKnitESBtnClick = async (productName, pID) => {
+    setProductID(pID);
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setShowVioletKnitEyeShadow(true);
   }
-  const handleBerrySmoothieESBtnClick = async (productName) => {
+  const handleBerrySmoothieESBtnClick = async (productName, pID) => {
+    setProductID(pID);
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setShowBerrySmoothieEyeShadow(true);
   }
-  const handleVintageJeanESBtnClick = async (productName) => {
+  const handleVintageJeanESBtnClick = async (productName, pID) => {
+    setProductID(pID);
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setShowVintageJeanEyeShadow(true);
   }
-  const handleAfterglowESBtnClick = async (productName) => {
+  const handleAfterglowESBtnClick = async (productName, pID) => {
+    setProductID(pID);
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setShowAfterglowEyeShadow(true);
   }
-  const handleIcyNudeESBtnClick = async (productName) => {
+  const handleIcyNudeESBtnClick = async (productName, pID) => {
+    setProductID(pID);
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setShowIcyNudeEyeShadow(true);
   }
-  const handleUltimateUtopiaESBtnClick = async (productName) => {
+  const handleUltimateUtopiaESBtnClick = async (productName, pID) => {
+    setProductID(pID);
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setShowUltimateUtopiaEyeShadow(true);
   }
-  const handleFoundationClick = async (shadeColor, productName) => {
+  const handleFoundationClick = async (shadeColor, productName, pID) => {
     let productImage = '../images/catalog/foundation/'+ productName + '.png';
+    setProductID(pID);
     setBuyImage(productImage);
     setSelectedFoundation(shadeColor);
 
@@ -282,7 +294,8 @@ const VirtualTryOn = () => {
         alert('Failed to apply foundation. Please try again.');
     }
   };
-  const handleBlushClick = async (blushId, productName) => {
+  const handleBlushClick = async (blushId, productName, pID) => {
+    setProductID(pID);
     let productImage = '../images/catalog/blush/'+ productName + '.png';
     setBuyImage(productImage);
     const validBlushIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
@@ -338,9 +351,10 @@ const VirtualTryOn = () => {
     }
 };
 
-const handleLipstickClick = async (lipstickId, productName) => {
+const handleLipstickClick = async (lipstickId, productName, pID) => {
   let productImage = '../images/catalog/lipstick/'+ productName;
   setBuyImage(productImage);
+  setProductID(pID);
   setSelectedLipstick(lipstickId);
 
   const formData = new FormData();
@@ -397,7 +411,7 @@ const handleLipstickClick = async (lipstickId, productName) => {
 
 const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
   let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
-  setBuyImage(productImage);
+    setBuyImage(productImage);
     setSelectedEyeShadow(eyeShadowColor);
 
     const formData = new FormData();
@@ -453,8 +467,12 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
   };
 
   const directBuyProduct = () => {
-    navigate('/makeup-catalog');
+    if (productID>=70)
+      navigate(`/productDescription/${productID}`);
+    else
+      navigate('/makeup-catalog');
   };
+
   const handleCompareClick = () => {
     setShowComparison(!showComparison);
   };
@@ -591,10 +609,10 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
                     <img src={cmp} alt="Compare" className="button-icon" />
                     <span>Compare</span>
                   </button>
-                  <button id="side-btn" onClick={directBuyProduct}>
-                    <img src={buyImage} alt="Buy" className="button-icon" />
-                    <span>Buy</span>
-                  </button>
+                    <button id="side-btn" onClick={directBuyProduct}>
+                      <img src={buyImage} alt="Buy" className="button-icon" />
+                      <span>Buy</span>
+                    </button>
                 </>
               )}
             </div>
@@ -608,20 +626,20 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
                   <button className="back-option" onClick={handleBack}>
                     <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                   <button className="reset-option" onClick={handleReset}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#fed4b1','NYX-pale')} title='Pale' style={{ background: '#fed4b1', border: selectedFoundation === '#fed4b1' ? '2px solid rgb(100, 99, 99)' : '2px solid #fed4b1' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#fccab7','NYX-light-porcelian')} title='Light Porcelain' style={{ background: '#fccab7', border: selectedFoundation === '#fccab7' ? '2px solid rgb(100, 99, 99)' : '2px solid #fccab7' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#ecc4a9','NYX-light-ivory')} title='Light Ivory' style={{ background: '#ecc4a9', border: selectedFoundation === '#ecc4a9' ? '2px solid rgb(100, 99, 99)' : '2px solid #ecc4a9' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#e3b69a','NYX-light')} title='Light' style={{ background: '#e3b69a', border: selectedFoundation === '#e3b69a' ? '2px solid rgb(100, 99, 99)' : '2px solid #e3b69a' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#e0c5ac','NYX-fair')} title='Fair' style={{ background: '#e0c5ac', border: selectedFoundation === '#e0c5ac' ? '2px solid rgb(100, 99, 99)' : '2px solid #e0c5ac' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#e5b899','NYX-vanilla')} title='Vanilla' style={{ background: '#e5b899', border: selectedFoundation === '#e5b899' ? '2px solid rgb(100, 99, 99)' : '2px solid #e5b899' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#dab38d','NYX-warm-vanilla')} title='Warm Vanilla' style={{ background: '#dab38d', border: selectedFoundation === '#dab38d' ? '2px solid rgb(100, 99, 99)' : '2px solid #dab38d' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#d6b28e','NYX-nude')} title='Nude' style={{ background: '#d6b28e', border: selectedFoundation === '#d6b28e' ? '2px solid rgb(100, 99, 99)' : '2px solid #d6b28e' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#d8a380','NYX-natural')} title='Natural' style={{ background: '#d8a380', border: selectedFoundation === '#d8a380' ? '2px solid rgb(100, 99, 99)' : '2px solid #d8a380' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#dba779','NYX-true-beige')} title='True Beige' style={{ background: '#dba779', border: selectedFoundation === '#dba779' ? '2px solid rgb(100, 99, 99)' : '2px solid #dba779' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9e79','NYX-buff')} title='Buff' style={{ background: '#cb9e79', border: selectedFoundation === '#cb9e79' ? '2px solid rgb(100, 99, 99)' : '2px solid #cb9e79' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9374','NYX-medium-buff')} title='Medium Buff' style={{ background: '#cb9374', border: selectedFoundation === '#cb9374' ? '2px solid rgb(100, 99, 99)' : '2px solid #cb9374' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9875','NYX-medium-olive')} title='Medium Olive' style={{ background: '#cb9875', border: selectedFoundation === '#cb9875' ? '2px solid rgb(100, 99, 99)' : '2px solid #cb9875' }}></button>
-                  <button className="makeup-option" onClick={() => handleFoundationClick('#ca926b','NYX-soft-beige')} title='Soft Beige' style={{ background: '#ca926b', border: selectedFoundation === '#ca926b' ? '2px solid rgb(100, 99, 99)' : '2px solid #ca926b' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#fed4b1','NYX-pale', 'P020')} title='Pale' style={{ background: '#fed4b1', border: selectedFoundation === '#fed4b1' ? '2px solid rgb(100, 99, 99)' : '2px solid #fed4b1' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#fccab7','NYX-light-porcelian', 'P021')} title='Light Porcelain' style={{ background: '#fccab7', border: selectedFoundation === '#fccab7' ? '2px solid rgb(100, 99, 99)' : '2px solid #fccab7' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#ecc4a9','NYX-light-ivory', 'P022')} title='Light Ivory' style={{ background: '#ecc4a9', border: selectedFoundation === '#ecc4a9' ? '2px solid rgb(100, 99, 99)' : '2px solid #ecc4a9' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#e3b69a','NYX-light', 'P023')} title='Light' style={{ background: '#e3b69a', border: selectedFoundation === '#e3b69a' ? '2px solid rgb(100, 99, 99)' : '2px solid #e3b69a' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#e0c5ac','NYX-fair', 'P024')} title='Fair' style={{ background: '#e0c5ac', border: selectedFoundation === '#e0c5ac' ? '2px solid rgb(100, 99, 99)' : '2px solid #e0c5ac' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#e5b899','NYX-vanilla', 'P025')} title='Vanilla' style={{ background: '#e5b899', border: selectedFoundation === '#e5b899' ? '2px solid rgb(100, 99, 99)' : '2px solid #e5b899' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#dab38d','NYX-warm-vanilla', 'P026')} title='Warm Vanilla' style={{ background: '#dab38d', border: selectedFoundation === '#dab38d' ? '2px solid rgb(100, 99, 99)' : '2px solid #dab38d' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#d6b28e','NYX-nude', 'P027')} title='Nude' style={{ background: '#d6b28e', border: selectedFoundation === '#d6b28e' ? '2px solid rgb(100, 99, 99)' : '2px solid #d6b28e' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#d8a380','NYX-natural', 'P028')} title='Natural' style={{ background: '#d8a380', border: selectedFoundation === '#d8a380' ? '2px solid rgb(100, 99, 99)' : '2px solid #d8a380' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#dba779','NYX-true-beige', 'P029')} title='True Beige' style={{ background: '#dba779', border: selectedFoundation === '#dba779' ? '2px solid rgb(100, 99, 99)' : '2px solid #dba779' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9e79','NYX-buff', 'P030')} title='Buff' style={{ background: '#cb9e79', border: selectedFoundation === '#cb9e79' ? '2px solid rgb(100, 99, 99)' : '2px solid #cb9e79' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9374','NYX-medium-buff', 'P031')} title='Medium Buff' style={{ background: '#cb9374', border: selectedFoundation === '#cb9374' ? '2px solid rgb(100, 99, 99)' : '2px solid #cb9374' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#cb9875','NYX-medium-olive', 'P032')} title='Medium Olive' style={{ background: '#cb9875', border: selectedFoundation === '#cb9875' ? '2px solid rgb(100, 99, 99)' : '2px solid #cb9875' }}></button>
+                  <button className="makeup-option" onClick={() => handleFoundationClick('#ca926b','NYX-soft-beige', 'P033')} title='Soft Beige' style={{ background: '#ca926b', border: selectedFoundation === '#ca926b' ? '2px solid rgb(100, 99, 99)' : '2px solid #ca926b' }}></button>
                   {/* */}
                 </div>
               </div>
@@ -632,23 +650,23 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(1,'mvi-lippy.jpg')} title='Maybelline Vinyl Ink-Lippy' style={{ background: 'rgb(151, 15, 33)', border: selectedLipstick === 1 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(151, 15, 33)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(2,'mvi-peachy.jpg')} title='Maybelline Vinyl Ink-Peachy' style={{ background: 'rgb(195, 83, 83)', border: selectedLipstick === 2 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(195, 83, 83)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(3,'mvi-coy.jpg')} title='Maybelline Vinyl Ink-Coy' style={{ background: 'rgb(195, 73, 99)', border: selectedLipstick === 3 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(195, 73, 99)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(4,'mvi-red-hot.jpg')} title='Maybelline Vinyl Ink-Red Hot' style={{ background: 'rgb(226, 16, 17)', border: selectedLipstick === 4 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(226, 16, 17)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(5,'mvi-unrivaled.jpg')} title='Maybelline Vinyl Ink-Unrivaled' style={{ background: 'rgb(135, 10, 44)', border: selectedLipstick === 5 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(135, 10, 44)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(6,'mvi-cheeky.jpg')} title='Maybelline Vinyl Ink-Cheeky' style={{ background: 'rgb(173, 89, 89)', border: selectedLipstick === 6 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(173, 89, 89)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(7,'mvi-rogue.jpg')} title='Maybelline Vinyl Ink-Rogue' style={{ background: 'rgb(141, 70, 76)', border: selectedLipstick === 7 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(141, 70, 76)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(8,'mvi-charmed.jpg')} title='Maybelline Vinyl Ink-Charmed' style={{ background: 'rgb(199, 110, 106)', border: selectedLipstick === 8 ? '11x solid black' : '2px solid rgb(199, 110, 106)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(9,'mvi-peppy.jpg')} title='Maybelline Vinyl Ink-Peppy' style={{ background: 'rgb(168, 75, 77)', border: selectedLipstick === 9 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(168, 75, 77)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(10,'mvi-pink-mashup.jpg')} title='Maybelline Vinyl Ink-Pink Mashup' style={{ background: 'rgb(191, 69, 89)', border: selectedLipstick === 10 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(191, 69, 89)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(11,'nyx-ambition-statement.png')} title='NYX-Ambition Statement' style={{ background: 'rgb(148, 83, 74)', border: selectedLipstick === 11 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(148, 83, 74)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(12,'nyx-born-to-hustle.png')} title='NYX-Born To Hustle' style={{ background: 'rgb(207, 111, 119)', border: selectedLipstick === 12 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(207, 111, 119)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(13,'nyx-boundary-pusher.png')} title='NYX-Boundary Pusher' style={{ background: 'rgb(109, 66, 60)', border: selectedLipstick === 13 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(109, 66, 60)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(14,'nyx-goal-crusher.png')} title='NYX-Goal Crusher' style={{ background: 'rgb(166, 106, 87)', border: selectedLipstick === 14 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(166, 106, 87)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(15,'nyx-goal-getter.png')} title='NYX-Goal Getter' style={{ background: 'rgb(125, 39, 64)', border: selectedLipstick === 15 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(125, 39, 64)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(16,'nyx-movie-maker.png')} title='NYX-Movie Maker' style={{ background: 'rgb(189, 55, 66)', border: selectedLipstick === 16 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(189, 55, 66)' }}></button>
-                <button className="makeup-option" onClick={() => handleLipstickClick(17,'nyx-movin-up.png')} title='NYX-Movin up' style={{ background: 'rgb(189, 94, 113)', border: selectedLipstick === 17 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(189, 94, 113)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(1,'mvi-lippy.jpg', 'P054')} title='Maybelline Vinyl Ink-Lippy' style={{ background: 'rgb(151, 15, 33)', border: selectedLipstick === 1 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(151, 15, 33)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(2,'mvi-peachy.jpg', 'P055')} title='Maybelline Vinyl Ink-Peachy' style={{ background: 'rgb(195, 83, 83)', border: selectedLipstick === 2 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(195, 83, 83)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(3,'mvi-coy.jpg', 'P053')} title='Maybelline Vinyl Ink-Coy' style={{ background: 'rgb(195, 73, 99)', border: selectedLipstick === 3 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(195, 73, 99)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(4,'mvi-red-hot.jpg', 'P058')} title='Maybelline Vinyl Ink-Red Hot' style={{ background: 'rgb(226, 16, 17)', border: selectedLipstick === 4 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(226, 16, 17)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(5,'mvi-unrivaled.jpg', 'P060')} title='Maybelline Vinyl Ink-Unrivaled' style={{ background: 'rgb(135, 10, 44)', border: selectedLipstick === 5 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(135, 10, 44)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(6,'mvi-cheeky.jpg', 'P052')} title='Maybelline Vinyl Ink-Cheeky' style={{ background: 'rgb(173, 89, 89)', border: selectedLipstick === 6 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(173, 89, 89)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(7,'mvi-rogue.jpg', 'P059')} title='Maybelline Vinyl Ink-Rogue' style={{ background: 'rgb(141, 70, 76)', border: selectedLipstick === 7 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(141, 70, 76)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(8,'mvi-charmed.jpg', 'P051')} title='Maybelline Vinyl Ink-Charmed' style={{ background: 'rgb(199, 110, 106)', border: selectedLipstick === 8 ? '11x solid black' : '2px solid rgb(199, 110, 106)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(9,'mvi-peppy.jpg', 'P056')} title='Maybelline Vinyl Ink-Peppy' style={{ background: 'rgb(168, 75, 77)', border: selectedLipstick === 9 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(168, 75, 77)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(10,'mvi-pink-mashup.jpg', 'P057')} title='Maybelline Vinyl Ink-Pink Mashup' style={{ background: 'rgb(191, 69, 89)', border: selectedLipstick === 10 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(191, 69, 89)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(11,'nyx-ambition-statement.png', 'P044')} title='NYX-Ambition Statement' style={{ background: 'rgb(148, 83, 74)', border: selectedLipstick === 11 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(148, 83, 74)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(12,'nyx-born-to-hustle.png', 'P045')} title='NYX-Born To Hustle' style={{ background: 'rgb(207, 111, 119)', border: selectedLipstick === 12 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(207, 111, 119)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(16,'nyx-movie-maker.png', 'P046')} title='NYX-Movie Maker' style={{ background: 'rgb(189, 55, 66)', border: selectedLipstick === 16 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(189, 55, 66)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(13,'nyx-boundary-pusher.png', 'P047')} title='NYX-Boundary Pusher' style={{ background: 'rgb(109, 66, 60)', border: selectedLipstick === 13 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(109, 66, 60)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(14,'nyx-goal-crusher.png', 'P048')} title='NYX-Goal Crusher' style={{ background: 'rgb(166, 106, 87)', border: selectedLipstick === 14 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(166, 106, 87)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(15,'nyx-goal-getter.png', 'P049')} title='NYX-Goal Getter' style={{ background: 'rgb(125, 39, 64)', border: selectedLipstick === 15 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(125, 39, 64)' }}></button>
+                <button className="makeup-option" onClick={() => handleLipstickClick(17,'nyx-movin-up.png', 'P050')} title='NYX-Movin up' style={{ background: 'rgb(189, 94, 113)', border: selectedLipstick === 17 ? '2px solid rgb(100, 99, 99)' : '2px solid rgb(189, 94, 113)' }}></button>
                 </div>
               </div>
             ) : showBlushProducts ? (
@@ -658,25 +676,25 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
                 <button className="back-option" onClick={handleBack}>
                   <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
                 <button className="reset-option" onClick={handleReset}></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(1,'nars-777')} title='NARS-777' style={{ background: '#faa7a6', border: selectedBlush === 1 ? '2px solid rgb(100, 99, 99)' : '2px solid #faa7a6' }} alt="777"></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(2,'nars-778')} title='NARS-778' style={{ background: '#f58a8f', border: selectedBlush === 2 ? '2px solid rgb(100, 99, 99)' : '2px solid #f58a8f' }} alt="778"></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(3,'nars-776')} title='NARS-776' style={{ background: '#ff8288', border: selectedBlush === 3 ? '2px solid rgb(100, 99, 99)' : '2px solid #ff8288' }} alt="776"></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(4,'nars-775')} title='NARS-775' style={{ background: '#a84d4b', border: selectedBlush === 4 ? '2px solid rgb(100, 99, 99)' : '2px solid #a84d4b' }} alt="775"></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(5,'nars-237')} title='NARS-237' style={{ background: '#ef8e8d', border: selectedBlush === 5 ? '2px solid rgb(100, 99, 99)' : '2px solid #ef8e8d' }} alt="237"></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(6,'nars-902')} title='NARS-902' style={{ background: '#af6163', border: selectedBlush === 6 ? '2px solid rgb(100, 99, 99)' : '2px solid #af6163' }} alt="923"></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(7,'nars-901')} title='NARS-901' style={{ background: '#b86262', border: selectedBlush === 7 ? '2px solid rgb(100, 99, 99)' : '2px solid #b86262' }} alt="901"></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(8,'nars-888')} title='NARS-888' style={{ background: '#bf636b', border: selectedBlush === 8 ? '2px solid rgb(100, 99, 99)' : '2px solid #bf636b' }} alt="888"></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(9,'nars-252')} title='NARS-252' style={{ background: '#df7b7e', border: selectedBlush === 9 ? '2px solid rgb(100, 99, 99)' : '2px solid #df7b7e' }} alt="252"></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(10,'rare-believe')} title='Rare Beauty-Believe' style={{ background: '#B86670', border: selectedBlush === 10 ? '2px solid rgb(100, 99, 99)' : '2px solid #B86670' }} ></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(11,'rare-bliss')} title=' Rare Beauty-Bliss' style={{ background: '#DD7E78', border: selectedBlush === 11 ? '2px solid rgb(100, 99, 99)' : '2px solid #DD7E78' }} ></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(12,'rare-dewy')} title=' Rare Beauty-Dewy' style={{ background: '#C86A5E', border: selectedBlush === 12 ? '2px solid rgb(100, 99, 99)' : '2px solid #C86A5E' }} ></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(13,'rare-encourage')} title=' Rare Beauty-Encourage' style={{ background: '#CF7880', border: selectedBlush === 13 ? '2px solid rgb(100, 99, 99)' : '2px solid #CF7880' }} ></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(14,'rare-grateful')} title=' Rare Beauty-Grateful' style={{ background: '#F54540', border: selectedBlush === 14 ? '2px solid rgb(100, 99, 99)' : '2px solid #F54540' }} ></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(15,'rare-happy')} title=' Rare Beauty-Happy' style={{ background: '#F27F86', border: selectedBlush === 15 ? '2px solid rgb(100, 99, 99)' : '2px solid #F27F86' }} ></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(16,'rare-hope')} title=' Rare Beauty-Hope' style={{ background: '#E98B95', border: selectedBlush === 16 ? '2px solid rgb(100, 99, 99)' : '2px solid #E98B95' }} ></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(17,'rare-love')} title=' Rare Beauty-Love' style={{ background: '#B43A1D', border: selectedBlush === 17 ? '2px solid rgb(100, 99, 99)' : '2px solid #B43A1D' }} ></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(18,'rare-lucky')} title=' Rare Beauty-Lucky' style={{ background: '#FE4E87', border: selectedBlush === 18 ? '2px solid rgb(100, 99, 99)' : '2px solid #FE4E87' }} ></button>
-                <button className="makeup-option" onClick={() => handleBlushClick(19,'rare-virtue')} title=' Rare Beauty-Virtue' style={{ background: '#E78069', border: selectedBlush === 19 ? '2px solid rgb(100, 99, 99)' : '2px solid #E78069' }} ></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(1,'nars-777', 'P006')} title='NARS-777' style={{ background: '#faa7a6', border: selectedBlush === 1 ? '2px solid rgb(100, 99, 99)' : '2px solid #faa7a6' }} alt="777"></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(2,'nars-778', 'P005')} title='NARS-778' style={{ background: '#f58a8f', border: selectedBlush === 2 ? '2px solid rgb(100, 99, 99)' : '2px solid #f58a8f' }} alt="778"></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(3,'nars-776', 'P004')} title='NARS-776' style={{ background: '#ff8288', border: selectedBlush === 3 ? '2px solid rgb(100, 99, 99)' : '2px solid #ff8288' }} alt="776"></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(4,'nars-775', 'P003')} title='NARS-775' style={{ background: '#a84d4b', border: selectedBlush === 4 ? '2px solid rgb(100, 99, 99)' : '2px solid #a84d4b' }} alt="775"></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(5,'nars-237', 'P001')} title='NARS-237' style={{ background: '#ef8e8d', border: selectedBlush === 5 ? '2px solid rgb(100, 99, 99)' : '2px solid #ef8e8d' }} alt="237"></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(6,'nars-902', 'P009')} title='NARS-902' style={{ background: '#af6163', border: selectedBlush === 6 ? '2px solid rgb(100, 99, 99)' : '2px solid #af6163' }} alt="923"></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(7,'nars-901', 'P008')} title='NARS-901' style={{ background: '#b86262', border: selectedBlush === 7 ? '2px solid rgb(100, 99, 99)' : '2px solid #b86262' }} alt="901"></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(8,'nars-888', 'P007')} title='NARS-888' style={{ background: '#bf636b', border: selectedBlush === 8 ? '2px solid rgb(100, 99, 99)' : '2px solid #bf636b' }} alt="888"></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(9,'nars-252', 'P002')} title='NARS-252' style={{ background: '#df7b7e', border: selectedBlush === 9 ? '2px solid rgb(100, 99, 99)' : '2px solid #df7b7e' }} alt="252"></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(10,'rare-believe', 'P011')} title='Rare Beauty-Believe' style={{ background: '#B86670', border: selectedBlush === 10 ? '2px solid rgb(100, 99, 99)' : '2px solid #B86670' }} ></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(11,'rare-bliss', 'P010')} title=' Rare Beauty-Bliss' style={{ background: '#DD7E78', border: selectedBlush === 11 ? '2px solid rgb(100, 99, 99)' : '2px solid #DD7E78' }} ></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(12,'rare-dewy', 'P012')} title=' Rare Beauty-Dewy' style={{ background: '#C86A5E', border: selectedBlush === 12 ? '2px solid rgb(100, 99, 99)' : '2px solid #C86A5E' }} ></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(13,'rare-encourage', 'P013')} title=' Rare Beauty-Encourage' style={{ background: '#CF7880', border: selectedBlush === 13 ? '2px solid rgb(100, 99, 99)' : '2px solid #CF7880' }} ></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(14,'rare-grateful', 'P014')} title=' Rare Beauty-Grateful' style={{ background: '#F54540', border: selectedBlush === 14 ? '2px solid rgb(100, 99, 99)' : '2px solid #F54540' }} ></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(15,'rare-happy', 'P015')} title=' Rare Beauty-Happy' style={{ background: '#F27F86', border: selectedBlush === 15 ? '2px solid rgb(100, 99, 99)' : '2px solid #F27F86' }} ></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(16,'rare-hope', 'P016')} title=' Rare Beauty-Hope' style={{ background: '#E98B95', border: selectedBlush === 16 ? '2px solid rgb(100, 99, 99)' : '2px solid #E98B95' }} ></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(17,'rare-love', 'P017')} title=' Rare Beauty-Love' style={{ background: '#B43A1D', border: selectedBlush === 17 ? '2px solid rgb(100, 99, 99)' : '2px solid #B43A1D' }} ></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(18,'rare-lucky', 'P018')} title=' Rare Beauty-Lucky' style={{ background: '#FE4E87', border: selectedBlush === 18 ? '2px solid rgb(100, 99, 99)' : '2px solid #FE4E87' }} ></button>
+                <button className="makeup-option" onClick={() => handleBlushClick(19,'rare-virtue', 'P019')} title=' Rare Beauty-Virtue' style={{ background: '#E78069', border: selectedBlush === 19 ? '2px solid rgb(100, 99, 99)' : '2px solid #E78069' }} ></button>
                 </div>
               </div>
             ) : showEyeShadowProducts ? (
@@ -925,25 +943,25 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
                   <div className="type-options">
                     <button className="back-option" onClick={handleBack}>
                       <i className="fa fa-caret-left" style={{ fontSize: '20px' }}></i></button>
-                    <button className="es-option" onClick={() => handleSingleESBtnClick('single')} title="NARS-Single Eyeshadows"> 
+                    <button className="es-option" onClick={() => handleSingleESBtnClick('single', 'P040')} title="NARS-Single Eyeshadows"> 
                       <img src={s_es} alt="Single"/></button>
-                    <button className="es-option" onClick={() => handleHardwiredESBtnClick('hardwired')} title="NARS-Hardwired Eyeshadows">
+                    <button className="es-option" onClick={() => handleHardwiredESBtnClick('hardwired', 'P038')} title="NARS-Hardwired Eyeshadows">
                       <img src={hw_es} alt="Hadwired"/></button>
-                    <button className="es-option" onClick={() => handleGlowshotESBtnClick('glowshots')} title="NYX-Ultimate Glow Shots Liquid Eyeshadow">
+                    <button className="es-option" onClick={() => handleGlowshotESBtnClick('glowshots', 'P037')} title="NYX-Ultimate Glow Shots Liquid Eyeshadow">
                       <img src={gs_es} alt="Glowshots"/></button>
-                    <button className="es-option" onClick={() => handleCandyBerryESBtnClick('candy-berry')} title="Dasique-Candy Berry Eyeshadow Palette">
+                    <button className="es-option" onClick={() => handleCandyBerryESBtnClick('candy-berry', 'P036')} title="Dasique-Candy Berry Eyeshadow Palette">
                       <img src={cb_es} alt="CandyBerry"/></button>
-                    <button className="es-option" onClick={() => handleVioletKnitESBtnClick('violet-knit')} title="Dasique-Violet Knit Eyeshadow Palette">
+                    <button className="es-option" onClick={() => handleVioletKnitESBtnClick('violet-knit', 'P043')} title="Dasique-Violet Knit Eyeshadow Palette">
                       <img src={vk_es} alt="VioletKnit"/></button>
-                    <button className="es-option" onClick={() => handleBerrySmoothieESBtnClick('berry-smoothie')} title="Dasique-Berry Smoothie Eyeshadow Palette">
+                    <button className="es-option" onClick={() => handleBerrySmoothieESBtnClick('berry-smoothie', 'P035')} title="Dasique-Berry Smoothie Eyeshadow Palette">
                       <img src={bs_es} alt="BerrySmoothie"/></button>
-                    <button className="es-option" onClick={() => handleVintageJeanESBtnClick('vintage-jean')} title="NYX-Ultimate Vintage Jean Palette">
+                    <button className="es-option" onClick={() => handleVintageJeanESBtnClick('vintage-jean', 'P042')} title="NYX-Ultimate Vintage Jean Palette">
                       <img src={vj_es} alt="VintageJean"/></button>
-                    <button className="es-option" onClick={() => handleAfterglowESBtnClick('afterglow')} title="NARS-Afterglow Irresistible Eyeshadow Palette">
+                    <button className="es-option" onClick={() => handleAfterglowESBtnClick('afterglow', 'P034')} title="NARS-Afterglow Irresistible Eyeshadow Palette">
                       <img src={ag_es} alt="AfterGlow"/></button>
-                    <button className="es-option" onClick={() => handleIcyNudeESBtnClick('icy-nude')} title="Huda Beauty-Icy Nude Eyeshadow Palette">
+                    <button className="es-option" onClick={() => handleIcyNudeESBtnClick('icy-nude', 'P039')} title="Huda Beauty-Icy Nude Eyeshadow Palette">
                       <img src={in_es} alt="IcyNude"/></button>
-                    <button className="es-option" onClick={() => handleUltimateUtopiaESBtnClick('ultimate-utopia')} title="NYX-Ultimate Utopia 40 Pan Palette">
+                    <button className="es-option" onClick={() => handleUltimateUtopiaESBtnClick('ultimate-utopia', 'P041')} title="NYX-Ultimate Utopia 40 Pan Palette">
                       <img src={uu_es} alt="UltimateUtopia"/></button>
                   </div>
               )
