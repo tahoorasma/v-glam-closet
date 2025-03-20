@@ -89,7 +89,7 @@ def reset_blush():
     selected_blush_color = None
     return jsonify({"status": "reset"})
 
-def generate_video():
+def generate_blush_video():
     global selected_blush_color
     while True:
         ret, frame = cap.read()
@@ -128,7 +128,7 @@ def generate_video():
 @app.route('/video_feed')
 def video_feed():
     print("Video feed request received...")
-    return Response(generate_video(), 
+    return Response(generate_blush_video(), 
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":

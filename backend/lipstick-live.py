@@ -56,7 +56,7 @@ def get_lip_landmark(img):
         all_faces_lmPoints.append(lmPoints)  
     return all_faces_lmPoints
 
-def coloring_lip(imgOriginal, all_faces_lmPoints, r, g, b):
+def coloring_lip_live(imgOriginal, all_faces_lmPoints, r, g, b):
     img = imgOriginal.copy()
     for lmPoints in all_faces_lmPoints:
         poly1 = np.array(lmPoints[:12], np.int32).reshape((-1, 1, 2))
@@ -89,7 +89,7 @@ def generate_video():
         if selected_lipstick_color:
             lm_points = get_lip_landmark(frame)
             if lm_points:
-                frame = coloring_lip(frame, lm_points, *selected_lipstick_color)
+                frame = coloring_lip_live(frame, lm_points, *selected_lipstick_color)
 
         _, buffer = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'
