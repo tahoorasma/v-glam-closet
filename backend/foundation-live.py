@@ -10,7 +10,7 @@ CORS(app)
 selected_foundation = None
 predictor_path = "shape_predictor_81_face_landmarks.dat"
 face_detector = dlib.get_frontal_face_detector()
-shape_predictor = dlib.shape_predictor(predictor_path)
+shape_predictor2 = dlib.shape_predictor(predictor_path)
 
 for index in range(3):
     cap = cv2.VideoCapture(index)
@@ -56,7 +56,7 @@ def select_foundation():
     shade_color_hex = data.get('shadeColor', '#000000')
     foundation_color = tuple(int(shade_color_hex.lstrip('#')[i:i + 2], 16) for i in (4, 2, 0))
     selected_foundation = {"shade_color": foundation_color}
-    print("shade_color" + selected_foundation);
+    print("shade_color" + selected_foundation)
     return jsonify({"status": "success", "selected": selected_foundation})
 
 @app.route('/reset-foundation', methods=['POST'])
@@ -80,7 +80,7 @@ def generate_video():
             faces = face_detector(gray_frame)
 
             for face in faces:
-                landmarks = shape_predictor(gray_frame, face)
+                landmarks = shape_predictor2(gray_frame, face)
                 landmarks = np.array([[p.x, p.y] for p in landmarks.parts()])
                 apply_foundation(frame, selected_foundation["shade_color"], landmarks)
 

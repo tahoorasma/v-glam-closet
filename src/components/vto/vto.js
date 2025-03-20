@@ -467,7 +467,10 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
   };
 
   const directBuyProduct = () => {
-    if (productID>=70)
+    console.log("ProductID: " + productID);
+    const productNumber = parseInt(productID.replace('P', ''), 10);
+    console.log("productNumber: " + productNumber);
+    if (productNumber)
       navigate(`/productDescription/${productID}`);
     else
       navigate('/makeup-catalog');

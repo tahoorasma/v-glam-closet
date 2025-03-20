@@ -8,8 +8,8 @@ app = Flask(__name__)
 CORS(app)
 
 predictor_path = "shape_predictor_68_face_landmarks.dat"
-detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor(predictor_path)
+face_detector = dlib.get_frontal_face_detector()
+shape_predictor = dlib.shape_predictor(predictor_path)
 
 for index in range(3):
     cap = cv2.VideoCapture(index)
@@ -25,11 +25,11 @@ selected_blush_color = None
 
 def get_cheek_areas(img):
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = detector(gray_img)
+    faces = face_detector(gray_img)
     left_cheek_area = []
     right_cheek_area = []
     for face in faces:
-        landmarks = predictor(gray_img, face)
+        landmarks = shape_predictor(gray_img, face)
         left_cheek_area = [(landmarks.part(1).x + 15, landmarks.part(1).y),
                                    (landmarks.part(2).x + 15, landmarks.part(2).y),
                                    (landmarks.part(31).x, landmarks.part(31).y)]

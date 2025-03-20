@@ -11,4 +11,4 @@ opencv-python
 kaggle
 ultralytics
 mongoose
-#python -m pip install "pymongo[srv]"
+pymongo[srv]
