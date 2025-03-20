@@ -89,46 +89,54 @@ def reset_blush():
     selected_blush_color = None
     return jsonify({"status": "reset"})
 
+<<<<<<< HEAD
 def generate_blush_video():
+=======
+def generate_original_video():
+    while True:
+        ret, frame = cap.read()
+        if not ret or frame is None:
+            print("Error: Failed to capture frame")
+            continue
+        frame = cv2.flip(frame, 1)
+        _, buffer = cv2.imencode('.jpg', frame)
+        frame_bytes = buffer.tobytes()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+
+def generate_processed_video():
+>>>>>>> 819cf2ab1dd689a491987a52749babbceef3fb9b
     global selected_blush_color
     while True:
         ret, frame = cap.read()
         if not ret or frame is None:
             print("Error: Failed to capture frame")
-            continue  
-        if frame.ndim != 3 or frame.shape[2] != 3:
-            print(f"Error: Invalid frame format. Expected BGR, got {frame.shape}")
             continue
-
-        print(f"Captured frame shape: {frame.shape} dtype: {frame.dtype}")
-
-        try:
-            gray_img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            if gray_img is None:
-                print("Error: Gray image conversion failed")
-                continue  
-        except Exception as e:
-            print(f"Error during cvtColor: {e}")
-            continue  
-        frame = cv2.flip(frame, 1)
-
-        try:
+        frame = cv2.flip(frame, 1)  
+        if selected_blush_color:
             cheek_areas = get_cheek_areas(frame)
-            if selected_blush_color and cheek_areas:
+            if cheek_areas:
                 frame = apply_blush(frame, cheek_areas, selected_blush_color)
-        except RuntimeError as e:
-            print(f"RuntimeError: {e}")
-            continue  
+
         _, buffer = cv2.imencode('.jpg', frame)
         frame_bytes = buffer.tobytes()
-        print("Sending frame...")
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
 @app.route('/video_feed')
+<<<<<<< HEAD
 def video_feed():
     print("Video feed request received...")
     return Response(generate_blush_video(), 
+=======
+def original_video_feed():
+    return Response(generate_original_video(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/processed_video_feed')
+def processed_video_feed():
+    return Response(generate_processed_video(),
+>>>>>>> 819cf2ab1dd689a491987a52749babbceef3fb9b
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":
