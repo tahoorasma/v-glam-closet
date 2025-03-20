@@ -19,6 +19,7 @@ const VirtualTryOn = () => {
   const [Sclicked, setSClicked] = useState(false);
   const [Uclicked, setUClicked] = useState(false);
   const [Mclicked, setMClicked] = useState(false);
+  const [showConstraintModal, setShowConstraintModal] = useState(false);
   const navigate = useNavigate();
 
   const handleUseModelClick = () => {
@@ -55,6 +56,7 @@ const VirtualTryOn = () => {
   };
 
   const handleClick1 = () => {
+    setShowConstraintModal(true);
     setUClicked(false);
     setMClicked(false);
     setSClicked(!Sclicked);
@@ -121,6 +123,22 @@ const VirtualTryOn = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showConstraintModal && (
+        <div className="constraint-modal">
+          <div className="constraint-modal-content">
+            <span className="close" onClick={() => setShowConstraintModal(false)}>&times;</span>
+            <h2>Selfie Mode Requirements</h2>
+            <ul>
+              <li>Ensure good lighting for better results.</li>
+              <li>Make sure your device has a high-resolution camera for accurate detection.</li>
+              <li>Avoid background clutter for better focus.</li>
+              <li>Position your face straight within the camera frame.</li>
+            </ul>
+            <button className="btn" style={{ color: 'white',border: Sclicked ? '2px solid #646363' : 'none', }} onClick={() => { setShowConstraintModal(false); navigate('/virtual-try-on-live'); }}>Continue</button>
           </div>
         </div>
       )}

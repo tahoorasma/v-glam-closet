@@ -552,7 +552,7 @@ products = [
     },
     {
         "productID": "P046",
-        "productName": "NYX High Shine-Movie",
+        "productName": "NYX High Shine-Movie Maker",
         "description": "Bold pink lipstick with high-shine formula that creates a plumping effect. Lightweight texture with a smooth application and lasting color.",
         "price": 3650.00,
         "quantity": 50,
@@ -612,7 +612,7 @@ products = [
     },
     {
         "productID": "P051",
-        "productName": "NYX High Shine-Superstay Vinyl Ink-Charmed",
+        "productName": "Maybelline Superstay Vinyl Ink-Charmed",
         "description": "Long-wearing liquid lipstick in a charming rosy shade with a high-shine vinyl finish. Transfer-resistant formula that lasts up to 16 hours.",
         "price": 3650.00,
         "quantity": 50,
@@ -744,7 +744,7 @@ products = [
     },
     {
         "productID": "P062",
-        "productName": "Notr Frames",
+        "productName": "Noir Frames",
         "description": "Minimalist sunglasses with premium lens protection.",
         "price": 3500.00,
         "quantity": 50,

@@ -40,7 +40,7 @@ lipstick_colors = {
     "17": (113, 94, 189)
 }
 
-selected_color = None
+selected_lipstick_color = None
 def get_lip_landmark(img):
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_detector(gray_img)
@@ -68,28 +68,28 @@ def coloring_lip(imgOriginal, all_faces_lmPoints, r, g, b):
 
 @app.route('/select-lipstick', methods=['POST'])
 def select_lipstick():
-    global selected_color
+    global selected_lipstick_color
     data = request.json
     lipstick_index = data.get('index')
-    selected_color = lipstick_colors.get(lipstick_index)
-    if not selected_color:
+    selected_lipstick_color = lipstick_colors.get(lipstick_index)
+    if not selected_lipstick_color:
         return jsonify({"status": "error", "message": "Invalid lipstick index"}), 400
-    print(f"Lipstick color selected: {selected_color}")
-    return jsonify({"status": "success", "selected_color": selected_color})
+    print(f"Lipstick color selected: {selected_lipstick_color}")
+    return jsonify({"status": "success", "selected_lipstick_color": selected_lipstick_color})
 
 
 def generate_video():
-    global selected_color
+    global selected_lipstick_color
     while True:
         ret, frame = cap.read()
         if not ret:
             continue
 
         frame = cv2.flip(frame, 1)
-        if selected_color:
+        if selected_lipstick_color:
             lm_points = get_lip_landmark(frame)
             if lm_points:
-                frame = coloring_lip(frame, lm_points, *selected_color)
+                frame = coloring_lip(frame, lm_points, *selected_lipstick_color)
 
         _, buffer = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'
@@ -103,8 +103,8 @@ def video_feed():
 
 @app.route('/reset-lipstick', methods=['POST'])
 def reset_lipstick():
-    global selected_color
-    selected_color = None
+    global selected_lipstick_color
+    selected_lipstick_color = None
     print("Lipstick reset.")
     return jsonify({"status": "reset"})
 
