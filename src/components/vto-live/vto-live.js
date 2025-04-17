@@ -98,9 +98,9 @@ import uu37 from '../images/eyeshadows/ultimateutopia/uu37.png'
 import uu38 from '../images/eyeshadows/ultimateutopia/uu38.png'
 import uu40 from '../images/eyeshadows/ultimateutopia/uu40.png'
 import Navbar from '../navbar';
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 const VirtualTryOnLive = () => {
+  const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
   const location = useLocation();
   const navigate = useNavigate();
   const [imageSource, setImageSource] = useState(defaultModel);
@@ -124,24 +124,13 @@ const VirtualTryOnLive = () => {
   const [selectedEyeShadow, setSelectedEyeShadow] = useState(null);
   const [productID, setProductID] = useState(null);
   const [buyImage, setBuyImage] = useState(require('../images/blush.jpg'));
-  const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
-  const [processedVideoSrc, setProcessedVideoSrc] = useState('http://localhost:5000/processed_video_feed');
-  const [isComparing, setIsComparing] = useState(false);
-  const [isBlushApplied, setIsBlushApplied] = useState(false);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      const timestamp = new Date().getTime();
-      setVideoSrc(`http://localhost:5000/video_feed?timestamp=${timestamp}`);
-      setProcessedVideoSrc(`http://localhost:5000/processed_video_feed?timestamp=${timestamp}`);
-    }, 100);
-  
-    return () => clearInterval(intervalId);
+      setVideoSrc(`http://localhost:5000/video_feed?timestamp=${new Date().getTime()}`);
+    }, 100); 
+    return () => clearInterval(intervalId); 
   }, []);
-  
-  const handleCompareClick = () => {
-    setIsComparing(!isComparing);
-  };
 
   useEffect(() => {
     if (location.state?.imageSource) {
@@ -293,7 +282,6 @@ const VirtualTryOnLive = () => {
   const handleBlushClick = (blushId, productName, pID) => {
     setProductID(pID);
     let productImage = '../images/catalog/blush/'+ productName + '.png';
-    setIsBlushApplied(true);
     setBuyImage(productImage);
     setSelectedBlush(blushId);
     fetch('http://localhost:5000/select-blush', {
@@ -380,36 +368,25 @@ const VirtualTryOnLive = () => {
         <p>Time to make up your mind! Experience your perfect makeup shades or try a bold new look with our virtual try-on tool.</p>
 
         <div className="tryon-ui">
-        <div className="photo-area">
+          <div className="photo-area">
             <div className="model-container">
-              {isComparing ? (
-                <ReactCompareSlider
-                  itemOne={<ReactCompareSliderImage src={videoSrc} alt="Original Video Feed" />}
-                  itemTwo={<ReactCompareSliderImage src={processedVideoSrc} alt="Processed Video Feed" />}
-                  portrait={false}
-                  style={{ width: '500px', height: '400px' }}
-                />
-              ) : (
-                <img src={isBlushApplied ? processedVideoSrc : videoSrc} alt="Video Stream" style={{ width: '500px', height: '400px' }} />
-              )}
+              <img src={videoSrc} alt="Video Stream" style={{ width: '100%', height: 'auto' }} />
             </div>
           </div>
 
-
           <div className="col-12 col-md-2">
             <div className="button-container">
-            {(showFoundationProducts || showBlushProducts || showLipstickProducts || showEyeShadowProducts) && (
-              <>
-              <button id="side-btn" onClick={handleCompareClick}>
-                <img src={cmp} alt="Compare" className="button-icon" />
-                <span>{isComparing ? 'Stop Comparing' : 'Compare'}</span>
-              </button>
-
-              <button id="side-btn" onClick={() => navigate('/makeup-catalog')}>
-                <img src={buy} alt="Buy" className="button-icon" />
-                <span>Buy</span>
-              </button>
-              </>
+              {(showFoundationProducts || showBlushProducts || showLipstickProducts || showEyeShadowProducts) && (
+                <>
+                  <button id="side-btn">
+                    <img src={cmp} alt="Compare" className="button-icon" />
+                    <span>Compare</span>
+                  </button>
+                    <button id="side-btn" onClick={directBuyProduct}>
+                      <img src={buyImage} alt="Buy" className="button-icon" />
+                      <span>Buy</span>
+                    </button>
+                </>
               )}
             </div>
           </div>
