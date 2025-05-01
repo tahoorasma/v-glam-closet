@@ -76,8 +76,8 @@ body {
 }
 
 .bs-product-card img {
-    width: auto;
-    height: 150px;
+    width: 150px;
+    height: auto;
     margin-bottom: 10px;
 }
 
