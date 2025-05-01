@@ -942,7 +942,7 @@ def reset_blush():
     selected_blush_color = None
     return jsonify({"status": "reset"})
 
-def generate_video():
+def generate_blush_video():
     global selected_blush_color
     while True:
         ret, frame = cap.read()
@@ -1122,7 +1122,7 @@ def reset_eyeshadow():
     print("Eyeshadow reset.")
     return jsonify({"status": "reset"})
 
-def generate_video():
+def generate_eyeshadow_video():
     global selected_eyeshadow
     while True:
         ret, frame = cap.read()
@@ -1196,7 +1196,7 @@ def reset_foundation():
     print("Foundation reset.")
     return jsonify({"status": "reset"})
 
-def generate_video():
+def generate_foundation_video():
     global selected_foundation
     while True:
         ret, frame = cap.read()
@@ -1274,7 +1274,7 @@ def select_jewelry():
         return jsonify({"status": "error", "message": "Failed to load jewelry image."}), 400
 
     return jsonify({"status": "success", "selected_jewelry": jewelry_choice})
-def generate_video():
+def generate_jewelry_video():
     global selected_jewelry
     frame_count = 0
     prediction_interval = 3  
@@ -1313,22 +1313,7 @@ def generate_video():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
-def get_lip_landmark(img):
-    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    faces = face_detector(gray_img)
-    all_faces_lmPoints = [] 
-
-    for face in faces:
-        lmPoints = []  
-        landmarks = shape_predictor(gray_img, face)
-        for n in range(48, 68):  
-            x = landmarks.part(n).x
-            y = landmarks.part(n).y
-            lmPoints.append([x, y])
-        all_faces_lmPoints.append(lmPoints)  
-    return all_faces_lmPoints
-
-def coloring_lip(imgOriginal, all_faces_lmPoints, r, g, b):
+def coloring_lip_live(imgOriginal, all_faces_lmPoints, r, g, b):
     img = imgOriginal.copy()
     for lmPoints in all_faces_lmPoints:
         poly1 = np.array(lmPoints[:12], np.int32).reshape((-1, 1, 2))
@@ -1349,7 +1334,7 @@ def select_lipstick():
     print(f"Lipstick color selected: {selected_lipstick_color}")
     return jsonify({"status": "success", "selected_lipstick_color": selected_lipstick_color})
 
-def generate_video():
+def generate_lipstick_video():
     global selected_lipstick_color
     while True:
         ret, frame = cap.read()
@@ -1360,7 +1345,7 @@ def generate_video():
         if selected_lipstick_color:
             lm_points = get_lip_landmark(frame)
             if lm_points:
-                frame = coloring_lip(frame, lm_points, *selected_lipstick_color)
+                frame = coloring_lip_live(frame, lm_points, *selected_lipstick_color)
 
         _, buffer = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'
@@ -1438,13 +1423,13 @@ def reset_sunglasses():
     print("Sunglasses reset.")
     return jsonify({"status": "reset"})
 
-def generate_video():
+def generate_sunglasses_video():
     global selected_sunglasses
     while True:
         ret, frame = cap.read()
         if not ret:
             print("Error: Unable to capture video frame.")
-            generate_video()
+            generate_sunglasses_video()
             continue
 
         frame = cv2.flip(frame, 1)
@@ -1454,6 +1439,128 @@ def generate_video():
         _, buffer = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
+
+def generate_video():
+    global selected_blush_color
+    global selected_eyeshadow
+    global selected_foundation
+    global selected_jewelry
+    global selected_lipstick_color
+    global selected_sunglasses
+    
+    frame_count = 0
+    prediction_interval = 3
+    
+    while True:
+        ret, frame = cap.read()
+        if not ret or frame is None:
+            print("Error: Failed to capture frame")
+            continue
+        if frame is not None and (frame.ndim != 3 or frame.shape[2] != 3):
+            print(f"Error: Invalid frame format. Expected BGR, got {frame.shape}")
+            continue
+            
+        print(f"Captured frame shape: {frame.shape} dtype: {frame.dtype}")
+        if selected_jewelry is not None:
+            frame = cv2.resize(frame, (640, 480))
+        frame = cv2.flip(frame, 1)
+        
+        if selected_blush_color:
+            try:
+                gray_img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                if gray_img is None:
+                    print("Error: Gray image conversion failed")
+                    continue
+                    
+                cheek_areas = get_cheek_areas(frame)
+                if cheek_areas:
+                    frame = apply_blush(frame, cheek_areas, selected_blush_color)
+            except RuntimeError as e:
+                print(f"RuntimeError: {e}")
+                continue
+            except Exception as e:
+                print(f"Error during cvtColor: {e}")
+                continue
+        if selected_eyeshadow:
+            try:
+                gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                faces = face_detector(gray_frame)
+                glitter = selected_eyeshadow["is_glitter"]
+
+                for face in faces:
+                    landmarks = shape_predictor(gray_frame, face)
+                    landmarks_array = np.array([[p.x, p.y] for p in landmarks.parts()])
+                    #print("isglitter:", glitter)
+                    if glitter == 1:
+                        apply_glitter_eyeshadow(frame, selected_eyeshadow["shade_color"], landmarks_array)
+                    elif glitter == 2:
+                        apply_shimmer_eyeshadow(frame, selected_eyeshadow["shade_color"], landmarks_array)
+                    else:
+                        apply_eyeshadow(frame, selected_eyeshadow["shade_color"], landmarks_array)
+            except Exception as e:
+                print(f"Error applying eyeshadow: {e}")
+                continue
+        if selected_foundation:
+            try:
+                gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                faces = face_detector(gray_frame)
+
+                for face in faces:
+                    landmarks = shape_predictor2(gray_frame, face)
+                    landmarks = np.array([[p.x, p.y] for p in landmarks.parts()])
+                    apply_foundation(frame, selected_foundation["shade_color"], landmarks)
+            except Exception as e:
+                print(f"Error applying foundation: {e}")
+                continue
+        if selected_jewelry is not None:
+            if frame_count % prediction_interval == 0:
+                try:
+                    results = get_model().predict(source=frame, conf=0.2)
+                    earlobe_coords = []
+                    EARLOBE_CLASS_ID = 0
+
+                    for result in results:
+                        if result.boxes:
+                            for box, cls in zip(result.boxes, result.boxes.cls.cpu().numpy()):
+                                if int(cls) == EARLOBE_CLASS_ID:
+                                    coords = box.xyxy[0].cpu().numpy()
+                                    center_y = int((coords[1] + coords[3]) / 2)
+                                    center_x = int((coords[0] + coords[2]) / 2)
+                                    earlobe_coords.append((center_y, center_x))
+
+                    if len(earlobe_coords) >= 2:
+                        left_ear = min(earlobe_coords, key=lambda x: x[1])
+                        right_ear = max(earlobe_coords, key=lambda x: x[1])
+                        earlobe_coords = [left_ear, right_ear]
+
+                        apply_jewelry(frame, selected_jewelry, earlobe_coords)
+                except Exception as e:
+                    print(f"Error applying jewelry: {e}")
+            
+            frame_count += 1
+        if selected_lipstick_color:
+            try:
+                lm_points = get_lip_landmark(frame)
+                if lm_points:
+                    frame = coloring_lip_live(frame, lm_points, *selected_lipstick_color)
+            except Exception as e:
+                print(f"Error applying lipstick: {e}")
+                continue
+        if selected_sunglasses is not None:
+            try:
+                frame = apply_sunglasses(frame, selected_sunglasses)
+            except Exception as e:
+                print(f"Error applying sunglasses: {e}")
+                continue
+        try:
+            _, buffer = cv2.imencode('.jpg', frame)
+            frame_bytes = buffer.tobytes()
+            print("Sending frame...")
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+        except Exception as e:
+            print(f"Error encoding frame: {e}")
+            continue
 
 @app.route('/video_feed')
 def video_feed():
