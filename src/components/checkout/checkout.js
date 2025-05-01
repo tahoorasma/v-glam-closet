@@ -79,6 +79,7 @@ const Checkout = () => {
       NoOfItems: cartItems.reduce((total, item) => total + item.quantity, 0),
       amount: totalPrice,
     };
+    console.log(new Date().toISOString().split('T')[0]);
   
     try {
       setLoading(true);

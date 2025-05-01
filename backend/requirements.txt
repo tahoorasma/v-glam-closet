@@ -1,4 +1,6 @@
 # pip install -r requirements.txt
+#emzo bqhp nljp lsbi
+#rfbh nril ypcf kqii
 
 setuptools
 wheel
@@ -12,3 +14,5 @@ kaggle
 ultralytics
 mongoose
 pymongo[srv]
+Flask-Mail
+apscheduler

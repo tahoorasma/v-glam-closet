@@ -8,10 +8,16 @@ import os
 import time
 import logging
 import shutil
+import random
 from pymongo import MongoClient, ReturnDocument
 from datetime import datetime
 from bson import ObjectId
 from bson.json_util import dumps
+from flask import Flask, request, jsonify
+from flask_mail import Mail, Message
+from threading import Thread
+from pymongo import MongoClient
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -24,6 +30,14 @@ products_collection = db["Products"]
 cart_collection = db["Cart"]
 orders_collection = db["Orders"]
 users_collection = db["User"]
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'vglamcloset99@gmail.com'
+app.config['MAIL_PASSWORD'] = 'rfbh nril ypcf kqii'
+mail = Mail(app)
+
 UPLOAD_FOLDER = 'uploads/'
 PROCESSED_FOLDER = 'processed/'
 
@@ -95,12 +109,12 @@ def get_product_by_id(productID):
         product['_id'] = str(product['_id'])  
         return jsonify(product), 200
     return jsonify({"error": "Product not found"}), 404
+
 @app.route('/best-sellers', methods=['GET'])
 def get_best_sellers():
     subcategory = request.args.get('subcategory') 
     query = {}
     print("Subcategory received:", subcategory)
-
     if subcategory:
         query = {"subCategoryID": subcategory}
         limit = 5
@@ -274,25 +288,34 @@ def generate_user_id():
     else:
         return "U001" 
 
+def generate_unique_order_id():
+    while True:
+        order_id = str(random.randint(100000, 999999))
+        if not orders_collection.find_one({"orderID": order_id}):
+            return order_id
+        
 @app.route('/addOrder', methods=['POST', 'OPTIONS'])
 def create_order():
-    if request.method == "OPTIONS": 
+    if request.method == "OPTIONS":
         response = jsonify({'message': 'CORS preflight successful'})
         response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
         response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
         response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
         return response, 200
+
     data = request.json
     user_data = data.get("userData")
     order_data = data.get("orderData")
-    user_id = data.get("userID")  
+    user_id = data.get("userID")
+
     if not user_data or not order_data:
         response = jsonify({"message": "User data and order data are required"})
         response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
         return response, 400
+
     existing_user = users_collection.find_one({"email": user_data["email"]})
     if existing_user:
-        user_id = existing_user["userID"]  
+        user_id = existing_user["userID"]
     else:
         user_id = generate_user_id()
         new_user = {
@@ -302,9 +325,10 @@ def create_order():
             "address": user_data["address"]
         }
         users_collection.insert_one(new_user)
+
     new_order = {
-        "orderID": str(ObjectId()), 
-        "userID": user_id, 
+        "orderID": generate_unique_order_id(),
+        "userID": user_id,
         "productID": order_data["productID"],
         "orderDate": datetime.strptime(order_data["orderDate"], "%Y-%m-%d").isoformat(),
         "NoOfItems": order_data["NoOfItems"],
@@ -314,11 +338,16 @@ def create_order():
         result = orders_collection.insert_one(new_order)
         if result.inserted_id:
             cart_collection.delete_many({"userID": user_id})
+            user_email = existing_user["email"] if existing_user else user_data["email"]
+            Thread(
+                target=delayed_email_with_context,
+                args=(app, user_email, new_order["orderID"], order_data["productID"][0])
+            ).start()
             new_order["_id"] = str(result.inserted_id)
             response = jsonify({
                 "message": "Order placed successfully",
                 "order": new_order,
-                "userID": user_id  
+                "userID": user_id
             })
             response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
             return response, 201
@@ -954,6 +983,57 @@ def try_on_sunglasses():
     except Exception as e:
         logging.error(f"Error processing sunglasses: {e}")
         return jsonify({"error": "Failed to process sunglasses"}), 500
+
+def delayed_email_with_context(app, user_email, order_id, product_id):
+    with app.app_context():
+        time.sleep(30)
+        send_rating_email(user_email, order_id, product_id)
+
+def send_rating_email(user_email, order_id, product_id):
+    product = products_collection.find_one({"productID": product_id})
+    if not product:
+        print(f"Product not found for ID {product_id}")
+        return
+    product_name = product.get("productName", "Product")
+    product_image = product.get("imageLink", "")  
+    rating_base_url = "http://localhost:3000//rate"  
+    msg = Message("Rate Your Recent Purchase",
+                  sender="vglamcloset99@gmail.com",
+                  recipients=[user_email])
+    msg.html = f"""
+    <html>
+    <body style="font-family: Arial, sans-serif; text-align: center;">
+        <h2>Thank you for your recent purchase!</h2>
+        <p>Please rate the product from order <strong>#{order_id}</strong>.</p>
+        <h3>{product_name}</h3>
+        <img src="{product_image}" alt="{product_name}" style="width:200px; height:auto; margin: 10px 0;" />
+        <p style="font-size:18px;">Click a star below to submit your rating:</p>
+        <div style="font-size: 30px;">
+            {"".join([
+                f'<a href="{rating_base_url}?productID={product_id}&stars={i}" '
+                f'style="text-decoration: none; color: gold;">&#9733;</a>' for i in range(1, 6)
+            ])}
+        </div>
+    </body>
+    </html>
+    """
+    try:
+        mail.send(msg)
+        print(f"Email sent to {user_email}")
+    except Exception as e:
+        print(f"Error sending email: {e}")
+
+@app.route('/rate', methods=['POST'])
+def submit_rating():
+    data = request.get_json()
+    product_id = data['productID']
+    rating = data['rating']
+    
+    # Update the product rating in the database
+    # Assuming there is a product collection (not part of your schema, but for the sake of this example)
+    # products_collection.update_one({"productID": product_id}, {"$set": {"rating": rating}})
+    
+    return jsonify({"message": "Rating submitted successfully!"}), 200
 
 if __name__ == '__main__':
     app.run(port=5000)
