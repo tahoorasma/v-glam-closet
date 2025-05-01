@@ -1,30 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './bestSellers.css';
 import Navbar from '../navbar';
-import bs1 from "../images/catalog/blush/nars-237.png";
-import bs2 from "../images/catalog/blush/rare-bliss.png";
-import bs3 from "../images/catalog/eyeshadow/ultimate-utopia.png";
-import bs4 from "../images/catalog/foundation/NYX-light.png";
-import bs5 from "../images/catalog/eyeshadow/icy-nude.png";
-import bs6 from "../images/catalog/eyeshadow/violet-knit.png";
-import bs7 from "../images/catalog/sunglasses/sg-4.png";
 
 const BestSellers = () => {
-    const [products] = useState([
-        { id: 1, name: "Ombre Blush", price: 4500, ratings: 4, image: bs1, category: "Face" },
-        { id: 2, name: "Soft liquid Blush", price: 3500, ratings: 4.4, image: bs2, category: "Face" },
-        { id: 3, name: "Bliss Eyeshadow", price: 5000, ratings: 4.6, image: bs3, category: "Eyes" },
-        { id: 4, name: "NYX-Light Foundation", price: 3500, ratings: 5, image: bs4, category: "Face" },
-        { id: 5, name: "Icy Nude Eyeshadow", price: 2000, ratings: 4, image: bs5, category: "Eyes" },
-        { id: 6, name: "Violet Knit Eyeshadow", price: 5500, ratings: 4.1, image: bs6, category: "Face" },
-        { id: 7, name: "Sunglasses", price: 3000, ratings: 4.2, image: bs7, category: "Eyes" },
-    ]);
-
+    const [products, setProducts] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("All");
-    const [sortedProducts, setSortedProducts] = useState(products);
+    const [sortedProducts, setSortedProducts] = useState([]);
+
+    useEffect(() => {
+        const query = selectedCategory !== "All" ? `?subcategory=${selectedCategory.toLowerCase()}` : "";
+        fetch(`http://localhost:5000/best-sellers${query}`)
+            .then(res => res.json())
+            .then(data => {
+                setProducts(data);
+                setSortedProducts(data);
+            })
+            .catch(err => console.error("Error fetching best sellers:", err));
+    }, [selectedCategory]);    
 
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);
+        console.log("Category: "+category);
+        let url = 'http://127.0.0.1:5000/best-sellers';
+        if (category !== "All") {
+            url += `?subcategory=${category.toLowerCase()}`;
+            console.log("Url: "+url);
+        }
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                setProducts(data);
+                setSortedProducts(data);
+            })
+            .catch(err => console.error("Error fetching best sellers by subcategory:", err));
     };
 
     const sortProducts = (type) => {
@@ -47,7 +55,7 @@ const BestSellers = () => {
             <div className="bs-container">
                 <div className="bs-controls">
                     <div className="categories">
-                        {["All", "Face", "Lip", "Eyes"].map((category) => (
+                        {["All", "Foundation", "Lipstick", "Blush", "Eyeshadow", "Jewelry", "Sunglasses"].map((category) => (
                             <button
                                 key={category}
                                 onClick={() => handleCategoryChange(category)}
@@ -67,12 +75,12 @@ const BestSellers = () => {
                 </div>
                 <div className="product-grid">
                     {filteredProducts.map((product) => (
-                        <div key={product.id} className="bs-product-card">
-                            <img src={product.image} alt={product.name} />
+                        <div key={product.productID} className="bs-product-card">
+                            <img src={product.imageLink} alt={product.productName} />
                             <div className="product-info">
-                                <p className="product-name">{product.name}</p>
+                                <p className="product-name">{product.productName}</p>
                                 <p className="product-price">Rs {product.price}</p>
-                                <p className="product-reviews">{product.ratings} <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
+                                <p className="product-reviews">{product.rating} <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings</p>
                                 <button className="add-to-bag">Add to Bag</button>
                             </div>
                         </div>

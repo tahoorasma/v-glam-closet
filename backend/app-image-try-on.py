@@ -95,6 +95,32 @@ def get_product_by_id(productID):
         product['_id'] = str(product['_id'])  
         return jsonify(product), 200
     return jsonify({"error": "Product not found"}), 404
+@app.route('/best-sellers', methods=['GET'])
+def get_best_sellers():
+    subcategory = request.args.get('subcategory') 
+    query = {}
+    print("Subcategory received:", subcategory)
+
+    if subcategory:
+        query = {"subCategoryID": subcategory}
+        limit = 5
+    else:
+        limit = 10
+    products = products_collection.find(query).sort("sellingCount", -1).limit(limit)
+    result = []
+    for p in products:
+        p['_id'] = str(p['_id']) 
+        result.append(p)
+    return jsonify(result)
+
+@app.route('/most-viewed-items', methods=['GET'])
+def get_most_viewed_items():
+    products = products_collection.find().sort("accessCount", -1).limit(3)
+    result = []
+    for p in products:
+        p['_id'] = str(p['_id'])
+        result.append(p)
+    return jsonify(result)
 
 @app.route('/most-viewed-blush', methods=['GET'])
 def get_most_viewed_blush():

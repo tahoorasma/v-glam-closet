@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 const ProductDescription = () => {
     const { productID } = useParams();
     const [product, setProduct] = useState(null);
+    const [mostViewed, setMostViewed] = useState([]);
     const [showBag, setShowBag] = useState(false);
 
     let userID = localStorage.getItem("userID");
@@ -22,6 +23,10 @@ const ProductDescription = () => {
             .then(response => response.json())
             .then(data => setProduct(data))
             .catch(error => console.error("Error fetching product details:", error));
+        fetch('http://127.0.0.1:5000/most-viewed-items')
+            .then(response => response.json())
+            .then(data => setMostViewed(data.slice(0, 3))) 
+            .catch(error => console.error("Error fetching most viewed products:", error));
     }, [productID]);
 
     if (!product) {
@@ -80,6 +85,29 @@ const ProductDescription = () => {
                     </div>
                 </div>
             )}
+            
+            <div className="most-viewed-section">
+                <hr className="section-divider" />
+                <h2 className="section-title">Frequently Accessed Items</h2>
+                <div className="most-viewed-row">
+                    {mostViewed.map((item) => (
+                        <div key={item.productID} className="most-viewed-card">
+                            <div className="most-viewed-image-container">
+                                <img src={item.imageLink} alt={item.productName} className="most-viewed-image" />
+                            </div>
+                            <div className="most-viewed-content">
+                                <h4 className="most-viewed-name">{item.productName}</h4>
+                                <p className="most-viewed-price">Rs {item.price}.00</p>
+                                <div className="most-viewed-footer">
+                                    <p className="most-viewed-count">Views: {item.accessCount}</p>
+                                    <Link to={`/productDescription/${item.productID}`} className="most-viewed-link">View Details</Link>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <hr className="section-divider" />
+            </div>    
 
             <div className="footer">
                 <p>&copy; 2024 V-Glam Closet</p>
