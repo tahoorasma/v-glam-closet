@@ -10,6 +10,7 @@ const BlushProductDescription = () => {
     const { productID } = useParams();
     const [product, setProduct] = useState(null);
     const [showBag, setShowBag] = useState(false);
+    const [mostViewed, setMostViewed] = useState([]);
 
     let userID = localStorage.getItem("userID");
     if (!userID) {
@@ -18,10 +19,18 @@ const BlushProductDescription = () => {
     }
 
     useEffect(() => {
-        fetch(`http://127.0.0.1:5000/product/${productID}`)
-            .then(response => response.json())
-            .then(data => setProduct(data))
-            .catch(error => console.error("Error fetching product details:", error));
+        let isCalled = false;
+        if (!isCalled) {
+            fetch(`http://127.0.0.1:5000/product/${productID}`)
+                .then(response => response.json())
+                .then(data => setProduct(data))
+                .catch(error => console.error("Error fetching product details:", error));
+            fetch('http://127.0.0.1:5000/most-viewed-blush')
+                .then(response => response.json())
+                .then(data => setMostViewed(data.slice(0, 3))) 
+                .catch(error => console.error("Error fetching most viewed products:", error));
+        }
+        return () => { isCalled = true };
     }, [productID]);
 
     if (!product) {
@@ -46,14 +55,13 @@ const BlushProductDescription = () => {
 
     return (
         <div>
-            
             <div className="pd-header">V-Glam Closet</div>
             <Navbar />
 
-            <div className="hyperlinks" style={{ margin: "20px 0", padding: "0 40px", textAlign: "left", color: "black" }}>
-                <Link to="/makeup" className="hyperlink" style={{ color: "#575555" }}>Makeup</Link> /
-                <Link to="/blush-catalog" className="hyperlink" style={{ color: "#575555" }}> Blush</Link> / 
-                <Link to="" className="hyperlink" style={{ color: "#e66a7e" }}> {product.productID}</Link>
+            <div className="hyperlinks">
+                <Link to="/makeup" className="hyperlink">Makeup</Link> /
+                <Link to="/blush-catalog" className="hyperlink"> Blush</Link> / 
+                <Link to="" className="hyperlink active"> {product.productID}</Link>
             </div>
 
             <div className="pd-product-container">
@@ -79,12 +87,57 @@ const BlushProductDescription = () => {
                         <AddToBag />
                     </div>
                 </div>
-            )}
+            )}      
+
+            <div className="most-viewed-section">
+                <hr className="section-divider" />
+                <h2 className="section-title">Frequently Bought Together With</h2>
+                <div className="most-viewed-row">
+                    {mostViewed.map((item) => (
+                        <div key={item.productID} className="most-viewed-card">
+                            <div className="most-viewed-image-container">
+                                <img src={item.imageLink} alt={item.productName} className="most-viewed-image" />
+                            </div>
+                            <div className="most-viewed-content">
+                                <h4 className="most-viewed-name">{item.productName}</h4>
+                                <p className="most-viewed-price">Rs {item.price}.00</p>
+                                <div className="most-viewed-footer">
+                                    <p className="most-viewed-count">Views: {item.accessCount}</p>
+                                    <Link to={`/blushProductDescription/${item.productID}`} className="most-viewed-link">View Details</Link>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <hr className="section-divider" />
+            </div>  
+            
+            <div className="most-viewed-section">
+                <hr className="section-divider" />
+                <h2 className="section-title">Frequently Accessed Blush</h2>
+                <div className="most-viewed-row">
+                    {mostViewed.map((item) => (
+                        <div key={item.productID} className="most-viewed-card">
+                            <div className="most-viewed-image-container">
+                                <img src={item.imageLink} alt={item.productName} className="most-viewed-image" />
+                            </div>
+                            <div className="most-viewed-content">
+                                <h4 className="most-viewed-name">{item.productName}</h4>
+                                <p className="most-viewed-price">Rs {item.price}.00</p>
+                                <div className="most-viewed-footer">
+                                    <p className="most-viewed-count">Views: {item.accessCount}</p>
+                                    <Link to={`/blushProductDescription/${item.productID}`} className="most-viewed-link">View Details</Link>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <hr className="section-divider" />
+            </div>       
 
             <div className="footer">
                 <p>&copy; 2024 V-Glam Closet</p>
             </div>
-
         </div>
     );
 };

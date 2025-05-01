@@ -89,6 +89,9 @@ def reset_blush():
     selected_blush_color = None
     return jsonify({"status": "reset"})
 
+<<<<<<< HEAD
+def generate_blush_video():
+=======
 def generate_original_video():
     while True:
         ret, frame = cap.read()
@@ -102,6 +105,7 @@ def generate_original_video():
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
 def generate_processed_video():
+>>>>>>> 819cf2ab1dd689a491987a52749babbceef3fb9b
     global selected_blush_color
     while True:
         ret, frame = cap.read()
@@ -120,6 +124,11 @@ def generate_processed_video():
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
 @app.route('/video_feed')
+<<<<<<< HEAD
+def video_feed():
+    print("Video feed request received...")
+    return Response(generate_blush_video(), 
+=======
 def original_video_feed():
     return Response(generate_original_video(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
@@ -127,6 +136,7 @@ def original_video_feed():
 @app.route('/processed_video_feed')
 def processed_video_feed():
     return Response(generate_processed_video(),
+>>>>>>> 819cf2ab1dd689a491987a52749babbceef3fb9b
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":

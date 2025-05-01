@@ -8,7 +8,7 @@ import os
 import time
 import logging
 import shutil
-from pymongo import MongoClient
+from pymongo import MongoClient, ReturnDocument
 from datetime import datetime
 from bson import ObjectId
 from bson.json_util import dumps
@@ -16,7 +16,7 @@ from bson.json_util import dumps
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-MONGO_URI = "mongodb+srv://usmara:12345@vgccluster.vsvyy.mongodb.net/?retryWrites=true&w=majority"
+MONGO_URI = "mongodb+srv://tahoor:12345@vgccluster.vsvyy.mongodb.net/?retryWrites=true&w=majority"
 
 client = MongoClient(MONGO_URI)
 db = client["vglamcloset"]  
@@ -86,10 +86,87 @@ def get_makeup_products():
 
 @app.route('/product/<productID>', methods=['GET'])
 def get_product_by_id(productID):
-    product = products_collection.find_one({"productID": productID})
+    product = products_collection.find_one_and_update(
+        {'productID': productID},
+        {'$inc': {'accessCount': 1}},
+        return_document=ReturnDocument.AFTER
+    )
     if product:
-        return dumps(product), 200
+        product['_id'] = str(product['_id'])  
+        return jsonify(product), 200
     return jsonify({"error": "Product not found"}), 404
+
+@app.route('/most-viewed-blush', methods=['GET'])
+def get_most_viewed_blush():
+    blush_subcategory_id = 'blush'
+    products = products_collection.find(
+        {"subCategoryID": blush_subcategory_id}
+    ).sort("accessCount", -1).limit(3)
+    result = []
+    for p in products:
+        p['_id'] = str(p['_id'])
+        result.append(p)
+    return jsonify(result)
+
+@app.route('/most-viewed-eyeshadow', methods=['GET'])
+def get_most_viewed_eyeshadow():
+    blush_subcategory_id = 'eyeshadow'
+    products = products_collection.find(
+        {"subCategoryID": blush_subcategory_id}
+    ).sort("accessCount", -1).limit(3)
+    result = []
+    for p in products:
+        p['_id'] = str(p['_id'])
+        result.append(p)
+    return jsonify(result)
+
+@app.route('/most-viewed-foundation', methods=['GET'])
+def get_most_viewed_foundation():
+    blush_subcategory_id = 'foundation'
+    products = products_collection.find(
+        {"subCategoryID": blush_subcategory_id}
+    ).sort("accessCount", -1).limit(3)
+    result = []
+    for p in products:
+        p['_id'] = str(p['_id'])
+        result.append(p)
+    return jsonify(result)
+
+@app.route('/most-viewed-jewelry', methods=['GET'])
+def get_most_viewed_jewelry():
+    blush_subcategory_id = 'jewelry'
+    products = products_collection.find(
+        {"subCategoryID": blush_subcategory_id}
+    ).sort("accessCount", -1).limit(3)
+    result = []
+    for p in products:
+        p['_id'] = str(p['_id'])
+        result.append(p)
+    return jsonify(result)
+
+@app.route('/most-viewed-lipstick', methods=['GET'])
+def get_most_viewed_lipstick():
+    blush_subcategory_id = 'lipstick'
+    products = products_collection.find(
+        {"subCategoryID": blush_subcategory_id}
+    ).sort("accessCount", -1).limit(3)
+    result = []
+    for p in products:
+        p['_id'] = str(p['_id'])
+        result.append(p)
+    return jsonify(result)
+
+@app.route('/most-viewed-sunglasses', methods=['GET'])
+def get_most_viewed_sunglasses():
+    blush_subcategory_id = 'sunglasses'
+    products = products_collection.find(
+        {"subCategoryID": blush_subcategory_id}
+    ).sort("accessCount", -1).limit(3)
+    result = []
+    for p in products:
+        p['_id'] = str(p['_id'])
+        result.append(p)
+    return jsonify(result)
 
 @app.route('/accessoryCatalog', methods=['GET'])
 def get_accessory_products():

@@ -101,6 +101,7 @@ import Navbar from '../navbar';
 
 const VirtualTryOnLive = () => {
   const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
+  const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
   const location = useLocation();
   const navigate = useNavigate();
   const [imageSource, setImageSource] = useState(defaultModel);
@@ -127,6 +128,9 @@ const VirtualTryOnLive = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
+      setVideoSrc(`http://localhost:5000/video_feed?timestamp=${new Date().getTime()}`);
+    }, 100); 
+    return () => clearInterval(intervalId); 
       setVideoSrc(`http://localhost:5000/video_feed?timestamp=${new Date().getTime()}`);
     }, 100); 
     return () => clearInterval(intervalId); 
@@ -368,13 +372,26 @@ const VirtualTryOnLive = () => {
 
         <div className="tryon-ui">
           <div className="photo-area">
+          <div className="photo-area">
             <div className="model-container">
+              <img src={videoSrc} alt="Video Stream" style={{ width: '100%', height: 'auto' }} />
               <img src={videoSrc} alt="Video Stream" style={{ width: '100%', height: 'auto' }} />
             </div>
           </div>
 
           <div className="col-12 col-md-2">
             <div className="button-container">
+              {(showFoundationProducts || showBlushProducts || showLipstickProducts || showEyeShadowProducts) && (
+                <>
+                  <button id="side-btn">
+                    <img src={cmp} alt="Compare" className="button-icon" />
+                    <span>Compare</span>
+                  </button>
+                    <button id="side-btn" onClick={directBuyProduct}>
+                      <img src={buyImage} alt="Buy" className="button-icon" />
+                      <span>Buy</span>
+                    </button>
+                </>
               {(showFoundationProducts || showBlushProducts || showLipstickProducts || showEyeShadowProducts) && (
                 <>
                   <button id="side-btn">
