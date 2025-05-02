@@ -69,7 +69,7 @@ const BestSellers = () => {
                                 </Link>
                                 <p className="product-price">Rs {product.price}</p>
                                 <p className="product-reviews">
-                                    {product.rating} <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ratings
+                                    {product.rating} <span style={{ color: '#fcba03', fontSize: '1.2em' }}>★</span> ({product.ratingCount})
                                 </p>
                                 <button className="add-to-bag">Add to Bag</button>
                             </div>

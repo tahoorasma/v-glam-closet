@@ -58,6 +58,7 @@ const MakeupCatalog = () => {
                                     </Link>
                                 </h3>
                                 <p className="price">Rs {product.price}.00</p>
+                                <p className="product-reviews">{product.rating} <span style={{ color: "#fcba03", fontSize: "1.2em" }}>★</span> ({product.ratingCount})</p>
                                 <button className="btn-add-to-bag" onClick={() => handleAddToBag(product)}>
                                     Add to Bag
                                 </button>

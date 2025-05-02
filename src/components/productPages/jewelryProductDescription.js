@@ -69,7 +69,7 @@ const JewelryProductDescription = () => {
                     <h2>{product.productName}</h2>
                     <p className="pd-description">{product.description}</p>
                     <p className="pd-price">Rs {product.price}.00</p>
-                    <p className="pd-rating">Rating: {product.rating}/5</p>
+                    <p className="pd-rating">{product.rating} <span style={{ color: "#fcba03", fontSize: "1.2em" }}>★</span> ({product.ratingCount})</p>
                     <p className="pd-stats">Sold: {product.sellingCount} | Viewed: {product.accessCount}</p>
                     <button className="btn-add-to-bag" onClick={() => handleAddToBag(product)}>
                         Add to Bag
