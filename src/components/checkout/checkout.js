@@ -198,10 +198,6 @@ const Checkout = () => {
           <div className="payment">
             <h2>Payment</h2>
             <div className="payment-method">
-              <input type="radio" id="card" name="payment" value="card" checked={paymentMethod === 'card'} onChange={handleInputChange} />
-              <label htmlFor="card">Debit/Credit Card</label>
-            </div>
-            <div className="payment-method">
               <input type="radio" id="cod" name="payment" value="cod" checked={paymentMethod === 'cod'} onChange={handleInputChange} />
               <label htmlFor="cod">Cash on Delivery</label>
             </div>
