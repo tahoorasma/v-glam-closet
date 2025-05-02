@@ -19,6 +19,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\nars-237.png",
         "subCategoryID": "blush",
         "rating": 4.8,
+        "ratingCount": 107,
+        "ratingTotal": 514,
         "sellingCount": 250,
         "accessCount": 500
     },
@@ -31,6 +33,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\nars-252.png",
         "subCategoryID": "blush",
         "rating": 4.7,
+        "ratingCount": 89,
+        "ratingTotal": 418,
         "sellingCount": 180,
         "accessCount": 450
     },
@@ -43,6 +47,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\nars-775.png",
         "subCategoryID": "blush",
         "rating": 4.6,
+        "ratingCount": 66,
+        "ratingTotal": 304,
         "sellingCount": 200,
         "accessCount": 600
     },
@@ -55,6 +61,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\nars-776.png",
         "subCategoryID": "blush",
         "rating": 4.8,
+        "ratingCount": 112,
+        "ratingTotal": 538,
         "sellingCount": 120,
         "accessCount": 300
     },
@@ -67,6 +75,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\nars-777.png",
         "subCategoryID": "blush",
         "rating": 4.9,
+        "ratingCount": 59,
+        "ratingTotal": 289,
         "sellingCount": 100,
         "accessCount": 200
     },
@@ -79,6 +89,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\nars-778.png",
         "subCategoryID": "blush",
         "rating": 4.7,
+        "ratingCount": 88,
+        "ratingTotal": 414,
         "sellingCount": 140,
         "accessCount": 280
     },
@@ -91,6 +103,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\nars-888.png",
         "subCategoryID": "blush",
         "rating": 4.6,
+        "ratingCount": 102,
+        "ratingTotal": 469,
         "sellingCount": 170,
         "accessCount": 350
     },
@@ -103,6 +117,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\nars-901.png",
         "subCategoryID": "blush",
         "rating": 4.9,
+        "ratingCount": 43,
+        "ratingTotal": 211,
         "sellingCount": 90,
         "accessCount": 190
     },
@@ -115,6 +131,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\nars-902.png",
         "subCategoryID": "blush",
         "rating": 4.8,
+        "ratingCount": 78,
+        "ratingTotal": 374,
         "sellingCount": 130,
         "accessCount": 270
     },
@@ -127,6 +145,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\rare-bliss.png",
         "subCategoryID": "blush",
         "rating": 4.5,
+        "ratingCount": 92,
+        "ratingTotal": 414,
         "sellingCount": 160,
         "accessCount": 320
     },
@@ -139,6 +159,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\rare-believe.png",
         "subCategoryID": "blush",
         "rating": 4.9,
+        "ratingCount": 68,
+        "ratingTotal": 333,
         "sellingCount": 100,
         "accessCount": 270
     },
@@ -151,6 +173,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\rare-dewy.png",
         "subCategoryID": "blush",
         "rating": 4.8,
+        "ratingCount": 123,
+        "ratingTotal": 590,
         "sellingCount": 190,
         "accessCount": 333
     },
@@ -163,6 +187,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\rare-encourage.png",
         "subCategoryID": "blush",
         "rating": 4.8,
+        "ratingCount": 13,
+        "ratingTotal": 62,
         "sellingCount": 45,
         "accessCount": 206
     },
@@ -175,6 +201,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\rare-grateful.png",
         "subCategoryID": "blush",
         "rating": 4.5,
+        "ratingCount": 56,
+        "ratingTotal": 252,
         "sellingCount": 101,
         "accessCount": 290
     },
@@ -187,7 +215,9 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\rare-happy.png",
         "subCategoryID": "blush",
         "rating": 4.9,
-        "sellingCount": 57,
+        "ratingCount": 133,
+        "ratingTotal": 652,
+        "sellingCount": 157,
         "accessCount": 350
     },
     {
@@ -198,8 +228,10 @@ products = [
         "quantity": 90,
         "imageLink": "\\images\\catalog\\blush\\rare-hope.png",
         "subCategoryID": "blush",
-        "rating": 4.7,
-        "sellingCount": 66,
+        "rating": 4.8,
+        "ratingCount": 128,
+        "ratingTotal": 614,
+        "sellingCount": 166,
         "accessCount": 293
     },
     {
@@ -211,6 +243,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\rare-love.png",
         "subCategoryID": "blush",
         "rating": 4.6,
+        "ratingCount": 78,
+        "ratingTotal": 359,
         "sellingCount": 120,
         "accessCount": 345
     },
@@ -223,6 +257,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\rare-lucky.png",
         "subCategoryID": "blush",
         "rating": 4.9,
+        "ratingCount": 73,
+        "ratingTotal": 358,
         "sellingCount": 129,
         "accessCount": 267
     },
@@ -235,6 +271,8 @@ products = [
         "imageLink": "\\images\\catalog\\blush\\rare-virtue.png",
         "subCategoryID": "blush",
         "rating": 4.8,
+        "ratingCount": 68,
+        "ratingTotal": 326,
         "sellingCount": 113,
         "accessCount": 298
     },
@@ -247,6 +285,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-pale.png",
         "subCategoryID": "foundation",
         "rating": 5.0,
+        "ratingCount": 108,
+        "ratingTotal": 540,
         "sellingCount": 150,
         "accessCount": 200
     },
@@ -259,6 +299,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-light-porcelian.png",
         "subCategoryID": "foundation",
         "rating": 4.9,
+        "ratingCount": 35,
+        "ratingTotal": 172,
         "sellingCount": 88,
         "accessCount": 135
     },
@@ -271,6 +313,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-light-ivory.png",
         "subCategoryID": "foundation",
         "rating": 5.0,
+        "ratingCount": 27,
+        "ratingTotal": 135,
         "sellingCount": 65,
         "accessCount": 89
     },
@@ -283,6 +327,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-light.png",
         "subCategoryID": "foundation",
         "rating": 4.7,
+        "ratingCount": 99,
+        "ratingTotal": 465,
         "sellingCount": 134,
         "accessCount": 211
     },
@@ -295,6 +341,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-fair.png",
         "subCategoryID": "foundation",
         "rating": 4.8,
+        "ratingCount": 112,
+        "ratingTotal": 538,
         "sellingCount": 156,
         "accessCount": 299
     },
@@ -307,6 +355,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-vanilla.png",
         "subCategoryID": "foundation",
         "rating": 4.4,
+        "ratingCount": 109,
+        "ratingTotal": 480,
         "sellingCount": 155,
         "accessCount": 254
     },
@@ -319,6 +369,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-warm-vanilla.png",
         "subCategoryID": "foundation",
         "rating": 4.0,
+        "ratingCount": 93,
+        "ratingTotal": 372,
         "sellingCount": 123,
         "accessCount": 298
     },
@@ -331,7 +383,9 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-nude.png",
         "subCategoryID": "foundation",
         "rating": 4.3,
-        "sellingCount": 3,
+        "ratingCount": 8,
+        "ratingTotal": 34,
+        "sellingCount": 17,
         "accessCount": 113
     },
     {
@@ -343,6 +397,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-natural.png",
         "subCategoryID": "foundation",
         "rating": 5.0,
+        "ratingCount": 77,
+        "ratingTotal": 385,
         "sellingCount": 103,
         "accessCount": 209
     },
@@ -355,6 +411,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-true-beige.png",
         "subCategoryID": "foundation",
         "rating": 4.5,
+        "ratingCount": 41,
+        "ratingTotal": 185,
         "sellingCount": 93,
         "accessCount": 181
     },
@@ -367,6 +425,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-buff.png",
         "subCategoryID": "foundation",
         "rating": 4.9,
+        "ratingCount": 9,
+        "ratingTotal": 44,
         "sellingCount": 17,
         "accessCount": 118
     },
@@ -379,6 +439,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-medium-buff.png",
         "subCategoryID": "foundation",
         "rating": 4.9,
+        "ratingCount": 59,
+        "ratingTotal": 289,
         "sellingCount": 109,
         "accessCount": 231
     },
@@ -391,6 +453,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-medium-olive.png",
         "subCategoryID": "foundation",
         "rating": 5.0,
+        "ratingCount": 119,
+        "ratingTotal": 595,
         "sellingCount": 161,
         "accessCount": 267
     },
@@ -403,6 +467,8 @@ products = [
         "imageLink": "\\images\\catalog\\foundation\\NYX-soft-beige.png",
         "subCategoryID": "foundation",
         "rating": 4.8,
+        "ratingCount": 83,
+        "ratingTotal": 398,
         "sellingCount": 102,
         "accessCount": 234
     },
@@ -415,6 +481,8 @@ products = [
         "imageLink": "\\images\\catalog\\eyeshadow\\afterglow.png",
         "subCategoryID": "eyeshadow",
         "rating": 4.9,
+        "ratingCount": 19,
+        "ratingTotal": 93,
         "sellingCount": 37,
         "accessCount": 192
     },
@@ -427,6 +495,8 @@ products = [
         "imageLink": "\\images\\catalog\\eyeshadow\\berry-smoothie.png",
         "subCategoryID": "eyeshadow",
         "rating": 4.8,
+        "ratingCount": 24,
+        "ratingTotal": 115,
         "sellingCount": 42,
         "accessCount": 178
     },
@@ -439,6 +509,8 @@ products = [
         "imageLink": "\\images\\catalog\\eyeshadow\\candy-berry.png",
         "subCategoryID": "eyeshadow",
         "rating": 4.9,
+        "ratingCount": 18,
+        "ratingTotal": 86,
         "sellingCount": 39,
         "accessCount": 165
     },
@@ -451,6 +523,8 @@ products = [
         "imageLink": "\\images\\catalog\\eyeshadow\\glowshots.png",
         "subCategoryID": "eyeshadow",
         "rating": 5.0,
+        "ratingCount": 37,
+        "ratingTotal": 185,
         "sellingCount": 51,
         "accessCount": 220
     },
@@ -463,6 +537,8 @@ products = [
         "imageLink": "\\images\\catalog\\eyeshadow\\hardwired.png",
         "subCategoryID": "eyeshadow",
         "rating": 4.9,
+        "ratingCount": 20,
+        "ratingTotal": 98,
         "sellingCount": 34,
         "accessCount": 140
     },
@@ -475,6 +551,8 @@ products = [
         "imageLink": "\\images\\catalog\\eyeshadow\\icy-nude.png",
         "subCategoryID": "eyeshadow",
         "rating": 4.6,
+        "ratingCount": 14,
+        "ratingTotal": 64,
         "sellingCount": 29,
         "accessCount": 110
     },
@@ -487,6 +565,8 @@ products = [
         "imageLink": "\\images\\catalog\\eyeshadow\\single.png",
         "subCategoryID": "eyeshadow",
         "rating": 4.9,
+        "ratingCount": 23,
+        "ratingTotal": 113,
         "sellingCount": 47,
         "accessCount": 155
     },
@@ -499,6 +579,8 @@ products = [
         "imageLink": "\\images\\catalog\\eyeshadow\\ultimate-utopia.png",
         "subCategoryID": "eyeshadow",
         "rating": 5.0,
+        "ratingCount": 31,
+        "ratingTotal": 155,
         "sellingCount": 45,
         "accessCount": 170
     },
@@ -511,6 +593,8 @@ products = [
         "imageLink": "\\images\\catalog\\eyeshadow\\vintage-jean.png",
         "subCategoryID": "eyeshadow",
         "rating": 4.9,
+        "ratingCount": 19,
+        "ratingTotal": 93,
         "sellingCount": 38,
         "accessCount": 135
     },
@@ -523,6 +607,8 @@ products = [
         "imageLink": "\\images\\catalog\\eyeshadow\\violet-knit.png",
         "subCategoryID": "eyeshadow",
         "rating": 4.8,
+        "ratingCount": 15,
+        "ratingTotal": 72,
         "sellingCount": 33,
         "accessCount": 125
     },
@@ -535,6 +621,8 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\nyx-ambition-statement.png",
         "subCategoryID": "lipstick",
         "rating": 4.9,
+        "ratingCount": 57,
+        "ratingTotal": 279,
         "sellingCount": 120,
         "accessCount": 300
     },
@@ -546,9 +634,11 @@ products = [
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\nyx-born-to-hustle.png",
         "subCategoryID": "lipstick",
-        "rating": 4.9,
-        "sellingCount": 120,
-        "accessCount": 300
+        "rating": 4.8,
+        "ratingCount": 88,
+        "ratingTotal": 422,
+        "sellingCount": 137,
+        "accessCount": 313
     },
     {
         "productID": "P046",
@@ -558,9 +648,11 @@ products = [
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\nyx-ambition-statement.png",
         "subCategoryID": "lipstick",
-        "rating": 4.9,
-        "sellingCount": 120,
-        "accessCount": 300
+        "rating": 4.8,
+        "ratingCount": 78,
+        "ratingTotal": 374,
+        "sellingCount": 108,
+        "accessCount": 296
     },
     {
         "productID": "P047",
@@ -570,9 +662,11 @@ products = [
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\nyx-boundary-pusher.png",
         "subCategoryID": "lipstick",
-        "rating": 4.9,
-        "sellingCount": 120,
-        "accessCount": 300
+        "rating": 4.7,
+        "ratingCount": 107,
+        "ratingTotal": 503,
+        "sellingCount": 128,
+        "accessCount": 345
     },
     {
         "productID": "P048",
@@ -583,8 +677,10 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\nyx-goal-crusher.png",
         "subCategoryID": "lipstick",
         "rating": 4.9,
-        "sellingCount": 120,
-        "accessCount": 300
+        "ratingCount": 85,
+        "ratingTotal": 417,
+        "sellingCount": 126,
+        "accessCount": 341
     },
     {
         "productID": "P049",
@@ -594,9 +690,11 @@ products = [
         "quantity": 50,
         "imageLink": "\\images\\catalog\\lipstick\\nyx-goal-getter.png",
         "subCategoryID": "lipstick",
-        "rating": 4.9,
-        "sellingCount": 120,
-        "accessCount": 300
+        "rating": 4.8,
+        "ratingCount": 89,
+        "ratingTotal": 427,
+        "sellingCount": 118,
+        "accessCount": 278
     },
     {
         "productID": "P050",
@@ -607,8 +705,10 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\nyx-movin-up.png",
         "subCategoryID": "lipstick",
         "rating": 4.9,
-        "sellingCount": 120,
-        "accessCount": 300
+        "ratingCount": 83,
+        "ratingTotal": 407,
+        "sellingCount": 116,
+        "accessCount": 318
     },
     {
         "productID": "P051",
@@ -619,8 +719,10 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\mvi-charmed.jpg",
         "subCategoryID": "lipstick",
         "rating": 4.9,
-        "sellingCount": 120,
-        "accessCount": 300
+        "ratingCount": 102,
+        "ratingTotal": 500,
+        "sellingCount": 146,
+        "accessCount": 378
     },
     {
         "productID": "P052",
@@ -631,8 +733,10 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\mvi-cheeky.jpg",
         "subCategoryID": "lipstick",
         "rating": 5.0,
-        "sellingCount": 120,
-        "accessCount": 300
+        "ratingCount": 74,
+        "ratingTotal": 370,
+        "sellingCount": 109,
+        "accessCount": 299
     },
     {
         "productID": "P053",
@@ -643,6 +747,8 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\mvi-coy.jpg",
         "subCategoryID": "lipstick",
         "rating": 4.8,
+        "ratingCount": 68,
+        "ratingTotal": 326,
         "sellingCount": 100,
         "accessCount": 250
     },
@@ -655,6 +761,8 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\mvi-lippy.jpg",
         "subCategoryID": "lipstick",
         "rating": 4.9,
+        "ratingCount": 97,
+        "ratingTotal": 475,
         "sellingCount": 130,
         "accessCount": 280
     },
@@ -667,6 +775,8 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\mvi-peachy.jpg",
         "subCategoryID": "lipstick",
         "rating": 4.9,
+        "ratingCount": 109,
+        "ratingTotal": 534,
         "sellingCount": 140,
         "accessCount": 290
     },
@@ -679,6 +789,8 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\mvi-peppy.jpg",
         "subCategoryID": "lipstick",
         "rating": 4.8,
+        "ratingCount": 49,
+        "ratingTotal": 235,
         "sellingCount": 110,
         "accessCount": 270
     },
@@ -691,6 +803,8 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\mvi-pink-mashup.jpg",
         "subCategoryID": "lipstick",
         "rating": 5.0,
+        "ratingCount": 104,
+        "ratingTotal": 520,
         "sellingCount": 150,
         "accessCount": 310
     },
@@ -703,6 +817,8 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\mvi-red-hot.jpg",
         "subCategoryID": "lipstick",
         "rating": 5.0,
+        "ratingCount": 117,
+        "ratingTotal": 585,
         "sellingCount": 160,
         "accessCount": 320
     },
@@ -715,6 +831,8 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\mvi-rogue.jpg",
         "subCategoryID": "lipstick",
         "rating": 4.9,
+        "ratingCount": 106,
+        "ratingTotal": 519,
         "sellingCount": 135,
         "accessCount": 295
     },
@@ -727,8 +845,10 @@ products = [
         "imageLink": "\\images\\catalog\\lipstick\\mvi-unrivaled.jpg",
         "subCategoryID": "lipstick",
         "rating": 4.8,
-        "sellingCount": 135,
-        "accessCount": 295
+        "ratingCount": 94,
+        "ratingTotal": 451,
+        "sellingCount": 138,
+        "accessCount": 319
     },
     {
         "productID": "P061",
@@ -739,6 +859,8 @@ products = [
         "imageLink": "\\images\\catalog\\sunglasses\\sg-1.png",
         "subCategoryID": "sunglasses",
         "rating": 4.9,
+        "ratingCount": 36,
+        "ratingTotal": 176,
         "sellingCount": 120,
         "accessCount": 300
     },
@@ -751,6 +873,8 @@ products = [
         "imageLink": "\\images\\catalog\\sunglasses\\sg-2.png",
         "subCategoryID": "sunglasses",
         "rating": 4.9,
+        "ratingCount": 29,
+        "ratingTotal": 142,
         "sellingCount": 110,
         "accessCount": 280
     },
@@ -763,6 +887,8 @@ products = [
         "imageLink": "\\images\\catalog\\sunglasses\\sg-3.png",
         "subCategoryID": "sunglasses",
         "rating": 4.8,
+        "ratingCount": 41,
+        "ratingTotal": 197,
         "sellingCount": 105,
         "accessCount": 260
     },
@@ -775,6 +901,8 @@ products = [
         "imageLink": "\\images\\catalog\\sunglasses\\sg-4.png",
         "subCategoryID": "sunglasses",
         "rating": 4.7,
+        "ratingCount": 37,
+        "ratingTotal": 174,
         "sellingCount": 100,
         "accessCount": 250
     },
@@ -787,6 +915,8 @@ products = [
         "imageLink": "\\images\\catalog\\sunglasses\\sg-5.png",
         "subCategoryID": "sunglasses",
         "rating": 4.8,
+        "ratingCount": 28,
+        "ratingTotal": 134,
         "sellingCount": 98,
         "accessCount": 240
     },
@@ -799,6 +929,8 @@ products = [
         "imageLink": "\\images\\catalog\\sunglasses\\sg-6.png",
         "subCategoryID": "sunglasses",
         "rating": 4.7,
+        "ratingCount": 25,
+        "ratingTotal": 118,
         "sellingCount": 90,
         "accessCount": 230
     },
@@ -811,6 +943,8 @@ products = [
         "imageLink": "\\images\\catalog\\sunglasses\\sg-7.png",
         "subCategoryID": "sunglasses",
         "rating": 4.9,
+        "ratingCount": 56,
+        "ratingTotal": 274,
         "sellingCount": 110,
         "accessCount": 270
     },
@@ -823,6 +957,8 @@ products = [
         "imageLink": "\\images\\catalog\\sunglasses\\sg-8.png",
         "subCategoryID": "sunglasses",
         "rating": 4.6,
+        "ratingCount": 39,
+        "ratingTotal": 179,
         "sellingCount": 95,
         "accessCount": 220
     },
@@ -835,6 +971,8 @@ products = [
         "imageLink": "\\images\\catalog\\sunglasses\\sg-9.png",
         "subCategoryID": "sunglasses",
         "rating": 4.8,
+        "ratingCount": 38,
+        "ratingTotal": 182,
         "sellingCount": 100,
         "accessCount": 250
     },
@@ -847,6 +985,8 @@ products = [
         "imageLink": "\\images\\catalog\\sunglasses\\sg-10.png",
         "subCategoryID": "sunglasses",
         "rating": 5.0,
+        "ratingCount": 74,
+        "ratingTotal": 370,
         "sellingCount": 130,
         "accessCount": 310
     },
@@ -859,6 +999,8 @@ products = [
         "imageLink": "\\images\\catalog\\jewelry\\j1.png",
         "subCategoryID": "jewelry",
         "rating": 4.9,
+        "ratingCount": 39,
+        "ratingTotal": 191,
         "sellingCount": 90,
         "accessCount": 200
     },
@@ -871,6 +1013,8 @@ products = [
         "imageLink": "\\images\\catalog\\jewelry\\j2.png",
         "subCategoryID": "jewelry",
         "rating": 4.7,
+        "ratingCount": 18,
+        "ratingTotal": 86,
         "sellingCount": 80,
         "accessCount": 180
     },
@@ -883,6 +1027,8 @@ products = [
         "imageLink": "\\images\\catalog\\jewelry\\j3.png",
         "subCategoryID": "jewelry",
         "rating": 4.8,
+        "ratingCount": 29,
+        "ratingTotal": 139,
         "sellingCount": 95,
         "accessCount": 210
     },
@@ -895,6 +1041,8 @@ products = [
         "imageLink": "\\images\\catalog\\jewelry\\j4.png",
         "subCategoryID": "jewelry",
         "rating": 4.9,
+        "ratingCount": 30,
+        "ratingTotal": 147,
         "sellingCount": 85,
         "accessCount": 190
     },
@@ -907,6 +1055,8 @@ products = [
         "imageLink": "\\images\\catalog\\jewelry\\j5.png",
         "subCategoryID": "jewelry",
         "rating": 5.0,
+        "ratingCount": 43,
+        "ratingTotal": 215,
         "sellingCount": 100,
         "accessCount": 220
     },
@@ -919,6 +1069,8 @@ products = [
         "imageLink": "\\images\\catalog\\jewelry\\j6.png",
         "subCategoryID": "jewelry",
         "rating": 4.8,
+        "ratingCount": 28,
+        "ratingTotal": 134,
         "sellingCount": 90,
         "accessCount": 200
     },
@@ -931,6 +1083,8 @@ products = [
         "imageLink": "\\images\\catalog\\jewelry\\j7.png",
         "subCategoryID": "jewelry",
         "rating": 4.9,
+        "ratingCount": 62,
+        "ratingTotal": 304,
         "sellingCount": 105,
         "accessCount": 230
     },
@@ -943,6 +1097,8 @@ products = [
         "imageLink": "\\images\\catalog\\jewelry\\j8.png",
         "subCategoryID": "jewelry",
         "rating": 4.8,
+        "ratingCount": 21,
+        "ratingTotal": 101,
         "sellingCount": 75,
         "accessCount": 170
     },
@@ -954,7 +1110,9 @@ products = [
         "quantity": 50,
         "imageLink": "\\images\\catalog\\jewelry\\j9.png",
         "subCategoryID": "jewelry",
-        "rating": 4.6,
+        "rating": 4.7,
+        "ratingCount": 78,
+        "ratingTotal": 367,
         "sellingCount": 110,
         "accessCount": 240
     },
@@ -967,6 +1125,8 @@ products = [
         "imageLink": "\\images\\catalog\\jewelry\\j10.png",
         "subCategoryID": "jewelry",
         "rating": 4.9,
+        "ratingCount": 35,
+        "ratingTotal": 172,
         "sellingCount": 95,
         "accessCount": 215
     },
@@ -979,7 +1139,9 @@ products = [
         "imageLink": "\\images\\catalog\\jewelry\\j11.png",
         "subCategoryID": "jewelry",
         "rating": 5.0,
-        "sellingCount": 120,
+        "ratingCount": 86,
+        "ratingTotal": 430,
+        "sellingCount": 137,
         "accessCount": 250
     }
 ]

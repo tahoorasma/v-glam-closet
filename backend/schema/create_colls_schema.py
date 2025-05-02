@@ -15,6 +15,8 @@ collections = {
         "imageLink": "string",
         "subCategoryID": "string",
         "rating": "double",
+        "ratingCount": "int",
+        "ratingTotal": "int",
         "sellingCount": "int",
         "accessCount": "int"
     },
