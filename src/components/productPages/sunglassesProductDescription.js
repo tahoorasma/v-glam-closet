@@ -11,8 +11,8 @@ const SunglassesProductDescription = () => {
     const [product, setProduct] = useState(null);
     const [showBag, setShowBag] = useState(false);
     const [mostViewed, setMostViewed] = useState([]);
-     const [frequentlyBought, setFrequentlyBought] = useState([]);
-     const [loading, setLoading] = useState(true);
+    const [frequentlyBought, setFrequentlyBought] = useState([]);
+    const [loading, setLoading] = useState(true);
 
      let userID = localStorage.getItem("userID");
      if (!userID) {
@@ -74,7 +74,7 @@ const SunglassesProductDescription = () => {
             alert("Failed to add item to cart");
         }
     };
-    
+
     return (
         <div>
             
@@ -112,7 +112,7 @@ const SunglassesProductDescription = () => {
                 </div>
             )} 
 
-{frequentlyBought && frequentlyBought.length > 0 && (
+            {frequentlyBought && frequentlyBought.length > 0 && (
                 <div className="most-viewed-section">
                     <hr className="section-divider" />
                     <h2 className="section-title">Frequently Bought Together With</h2>

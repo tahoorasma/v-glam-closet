@@ -11,6 +11,8 @@ const EyeshadowProductDescription = () => {
     const [product, setProduct] = useState(null);
     const [showBag, setShowBag] = useState(false);
     const [mostViewed, setMostViewed] = useState([]);
+    const [frequentlyBought, setFrequentlyBought] = useState([]);
+    const [loading, setLoading] = useState(true);
     
     let userID = localStorage.getItem("userID");
     if (!userID) {
@@ -18,20 +20,44 @@ const EyeshadowProductDescription = () => {
         localStorage.setItem("userID", userID);
     }
 
-    useEffect(() => {
-        fetch(`http://127.0.0.1:5000/product/${productID}`)
-            .then(response => response.json())
-            .then(data => setProduct(data))
-            .catch(error => console.error("Error fetching product details:", error));
-        fetch('http://127.0.0.1:5000/most-viewed-eyeshadow')
-            .then(response => response.json())
-            .then(data => setMostViewed(data.slice(0, 3))) 
-            .catch(error => console.error("Error fetching most viewed products:", error));
-    }, [productID]);
-
-    if (!product) {
-        return <p>Loading product details...</p>;
-    }
+     useEffect(() => {
+             const fetchAllData = async () => {
+                 try {
+                     setLoading(true);
+                     const productResponse = await fetch(`http://127.0.0.1:5000/product/${productID}`);
+                     if (!productResponse.ok) throw new Error('Product fetch failed');
+                     const productData = await productResponse.json();
+                     setProduct(productData);
+     
+                     const mostViewedResponse = await fetch('http://127.0.0.1:5000/most-viewed-eyeshadow');
+                     if (!mostViewedResponse.ok) throw new Error('Most viewed fetch failed');
+                     const mostViewedData = await mostViewedResponse.json();
+                     setMostViewed(mostViewedData.slice(0, 3));
+     
+                     const fbtResponse = await fetch(`http://localhost:5000/getFrequentlyBought/${productID}`);
+                     if (!fbtResponse.ok) {
+                         console.log('No frequently bought items found');
+                         setFrequentlyBought([]);
+                     } else {
+                         const fbtData = await fbtResponse.json();
+                         setFrequentlyBought(fbtData || []);
+                     }
+                     setLoading(false);
+                 } catch (error) {
+                     console.error("Error fetching data:", error);
+                     setLoading(false);
+                     setFrequentlyBought([]);
+                 }
+             };
+     
+             if (productID) {
+                 fetchAllData();
+             }
+         }, [productID]);
+     
+         if (loading || !product) {
+             return <p>Loading product details...</p>;
+         }
 
     const handleAddToBag = async (product) => {
         try {
@@ -86,28 +112,29 @@ const EyeshadowProductDescription = () => {
                 </div>
             )} 
             
-            <div className="most-viewed-section">
-                <hr className="section-divider" />
-                <h2 className="section-title">Frequently Bought Together With</h2>
-                <div className="most-viewed-row">
-                    {mostViewed.map((item) => (
-                        <div key={item.productID} className="most-viewed-card">
-                            <div className="most-viewed-image-container">
-                                <img src={item.imageLink} alt={item.productName} className="most-viewed-image" />
-                            </div>
-                            <div className="most-viewed-content">
-                                <h4 className="most-viewed-name">{item.productName}</h4>
-                                <p className="most-viewed-price">Rs {item.price}.00</p>
-                                <div className="most-viewed-footer">
-                                    <p className="most-viewed-count">Views: {item.accessCount}</p>
-                                    <Link to={`/eyeshadowProductDescription/${item.productID}`} className="most-viewed-link">View Details</Link>
+            {frequentlyBought && frequentlyBought.length > 0 && (
+                            <div className="most-viewed-section">
+                                <hr className="section-divider" />
+                                <h2 className="section-title">Frequently Bought Together With</h2>
+                                <div className="most-viewed-row">
+                                    {frequentlyBought.map((item) => (
+                                        <div key={item.productID} className="most-viewed-card">
+                                            <div className="most-viewed-image-container">
+                                                <img src={item.imageLink} alt={item.productName} className="most-viewed-image" />
+                                            </div>
+                                            <div className="most-viewed-content">
+                                                <h4 className="most-viewed-name">{item.productName}</h4>
+                                                <p className="most-viewed-price">Rs {item.price}.00</p>
+                                                <div className="most-viewed-footer">
+                                                    <Link to={`/sunglassesProductDescription/${item.productID}`} className="most-viewed-link">View Details</Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
+                                <hr className="section-divider" />
                             </div>
-                        </div>
-                    ))}
-                </div>
-                <hr className="section-divider" />
-            </div>  
+                        )}  
             
             <div className="most-viewed-section">
                 <hr className="section-divider" />
