@@ -11,6 +11,7 @@ const ProductDescription = () => {
     const [product, setProduct] = useState(null);
     const [mostViewed, setMostViewed] = useState([]);
     const [showBag, setShowBag] = useState(false);
+    const [frequentlyBought, setFrequentlyBought] = useState([]);
 
     let userID = localStorage.getItem("userID");
     if (!userID) {
@@ -27,6 +28,30 @@ const ProductDescription = () => {
             .then(response => response.json())
             .then(data => setMostViewed(data.slice(0, 3))) 
             .catch(error => console.error("Error fetching most viewed products:", error));
+        fetch(`http://localhost:5000/getFrequentlyBought/${productID}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => setFrequentlyBought(data))
+        .catch(error => {
+            console.error('Error fetching frequently bought items:', error);
+            setFrequentlyBought([]);
+        });
+        fetch(`http://localhost:5000/getFrequentlyBought/${productID}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => setFrequentlyBought(data))
+        .catch(error => {
+            console.error('Error fetching frequently bought items:', error);
+            setFrequentlyBought([]);
+        });
     }, [productID]);
 
     if (!product) {
@@ -85,7 +110,29 @@ const ProductDescription = () => {
                     </div>
                 </div>
             )}
-            
+
+            <div className="most-viewed-section">
+                <hr className="section-divider" />
+                <h2 className="section-title">Frequently Bought Together Items</h2>
+                <div className="most-viewed-row">
+                    {frequentlyBought.map((item) => (
+                        <div key={item.productID} className="most-viewed-card">
+                            <div className="most-viewed-image-container">
+                                <img src={item.imageLink} alt={item.productName} className="most-viewed-image" />
+                            </div>
+                            <div className="most-viewed-content">
+                                <h4 className="most-viewed-name">{item.productName}</h4>
+                                <p className="most-viewed-price">Rs {item.price}.00</p>
+                                <div className="most-viewed-footer">
+                                    <Link to={`/productDescription/${item.productID}`} className="most-viewed-link">View Details</Link>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <hr className="section-divider" />
+            </div> 
+
             <div className="most-viewed-section">
                 <hr className="section-divider" />
                 <h2 className="section-title">Frequently Accessed Items</h2>

@@ -1,3 +1,4 @@
+import uuid
 import cv2
 import dlib
 import numpy as np
@@ -18,6 +19,7 @@ from flask_mail import Mail, Message
 from threading import Thread
 from pymongo import MongoClient
 from datetime import datetime
+from itertools import combinations
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
@@ -30,6 +32,7 @@ products_collection = db["Products"]
 cart_collection = db["Cart"]
 orders_collection = db["Orders"]
 users_collection = db["User"]
+frequently_bought_collection = db["FrequentlyBoughtItems"]
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
@@ -293,73 +296,6 @@ def generate_unique_order_id():
         order_id = str(random.randint(100000, 999999))
         if not orders_collection.find_one({"orderID": order_id}):
             return order_id
-        
-@app.route('/addOrder', methods=['POST', 'OPTIONS'])
-def create_order():
-    if request.method == "OPTIONS":
-        response = jsonify({'message': 'CORS preflight successful'})
-        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
-        response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
-        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
-        return response, 200
-
-    data = request.json
-    user_data = data.get("userData")
-    order_data = data.get("orderData")
-    user_id = data.get("userID")
-
-    if not user_data or not order_data:
-        response = jsonify({"message": "User data and order data are required"})
-        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
-        return response, 400
-
-    existing_user = users_collection.find_one({"email": user_data["email"]})
-    if existing_user:
-        user_id = existing_user["userID"]
-    else:
-        user_id = generate_user_id()
-        new_user = {
-            "userID": user_id,
-            "name": user_data["name"],
-            "email": user_data["email"],
-            "address": user_data["address"]
-        }
-        users_collection.insert_one(new_user)
-
-    new_order = {
-        "orderID": generate_unique_order_id(),
-        "userID": user_id,
-        "productID": order_data["productID"],
-        "orderDate": datetime.strptime(order_data["orderDate"], "%Y-%m-%d").isoformat(),
-        "NoOfItems": order_data["NoOfItems"],
-        "amount": order_data["amount"]
-    }
-    try:
-        result = orders_collection.insert_one(new_order)
-        if result.inserted_id:
-            cart_collection.delete_many({"userID": user_id})
-            user_email = existing_user["email"] if existing_user else user_data["email"]
-            Thread(
-                target=delayed_email_with_context,
-                args=(app, user_email, new_order["orderID"], order_data["productID"][0])
-            ).start()
-            new_order["_id"] = str(result.inserted_id)
-            response = jsonify({
-                "message": "Order placed successfully",
-                "order": new_order,
-                "userID": user_id
-            })
-            response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
-            return response, 201
-        else:
-            response = jsonify({"message": "Failed to place order"})
-            response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
-            return response, 500
-    except Exception as e:
-        print(f"Error inserting order into MongoDB: {str(e)}")
-        response = jsonify({"message": "Internal server error", "error": str(e)})
-        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
-        return response, 500
 
 @app.route('/clearCart', methods=['DELETE'])
 def clear_cart():
@@ -1067,5 +1003,165 @@ def submit_rating():
     </html>
     """, 200
 
+@app.route('/addOrder', methods=['POST', 'OPTIONS'])
+def create_order():
+    if request.method == "OPTIONS":
+        response = jsonify({'message': 'CORS preflight successful'})
+        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        return response, 200
+
+    data = request.json
+    user_data = data.get("userData")
+    order_data = data.get("orderData")
+    user_id = data.get("userID")
+
+    if not user_data or not order_data:
+        response = jsonify({"message": "User data and order data are required"})
+        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        return response, 400
+
+    existing_user = users_collection.find_one({"email": user_data["email"]})
+    if existing_user:
+        user_id = existing_user["userID"]
+    else:
+        user_id = generate_user_id()
+        new_user = {
+            "userID": user_id,
+            "name": user_data["name"],
+            "email": user_data["email"],
+            "address": user_data["address"]
+        }
+        users_collection.insert_one(new_user)
+
+    new_order = {
+        "orderID": generate_unique_order_id(),
+        "userID": user_id,
+        "productID": order_data["productID"],
+        "orderDate": datetime.strptime(order_data["orderDate"], "%Y-%m-%d").isoformat(),
+        "NoOfItems": order_data["NoOfItems"],
+        "amount": order_data["amount"]
+    }
+    try:
+        result = orders_collection.insert_one(new_order)
+        if result.inserted_id:
+            if len(order_data["productID"]) > 1:
+                    update_frequently_bought_together(order_data["productID"])
+            cart_collection.delete_many({"userID": user_id})
+            user_email = existing_user["email"] if existing_user else user_data["email"]
+            Thread(
+                target=delayed_email_with_context,
+                args=(app, user_email, new_order["orderID"], order_data["productID"][0])
+            ).start()
+            new_order["_id"] = str(result.inserted_id)
+            response = jsonify({
+                "message": "Order placed successfully",
+                "order": new_order,
+                "userID": user_id
+            })
+            response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+            return response, 201
+        else:
+            response = jsonify({"message": "Failed to place order"})
+            response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+            return response, 500
+    except Exception as e:
+        print(f"Error inserting order into MongoDB: {str(e)}")
+        response = jsonify({"message": "Internal server error", "error": str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        return response, 500
+    
+def update_frequently_bought_together(product_ids):
+    product_pairs = combinations(product_ids, 2)
+    
+    for pair in product_pairs:
+        sorted_pair = sorted(pair)
+        product1, product2 = sorted_pair
+        existing = frequently_bought_collection.find_one({
+            "$or": [
+                {"productID": product1, "fbProductID": product2},
+                {"productID": product2, "fbProductID": product1}
+            ]
+        })
+        
+        if existing:
+            frequently_bought_collection.update_one(
+                {"fbtID": existing["fbtID"]},
+                {"$inc": {"count": 1}}
+            )
+        else:
+            new_fbt = {
+                "fbtID": str(uuid.uuid4()),
+                "productID": product1,
+                "fbProductID": product2,
+                "count": 1
+            }
+            frequently_bought_collection.insert_one(new_fbt)
+
+@app.route('/getFrequentlyBought/<product_id>', methods=['GET'])
+def get_frequently_bought(product_id):
+    try:
+        fbt_items = frequently_bought_collection.aggregate([
+            {
+                "$match": {
+                    "$or": [
+                        {"productID": product_id},
+                        {"fbProductID": product_id}
+                    ]
+                }
+            },
+            {
+                "$sort": {"count": -1}
+            },
+            {
+                "$limit": 3
+            },
+            {
+                "$lookup": {
+                    "from": "Products",
+                    "localField": "productID",
+                    "foreignField": "productID",
+                    "as": "product1"
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "Products",
+                    "localField": "fbProductID",
+                    "foreignField": "productID",
+                    "as": "product2"
+                }
+            },
+            {
+                "$project": {
+                    "product": {
+                        "$cond": {
+                            "if": {"$eq": ["$productID", product_id]},
+                            "then": {"$arrayElemAt": ["$product2", 0]},
+                            "else": {"$arrayElemAt": ["$product1", 0]}
+                        }
+                    }
+                }
+            }
+        ])
+        result = []
+        for item in fbt_items:
+            if 'product' in item and item['product']:
+                product = item['product']
+                if '_id' in product:
+                    product['_id'] = str(product['_id'])
+                result.append(product)
+        
+        response = jsonify(result)
+        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        return response, 200
+        
+    except Exception as e:
+        print(f"Error getting frequently bought items: {str(e)}")
+        response = jsonify({"message": "Internal server error", "error": str(e)})
+        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        return response, 500
+    
 if __name__ == '__main__':
     app.run(port=5000)

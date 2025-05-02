@@ -18,6 +18,7 @@ products_collection = db["Products"]
 cart_collection = db["Cart"]
 orders_collection = db["Orders"]
 users_collection = db["User"]
+frequently_bought_collection = db["FrequentlyBoughtTogether"]
 
 @app.route('/blushProducts', methods=['GET'])
 def get_blush_products():
@@ -209,7 +210,7 @@ def clear_cart():
     if result.deleted_count > 0:
         return jsonify({"message": "Cart cleared successfully"}), 200
     else:
-        return jsonify({"message": "Cart is already empty"}), 200
+        return jsonify({"message": "Cart is already empty"}), 
 
 @app.route('/updateInventory', methods=['POST'])
 def update_inventory():
