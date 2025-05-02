@@ -377,7 +377,8 @@ def update_inventory():
         for item in cart_items:
             products_collection.update_one(
                 {"productID": item["productID"]},
-                {"$inc": {"quantity": -item["quantity"]}}
+                {"$inc": {"quantity": -item["quantity"], 
+                "sellingCount": item["quantity"]}}
             )
         return jsonify({"message": "Inventory updated successfully"}), 200
     except Exception as error:
@@ -996,7 +997,7 @@ def send_rating_email(user_email, order_id, product_id):
         return
     product_name = product.get("productName", "Product")
     product_image = product.get("imageLink", "")  
-    rating_base_url = "http://localhost:3000//rate"  
+    rating_base_url = "http://localhost:5000/rate"  
     msg = Message("Rate Your Recent Purchase",
                   sender="vglamcloset99@gmail.com",
                   recipients=[user_email])
@@ -1023,17 +1024,48 @@ def send_rating_email(user_email, order_id, product_id):
     except Exception as e:
         print(f"Error sending email: {e}")
 
-@app.route('/rate', methods=['POST'])
+@app.route('/rate', methods=['GET'])
 def submit_rating():
-    data = request.get_json()
-    product_id = data['productID']
-    rating = data['rating']
-    
-    # Update the product rating in the database
-    # Assuming there is a product collection (not part of your schema, but for the sake of this example)
-    # products_collection.update_one({"productID": product_id}, {"$set": {"rating": rating}})
-    
-    return jsonify({"message": "Rating submitted successfully!"}), 200
+    product_id = request.args.get('productID')
+    stars = request.args.get('stars')
+
+    if not product_id or not stars:
+        return "Missing product ID or rating value.", 400
+
+    try:
+        stars = int(stars)
+        if stars < 1 or stars > 5:
+            return "Rating must be between 1 and 5.", 400
+    except ValueError:
+        return "Invalid rating value.", 400
+
+    product = products_collection.find_one({"productID": product_id})
+    if not product:
+        return "Product not found.", 404
+
+    new_rating_count = product.get("ratingCount", 0) + 1
+    new_rating_total = product.get("ratingTotal", 0) + stars
+    new_average_rating = round(new_rating_total / new_rating_count, 1)
+
+    products_collection.update_one(
+        {"productID": product_id},
+        {"$set": {
+            "ratingCount": new_rating_count,
+            "ratingTotal": new_rating_total,
+            "rating": new_average_rating
+        }}
+    )
+
+    return f"""
+    <html>
+    <body style='font-family: Arial; text-align: center; padding-top: 50px;'>
+        <h2>Thank you!</h2>
+        <p>Your rating of <strong>{stars} star{'s' if stars > 1 else ''}</strong> has been recorded.</p>
+        <p>We appreciate your feedback!</p>
+        <p style='color: rgb(216, 82, 105);'>V-GLAM CLOSET</p>
+    </body>
+    </html>
+    """, 200
 
 if __name__ == '__main__':
     app.run(port=5000)
