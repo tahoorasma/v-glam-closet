@@ -608,7 +608,7 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
             <div className="button-container">
               {(showLipstickProducts || showFoundationProducts || showEyeShadowProducts || showBlushProducts) && (
                 <>
-                  <button id="side-btn" onClick={handleCompareClick}>
+                  <button id="side-btn-vto" onClick={handleCompareClick}>
                     <img src={cmp} alt="Compare" className="button-icon" />
                     <span>Compare</span>
                   </button>
@@ -982,7 +982,7 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
             )}
           </div>
 
-          <div className="action-buttons">
+          <div className="action-buttons-vto">
             <button id="mk-btn">Makeup</button>
             <button id="ac-btn" onClick={() => handleAccessoryBtnClick()}>Accessory</button>
           </div>

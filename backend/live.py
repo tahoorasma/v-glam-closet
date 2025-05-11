@@ -4,6 +4,7 @@ import cv2
 import dlib
 import numpy as np
 import os
+import re
 
 app = Flask(__name__)
 CORS(app)
@@ -21,15 +22,37 @@ face_detector = dlib.get_frontal_face_detector()
 shape_predictor_81 = dlib.shape_predictor(predictor_path_81)
 shape_predictor_68 = dlib.shape_predictor(predictor_path_68)
 
-# Initialize camera
-for index in range(3):
-    cap = cv2.VideoCapture(index)
-    if cap.isOpened():
-        print(f"Camera found at index {index}")
-        break
-else:
+def initialize_camera():
+    # Get requested facing mode from query params
+    facing_mode = request.args.get('facing_mode', 'front')  # Default to front
+    
+    # Try to open camera with appropriate settings
+    for index in range(3):  # Try first 3 camera indices
+        cap = cv2.VideoCapture(index)
+        
+        if cap.isOpened():
+            print(f"Camera found at index {index}")
+            
+            # Set camera properties
+            cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+            
+            # For mobile devices, we can try to force front camera
+            # Note: This may not work on all devices as OpenCV doesn't reliably support facing mode
+            if facing_mode == 'front':
+                try:
+                    # Some devices support these properties for front camera
+                    cap.set(cv2.CAP_PROP_ANDROID_FRONT_CAMERA, 1)
+                except:
+                    pass
+                    
+            return cap
+    
     print("Error: Unable to access the camera.")
-    cap = None
+    return None
+
+# Initialize camera when first request comes in
+cap = None
 
 # Lipstick color definitions
 lipstick_colors = {
@@ -79,6 +102,12 @@ def apply_foundation(frame, foundation_color, landmarks):
         frame[:, :, c] = (1 - blurred_mask * alpha) * frame[:, :, c] + (blurred_mask * alpha) * overlay[:, :, c]
     
     return frame.astype(np.uint8)
+
+@app.before_request
+def before_request():
+    global cap
+    if cap is None and request.endpoint in ['video_feed', 'select-foundation', 'select-lipstick', 'select-eyeshadow', 'select-sunglasses']:
+        cap = initialize_camera()
 
 @app.route('/select-foundation', methods=['POST'])
 def select_foundation():
@@ -361,12 +390,22 @@ def reset_sunglasses():
 
 # ==================== VIDEO PROCESSING ====================
 def generate_video():
-    global selected_foundation, selected_lipstick_color, selected_eyeshadow, selected_sunglasses
+    global cap, selected_foundation, selected_lipstick_color, selected_eyeshadow, selected_sunglasses
     
     while True:
+        if cap is None:
+            cap = initialize_camera()
+            if cap is None:
+                print("Error: Camera not initialized")
+                time.sleep(1)
+                continue
+
         ret, frame = cap.read()
         if not ret:
             print("Error: Unable to capture video frame.")
+            # Try to reinitialize camera
+            cap.release()
+            cap = initialize_camera()
             continue
 
         frame = cv2.flip(frame, 1)

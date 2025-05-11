@@ -290,7 +290,7 @@ const VirtualTryOnAccessory = () => {
             <div className="button-container">
               {(showJewelryProducts || showSunglassesProducts) && (
                 <>
-                  <button id="side-btn" onClick={handleCompareClick}>
+                  <button id="side-btn-vto" onClick={handleCompareClick}>
                     <img src={cmp} alt="Compare" className="button-icon" />
                     <span>Compare</span>
                   </button>
@@ -417,7 +417,7 @@ const VirtualTryOnAccessory = () => {
               </div>
             )}
 
-            <div className="action-buttons">
+            <div className="action-buttons-ac-vto">
               <button id="ac-btn" onClick={() => handleMakeupBtnClick()}>
                 Makeup
               </button>

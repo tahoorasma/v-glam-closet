@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect, useRef } from 'react'; 
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './vto.css';
@@ -100,7 +100,10 @@ import uu40 from '../images/eyeshadows/ultimateutopia/uu40.png'
 import Navbar from '../navbar';
 
 const VirtualTryOnLive = () => {
-  const [videoSrc, setVideoSrc] = useState('http://192.168.18.110:5000/video_feed');
+ // const [videoSrc, setVideoSrc] = useState('http://192.168.18.110:5000/video_feed');
+  const [videoSrc, setVideoSrc] = useState('');
+  const videoRef = useRef(null);
+  const [stream, setStream] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
   const [imageSource, setImageSource] = useState(defaultModel);
@@ -126,11 +129,57 @@ const VirtualTryOnLive = () => {
   const [buyImage, setBuyImage] = useState(require('../images/blush.jpg'));
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setVideoSrc(`http://192.168.18.110:5000/video_feed?timestamp=${new Date().getTime()}`);
-    }, 100); 
-    return () => clearInterval(intervalId); 
+    // Initialize camera based on device type
+    const initializeCamera = async () => {
+  try {
+    const constraints = {
+      video: {
+        facingMode: 'user', // Always use front camera
+        width: { ideal: 1280 },
+        height: { ideal: 720 }
+      }
+    };
+
+    const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+    setStream(mediaStream);
+    
+    if (videoRef.current) {
+      videoRef.current.srcObject = mediaStream;
+      videoRef.current.onloadedmetadata = () => {
+        videoRef.current.play().catch(e => console.error("Video play error:", e));
+      };
+    }
+
+    // Send to Flask backend with device info
+    setVideoSrc(`http://192.168.18.110:5000/video_feed?facing_mode=front`);
+    
+  } catch (error) {
+    console.error("Camera initialization error:", error);
+    setVideoSrc(`http://192.168.18.110:5000/video_feed`);
+  }
+};
+
+    initializeCamera();
+ return () => {
+      // Clean up stream on unmount
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
   }, []);
+  
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (videoSrc) {
+        setVideoSrc(prev => {
+          const baseUrl = prev.split('?')[0];
+          return `${baseUrl}?timestamp=${new Date().getTime()}`;
+        });
+      }
+    }, 100);
+    
+    return () => clearInterval(intervalId);
+  }, [videoSrc]);
 
   useEffect(() => {
     if (location.state?.imageSource) {
@@ -370,7 +419,17 @@ const VirtualTryOnLive = () => {
         <div className="tryon-ui">
           <div className="photo-area">
             <div className="model-container">
-              <img src={videoSrc} alt="Video Stream" style={{ width: '100%', height: 'auto' }} />
+              <video 
+                ref={videoRef}
+                autoPlay 
+                playsInline 
+                style={{ width: '100%', height: 'auto' }} // Hide the direct camera feed
+              />
+              <img 
+                src={videoSrc} 
+                alt="Video Stream" 
+                style={{ width: '100%', height: 'auto' }} 
+              />
             </div>
           </div>
 
@@ -746,7 +805,7 @@ const VirtualTryOnLive = () => {
             </div>
             )}
 
-            <div className="action-buttons">
+            <div className="action-buttons-vto">
               <button id="mk-btn">Makeup</button>
               <button id="ac-btn" onClick={() => handleAccessoryBtnClick()}>Accessory</button>
             </div>

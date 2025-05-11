@@ -104,8 +104,9 @@ h1 {
     }
 
     .btn {
+        margin-left: 20px;
         width: 100%;
-        padding: 12px;
+        padding: 1px;
         font-size: 18px;
     }
 

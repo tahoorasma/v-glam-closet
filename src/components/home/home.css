@@ -195,10 +195,27 @@ body {
         width: 100%;
         padding: 0 20px;
     }
+    .banner-content h1 {
+        font-size: 14px;
+    }
     .dot{
         margin-top: -50px;
     }
-
+    .button {
+        background-color: rgb(216, 82, 105);
+        background: linear-gradient(to right, #ec5971, #d76b7d);
+        border-radius: 10px;
+        border: 3px solid rgba(225, 100, 121, 0.578);
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: border 0.3s ease;
+    }
     .vto-div,
     .fsm-div,
     .bs-div,

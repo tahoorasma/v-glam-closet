@@ -348,10 +348,13 @@ body {
         padding: 3px 12px;
     }
     .action-buttons {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 15px;
     }
     #mk-btn,
     #ac-btn {
+        width: 120px;
         padding: 8px 16px;
     }
 }
