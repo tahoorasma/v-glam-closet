@@ -378,14 +378,10 @@ const VirtualTryOnLive = () => {
             <div className="button-container">
               {(showFoundationProducts || showBlushProducts || showLipstickProducts || showEyeShadowProducts) && (
                 <>
-                  <button id="side-btn">
-                    <img src={cmp} alt="Compare" className="button-icon" />
-                    <span>Compare</span>
+                  <button id="side-btn" onClick={directBuyProduct}>
+                    <img src={buyImage} alt="Buy" className="button-icon" />
+                    <span>Buy</span>
                   </button>
-                    <button id="side-btn" onClick={directBuyProduct}>
-                      <img src={buyImage} alt="Buy" className="button-icon" />
-                      <span>Buy</span>
-                    </button>
                 </>
               )}
             </div>

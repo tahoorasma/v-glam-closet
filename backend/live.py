@@ -218,7 +218,7 @@ def apply_glitter_eyeshadow(image, shade_color, landmarks):
     cv2.fillPoly(mask, [left_eye_points], 255)
     cv2.fillPoly(mask, [right_eye_points], 255)
     overlay = np.full_like(image, shade_color, dtype=np.uint8)
-    shimmer_image = cv2.imread('gold-glitter.png')
+    shimmer_image = cv2.imread('C:/Users/HP/Desktop/v-glam-closet/src/components/images/gold-glitter.png')
     if shimmer_image is not None:
         shimmer_image = cv2.resize(shimmer_image, (image.shape[1], image.shape[0]))
         shimmer_image = shimmer_image[:image.shape[0], :image.shape[1]]
@@ -264,7 +264,7 @@ def apply_shimmer_eyeshadow(image, shade_color, landmarks):
     cv2.fillPoly(mask, [left_eye_points], 255)
     cv2.fillPoly(mask, [right_eye_points], 255)
     overlay = np.full_like(image, shade_color, dtype=np.uint8)
-    shimmer_image = cv2.imread('silver-glitter.png')
+    shimmer_image = cv2.imread('C:/Users/HP/Desktop/v-glam-closet/src/components/images/silver-glitter.png')
     if shimmer_image is not None:
         shimmer_image = cv2.resize(shimmer_image, (image.shape[1], image.shape[0]))
         shimmer_image = shimmer_image[:image.shape[0], :image.shape[1]]

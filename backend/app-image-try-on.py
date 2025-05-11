@@ -145,9 +145,9 @@ def get_most_viewed_items():
 
 @app.route('/most-viewed-blush', methods=['GET'])
 def get_most_viewed_blush():
-    blush_subcategory_id = 'blush'
+    subcategory_id = 'blush'
     products = products_collection.find(
-        {"subCategoryID": blush_subcategory_id}
+        {"subCategoryID": subcategory_id}
     ).sort("accessCount", -1).limit(3)
     result = []
     for p in products:
@@ -157,9 +157,9 @@ def get_most_viewed_blush():
 
 @app.route('/most-viewed-eyeshadow', methods=['GET'])
 def get_most_viewed_eyeshadow():
-    blush_subcategory_id = 'eyeshadow'
+    subcategory_id = 'eyeshadow'
     products = products_collection.find(
-        {"subCategoryID": blush_subcategory_id}
+        {"subCategoryID": subcategory_id}
     ).sort("accessCount", -1).limit(3)
     result = []
     for p in products:
@@ -169,9 +169,9 @@ def get_most_viewed_eyeshadow():
 
 @app.route('/most-viewed-foundation', methods=['GET'])
 def get_most_viewed_foundation():
-    blush_subcategory_id = 'foundation'
+    subcategory_id = 'foundation'
     products = products_collection.find(
-        {"subCategoryID": blush_subcategory_id}
+        {"subCategoryID": subcategory_id}
     ).sort("accessCount", -1).limit(3)
     result = []
     for p in products:
@@ -181,9 +181,9 @@ def get_most_viewed_foundation():
 
 @app.route('/most-viewed-jewelry', methods=['GET'])
 def get_most_viewed_jewelry():
-    blush_subcategory_id = 'jewelry'
+    subcategory_id = 'jewelry'
     products = products_collection.find(
-        {"subCategoryID": blush_subcategory_id}
+        {"subCategoryID": subcategory_id}
     ).sort("accessCount", -1).limit(3)
     result = []
     for p in products:
@@ -193,9 +193,9 @@ def get_most_viewed_jewelry():
 
 @app.route('/most-viewed-lipstick', methods=['GET'])
 def get_most_viewed_lipstick():
-    blush_subcategory_id = 'lipstick'
+    subcategory_id = 'lipstick'
     products = products_collection.find(
-        {"subCategoryID": blush_subcategory_id}
+        {"subCategoryID": subcategory_id}
     ).sort("accessCount", -1).limit(3)
     result = []
     for p in products:
@@ -205,9 +205,9 @@ def get_most_viewed_lipstick():
 
 @app.route('/most-viewed-sunglasses', methods=['GET'])
 def get_most_viewed_sunglasses():
-    blush_subcategory_id = 'sunglasses'
+    subcategory_id = 'sunglasses'
     products = products_collection.find(
-        {"subCategoryID": blush_subcategory_id}
+        {"subCategoryID": subcategory_id}
     ).sort("accessCount", -1).limit(3)
     result = []
     for p in products:
