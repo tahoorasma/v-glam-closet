@@ -48,6 +48,10 @@ try:
     if os.path.exists(UPLOAD_FOLDER):
         shutil.rmtree(UPLOAD_FOLDER)
     os.makedirs(UPLOAD_FOLDER)
+except Exception as e:
+    logging.error(f"Failed to delete or recreate folder {UPLOAD_FOLDER}. Reason: {e}")
+
+try:
     if os.path.exists(PROCESSED_FOLDER):
         shutil.rmtree(PROCESSED_FOLDER)
     os.makedirs(PROCESSED_FOLDER)

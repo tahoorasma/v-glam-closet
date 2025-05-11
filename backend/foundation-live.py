@@ -38,16 +38,15 @@ def apply_foundation(frame, foundation_color, landmarks):
     ], axis=0)
 
     cv2.fillPoly(mask, [face_points], 255)
-
+    blurred_mask = cv2.GaussianBlur(mask, (51, 51), 0)
+    blurred_mask = blurred_mask.astype(np.float32) / 255.0
     overlay = np.full_like(frame, foundation_color, dtype=np.uint8)
     alpha = 0.15
+    
     for c in range(3):
-        frame[:, :, c] = np.where(
-            mask == 255,
-            (1 - alpha) * frame[:, :, c] + alpha * overlay[:, :, c],
-            frame[:, :, c]
-        )
-    return frame
+        frame[:, :, c] = (1 - blurred_mask * alpha) * frame[:, :, c] + (blurred_mask * alpha) * overlay[:, :, c]
+    
+    return frame.astype(np.uint8)
 
 @app.route('/select-foundation', methods=['POST'])
 def select_foundation():
