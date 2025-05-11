@@ -17,7 +17,7 @@ const SunglassesCatalog = () => {
     }
 
     useEffect(() => {
-        fetch(`http://192.168.18.110:5000/accessoryCatalog?subcategory=sunglasses`)
+        fetch(`http://localhost:5000/accessoryCatalog?subcategory=sunglasses`)
             .then(response => response.json())
             .then(data => setProducts(data))
             .catch(error => console.error('Error fetching sunglasses:', error));
@@ -25,7 +25,7 @@ const SunglassesCatalog = () => {
 
     const handleAddToBag = async (product) => {
         try {
-            await axios.post("http://192.168.18.110:5000/addToCart", {
+            await axios.post("http://localhost:5000/addToCart", {
                 userID: userID,
                 productName: product.productName,
                 productID: product.productID,

@@ -17,7 +17,7 @@ const MakeupCatalog = () => {
     }
 
     useEffect(() => {
-        fetch("http://192.168.18.110:5000/makeupCatalog")
+        fetch("http://127.0.0.1:5000/makeupCatalog")
             .then(response => response.json())
             .then(data => setProducts(data || []))
             .catch(error => console.error("Error fetching data:", error));
@@ -25,7 +25,7 @@ const MakeupCatalog = () => {
 
     const handleAddToBag = async (product) => {
         try {
-            await axios.post("http://192.168.18.110:5000/addToCart", {
+            await axios.post("http://localhost:5000/addToCart", {
                 userID: userID,
                 productID: product.productID,
                 productName: product.productName,

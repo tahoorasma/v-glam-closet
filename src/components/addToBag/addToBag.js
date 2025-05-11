@@ -17,7 +17,7 @@ const AddToBag = () => {
 
     const fetchCart = () => {
         axios
-            .get(`http://192.168.18.110:5000/getCart?userID=${userID}`)
+            .get(`http://localhost:5000/getCart?userID=${userID}`)
             .then((response) => {
                 setItems(response.data);
             })
@@ -41,7 +41,7 @@ const AddToBag = () => {
         );
     
         try {
-            await axios.post("http://192.168.18.110:5000/updateQuantity", {
+            await axios.post("http://localhost:5000/updateQuantity", {
                 userID: userID,
                 productID: id,
                 action: action
@@ -56,7 +56,7 @@ const AddToBag = () => {
     
     const removeItem = async (id) => {
         try {
-            await axios.post("http://192.168.18.110:5000/removeFromCart", {
+            await axios.post("http://localhost:5000/removeFromCart", {
                 userID: userID,
                 productID: id,
             });
@@ -72,7 +72,7 @@ const AddToBag = () => {
 
     const isBagEmpty = async () => {
         try {
-            const response = await fetch(`http://192.168.18.110:5000/getCart?userID=${userID}`);
+            const response = await fetch(`http://localhost:5000/getCart?userID=${userID}`);
             const data = await response.json();
             return data.length === 0; 
         } catch (error) {

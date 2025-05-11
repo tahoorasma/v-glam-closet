@@ -19,11 +19,11 @@ import j4 from '../images/catalog/jewelry/j4.png';
 import Navbar from '../navbar';
 
 const VirtualTryOnAccessoryLive = () => {
-    const [videoSrc, setVideoSrc] = useState('http://192.168.18.110:5000/video_feed');
+    const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
   
     useEffect(() => {
       const intervalId = setInterval(() => {
-        setVideoSrc(`http://192.168.18.110:5000/video_feed?timestamp=${new Date().getTime()}`);
+        setVideoSrc(`http://localhost:5000/video_feed?timestamp=${new Date().getTime()}`);
       }, 100); 
       return () => clearInterval(intervalId); 
     }, []);
@@ -63,7 +63,7 @@ const VirtualTryOnAccessoryLive = () => {
     setBuyImage(productImage);
     setSelectedSunglasses(sunglasses);
     const sunglassesIndex = sunglasses.split('sg-')[1].split('.')[0];
-    fetch('http://192.168.18.110:5000/select-sunglasses', { 
+    fetch('http://localhost:5000/select-sunglasses', { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ const VirtualTryOnAccessoryLive = () => {
     setSelectedJewelry(jewelry);
     const jewelryName = jewelry.split('/').pop().split('.')[0]; 
 
-    fetch('http://192.168.18.110:5000/select-jewelry', { 
+    fetch('http://localhost:5000/select-jewelry', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ const VirtualTryOnAccessoryLive = () => {
   };
 
   const resetSunglasses = () => {
-    fetch('http://192.168.18.110:5000/reset-sunglasses', {  
+    fetch('http://localhost:5000/reset-sunglasses', {  
       method: 'POST',
     })
     .then(response => response.json())
@@ -113,7 +113,7 @@ const VirtualTryOnAccessoryLive = () => {
   };
 
   const resetJewelry = () => {
-    fetch('http://192.168.18.110:5000/reset-jewelry', {  
+    fetch('http://localhost:5000/reset-jewelry', {  
       method: 'POST',
     })
     .then(response => response.json())

@@ -20,7 +20,7 @@ import accessoryImg from "../images/accessory.jpg";
 const Home = () => {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://192.168.18.110:5000';
+  const backendURL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
   const settings = {
     dots: true,
     infinite: true,

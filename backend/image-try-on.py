@@ -196,7 +196,7 @@ def try_on_eyeshadow():
             cv2.imwrite(output_image_path, user_image)
             logging.debug(f"Processed image saved to: {output_image_path}")
 
-            return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
+            return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
         else:
             return jsonify({'error': 'No face detected'}), 400
 
@@ -268,7 +268,7 @@ def try_on_foundation():
             cv2.imwrite(output_image_path, user_image)
             logging.debug(f"Processed image saved to: {output_image_path}")
 
-            return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
+            return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
         else:
             return jsonify({'error': 'No face detected'}), 400
 
@@ -355,7 +355,7 @@ def apply_lipstick_to_image():
         logging.debug(f"Processed image saved to: {processed_image_path}")
         return jsonify({
             "status": "success",
-            "processed_image_url": f'http://192.168.18.110:5000/processed/{processed_filename}'
+            "processed_image_url": f'http://localhost:5000/processed/{processed_filename}'
         }), 200
 
     except Exception as e:
@@ -451,7 +451,7 @@ def apply_blush_to_image():
             cv2.imwrite(output_image_path, user_image)
             logging.debug(f"Processed image saved to: {output_image_path}")
 
-            return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
+            return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
         else:
             return jsonify({'error': 'No face detected'}), 400
 
@@ -532,7 +532,7 @@ def try_on_jewelry():
         unique_filename = f'processed_{jewelry_choice}_{int(time.time())}.jpg'
         output_image_path = os.path.join(PROCESSED_FOLDER, unique_filename)
         cv2.imwrite(output_image_path, user_image)
-        return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
+        return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
 
     except Exception as e:
         logging.error(f"Error: {e}")
@@ -624,7 +624,7 @@ def try_on_sunglasses():
             cv2.imwrite(output_image_path, user_image)
             logging.debug(f"Processed image saved to: {output_image_path}")
 
-            return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
+            return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
         else:
             return jsonify({'error': 'No face detected'}), 400
 

@@ -93,7 +93,7 @@ def apply_lipstick_to_image():
         logging.debug(f"Processed image saved to: {processed_image_path}")
         return jsonify({
             "status": "success",
-            "processed_image_url": f'http://192.168.18.110:5000/processed/{processed_filename}'
+            "processed_image_url": f'http://localhost:5000/processed/{processed_filename}'
         }), 200
 
     except Exception as e:

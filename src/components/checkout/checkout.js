@@ -83,7 +83,7 @@ const Checkout = () => {
   
     try {
       setLoading(true);
-      const response = await fetch('http://192.168.18.110:5000/addOrder', {
+      const response = await fetch('http://localhost:5000/addOrder', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ const Checkout = () => {
       if (response.ok) {
         alert('Order placed successfully!');
         
-        const updateInventoryResponse = await fetch('http://192.168.18.110:5000/updateInventory', {
+        const updateInventoryResponse = await fetch('http://localhost:5000/updateInventory', {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',
@@ -135,7 +135,7 @@ const Checkout = () => {
   
   const clearCart = async () => {
     try {
-        const response = await fetch(`http://192.168.18.110:5000/clearCart`, {
+        const response = await fetch(`http://localhost:5000/clearCart`, {
             method: "DELETE",
         });
         const result = await response.json();
