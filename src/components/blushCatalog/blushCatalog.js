@@ -17,7 +17,7 @@ const BlushCatalog = () => {
     }
 
     useEffect(() => {
-        fetch("http://localhost:5000/blushProducts")
+        fetch("http://192.168.18.110:5000/blushProducts")
             .then(response => response.json())
             .then(data => setBlushProducts(data))
             .catch(error => console.error("Error fetching blush products:", error));
@@ -25,7 +25,7 @@ const BlushCatalog = () => {
 
     const handleAddToBag = async (product) => {
         try {
-            await axios.post("http://localhost:5000/addToCart", {
+            await axios.post("http://192.168.18.110:5000/addToCart", {
                 userID: userID,
                 productID: product.productID,
                 productName: product.productName,

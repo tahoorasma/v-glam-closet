@@ -26,7 +26,7 @@ const Makeup = () => {
           <div className="col-md-3">
             <div className="sp-of-product-item white-card">
               <img src={makeup} alt="Special Offer" />
-              <h3 style={{backgroundColor: 'white', color: 'black'}}>Exclusive Deals Just for You!</h3>
+              <h3 style={{backgroundColor: 'white', color: 'black'}}>Explore Best Quality Makeup!</h3>
             </div>
           </div>
           <div className="col-md-9">

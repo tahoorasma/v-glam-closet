@@ -283,7 +283,7 @@ const VirtualTryOn = () => {
     formData.append('foundation', shadeColor);
 
     try {
-        const response = await axios.post('http://localhost:5000/foundation-try-on', formData, {
+        const response = await axios.post('http://192.168.18.110:5000/foundation-try-on', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -336,7 +336,7 @@ const VirtualTryOn = () => {
     formData.append('image', imageFile);
     formData.append('blush', blushId.toString());
     try {
-        const response = await axios.post('http://localhost:5000/apply-blush', formData, {
+        const response = await axios.post('http://192.168.18.110:5000/apply-blush', formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
         if (response.data.status === "success") {
@@ -392,7 +392,7 @@ const handleLipstickClick = async (lipstickId, productName, pID) => {
   formData.append('lipstick', lipstickId);
 
   try {
-    const response = await axios.post('http://localhost:5000/apply-lipstick', formData, {
+    const response = await axios.post('http://192.168.18.110:5000/apply-lipstick', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -450,7 +450,7 @@ const handleEyeShadowClick = async (eyeShadowColor, isGlitter, productName) => {
     formData.append('glitter', isGlitter);
 
     try {
-        const response = await axios.post('http://localhost:5000/eyeshadow-try-on', formData, {
+        const response = await axios.post('http://192.168.18.110:5000/eyeshadow-try-on', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },

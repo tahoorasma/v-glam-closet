@@ -34,7 +34,7 @@ const FoundationProductDescription = () => {
                      const mostViewedData = await mostViewedResponse.json();
                      setMostViewed(mostViewedData.slice(0, 3));
      
-                     const fbtResponse = await fetch(`http://localhost:5000/getFrequentlyBought/${productID}`);
+                     const fbtResponse = await fetch(`http://192.168.18.110:5000/getFrequentlyBought/${productID}`);
                      if (!fbtResponse.ok) {
                          console.log('No frequently bought items found');
                          setFrequentlyBought([]);
@@ -61,7 +61,7 @@ const FoundationProductDescription = () => {
 
     const handleAddToBag = async (product) => {
         try {
-            await axios.post("http://localhost:5000/addToCart", {
+            await axios.post("http://192.168.18.110:5000/addToCart", {
                 userID: userID,
                 productID: product.productID,
                 productName: product.productName,

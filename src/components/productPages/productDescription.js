@@ -28,7 +28,7 @@ const ProductDescription = () => {
             .then(response => response.json())
             .then(data => setMostViewed(data.slice(0, 3))) 
             .catch(error => console.error("Error fetching most viewed products:", error));
-        fetch(`http://localhost:5000/getFrequentlyBought/${productID}`)
+        fetch(`http://192.168.18.110:5000/getFrequentlyBought/${productID}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -40,7 +40,7 @@ const ProductDescription = () => {
             console.error('Error fetching frequently bought items:', error);
             setFrequentlyBought([]);
         });
-        fetch(`http://localhost:5000/getFrequentlyBought/${productID}`)
+        fetch(`http://192.168.18.110:5000/getFrequentlyBought/${productID}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -60,7 +60,7 @@ const ProductDescription = () => {
 
     const handleAddToBag = async (product) => {
         try {
-            await axios.post("http://localhost:5000/addToCart", {
+            await axios.post("http://192.168.18.110:5000/addToCart", {
                 userID: userID,
                 productID: product.productID,
                 productName: product.productName,

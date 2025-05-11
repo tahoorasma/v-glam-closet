@@ -18,7 +18,7 @@ const FoundationCatalog = () => {
     }
 
     useEffect(() => {
-        fetch("http://localhost:5000/foundationProducts")
+        fetch("http://192.168.18.110:5000/foundationProducts")
             .then(response => response.json())
             .then(data => setFoundationProducts(data))
             .catch(error => console.error("Error fetching foundation products:", error));
@@ -26,7 +26,7 @@ const FoundationCatalog = () => {
 
     const handleAddToBag = async (product) => {
         try {
-            await axios.post("http://localhost:5000/addToCart", {
+            await axios.post("http://192.168.18.110:5000/addToCart", {
                 userID: userID,
                 productName: product.productName,
                 productID: product.productID,

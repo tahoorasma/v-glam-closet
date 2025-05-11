@@ -16,3 +16,4 @@ mongoose
 pymongo[srv]
 Flask-Mail
 apscheduler
+python-dotenv

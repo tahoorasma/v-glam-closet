@@ -103,7 +103,7 @@ def try_on_jewelry():
         unique_filename = f'processed_{jewelry_choice}_{int(time.time())}.jpg'
         output_image_path = os.path.join(PROCESSED_FOLDER, unique_filename)
         cv2.imwrite(output_image_path, user_image)
-        return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
+        return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
 
     except Exception as e:
         logging.error(f"Error: {e}")

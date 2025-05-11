@@ -13,7 +13,7 @@ const BestSellers = () => {
 
     useEffect(() => {
         const query = selectedCategory !== "All" ? `?subcategory=${selectedCategory.toLowerCase()}` : "";
-        const url = `http://localhost:5000/best-sellers${query}`;
+        const url = `http://192.168.18.110:5000/best-sellers${query}`;
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -43,7 +43,7 @@ const BestSellers = () => {
 
     const handleAddToBag = async (product) => {
         try {
-            await axios.post("http://localhost:5000/addToCart", {
+            await axios.post("http://192.168.18.110:5000/addToCart", {
                 userID: userID,
                 productName: product.productName,
                 productID: product.productID,

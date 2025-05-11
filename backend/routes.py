@@ -14,7 +14,7 @@ from bson import ObjectId
 from bson.json_util import dumps
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "http://192.168.18.110:3000"}})
 
 MONGO_URI = "mongodb+srv://tahoor:12345@vgccluster.vsvyy.mongodb.net/?retryWrites=true&w=majority"
 
@@ -201,7 +201,7 @@ def generate_user_id():
 def create_order():
     if request.method == "OPTIONS": 
         response = jsonify({'message': 'CORS preflight successful'})
-        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        response.headers.add("Access-Control-Allow-Origin", "http://192.168.18.110:3000")
         response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
         response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
         return response, 200
@@ -211,7 +211,7 @@ def create_order():
     user_id = data.get("userID")  
     if not user_data or not order_data:
         response = jsonify({"message": "User data and order data are required"})
-        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        response.headers.add("Access-Control-Allow-Origin", "http://192.168.18.110:3000")
         return response, 400
     existing_user = users_collection.find_one({"email": user_data["email"]})
     if existing_user:
@@ -243,16 +243,16 @@ def create_order():
                 "order": new_order,
                 "userID": user_id  
             })
-            response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+            response.headers.add("Access-Control-Allow-Origin", "http://192.168.18.110:3000")
             return response, 201
         else:
             response = jsonify({"message": "Failed to place order"})
-            response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+            response.headers.add("Access-Control-Allow-Origin", "http://192.168.18.110:3000")
             return response, 500
     except Exception as e:
         print(f"Error inserting order into MongoDB: {str(e)}")
         response = jsonify({"message": "Internal server error", "error": str(e)})
-        response.headers.add("Access-Control-Allow-Origin", "http://localhost:3000")
+        response.headers.add("Access-Control-Allow-Origin", "http://192.168.18.110:3000")
         return response, 500
 
 @app.route('/clearCart', methods=['DELETE'])
@@ -442,7 +442,7 @@ def try_on_eyeshadow():
             cv2.imwrite(output_image_path, user_image)
             logging.debug(f"Processed image saved to: {output_image_path}")
 
-            return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
+            return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
         else:
             return jsonify({'error': 'No face detected'}), 400
 
@@ -513,7 +513,7 @@ def try_on_foundation():
             cv2.imwrite(output_image_path, user_image)
             logging.debug(f"Processed image saved to: {output_image_path}")
 
-            return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
+            return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
         else:
             return jsonify({'error': 'No face detected'}), 400
 
@@ -600,7 +600,7 @@ def apply_lipstick_to_image():
         logging.debug(f"Processed image saved to: {processed_image_path}")
         return jsonify({
             "status": "success",
-            "processed_image_url": f'http://localhost:5000/processed/{processed_filename}'
+            "processed_image_url": f'http://192.168.18.110:5000/processed/{processed_filename}'
         }), 200
 
     except Exception as e:
@@ -695,7 +695,7 @@ def apply_blush_to_image():
             cv2.imwrite(output_image_path, user_image)
             logging.debug(f"Processed image saved to: {output_image_path}")
 
-            return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
+            return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
         else:
             return jsonify({'error': 'No face detected'}), 400
 
@@ -776,7 +776,7 @@ def try_on_jewelry():
         unique_filename = f'processed_{jewelry_choice}_{int(time.time())}.jpg'
         output_image_path = os.path.join(PROCESSED_FOLDER, unique_filename)
         cv2.imwrite(output_image_path, user_image)
-        return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
+        return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
 
     except Exception as e:
         logging.error(f"Error: {e}")
@@ -868,7 +868,7 @@ def try_on_sunglasses():
             cv2.imwrite(output_image_path, user_image)
             logging.debug(f"Processed image saved to: {output_image_path}")
 
-            return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
+            return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
         else:
             return jsonify({'error': 'No face detected'}), 400
 

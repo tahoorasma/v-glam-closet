@@ -79,7 +79,7 @@ const VirtualTryOnAccessory = () => {
     formData.append('sunglasses', sunglassesName);
 
     try {
-      const response = await axios.post('http://localhost:5000/sunglasses-try-on', formData, {
+      const response = await axios.post('http://192.168.18.110:5000/sunglasses-try-on', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -118,7 +118,7 @@ const VirtualTryOnAccessory = () => {
       formData.append('image', imageFile);
       formData.append('jewelry', jewelryName);
 
-      const response = await axios.post('http://localhost:5000/jewelry-try-on', formData, {
+      const response = await axios.post('http://192.168.18.110:5000/jewelry-try-on', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

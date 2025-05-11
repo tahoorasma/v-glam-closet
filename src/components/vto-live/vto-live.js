@@ -100,7 +100,7 @@ import uu40 from '../images/eyeshadows/ultimateutopia/uu40.png'
 import Navbar from '../navbar';
 
 const VirtualTryOnLive = () => {
-  const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
+  const [videoSrc, setVideoSrc] = useState('http://192.168.18.110:5000/video_feed');
   const location = useLocation();
   const navigate = useNavigate();
   const [imageSource, setImageSource] = useState(defaultModel);
@@ -127,7 +127,7 @@ const VirtualTryOnLive = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setVideoSrc(`http://localhost:5000/video_feed?timestamp=${new Date().getTime()}`);
+      setVideoSrc(`http://192.168.18.110:5000/video_feed?timestamp=${new Date().getTime()}`);
     }, 100); 
     return () => clearInterval(intervalId); 
   }, []);
@@ -250,7 +250,7 @@ const VirtualTryOnLive = () => {
     let productImage = '../images/catalog/foundation/'+ productName + '.png';
     setBuyImage(productImage);
     setSelectedFoundation(shadeColor);
-    fetch('http://localhost:5000/select-foundation', {
+    fetch('http://192.168.18.110:5000/select-foundation', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -267,7 +267,7 @@ const VirtualTryOnLive = () => {
     let productImage = '../images/catalog/lipstick/'+ productName;
     setBuyImage(productImage);
     setSelectedLipstick(lipstickId);
-    fetch('http://localhost:5000/select-lipstick', {
+    fetch('http://192.168.18.110:5000/select-lipstick', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -284,7 +284,7 @@ const VirtualTryOnLive = () => {
     let productImage = '../images/catalog/blush/'+ productName + '.png';
     setBuyImage(productImage);
     setSelectedBlush(blushId);
-    fetch('http://localhost:5000/select-blush', {
+    fetch('http://192.168.18.110:5000/select-blush', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -300,7 +300,7 @@ const VirtualTryOnLive = () => {
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setSelectedEyeShadow(shadeColor);
-    fetch('http://localhost:5000/select-eyeshadow', {
+    fetch('http://192.168.18.110:5000/select-eyeshadow', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -314,28 +314,28 @@ const VirtualTryOnLive = () => {
 
   const resetFoundation = () => {
     setSelectedFoundation(null);
-    fetch('http://localhost:5000/reset-foundation', {
+    fetch('http://192.168.18.110:5000/reset-foundation', {
       method: 'POST',
     })
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error("Error in reset:", error));
   };const resetLipstick = () => {
-    fetch('http://localhost:5000/reset-lipstick', {
+    fetch('http://192.168.18.110:5000/reset-lipstick', {
       method: 'POST',
     })
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error("Error in reset:", error));
   };const resetBlush = () => {
-    fetch('http://localhost:5000/reset-blush', {
+    fetch('http://192.168.18.110:5000/reset-blush', {
       method: 'POST',
     })
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error("Error in reset:", error));
   };const resetEyeshadow = () => {
-    fetch('http://localhost:5000/reset-eyeshadow', {
+    fetch('http://192.168.18.110:5000/reset-eyeshadow', {
       method: 'POST',
     })
     .then(response => response.json())

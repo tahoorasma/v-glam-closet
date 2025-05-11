@@ -124,16 +124,16 @@ const VirtualTryOnLive = () => {
   const [selectedEyeShadow, setSelectedEyeShadow] = useState(null);
   const [productID, setProductID] = useState(null);
   const [buyImage, setBuyImage] = useState(require('../images/blush.jpg'));
-  const [videoSrc, setVideoSrc] = useState('http://localhost:5000/video_feed');
-  const [processedVideoSrc, setProcessedVideoSrc] = useState('http://localhost:5000/processed_video_feed');
+  const [videoSrc, setVideoSrc] = useState('http://192.168.18.110:5000/video_feed');
+  const [processedVideoSrc, setProcessedVideoSrc] = useState('http://192.168.18.110:5000/processed_video_feed');
   const [isComparing, setIsComparing] = useState(false);
   const [isBlushApplied, setIsBlushApplied] = useState(false);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       const timestamp = new Date().getTime();
-      setVideoSrc(`http://localhost:5000/video_feed?timestamp=${timestamp}`);
-      setProcessedVideoSrc(`http://localhost:5000/processed_video_feed?timestamp=${timestamp}`);
+      setVideoSrc(`http://192.168.18.110:5000/video_feed?timestamp=${timestamp}`);
+      setProcessedVideoSrc(`http://192.168.18.110:5000/processed_video_feed?timestamp=${timestamp}`);
     }, 100);
   
     return () => clearInterval(intervalId);
@@ -261,7 +261,7 @@ const VirtualTryOnLive = () => {
     let productImage = '../images/catalog/foundation/'+ productName + '.png';
     setBuyImage(productImage);
     setSelectedFoundation(shadeColor);
-    fetch('http://localhost:5000/select-foundation', {
+    fetch('http://192.168.18.110:5000/select-foundation', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -278,7 +278,7 @@ const VirtualTryOnLive = () => {
     let productImage = '../images/catalog/lipstick/'+ productName;
     setBuyImage(productImage);
     setSelectedLipstick(lipstickId);
-    fetch('http://localhost:5000/select-lipstick', {
+    fetch('http://192.168.18.110:5000/select-lipstick', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -296,7 +296,7 @@ const VirtualTryOnLive = () => {
     setIsBlushApplied(true);
     setBuyImage(productImage);
     setSelectedBlush(blushId);
-    fetch('http://localhost:5000/select-blush', {
+    fetch('http://192.168.18.110:5000/select-blush', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -312,7 +312,7 @@ const VirtualTryOnLive = () => {
     let productImage = '../images/catalog/eyeshadow/'+ productName + '.png';
     setBuyImage(productImage);
     setSelectedEyeShadow(shadeColor);
-    fetch('http://localhost:5000/select-eyeshadow', {
+    fetch('http://192.168.18.110:5000/select-eyeshadow', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -326,28 +326,28 @@ const VirtualTryOnLive = () => {
 
   const resetFoundation = () => {
     setSelectedFoundation(null);
-    fetch('http://localhost:5000/reset-foundation', {
+    fetch('http://192.168.18.110:5000/reset-foundation', {
       method: 'POST',
     })
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error("Error in reset:", error));
   };const resetLipstick = () => {
-    fetch('http://localhost:5000/reset-lipstick', {
+    fetch('http://192.168.18.110:5000/reset-lipstick', {
       method: 'POST',
     })
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error("Error in reset:", error));
   };const resetBlush = () => {
-    fetch('http://localhost:5000/reset-blush', {
+    fetch('http://192.168.18.110:5000/reset-blush', {
       method: 'POST',
     })
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error("Error in reset:", error));
   };const resetEyeshadow = () => {
-    fetch('http://localhost:5000/reset-eyeshadow', {
+    fetch('http://192.168.18.110:5000/reset-eyeshadow', {
       method: 'POST',
     })
     .then(response => response.json())

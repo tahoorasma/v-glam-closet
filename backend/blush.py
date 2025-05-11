@@ -97,7 +97,7 @@ def apply_blush_to_image():
             cv2.imwrite(output_image_path, user_image)
             logging.debug(f"Processed image saved to: {output_image_path}")
 
-            return jsonify({"status": "success", "processed_image_url": f'http://localhost:5000/processed/{unique_filename}'})
+            return jsonify({"status": "success", "processed_image_url": f'http://192.168.18.110:5000/processed/{unique_filename}'})
         else:
             return jsonify({'error': 'No face detected'}), 400
 

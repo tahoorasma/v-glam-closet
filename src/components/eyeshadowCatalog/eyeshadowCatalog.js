@@ -18,7 +18,7 @@ const EyeshadowCatalog = () => {
     }
 
     useEffect(() => {
-        fetch("http://localhost:5000/eyeshadowProducts")
+        fetch("http://192.168.18.110:5000/eyeshadowProducts")
             .then(response => response.json())
             .then(data => setEyeshadowProducts(data))
             .catch(error => console.error("Error fetching eyeshadow products:", error));
@@ -26,7 +26,7 @@ const EyeshadowCatalog = () => {
 
     const handleAddToBag = async (product) => {
         try {
-            await axios.post("http://localhost:5000/addToCart", {
+            await axios.post("http://192.168.18.110:5000/addToCart", {
                 userID: userID,
                 productID: product.productID,
                 productName: product.productName,
