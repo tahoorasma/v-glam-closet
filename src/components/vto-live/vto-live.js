@@ -151,8 +151,8 @@ const VirtualTryOnLive = () => {
   }, [location.state]);  
 
   const handleBack = async () => {
-    resetFoundation();
-    /*resetLipstick();
+    /*resetFoundation();
+    resetLipstick();
     resetBlush();
     resetEyeshadow();*/
     setShowFoundationProducts(false);
@@ -344,8 +344,8 @@ const VirtualTryOnLive = () => {
   };
   
   const handleAccessoryBtnClick = () => {
-    resetFoundation();
-    /*resetLipstick();
+    /*resetFoundation();
+    resetLipstick();
     resetBlush();
     resetEyeshadow();*/
     navigate('/virtual-try-on-accessory-live', { state: { imageSource }});
