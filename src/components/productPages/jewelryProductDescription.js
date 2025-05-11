@@ -126,7 +126,7 @@ const JewelryProductDescription = () => {
                                                 <h4 className="most-viewed-name">{item.productName}</h4>
                                                 <p className="most-viewed-price">Rs {item.price}.00</p>
                                                 <div className="most-viewed-footer">
-                                                    <Link to={`/sunglassesProductDescription/${item.productID}`} className="most-viewed-link">View Details</Link>
+                                                    <Link to={`/productDescription/${item.productID}`} className="most-viewed-link">View Details</Link>
                                                 </div>
                                             </div>
                                         </div>
