@@ -23,6 +23,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 face_detector = dlib.get_frontal_face_detector()
 shape_predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
+last_valid_earlobe_coords = []
 
 #model = YOLO('C:/Users/hp/Desktop/v-glam-closet/runs/detect/train2/weights/best.pt')
 model = None 
@@ -36,7 +37,6 @@ def get_model():
 
 cap = cv2.VideoCapture(0) 
 selected_jewelry = None
-
 def overlay_image_alpha(background, overlay, position):
     x, y = position
     h, w = overlay.shape[:2]
