@@ -31,6 +31,7 @@ const VirtualTryOn = () => {
 
   const handleModelSelect = (model, modelImage) => {
     console.log('Model Image Path:', model);
+    console.log('Upload Photo:', modelImage);
     setSelectedModel(modelImage);
     setShownModel(model);
     setShowModelModal(false); 
