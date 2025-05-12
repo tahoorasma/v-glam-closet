@@ -11,6 +11,30 @@ const FoundationShadeMatchLive = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [zoomLevel, setZoomLevel] = useState(1);
   const imgContainerRef = useRef(null);
+  const [skinToneColor, setSkinToneColor] = useState('#ffffff');
+
+const handleShadeMatch = async () => {
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+
+    const formData = new FormData();
+    formData.append('image', blob, 'face.jpg');
+
+    const apiResponse = await fetch('http://localhost:5000/analyze-skintone', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await apiResponse.json();
+    if (data.hex_color) {
+      console.log('Skin tone color:', data.hex_color);
+      setSkinToneColor(data.hex_color);
+    }
+  } catch (error) {
+    console.error('Shade match failed:', error);
+  }
+};
 
   const toggleSlider = () => {
     setSliderVisible(!sliderVisible);
@@ -73,7 +97,10 @@ const FoundationShadeMatchLive = () => {
           </div>
         </div>
         <div className="right-panel">
-          <p>Your Skintone: <span className="skintone-box"></span></p>
+          <div>
+          <button className="btn-add-to-cart" onClick={handleShadeMatch}>Match Shade</button></div>
+          <br></br>
+          <p>Your Skintone: <span className="skintone-box" style={{ backgroundColor: skinToneColor }}></span></p>
           <div className="tabs">
             <button className="tab-btn active">Matched Shades</button>
             <button className="tab-btn">Other Shades</button>
