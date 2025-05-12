@@ -16,14 +16,16 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   flex-wrap: wrap; 
   margin: 20px;
+  margin-top: 80px;
+  margin-left: 400px;
 }
 
 .fsm_live .left-panel {
   position: relative;
-  background-color: black;
+  background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,7 +52,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: rgb(243, 241, 241);
   margin-bottom: 10px; 
 }
 
@@ -107,21 +109,35 @@
 
 .fsm_live .skintone-box {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   background-color: #c8a165;
-  border-radius: 3px;
+  border-radius: 50px;
 }
 
 .fsm_live .tabs {
   margin: 10px 0;
 }
 
+.suggested-foundation{
+    color: #411b21e8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0px 0px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    transition: background-color 0.2s;
+}
+
+.suggested-foundation:hover{
+    color: #58282f;
+}
+
 .fsm_live .tab-btn {
-  padding: 5px 15px;
+  padding: 5px 0px;
   margin-right: 5px;
   background-color: white;
-  border: 1px solid #ccc;
   cursor: pointer;
 }
 
@@ -180,8 +196,9 @@
   margin-top: 10px;
   background-color: rgb(216, 82, 105);
   color: white;
-  padding: 10px 20px;
+  padding: 5px 20px;
   border: none;
+  width: 150px;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -194,9 +211,16 @@
 }
 
 /* Media Queries for Responsiveness */
+@media (max-width: 1050px) {
+  .fsm_live .container1 {
+    flex-direction: row;
+  margin-left: 250px;
+  }
+}
 @media (max-width: 768px) {
   .fsm_live .container1 {
-    flex-direction: column; 
+    flex-direction: row;
+  margin-left: 0px;
   }
 
   .fsm_live .left-panel,
@@ -213,6 +237,11 @@
 @media (max-width: 480px) {
   .fsm_live .header {
     font-size: 1.5em; 
+  }
+
+  .fsm_live .container1 {
+    flex-direction: row;
+  margin-left: 0px;
   }
 
   .fsm_live .control-btn {

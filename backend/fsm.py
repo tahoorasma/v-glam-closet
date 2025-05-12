@@ -10,7 +10,7 @@ CORS(app)
 
 predictor_path_81 = "shape_predictor_81_face_landmarks.dat"
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor(predictor_path_81)
+shape_predictor2 = dlib.shape_predictor(predictor_path_81)
 
 def lighten_color(rgb, factor=0.3):
     """Blend the RGB color with white based on factor (0–1)"""
@@ -33,9 +33,8 @@ def analyze_skintone():
         return jsonify({'error': 'No face detected'}), 400
 
     face = faces[0]
-    landmarks = predictor(gray, face)
+    landmarks = shape_predictor2(gray, face)
 
-    # Sample above eyebrows
     left_brow = landmarks.part(21)
     right_brow = landmarks.part(22)
     center_brow = landmarks.part(27)

@@ -29,7 +29,9 @@ const FoundationShadeMatch = () => {
       <div className="container">
         <div style={{ marginTop: '10px', textAlign: 'center' }}>
           <h3><b>FOUNDATION SHADE MATCH</b></h3>
-          <p>Time to makeup your mind! Experience your perfect makeup shades or try a bold new look with our virtual try-on tool.</p>
+          <p>Our foundation shade match feature uses smart facial analysis to detect your natural skin tone</p>
+          <p>from a photo. By focusing on key areas like your forehead and cheeks, it determines the closest foundation</p>
+          <p>shade for a flawless and natural look—helping you find the best match without stepping into a store.</p>
         </div>
         <div>
           <input
@@ -43,24 +45,15 @@ const FoundationShadeMatch = () => {
             Try Foundation Shade matcher!
           </button>
         </div>
-        <div className="row text-center">
-          <div className="col-md-4 step">
-            <h2>Step 1</h2>
-            <img src={face_scan} alt="Face Scan" />
-            <p>Take a 360º video recording</p>
-          </div>
-          <div className="col-md-4 step">
-            <h2>Step 2</h2>
-            <img src={shade_match} alt="Perfect match" />
-            <p>Best match shown</p>
-          </div>
-          <div className="col-md-4 step">
-            <h2>Step 3</h2>
-            <img src={best_match} alt="Select bestmatch" />
-            <p>Select any shade from the matches</p>
-          </div>
-        </div>
+        
       </div>
+                  <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+
       <div className="footer">
         <p>&copy; 2024 V-Glam Closet</p>
       </div>
