@@ -368,25 +368,32 @@ def reset_sunglasses():
 def get_cheek_areas(img):
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_detector(gray_img)
-    left_cheek_area = []
-    right_cheek_area = []
+    all_cheek_areas = []
+    
     for face in faces:
         landmarks = shape_predictor_68(gray_img, face)
-        left_cheek_area = [(landmarks.part(1).x + 15, landmarks.part(1).y),
-                                   (landmarks.part(2).x + 15, landmarks.part(2).y),
-                                   (landmarks.part(31).x, landmarks.part(31).y)]
-        right_cheek_area = [(landmarks.part(14).x - 10, landmarks.part(14).y),
-                                    (landmarks.part(15).x - 10, landmarks.part(15).y),
-                                    (landmarks.part(35).x , landmarks.part(35).y)]
-    return left_cheek_area, right_cheek_area
+        left_cheek = [
+            (landmarks.part(1).x + 15, landmarks.part(1).y),
+            (landmarks.part(2).x + 15, landmarks.part(2).y),
+            (landmarks.part(31).x, landmarks.part(31).y)
+        ]
+        right_cheek = [
+            (landmarks.part(14).x - 10, landmarks.part(14).y),
+            (landmarks.part(15).x - 10, landmarks.part(15).y),
+            (landmarks.part(35).x, landmarks.part(35).y)
+        ]
+        all_cheek_areas.append((left_cheek, right_cheek))
+    
+    return all_cheek_areas
 
-def apply_blush(imgOriginal, cheek_areas, color):
+def apply_blush(imgOriginal, all_cheek_areas, color):
     img = imgOriginal.copy()
     mask = np.zeros_like(imgOriginal, dtype=np.uint8)
-    left_cheek = np.array(cheek_areas[0], np.int32).reshape((-1, 1, 2))
-    right_cheek = np.array(cheek_areas[1], np.int32).reshape((-1, 1, 2))
-    cv2.fillPoly(mask, [left_cheek], color)
-    cv2.fillPoly(mask, [right_cheek], color)
+    for left_cheek, right_cheek in all_cheek_areas:
+        left_cheek_np = np.array(left_cheek, np.int32).reshape((-1, 1, 2))
+        right_cheek_np = np.array(right_cheek, np.int32).reshape((-1, 1, 2))
+        cv2.fillPoly(mask, [left_cheek_np], color)
+        cv2.fillPoly(mask, [right_cheek_np], color)
     mask = cv2.GaussianBlur(mask, (101, 101), 0)
     blush_video = cv2.add(imgOriginal, mask)
     return blush_video
@@ -431,7 +438,7 @@ def reset_blush():
     selected_blush_color = None
     return jsonify({"status": "reset"})
 
-# ==================== BLUSH FUNCTIONS ====================
+# ==================== JEWELRY FUNCTIONS ====================
 def overlay_image_alpha(background, overlay, position):
      x, y = position
      h, w = overlay.shape[:2]
@@ -496,7 +503,7 @@ def generate_video():
          faces = face_detector(gray_frame)
  
          for face in faces:
-             landmarks = shape_predictor(gray_frame, face)
+             landmarks = shape_predictor_68(gray_frame, face)
              with jewelry_lock:
                  if selected_jewelry is not None:
                      apply_jewelry(frame, selected_jewelry, landmarks)
@@ -546,10 +553,10 @@ def generate_video():
                 frame = apply_sunglasses(frame, selected_sunglasses)
 
             # Apply blush if selected
-            if selected_blush_color:
-                cheek_areas = get_cheek_areas(frame)
-                if cheek_areas:
-                    frame = apply_blush(frame, cheek_areas, selected_blush_color)
+            if selected_blush_color is not None:
+                        cheek_areas = get_cheek_areas(frame)
+                        if cheek_areas:
+                            frame = apply_blush(frame, cheek_areas, selected_blush_color)
 
             # Apply jewelry if selected
             if selected_jewelry is not None:
