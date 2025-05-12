@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './fsm.css';
 import best_match from '../images/best_match.png';
 import face_scan from '../images/face_scan.jpg';
@@ -8,16 +8,23 @@ import { useNavigate } from 'react-router-dom';
 
 const FoundationShadeMatch = () => {
   const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      navigate('/foundation-shade-match-live', { state: { imageUrl } });
+    }
+  };
 
   const handleProceed = () => {
-    navigate('/foundation-shade-match-live');
-  }
+    document.getElementById('image-upload').click();
+  };
 
   return (
     <div className="fsm">
-      <div className="header">
-        V-Glam Closet
-      </div>
+      <div className="header">V-Glam Closet</div>
       <Navbar />
       <div className="container">
         <div style={{ marginTop: '10px', textAlign: 'center' }}>
@@ -25,7 +32,16 @@ const FoundationShadeMatch = () => {
           <p>Time to makeup your mind! Experience your perfect makeup shades or try a bold new look with our virtual try-on tool.</p>
         </div>
         <div>
-        <button className="btn-add-to-bag" onClick={handleProceed}>Try Foundation Shade matcher!</button>
+          <input
+            type="file"
+            id="image-upload"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={handleImageChange}
+          />
+          <button className="btn-add-to-bag" onClick={handleProceed}>
+            Try Foundation Shade matcher!
+          </button>
         </div>
         <div className="row text-center">
           <div className="col-md-4 step">

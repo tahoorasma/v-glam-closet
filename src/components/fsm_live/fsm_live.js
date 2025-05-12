@@ -1,10 +1,12 @@
 import React, { useRef, useState } from 'react';
 import './fsm_live.css';
-import blackImage from '../images/models/model2.jpg';
 import foundation from '../images/blush.jpg';
 import Navbar from '../navbar';
+import { useLocation } from 'react-router-dom';
 
 const FoundationShadeMatchLive = () => {
+  const location = useLocation();
+  const imageUrl = location.state?.imageUrl;
   const [sliderVisible, setSliderVisible] = useState(true);
   const [sliderPosition, setSliderPosition] = useState(50);
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -50,7 +52,11 @@ const FoundationShadeMatchLive = () => {
             ref={imgContainerRef}
             onMouseMove={sliderVisible ? handleSliderMove : undefined}
           >
-            <img src={blackImage} alt="Black Background" className="black-image" />
+            <img
+              src={imageUrl}
+              alt="Uploaded Face"
+              className="black-image"
+            />
             {sliderVisible && (
               <div
                 className="slider"
@@ -59,12 +65,8 @@ const FoundationShadeMatchLive = () => {
             )}
           </div>
           <div className="controls">
-            <button className="control-btn" onClick={zoomIn}>
-              +
-            </button>
-            <button className="control-btn" onClick={zoomOut}>
-              -
-            </button>
+            <button className="control-btn" onClick={zoomIn}>+</button>
+            <button className="control-btn" onClick={zoomOut}>-</button>
             <button className="control-btn toggle-slider" onClick={toggleSlider}>
               {sliderVisible ? 'Hide' : 'Show'}
             </button>
