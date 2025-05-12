@@ -21,6 +21,7 @@ for index in range(3):
 if not cap.isOpened():
     print("Error: Unable to access the camera.")
     cap = None
+    
 selected_blush_color = None 
 
 def get_cheek_areas(img):
@@ -89,24 +90,15 @@ def reset_blush():
     selected_blush_color = None
     return jsonify({"status": "reset"})
 
-def generate_original_video():
-    while True:
-        ret, frame = cap.read()
-        if not ret or frame is None:
-            print("Error: Failed to capture frame")
-            continue
-        frame = cv2.flip(frame, 1)
-        _, buffer = cv2.imencode('.jpg', frame)
-        frame_bytes = buffer.tobytes()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
-
-def generate_processed_video():
+def generate_video():
     global selected_blush_color
     while True:
         ret, frame = cap.read()
         if not ret or frame is None:
             print("Error: Failed to capture frame")
+            continue
+        if frame.ndim != 3 or frame.shape[2] != 3:
+            print(f"Error: Invalid frame format. Expected BGR, got {frame.shape}")
             continue
         frame = cv2.flip(frame, 1)  
         if selected_blush_color:
@@ -120,13 +112,9 @@ def generate_processed_video():
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
 @app.route('/video_feed')
-def original_video_feed():
-    return Response(generate_original_video(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
-
-@app.route('/processed_video_feed')
-def processed_video_feed():
-    return Response(generate_processed_video(),
+def video_feed():
+    print("Video feed request received...")
+    return Response(generate_video(), 
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":
