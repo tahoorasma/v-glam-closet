@@ -58,7 +58,7 @@ lipstick_colors = {
 }
 
 # ==================== FOUNDATION FUNCTIONS ====================
-def apply_foundation(frame, foundation_color, landmarks):
+def apply_foundation_vto(frame, foundation_color, landmarks):
     mask = np.zeros(frame.shape[:2], dtype=np.uint8)
 
     face_points = np.concatenate([
@@ -146,7 +146,7 @@ def reset_lipstick():
     return jsonify({"status": "reset"})
 
 # ==================== EYESHADOW FUNCTIONS ====================
-def apply_eyeshadow(frame, shade_color, landmarks):
+def apply_eyeshadow_live(frame, shade_color, landmarks):
     mask = np.zeros(frame.shape[:2], dtype=np.uint8)
     left_eye_width = np.linalg.norm(landmarks[36] - landmarks[39])
     right_eye_width = np.linalg.norm(landmarks[42] - landmarks[45])
@@ -189,7 +189,7 @@ def apply_eyeshadow(frame, shade_color, landmarks):
         )
     return frame
 
-def apply_glitter_eyeshadow(image, shade_color, landmarks):
+def apply_glitter_eyeshadow_live(image, shade_color, landmarks):
     mask = np.zeros(image.shape[:2], dtype=np.uint8)
     left_eye_width = np.linalg.norm(landmarks[36] - landmarks[39])
     right_eye_width = np.linalg.norm(landmarks[42] - landmarks[45])
@@ -235,7 +235,7 @@ def apply_glitter_eyeshadow(image, shade_color, landmarks):
                                     image[:, :, c])
     return image
 
-def apply_shimmer_eyeshadow(image, shade_color, landmarks):
+def apply_shimmer_eyeshadow_live(image, shade_color, landmarks):
     mask = np.zeros(image.shape[:2], dtype=np.uint8)
     left_eye_width = np.linalg.norm(landmarks[36] - landmarks[39])
     right_eye_width = np.linalg.norm(landmarks[42] - landmarks[45])
@@ -299,7 +299,7 @@ def reset_eyeshadow():
     return jsonify({"status": "reset"})
 
 # ==================== SUNGLASSES FUNCTIONS ====================
-def overlay_image_alpha_sg(bg, overlay, x, y):
+def overlay_image_alpha_sg_live(bg, overlay, x, y):
     h, w = overlay.shape[:2]
     if x >= bg.shape[0] or y >= bg.shape[1]:
         return bg
@@ -313,7 +313,7 @@ def overlay_image_alpha_sg(bg, overlay, x, y):
     bg[x:x+h, y:y+w] = overlay_area
     return bg
 
-def apply_sunglasses(frame, sunglasses):
+def apply_sunglasses_live(frame, sunglasses):
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_detector(gray_frame)
 
@@ -336,7 +336,7 @@ def apply_sunglasses(frame, sunglasses):
         x = int((left_eye_center[1] + right_eye_center[1]) / 2 - sunglass_height / 2)
         y = int((left_eye_center[0] + right_eye_center[0]) / 2 - sunglass_width / 2)
 
-        frame = overlay_image_alpha_sg(frame, resized_sunglasses, x, y)
+        frame = overlay_image_alpha_sg_live(frame, resized_sunglasses, x, y)
 
     return frame
 
@@ -386,7 +386,7 @@ def get_cheek_areas(img):
     
     return all_cheek_areas
 
-def apply_blush(imgOriginal, all_cheek_areas, color):
+def apply_blush_live(imgOriginal, all_cheek_areas, color):
     img = imgOriginal.copy()
     mask = np.zeros_like(imgOriginal, dtype=np.uint8)
     for left_cheek, right_cheek in all_cheek_areas:
@@ -450,7 +450,7 @@ def overlay_image_alpha(background, overlay, position):
              alpha = overlay[i, j, 3] / 255.0  
              background[x + i, y + j, :3] = (1 - alpha) * background[x + i, y + j, :3] + alpha * overlay[i, j, :3]
 
-def apply_jewelry(image, jewelry, landmarks):
+def apply_jewelry_live(image, jewelry, landmarks):
      if jewelry is None:
          return  
      
@@ -489,6 +489,7 @@ def reset_jewelry():
      print("Jewelry reset.")
      return jsonify({"status": "reset"})
  
+# ==================== VIDEO PROCESSING ====================
 def generate_video():
      global selected_jewelry
      while True:
@@ -506,9 +507,8 @@ def generate_video():
              landmarks = shape_predictor_68(gray_frame, face)
              with jewelry_lock:
                  if selected_jewelry is not None:
-                     apply_jewelry(frame, selected_jewelry, landmarks)
+                     apply_jewelry_live(frame, selected_jewelry, landmarks)
 
-# ==================== VIDEO PROCESSING ====================
 def generate_video():
     global selected_foundation, selected_lipstick_color, selected_eyeshadow, selected_sunglasses, selected_blush_color
     
@@ -527,7 +527,7 @@ def generate_video():
             if selected_foundation:
                 landmarks = shape_predictor_81(gray_frame, faces[0])
                 landmarks_array = np.array([[p.x, p.y] for p in landmarks.parts()])
-                frame = apply_foundation(frame, selected_foundation["shade_color"], landmarks_array)
+                frame = apply_foundation_vto(frame, selected_foundation["shade_color"], landmarks_array)
 
             # Apply eyeshadow if selected
             if selected_eyeshadow:
@@ -536,11 +536,11 @@ def generate_video():
                 glitter = selected_eyeshadow["is_glitter"]
                 
                 if glitter == 1:
-                    frame = apply_glitter_eyeshadow(frame, selected_eyeshadow["shade_color"], landmarks_array)
+                    frame = apply_glitter_eyeshadow_live(frame, selected_eyeshadow["shade_color"], landmarks_array)
                 elif glitter == 2:
-                    frame = apply_shimmer_eyeshadow(frame, selected_eyeshadow["shade_color"], landmarks_array)
+                    frame = apply_shimmer_eyeshadow_live(frame, selected_eyeshadow["shade_color"], landmarks_array)
                 else:
-                    frame = apply_eyeshadow(frame, selected_eyeshadow["shade_color"], landmarks_array)
+                    frame = apply_eyeshadow_live(frame, selected_eyeshadow["shade_color"], landmarks_array)
 
             # Apply lipstick if selected
             if selected_lipstick_color:
@@ -550,20 +550,20 @@ def generate_video():
 
             # Apply sunglasses if selected
             if selected_sunglasses is not None:
-                frame = apply_sunglasses(frame, selected_sunglasses)
+                frame = apply_sunglasses_live(frame, selected_sunglasses)
 
             # Apply blush if selected
             if selected_blush_color is not None:
                         cheek_areas = get_cheek_areas(frame)
                         if cheek_areas:
-                            frame = apply_blush(frame, cheek_areas, selected_blush_color)
+                            frame = apply_blush_live(frame, cheek_areas, selected_blush_color)
 
             # Apply jewelry if selected
             if selected_jewelry is not None:
                 for face in faces:
                     landmarks = shape_predictor_68(gray_frame, face)
                 with jewelry_lock:
-                        apply_jewelry(frame, selected_jewelry, landmarks)
+                        apply_jewelry_live(frame, selected_jewelry, landmarks)
 
         _, buffer = cv2.imencode('.jpg', frame)
         yield (b'--frame\r\n'
