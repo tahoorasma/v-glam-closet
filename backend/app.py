@@ -687,6 +687,8 @@ def apply_foundation(image, shade_color, landmarks):
     cv2.fillPoly(mask, [face_points], 255)
 
     print("shade color: ",shade_color)
+    blurred_mask = cv2.GaussianBlur(mask, (51, 51), 0)
+    blurred_mask = blurred_mask.astype(np.float32) / 255.0
     overlay = np.full_like(image, shade_color, dtype=np.uint8)
 
     alpha = 0.15
