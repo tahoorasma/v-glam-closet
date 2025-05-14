@@ -53,6 +53,7 @@ const FoundationShadeMatchLive = () => {
   const [matchedFoundations, setMatchedFoundations] = useState([]);
   const [selectedFoundation, setSelectedFoundation] = useState(null);
   const [uploadPhoto, setUploadPhoto] = useState(null);
+  const [isScanning, setIsScanning] = useState(false);
 
   let userID = localStorage.getItem("userID");
     if (!userID) {
@@ -67,7 +68,13 @@ const FoundationShadeMatchLive = () => {
               .catch(error => console.error("Error fetching foundation products:", error));
   }, []);
 
-  const handleShadeMatch = async () => {
+ const handleShadeMatch = async () => {
+  setIsScanning(true);
+  setMatchedFoundations([]);
+  setSelectedFoundation(null);
+  setSkinToneColor('#ffffff');
+
+  setTimeout(async () => {
     try {
       const response = await fetch(imageUrl);
       const blob = await response.blob();
@@ -88,8 +95,11 @@ const FoundationShadeMatchLive = () => {
       }
     } catch (error) {
       console.error('Shade match failed:', error);
+    } finally {
+      setIsScanning(false);
     }
-  };
+  }, 3000);
+};
 
   const findClosestFoundations = (skinToneHex) => {
     const foundationsWithDistance = foundationInventory.map(foundation => ({
@@ -119,39 +129,6 @@ const FoundationShadeMatchLive = () => {
     setSliderPosition(Math.min(Math.max(newPosition, 0), 100));
   };
 
-  const zoomIn = () => {
-    if (zoomLevel < 4) {
-      setZoomLevel((prevZoom) => prevZoom + 1);
-      const img = imgContainerRef.current.querySelector('img');
-      img.style.transition = 'transform 0.3s ease';
-      img.style.transform = `scale(${1 + 0.2 * zoomLevel})`;
-    }
-  };
-
-  const zoomOut = () => {
-    if (zoomLevel > 1) {
-      setZoomLevel((prevZoom) => prevZoom - 1);
-      const img = imgContainerRef.current.querySelector('img');
-      img.style.transition = 'transform 0.3s ease';
-      img.style.transform = `scale(${1 + 0.2 * (zoomLevel - 2)})`;
-    }
-  };
-
-  const handleAddToBag = async (product) => {
-        try {
-            await axios.post("http://localhost:5000/addToCart", {
-                userID: userID,
-                productID: product.productID,
-                productName: product.productName,
-                quantity: 1
-            });
-            setShowBag(true);
-        } catch (error) {
-            console.error("Error adding item to cart:", error);
-            alert("Failed to add item to cart");
-        }
-    };
-
   const convertImageUrlToFile = async (imageUrl, fileName = 'upload.jpg') => {
   const response = await fetch(imageUrl);
   const blob = await response.blob();
@@ -169,30 +146,25 @@ const FoundationShadeMatchLive = () => {
   }
 };
 
-
   return (
     <div className="fsm_live">
       <div className="header">V-Glam Closet</div>
       <Navbar />
       <div className="container1">
         <div className="left-panel">
-          <div
-            className="image-container"
-            ref={imgContainerRef}
-            onMouseMove={sliderVisible ? handleSliderMove : undefined}
-          >
-            <img
-              src={imageUrl}
-              alt="Uploaded Face"
-              className="black-image"
-            />
+          <div className="image-container" ref={imgContainerRef} onMouseMove={sliderVisible ? handleSliderMove : undefined}>
+            <img src={imageUrl} alt="Uploaded Face" className="black-image" />
             {sliderVisible && (
-              <div
-                className="slider"
-                style={{ left: `${sliderPosition}%` }}
-              ></div>
+              <div className="slider" style={{ left: `${sliderPosition}%` }}></div>
+            )}
+
+            {isScanning && (
+              <div className="scanning-overlay">
+                <div className="scan-line"></div>
+              </div>
             )}
           </div>
+
         </div>
         <div className="right-panel">
           <div>
