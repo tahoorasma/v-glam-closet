@@ -185,7 +185,7 @@ const FoundationShadeMatchLive = () => {
                 key={foundation.code}
                 className={`shade ${index === 0 ? 'best-matched' : index === 1 ? 'cooler' : 'lighter'} ${selectedFoundation?.code === foundation.code ? 'selected' : ''}`}
                 style={{ backgroundColor: foundation.hex }}
-                title={foundation.displayName}
+                title={index === 0 ? 'best-matched shade' : index === 1 ? 'cooler shade' : 'lighter shade'}
                 onClick={() => handleShadeClick(foundation)}
               ></span>
             ))}
