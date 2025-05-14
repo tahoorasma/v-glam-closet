@@ -299,7 +299,7 @@ def reset_eyeshadow():
     return jsonify({"status": "reset"})
 
 # ==================== SUNGLASSES FUNCTIONS ====================
-def overlay_image_alpha(bg, overlay, x, y):
+def overlay_image_alpha_sg(bg, overlay, x, y):
     h, w = overlay.shape[:2]
     if x >= bg.shape[0] or y >= bg.shape[1]:
         return bg
@@ -336,7 +336,7 @@ def apply_sunglasses(frame, sunglasses):
         x = int((left_eye_center[1] + right_eye_center[1]) / 2 - sunglass_height / 2)
         y = int((left_eye_center[0] + right_eye_center[0]) / 2 - sunglass_width / 2)
 
-        frame = overlay_image_alpha(frame, resized_sunglasses, x, y)
+        frame = overlay_image_alpha_sg(frame, resized_sunglasses, x, y)
 
     return frame
 

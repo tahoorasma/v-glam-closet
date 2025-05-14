@@ -153,10 +153,6 @@ const VirtualTryOnAccessoryLive = () => {
             <div className="button-container">
               {(showJewelryProducts || showSunglassesProducts) && (
                 <>
-                  <button id="side-btn">
-                    <img src={cmp} alt="Compare" className="button-icon" />
-                    <span>Compare</span>
-                  </button>
                   <button id="side-btn" onClick={directBuyProduct}>
                     <img src={buyImage} alt="Buy" className="button-icon" />
                     <span>Buy</span>
