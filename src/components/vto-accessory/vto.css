@@ -218,6 +218,16 @@ body {
     justify-content: center;
     gap: 5px;
 }
+.j-option {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
 .comparison-slider {
     position: relative;
     width: 500px;
@@ -280,6 +290,13 @@ body {
 .sg-option img {
     width: 80px;
     height: 40px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.j-option img {
+    width: 40px;
+    height: 40px;
+    margin: 0px 10px;
     object-fit: cover;
     border-radius: 5px;
 }
@@ -384,6 +401,10 @@ body {
     }
     .sg-option img {
         width: 70px;
+        height: 35px;
+    }
+    .j-option img {
+        width: 35px;
         height: 35px;
     }
 }

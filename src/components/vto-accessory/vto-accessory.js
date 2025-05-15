@@ -16,6 +16,13 @@ import j1 from '../images/catalog/jewelry/j1.png';
 import j2 from '../images/catalog/jewelry/j2.png';
 import j3 from '../images/catalog/jewelry/j3.png';
 import j4 from '../images/catalog/jewelry/j4.png';
+import j5 from '../images/catalog/jewelry/j5.png';
+import j6 from '../images/catalog/jewelry/j6.png';
+import j7 from '../images/catalog/jewelry/j7.png';
+import j8 from '../images/catalog/jewelry/j8.png';
+import j9 from '../images/catalog/jewelry/j9.png';
+import j10 from '../images/catalog/jewelry/j10.png';
+import j11 from '../images/catalog/jewelry/j11.png';
 import Navbar from '../navbar';
 import axios from 'axios';
 
@@ -377,32 +384,81 @@ const VirtualTryOnAccessory = () => {
                   </button>
                   <button className="reset-option" onClick={handleReset}></button>
                   <button
-                    className="sg-option"
+                    className="j-option"
                     onClick={() => handleJewelryClick(j1, 'j1', 'P071')}
                     style={{ border: selectedJewelry === j1 ? '2px solid #646363' : 'none' }}
                   >
                     <img src={j1} alt="Option 1" />
                   </button>
                   <button
-                    className="sg-option"
+                    className="j-option"
                     onClick={() => handleJewelryClick(j2, 'j2', 'P072')}
                     style={{ border: selectedJewelry === j2 ? '2px solid #646363' : 'none' }}
                   >
                     <img src={j2} alt="Option 2" />
                   </button>
                   <button
-                    className="sg-option"
+                    className="j-option"
                     onClick={() => handleJewelryClick(j3, 'j3', 'P073')}
                     style={{ border: selectedJewelry === j3 ? '2px solid #646363' : 'none' }}
                   >
                     <img src={j3} alt="Option 1" />
                   </button>
                   <button
-                    className="sg-option"
+                    className="j-option"
                     onClick={() => handleJewelryClick(j4, 'j4', 'P074')}
                     style={{ border: selectedJewelry === j4 ? '2px solid #646363' : 'none' }}
                   >
                     <img src={j4} alt="Option 2" />
+                  </button>
+                  <button
+                    className="j-option"
+                    onClick={() => handleJewelryClick(j5, 'j5', 'P075')}
+                    style={{ border: selectedJewelry === j5 ? '2px solid #646363' : 'none' }}
+                  >
+                    <img src={j5} alt="Option 2" />
+                  </button>
+                  <button
+                    className="j-option"
+                    onClick={() => handleJewelryClick(j6, 'j6', 'P076')}
+                    style={{ border: selectedJewelry === j6 ? '2px solid #646363' : 'none' }}
+                  >
+                    <img src={j6} alt="Option 2" />
+                  </button>
+                  <button
+                    className="j-option"
+                    onClick={() => handleJewelryClick(j7, 'j7', 'P077')}
+                    style={{ border: selectedJewelry === j7 ? '2px solid #646363' : 'none' }}
+                  >
+                    <img src={j7} alt="Option 2" />
+                  </button>
+                  <button
+                    className="j-option"
+                    onClick={() => handleJewelryClick(j8, 'j8', 'P078')}
+                    style={{ border: selectedJewelry === j8 ? '2px solid #646363' : 'none' }}
+                  >
+                    <img src={j8} alt="Option 2" />
+                  </button>
+                  <button
+                    className="j-option"
+                    onClick={() => handleJewelryClick(j9, 'j9', 'P079')}
+                    style={{ border: selectedJewelry === j9 ? '2px solid #646363' : 'none' }}
+                  >
+                    <img src={j9} alt="Option 2" />
+                  </button>
+                  <button
+                    className="j-option"
+                    onClick={() => handleJewelryClick(j10, 'j10', 'P080')}
+                    style={{ border: selectedJewelry === j10 ? '2px solid #646363' : 'none' }}
+                  >
+                    <img src={j10} alt="Option 2" />
+                  </button>
+                  <button
+                    className="j-option"
+                    onClick={() => handleJewelryClick(j11, 'j11', 'P081')}
+                    style={{ border: selectedJewelry === j11 ? '2px solid #646363' : 'none' }}
+                  >
+                    <img src={j11} alt="Option 2" />
                   </button>
                 </div>
               </div>
